@@ -2,6 +2,9 @@ using Dubbizle.Models;
 using Dubbizle.Data;
 using Microsoft.EntityFrameworkCore;
 using System.Diagnostics;
+using Autofac.Extensions.DependencyInjection;
+using Autofac;
+using Dubbizle.API.Config;
 
 namespace Dubbizle.API
 {
@@ -17,7 +20,12 @@ namespace Dubbizle.API
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
-        
+
+            builder.Host.UseServiceProviderFactory(new AutofacServiceProviderFactory());
+
+            builder.Host.ConfigureContainer<ContainerBuilder>(opt =>
+                opt.RegisterModule(new AutofacModule()));
+
             builder.Services.AddDbContext<Context>(opt =>
             opt.UseSqlServer(builder.Configuration.GetConnectionString("Default"))
             .UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking)
