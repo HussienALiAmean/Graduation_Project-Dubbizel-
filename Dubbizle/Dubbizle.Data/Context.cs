@@ -11,7 +11,7 @@ namespace Dubbizle.Data
         { }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlServer(@"Data Source=.;Initial Catalog=DubbizleDB;Integrated Security=True;Encrypt=False");
+            optionsBuilder.UseSqlServer(@"Data Source=.\SQL19;Initial Catalog=DubbizleDB;Integrated Security=True;Encrypt=False");
             base.OnConfiguring(optionsBuilder);
         }
         public DbSet<Advertisment> Advertisments { get; set; }
