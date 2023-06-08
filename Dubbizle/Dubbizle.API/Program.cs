@@ -15,6 +15,12 @@ namespace Dubbizle.API
             var builder = WebApplication.CreateBuilder(args);
 
             // Add services to the container.
+            // Add services to the container.
+            builder.Services.AddCors(options => {
+                options.AddPolicy("MyPolicy", builder =>
+                    builder.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
+            });
+
 
             builder.Services.AddControllers();
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
@@ -40,7 +46,8 @@ namespace Dubbizle.API
                 app.UseSwagger();
                 app.UseSwaggerUI();
             }
-
+            app.UseStaticFiles();
+            app.UseCors("MyPolicy");
             app.UseAuthorization();
 
 
