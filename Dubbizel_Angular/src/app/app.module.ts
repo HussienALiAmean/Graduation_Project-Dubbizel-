@@ -14,6 +14,9 @@ import { HttpClientModule } from '@angular/common/http';
 export function tokenGetter() {
   return localStorage.getItem("jwt");
 }
+import { FilterationModule } from 'src/filteration/filteration.module';
+import { MatIconModule, MatIconRegistry } from '@angular/material/icon';
+import { DomSanitizer } from '@angular/platform-browser';
 
 @NgModule({
   declarations: [
@@ -36,8 +39,16 @@ export function tokenGetter() {
       }
   }),
 
+    FilterationModule,
   ],
-  providers: [],
+  providers: [MatIconRegistry],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {
+  constructor(private matIconRegistry: MatIconRegistry, private domSanitizer: DomSanitizer) {
+    this.matIconRegistry.addSvgIcon(
+      'icon_name',
+      this.domSanitizer.bypassSecurityTrustResourceUrl('path/to/icon.svg')
+    );
+  }
+ }

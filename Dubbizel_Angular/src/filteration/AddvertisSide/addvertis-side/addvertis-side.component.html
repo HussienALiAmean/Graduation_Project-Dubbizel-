@@ -1,0 +1,35 @@
+
+
+<div class="container" >
+    <div class="card mb-2" *ngFor="let item of items">
+        <div class="row">
+            <div class="col-12 col-lg-5 ">
+                <div class="card ">
+                    <img src="{{item.imagesrc}}" class="card-img-top card-img" alt="Item Image">
+                    <div class="card-img-overlay">
+                        <button type="button" class="btn btn-warning px-1">feture</button>
+                    </div>
+                </div>
+            </div>
+       
+            <div class="col-12 col-lg-7 card-body">
+            <div class="d-flex flex-row justify-content-center">
+             <div class="me-auto">
+                <h5 class="card-title text-primary">{{item.name}}</h5>
+             </div>
+             <div class="">
+                    <i class="fa-regular fa-heart"  *ngIf="item.likedbyme ; else elseTemplate"></i>
+                <ng-template #elseTemplate>
+                    <i class="fa-solid fa-heart"></i>   
+                </ng-template>
+             </div>    
+             <div class=""></div>
+            </div>
+            <p class="card-text text-secondary">{{item.description}}</p>
+            <p class="card-text text-success">{{item.price}} LE</p>
+            <a href="#" class="btn me-2" style="background-color: #e00000; color: white;"><i class="fa fa-phone-volume fa-danger"></i> Call</a>
+            <a href="#" class="btn " style="background-color: #e00000; color: white;" *ngIf="item.havechat"><i class="fa fa-comments"></i> Chat</a>
+            </div>
+        </div>
+    </div>
+</div>
