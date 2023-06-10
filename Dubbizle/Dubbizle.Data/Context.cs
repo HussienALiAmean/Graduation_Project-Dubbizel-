@@ -6,14 +6,9 @@ namespace Dubbizle.Data
 {
     public class Context : IdentityDbContext<ApplicationUser>
     {
-        public Context() { }
         public Context(DbContextOptions options) : base(options)
         { }
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        {
-           // optionsBuilder.UseSqlServer(@"Data Source=DESKTOP-SH1SPK1\SQL2019;Initial Catalog=DubbizleDB;Integrated Security=True;Encrypt=False");
-            base.OnConfiguring(optionsBuilder);
-        }
+      
         public DbSet<Advertisment> Advertisments { get; set; }
         public DbSet<Advertisment_FiltrationValue> Advertisment_FiltrationValues { get; set; }
         public DbSet<Advertisment_RentOption> Advertisment_RentOptions { get; set; }

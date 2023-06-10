@@ -12,10 +12,15 @@ namespace Dubbizle.Services
         {
             _repository = repository;
         }
-
+        
         public IEnumerable<Category> GetAll()
         {
             return _repository.GetAll().ToList();
+        }
+        // Alzhraa
+        public IEnumerable<Category> GetAll(string property)
+        {
+            return _repository.GetAll(property).Where(c=>c.ParentCategoryID==null).ToList();
         }
 
         public IEnumerable<Category> Get(Expression<Func<Category, bool>> expression)

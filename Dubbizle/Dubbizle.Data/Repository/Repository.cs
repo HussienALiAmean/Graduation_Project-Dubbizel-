@@ -1,4 +1,5 @@
 ﻿using Dubbizle.Models;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
 using System;
 using System.Collections.Generic;
@@ -21,6 +22,11 @@ public class Repository<T> : IRepository<T> where T : BaseModel
     public IQueryable<T> GetAll()
     {
         return _context.Set<T>();
+    }
+
+    public IQueryable<T> GetAll(string property)
+    {
+        return _context.Set<T>().Include(property);
     }
 
     public IQueryable<T> Get(Expression<Func<T, bool>> expression)

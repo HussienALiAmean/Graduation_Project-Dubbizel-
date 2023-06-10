@@ -20,6 +20,5 @@ namespace Dubbizle.Models
         public List<Advertisment_RentOption> Advertisment_RentOptionList { get; set; }  
         public List<Favorite> FavoritesList { get; set; }
         public List<Review> ReviewsList { get; set; }
-        public bool IsDeleted { get; set; } 
     }
 }
