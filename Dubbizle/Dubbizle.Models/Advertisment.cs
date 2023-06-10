@@ -13,6 +13,8 @@ namespace Dubbizle.Models
         public int SubCategoryID { get; set; }
         public string AdType { get; set; }
         public string AdStatus { get; set; }
+        public string Location { get; set; }
+        public DateTime Date { get; set; }
         public DateTime ExpirationDate { get; set; }
         public DateTime ExpireDateOfPremium { get; set;}
         public List<AdvertismentImage> AdvertismentImagesList { get; set; }

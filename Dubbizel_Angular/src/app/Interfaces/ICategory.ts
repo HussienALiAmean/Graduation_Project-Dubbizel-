@@ -2,7 +2,7 @@ export interface ICategory
 {
     id:number,
     name:string,
-    subCategoryDTOs:ISubCategory[]
+    subCategoriesList:ISubCategory[]
 }
 
 export interface ISubCategory

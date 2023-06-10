@@ -18,9 +18,9 @@ export class CatNavBarComponent implements OnInit {
 
   ngOnInit() {
   this.categoryService.getCategories().subscribe({
-    next: data => {
+    next: (data:any) => {
     console.log(data);
-    this.categories=data
+    this.categories=data.data
    //this.router.navigate(["/resturant/profile"]);
     },
     error: err => {

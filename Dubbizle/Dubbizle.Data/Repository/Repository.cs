@@ -29,6 +29,7 @@ public class Repository<T> : IRepository<T> where T : BaseModel
         return _context.Set<T>().Include(property);
     }
 
+
     public IQueryable<T> Get(Expression<Func<T, bool>> expression)
     {
         return _context.Set<T>().Where(expression);

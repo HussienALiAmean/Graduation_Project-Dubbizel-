@@ -3,7 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { ShowAddvertisComponent } from './show-addvertis/show-addvertis.component';
 
 const routes: Routes = [
-  {path:'ShowAd',component:ShowAddvertisComponent},
+  {path:'ShowAd/:id/:type',component:ShowAddvertisComponent},
 
 ];
 

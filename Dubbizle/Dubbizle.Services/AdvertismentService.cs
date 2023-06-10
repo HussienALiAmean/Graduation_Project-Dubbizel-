@@ -5,43 +5,43 @@ using System.Linq.Expressions;
 
 namespace Dubbizle.Services
 {
-    public class CategoryServise
+    public class AdvertismentServise
     {
-        IRepository<Category> _repository;
+        IRepository<Advertisment> _repository;
 
-        public CategoryServise(IRepository<Category> repository)
+        public AdvertismentServise(IRepository<Advertisment> repository)
         {
             _repository = repository;
         }
         
-        public IEnumerable<Category> GetAll()
+        public IEnumerable<Advertisment> GetAll()
         {
             return _repository.GetAll().ToList();
         }
         // Alzhraa
-        public IEnumerable<Category> GetAll(string property)
+        public IEnumerable<Advertisment> GetAll(string property)
         {
-            return _repository.GetAll(property).Where(c=>c.ParentCategoryID==null).ToList();
+            return _repository.GetAll(property).Where(A=>A.ExpirationDate > DateTime.Now).OrderByDescending(A=>A.ExpireDateOfPremium).ToList();
         }
 
-        public IEnumerable<Category> Get(Expression<Func<Category, bool>> expression)
+        public IEnumerable<Advertisment> Get(Expression<Func<Advertisment, bool>> expression)
         {
             return _repository.Get(expression);
         }
 
-        public Category GetByID(int id)
+        public Advertisment GetByID(int id)
         {
             return _repository.GetByID(id);
         }
 
-        public Category Add(Category category)
+        public Advertisment Add(Advertisment advertisment)
         {
-            return _repository.Add(category);
+            return _repository.Add(advertisment);
         }
 
-        public void Update(Category category)
+        public void Update(Advertisment advertisment)
         {
-            category.Name = "Cairo";
+            advertisment.Location = "Cairo";
           //  _repository.Update(category, nameof(category.Name));
         }
 
