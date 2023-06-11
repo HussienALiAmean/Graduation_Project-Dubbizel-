@@ -30,6 +30,8 @@ constructor(private activatRoute:ActivatedRoute,private advertismentService:Adve
       this.advertismentService.getAdsByCategoryID(params.get('id')).subscribe({
         next: (data:any) => {
           this.Loaded_dedaddvertisment=data.data;
+          this.Advertisments=this.Loaded_dedaddvertisment;
+
         console.log(data);
         },
         error: err => {
@@ -68,8 +70,26 @@ handleDataChange(newdata:String)
     this.filterationKeyArray.push(newdata)
     console.log(this.filterationKeyArray);
   }
-    this.Advertisments=this.Loaded_dedaddvertisment.filter(adverte => adverte.advertisment_FiltrationValuesList.some(category => this.filterationKeyArray.includes(category)));
-    
+  this.Advertisments=[];
+  this.Loaded_dedaddvertisment.forEach(item =>
+    {
+      item.advertisment_FiltrationValuesList.forEach(Advertes_filterationItem=>
+        {
+            var forCondition=false;
+            this.filterationKeyArray.forEach(filterationcondiotn =>
+              {
+              
+                if(Advertes_filterationItem==filterationcondiotn)     
+                {
+                  forCondition=true;
+                }
+              });
+            if (forCondition)
+            {
+              this.Advertisments.push(item);   
+            }
+        });
+    });
+  } 
+}
 
-}
-}

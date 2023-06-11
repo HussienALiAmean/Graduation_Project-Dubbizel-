@@ -28,7 +28,7 @@ namespace Dubbizle.Services
         // Alzhraa & Hussien
         public IEnumerable<Advertisment> GetAllByCategoryID(string property, int id)
         {
-            return _repository.GetAll(property).Where(A => A.ExpirationDate > DateTime.Now && A.SubCategoryID==id).OrderByDescending(A => A.ExpireDateOfPremium).ToList();
+            return _repository.GetAll(property).Where(A => A.ExpirationDate > DateTime.Now && A.CategoryID==id).OrderByDescending(A => A.ExpireDateOfPremium).ToList();
         }
 
         public IEnumerable<Advertisment> Get(Expression<Func<Advertisment, bool>> expression)
