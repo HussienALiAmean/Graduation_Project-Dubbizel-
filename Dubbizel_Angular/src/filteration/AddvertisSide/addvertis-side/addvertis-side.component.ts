@@ -21,25 +21,37 @@ Advertisments:IAdvertisment[]=[]
 
 constructor(private activatRoute:ActivatedRoute,private advertismentService:AdvertismentServiceService)
 {
-  this.advertismentService.getAds().subscribe({
-    next: (data:any) => {
-      this.Advertisments=data.data;
-    console.log(data);
-    },
-    error: err => {
-      console.log(err);
-    }
-  }); 
   activatRoute.paramMap.subscribe((params:ParamMap)=>{
     console.log(params.get('id'))
     if(params.get('type')=='category')
     {
       console.log(true)
+      this.advertismentService.getAdsByCategoryID(params.get('id')).subscribe({
+        next: (data:any) => {
+          this.Advertisments=data.data;
+        console.log(data);
+        },
+        error: err => {
+          console.log(err);
+        }
+      }); 
     }
+    
     else
     {
+      this.advertismentService.getAdsBySubCategoryID(params.get('id')).subscribe({
+        next: (data:any) => {
+          this.Advertisments=data.data;
+        console.log(data);
+        },
+        error: err => {
+          console.log(err);
+        }
+      }); 
       console.log(false)
     }
+ 
+  
   })
   
 }

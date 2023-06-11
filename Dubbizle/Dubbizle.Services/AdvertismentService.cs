@@ -18,10 +18,17 @@ namespace Dubbizle.Services
         {
             return _repository.GetAll().ToList();
         }
-        // Alzhraa
-        public IEnumerable<Advertisment> GetAll(string property)
+
+        // Alzhraa & Hussien
+        public IEnumerable<Advertisment> GetAllBySubCategoryID(string property,int id)
         {
-            return _repository.GetAll(property).Where(A=>A.ExpirationDate > DateTime.Now).OrderByDescending(A=>A.ExpireDateOfPremium).ToList();
+            return _repository.GetAll(property).Where(A=>A.ExpirationDate > DateTime.Now && A.SubCategoryID==id).OrderByDescending(A=>A.ExpireDateOfPremium).ToList();
+        }
+
+        // Alzhraa & Hussien
+        public IEnumerable<Advertisment> GetAllByCategoryID(string property, int id)
+        {
+            return _repository.GetAll(property).Where(A => A.ExpirationDate > DateTime.Now && A.SubCategoryID==id).OrderByDescending(A => A.ExpireDateOfPremium).ToList();
         }
 
         public IEnumerable<Advertisment> Get(Expression<Func<Advertisment, bool>> expression)

@@ -3,19 +3,21 @@ import { Observable } from 'rxjs';
 import {throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { HttpClient } from '@angular/common/http';
+import { ISubCategoryFilter } from '../Interfaces/ISubCategoryFilter';
 
 @Injectable({
   providedIn: 'root'
 })
 export class FiltrationServiceService {
 
-  _CategoryUrl="http://localhost:7189/api/Category";
+  _SubCatFilterUrl="http://localhost:7189/api/SubCategory_Filter/subCategoryID?subCategoryID=";
+
 
   constructor(private http:HttpClient) { }
 
-  getCategories()//:Observable<><ICategory[]>
+  getSubCategoryFilters(subCategoryID:any):Observable<ISubCategoryFilter[]>
   {
-   return this.http.get(this._CategoryUrl).pipe(catchError((err: any) => {
+   return this.http.get<ISubCategoryFilter[]>(this._SubCatFilterUrl+subCategoryID).pipe(catchError((err: any) => {
     return throwError(() => err.message || "server error");
     }));
   }
