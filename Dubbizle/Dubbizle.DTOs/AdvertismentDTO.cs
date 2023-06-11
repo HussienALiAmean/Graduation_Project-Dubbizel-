@@ -21,6 +21,7 @@ namespace Dubbizle.DTOs
         public DateTime ExpireDateOfPremium { get; set; }
         public bool IsPremium { get; set; } 
         public List<string> Advertisment_FiltrationValuesList { get; set; }
+        public List<string> AdvertismentImagesList { get; set; }
 
     }
 }

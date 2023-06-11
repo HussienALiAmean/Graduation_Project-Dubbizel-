@@ -27,20 +27,35 @@ namespace Dubbizle.API.Controllers
 
         //Alzhraa
         [HttpPost("GetEmail")]
-        public async Task<IActionResult> GetEmail(UserDTO userDTO)
+        public async Task<ResultDTO> GetEmail(UserDTO userDTO)
         {
-            ApplicationUser applicationUser = await userManager.FindByEmailAsync(userDTO.Email);
-            if (applicationUser != null)
-                return Ok();
-            else
-                return BadRequest();
+            ResultDTO resultDTO = new ResultDTO();
+            if (ModelState.IsValid)
+            {
+                ApplicationUser applicationUser = await userManager.FindByEmailAsync(userDTO.Email);
+                if (applicationUser != null)
+                {
+                    resultDTO.StatusCode = 200;
+                    return resultDTO;
+                }
 
+                else
+                {
+                    resultDTO.StatusCode = 204;
+                    return resultDTO;
+                }
+
+            }
+            resultDTO.StatusCode = 404;
+            resultDTO.Data = ModelState;
+            return resultDTO;
         }
 
         //Alzhraa
         [HttpPost("RegisterWithEmailAndPass")]
-        public async Task<IActionResult> RegisterWithEmailAndPass(UserDTO userDTO)
+        public async Task<ResultDTO> RegisterWithEmailAndPass(UserDTO userDTO)
         {
+            ResultDTO resultDTO = new ResultDTO();
             if (ModelState.IsValid)
             {
                 ApplicationUser applicationUser = new ApplicationUser();
@@ -49,27 +64,33 @@ namespace Dubbizle.API.Controllers
                 IdentityResult result = await userManager.CreateAsync(applicationUser, userDTO.Password);
                 if (result.Succeeded)
                 {
+                    resultDTO.StatusCode=200;
                     // await userManager.AddToRoleAsync(applicationUser, "User");//insert row UserRole
-                    return Ok("Created Success");
+                    return resultDTO;
                 }
                 else
                 {
+                    resultDTO.StatusCode = 404;
                     foreach (var error in result.Errors)
                     {
                         ModelState.AddModelError("ModelStateErrors", error.Description);
                     }
-                    return BadRequest(ModelState);
+                    resultDTO.Data = ModelState;
+                    return resultDTO;
                 }
 
             }
-            return BadRequest(ModelState);
-
+            resultDTO.StatusCode = 404;
+            resultDTO.Data = ModelState;
+            return resultDTO;
         }
 
         //Alzhraa
         [HttpPost("LoginWithEmailAndPass")]
-        public async Task<IActionResult> LoginWithEmailAndPass(UserDTO userDTO)
+        public async Task<ResultDTO> LoginWithEmailAndPass(UserDTO userDTO)
         {
+            ResultDTO resultDTO = new ResultDTO();
+
             if (ModelState.IsValid)
             {
                 ApplicationUser applicationUser = await userManager.FindByEmailAsync(userDTO.Email);
@@ -105,18 +126,23 @@ namespace Dubbizle.API.Controllers
                         );
 
                     // Create Token
-                    return Ok(new
+                    resultDTO.StatusCode = 200;
+                    resultDTO.Data = new
                     {
                         token = new JwtSecurityTokenHandler().WriteToken(mytoken),
                         expiration = mytoken.ValidTo,
                         applicationUserID = applicationUser.Id
-                    });
+                    };
+                    return resultDTO;
 
                 }
-
-                return BadRequest("Invalid Information");
+                resultDTO.StatusCode = 404;
+                resultDTO.Message = "Invalid Password";
+                return resultDTO;
             }
-            return BadRequest(ModelState);
+            resultDTO.StatusCode = 404;
+            resultDTO.Data = ModelState;
+            return resultDTO;
         }
 
     

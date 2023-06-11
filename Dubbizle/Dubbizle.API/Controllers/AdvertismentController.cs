@@ -24,7 +24,7 @@ namespace Dubbizle.API.Controllers
         public async Task<IActionResult> GetAllBySubCategoryID(int subCategoryID)
         {
             ResultDTO resultDTO = new ResultDTO();
-            List<Advertisment> advertisments=(List<Advertisment>)_advertismentServise.GetAllBySubCategoryID("Advertisment_FiltrationValuesList.filtrationValue",subCategoryID);
+            List<Advertisment> advertisments=(List<Advertisment>)_advertismentServise.GetAllBySubCategoryID("Advertisment_FiltrationValuesList.filtrationValue", "AdvertismentImagesList", subCategoryID);
             List< AdvertismentDTO > advertismentDTOs = new List<AdvertismentDTO>();
             AdvertismentDTO advertismentDTO;
 
@@ -50,6 +50,11 @@ namespace Dubbizle.API.Controllers
                 {
                     advertismentDTO.Advertisment_FiltrationValuesList.Add(item.filtrationValue.Value);
                 }
+                advertismentDTO.AdvertismentImagesList= new List<string>(); 
+                foreach (AdvertismentImage item in ad.AdvertismentImagesList)
+                {
+                    advertismentDTO.AdvertismentImagesList.Add(item.ImageName);
+                }
                 advertismentDTOs.Add(advertismentDTO);
             }
 
@@ -65,7 +70,7 @@ namespace Dubbizle.API.Controllers
         public async Task<IActionResult> GetAllByCategoryID(int CategoryID)
         {
             ResultDTO resultDTO = new ResultDTO();
-            List<Advertisment> advertisments = (List<Advertisment>)_advertismentServise.GetAllByCategoryID("Advertisment_FiltrationValuesList.filtrationValue",CategoryID);
+            List<Advertisment> advertisments = (List<Advertisment>)_advertismentServise.GetAllByCategoryID("Advertisment_FiltrationValuesList.filtrationValue", "AdvertismentImagesList", CategoryID);
             List<AdvertismentDTO> advertismentDTOs = new List<AdvertismentDTO>();
             AdvertismentDTO advertismentDTO;
 
@@ -90,6 +95,11 @@ namespace Dubbizle.API.Controllers
                 foreach (Advertisment_FiltrationValue item in ad.Advertisment_FiltrationValuesList)
                 {
                     advertismentDTO.Advertisment_FiltrationValuesList.Add(item.filtrationValue.Value);
+                }
+                advertismentDTO.AdvertismentImagesList = new List<string>();
+                foreach (AdvertismentImage item in ad.AdvertismentImagesList)
+                {
+                    advertismentDTO.AdvertismentImagesList.Add(item.ImageName);
                 }
                 advertismentDTOs.Add(advertismentDTO);
             }

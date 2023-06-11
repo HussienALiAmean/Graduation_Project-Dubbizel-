@@ -30,6 +30,7 @@ constructor(private activatRoute:ActivatedRoute,private advertismentService:Adve
       this.advertismentService.getAdsByCategoryID(params.get('id')).subscribe({
         next: (data:any) => {
           this.Loaded_dedaddvertisment=data.data;
+          this.Advertisments=this.Loaded_dedaddvertisment;
         console.log(data);
         },
         error: err => {
@@ -68,8 +69,7 @@ handleDataChange(newdata:String)
     this.filterationKeyArray.push(newdata)
     console.log(this.filterationKeyArray);
   }
-    this.Advertisments=this.Loaded_dedaddvertisment.filter(adverte => adverte.advertisment_FiltrationValuesList.some(category => this.filterationKeyArray.includes(category)));
-    
+    this.Advertisments=this.Loaded_dedaddvertisment.filter(adverte => adverte.advertisment_FiltrationValuesList.some(filtervale => this.filterationKeyArray.includes(filtervale)));
 
 }
 }
