@@ -3,7 +3,7 @@
       <div class="col-md-3 w-100">
         <h3>Filter by:</h3>
         <form>
-          <div class="form-group ">
+          <div  class="form-group ">
             <label for="category">Category:</label>
             <select class="form-control " id="category">
               <option value="all">All</option>
@@ -22,56 +22,19 @@
               <option value="sharjah">Sharjah</option>
             </select>
           </div>
-          <div class="form-group ">
-            <label for="price">Price:</label>
-            <div class="radio">
-              <label><input class="form-check-input me-2" type="checkbox" name="price" value="low-to-high">Low to High</label>
+          <div *ngFor="let item of SubCategoryFilters" class="form-group ">
+            <label for={{item.filterName}}>{{item.filterName}} :</label>
+            <div *ngFor="let value of item.filtrationValuesList" class="check">
+              <label>
+                <input class="form-check-input me-2" type="checkbox" name={{value}} value="low-to-high" (click)="makefilter(value)">{{value}} 
+              </label>
             </div>
-            <div class="radio">
-              <label><input class="form-check-input me-2" type="checkbox" name="price" value="high-to-low">High to Low</label>
-            </div>
-          </div>
-          <hr>
-          <div class="form-group ">
-            <label for="condition">Condition:</label>
-            <div class="checkbox">
-              <label><input class="form-check-input me-2"  type="checkbox" name="condition" value="new">New</label>
-            </div>
-            <div class="checkbox">
-              <label><input class="form-check-input me-2"  type="checkbox" name="condition" value="new">Old</label>
-            </div>
-          </div>
-          <hr />
-          <div class="form-group ">
-            <label for="condition">Brande :</label>
-            <div class="checkbox">
-              <label><input class="form-check-input me-2" type="checkbox" name="condition" value="new">Marcedice</label>
-            </div>
-            <div class="checkbox">
-              <label><input  class="form-check-input me-2" type="checkbox" name="condition" value="used">Fiate</label>
-            </div>
-            <div class="checkbox">
-              <label><input  class="form-check-input me-2" type="checkbox" name="condition" value="used">Bicanto</label>
-            </div>
-            <div class="checkbox">
-              <label><input  class="form-check-input me-2" type="checkbox" name="condition" value="used">Doje</label>
-            </div>
-          </div>
-          <hr/>
-          <div class="form-group ">
-            <label for="condition">Door number:</label>
-            <div class="checkbox">
-              <label><input class="form-check-input me-2" type="checkbox" name="condition" value="new">4 Doors</label>
-            </div>
-            <div class="checkbox">
-              <label><input class="form-check-input me-2" type="checkbox" name="condition" value="used">2 Doors</label>
-            </div>
+            <hr>
           </div>
           <button type="submit" class="btn btn-primary form form-control mt-4">Filter</button>
         </form>
       </div>
       <div class="col-md-9">
-        <!-- Your main content here -->
       </div>
     </div>
   </div>

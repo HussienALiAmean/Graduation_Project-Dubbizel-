@@ -1,9 +1,9 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { ShowAddvertisComponent } from './show-addvertis/show-addvertis.component';
+import { AddvertisSideComponent } from './AddvertisSide/addvertis-side/addvertis-side.component';
 
 const routes: Routes = [
-  {path:'ShowAd/:id/:type',component:ShowAddvertisComponent},
+  {path:'Advertisment/:id/:type',component:AddvertisSideComponent},
 
 ];
 

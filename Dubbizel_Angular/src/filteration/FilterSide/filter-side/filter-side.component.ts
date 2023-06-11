@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
 import { ActivatedRoute, ParamMap } from '@angular/router';
 import { ISubCategoryFilter } from 'src/app/Interfaces/ISubCategoryFilter';
 import { FiltrationServiceService } from 'src/app/Services/filtration-service.service';
@@ -10,11 +10,15 @@ import { FiltrationServiceService } from 'src/app/Services/filtration-service.se
   styleUrls: ['./filter-side.component.scss']
 })
 export class FilterSideComponent {
-  SubCategoryFilters:ISubCategoryFilter[]=[]
+  SubCategoryFilters:ISubCategoryFilter[]=[];
+  @Output() dataChanged = new EventEmitter<string>();
 
+  makefilter(newData: string) {
+    this.dataChanged.emit(newData);
+  }
   constructor(private activatRoute:ActivatedRoute,private filterSrvice:FiltrationServiceService)
   {
-    activatRoute.paramMap.subscribe((params:ParamMap)=>{
+      activatRoute.paramMap.subscribe((params:ParamMap)=>{
       console.log(params.get('id'))
       if(params.get('type')!='category')
       {
@@ -29,7 +33,6 @@ export class FilterSideComponent {
           }
         }); 
       }
-    })
-    
+    });
   }
 }

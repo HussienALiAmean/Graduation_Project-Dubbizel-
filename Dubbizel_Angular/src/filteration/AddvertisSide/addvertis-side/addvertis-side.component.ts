@@ -17,8 +17,9 @@ export class AddvertisSideComponent {
  ,{id:1,name:"Marcedes",description:"goood 4 douresgoood 4 douresgoood doures",price:300058,rate:2,imagesrc:"../../../assets/images.jpg",havechat:true}
  ,{id:1,likedbyme:true, name:"Change",description:"goood kondato  makoatin 4 makoatin as 4 makoatin as 4 doures",price:120000,rate:9,imagesrc:"../../../assets/images.jpg"}
 ];
-Advertisments:IAdvertisment[]=[]
-
+Advertisments:IAdvertisment[]=[];
+Loaded_dedaddvertisment:IAdvertisment[]=[];
+filterationKeyArray:String[]=[];
 constructor(private activatRoute:ActivatedRoute,private advertismentService:AdvertismentServiceService)
 {
   activatRoute.paramMap.subscribe((params:ParamMap)=>{
@@ -28,7 +29,7 @@ constructor(private activatRoute:ActivatedRoute,private advertismentService:Adve
       console.log(true)
       this.advertismentService.getAdsByCategoryID(params.get('id')).subscribe({
         next: (data:any) => {
-          this.Advertisments=data.data;
+          this.Loaded_dedaddvertisment=data.data;
         console.log(data);
         },
         error: err => {
@@ -41,7 +42,8 @@ constructor(private activatRoute:ActivatedRoute,private advertismentService:Adve
     {
       this.advertismentService.getAdsBySubCategoryID(params.get('id')).subscribe({
         next: (data:any) => {
-          this.Advertisments=data.data;
+          this.Loaded_dedaddvertisment=data.data;
+          this.Advertisments=this.Loaded_dedaddvertisment;
         console.log(data);
         },
         error: err => {
@@ -54,5 +56,20 @@ constructor(private activatRoute:ActivatedRoute,private advertismentService:Adve
   
   })
   
+}
+handleDataChange(newdata:String)
+{
+  if (this.filterationKeyArray.includes(newdata))
+  {
+    console.log(this.filterationKeyArray=this.filterationKeyArray.filter(e=>e!=newdata));
+  }
+  else
+  {
+    this.filterationKeyArray.push(newdata)
+    console.log(this.filterationKeyArray);
+  }
+    this.Advertisments=this.Loaded_dedaddvertisment.filter(adverte => adverte.advertisment_FiltrationValuesList.some(category => this.filterationKeyArray.includes(category)));
+    
+
 }
 }
