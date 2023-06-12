@@ -1,4 +1,7 @@
 ﻿using Dubbizle.DTOs;
+using Dubbizle.Services;
+using Microsoft.AspNetCore.Http;
+
 using Dubbizle.Models;
 using Dubbizle.Services;
 using Microsoft.AspNetCore.Http;
@@ -11,6 +14,7 @@ namespace Dubbizle.API.Controllers
     [ApiController]
     public class AdvertismentController : ControllerBase
     {
+<<<<<<< HEAD
         private readonly AdvertismentServise _advertismentServise;
         private readonly CategoryServise _categoryServise;
 
@@ -18,7 +22,20 @@ namespace Dubbizle.API.Controllers
         {
             _advertismentServise = advertismentServise;
             _categoryServise = categoryServise;
+=======
+        AdvertismentService advertismentService;
+        public AdvertismentController(AdvertismentService _advertismentService) { 
+             advertismentService = _advertismentService;
+>>>>>>> c249ac7b5e103d1984d12f50ca8bd6586c4a77a5
         }
+
+        [HttpGet("GetAllAdvertismentByCategory/categoryId")]
+        public IEnumerable<AdvertismentHomePageDTO> GetAllAdvertismentByCategory(int categoryId)
+        {
+            var ads = advertismentService.GetAdvertismentsAll(c => c.CategoryID == categoryId);
+            return ads;
+        }
+
 
 
         // Alzhraa & Hussien
@@ -26,7 +43,7 @@ namespace Dubbizle.API.Controllers
         public async Task<IActionResult> GetAllBySubCategoryID(int subCategoryID)
         {
             ResultDTO resultDTO = new ResultDTO();
-            List<Advertisment> advertisments=(List<Advertisment>)_advertismentServise.GetAllBySubCategoryID("Advertisment_FiltrationValuesList.filtrationValue", "AdvertismentImagesList", subCategoryID);
+            List<Advertisment> advertisments=(List<Advertisment>)advertismentService.GetAllBySubCategoryID("Advertisment_FiltrationValuesList.filtrationValue", "AdvertismentImagesList", subCategoryID);
             List< AdvertismentDTO > advertismentDTOs = new List<AdvertismentDTO>();
             AdvertismentDTO advertismentDTO;
 
@@ -73,7 +90,7 @@ namespace Dubbizle.API.Controllers
         public async Task<IActionResult> GetAllByCategoryID(int CategoryID)
         {
             ResultDTO resultDTO = new ResultDTO();
-            List<Advertisment> advertisments = (List<Advertisment>)_advertismentServise.GetAllByCategoryID("Advertisment_FiltrationValuesList.filtrationValue", "AdvertismentImagesList", CategoryID);
+            List<Advertisment> advertisments = (List<Advertisment>)advertismentService.GetAllByCategoryID("Advertisment_FiltrationValuesList.filtrationValue", "AdvertismentImagesList", CategoryID);
             List<AdvertismentDTO> advertismentDTOs = new List<AdvertismentDTO>();
             List<Category> categories = (List<Category>)_categoryServise.Get(e =>  e.ParentCategoryID == CategoryID);
 
@@ -112,5 +129,12 @@ namespace Dubbizle.API.Controllers
             resultDTO.Data = advertismentDTOs;
             return Ok(resultDTO);
         }
+<<<<<<< HEAD
+=======
+
+
+
+       
+>>>>>>> c249ac7b5e103d1984d12f50ca8bd6586c4a77a5
     }
 }

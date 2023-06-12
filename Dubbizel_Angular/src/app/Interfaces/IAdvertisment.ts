@@ -1,6 +1,6 @@
 export interface IAdvertisment
 {
-    id:number,
+    id?:number,
     title:string,
     categoryID:number,
     subCategoryID:number,
