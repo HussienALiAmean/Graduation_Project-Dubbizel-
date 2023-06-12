@@ -34,8 +34,11 @@
         <li class="nav-item mx-4 textLi">
           <a class="nav-link active" aria-current="page" href="#">العربية</a>
         </li>
-
-        <li *ngIf="!isUserAuthenticated()" class="nav-item mx-4 textLi" id="loginLi">
+         <!-- <img src="/assets/iconArrowDown_noinline.ec05eae7013321c193965ef15d4e2174.svg" class="_874da736 _419576f3" alt="User profile dropdown arrow">
+         <img src="/assets/iconChat_noinline.31f5df4a6a21fc770ed6863958662677.svg" alt="Go to chat">
+         <img src="/assets/iconNotifications_noinline.4444f6b42acbe30d772d80ef1225f574.svg" alt="Notifications icon">
+         -->
+         <li *ngIf="!isUserAuthenticated()" class="nav-item mx-4 textLi" id="loginLi"> 
           <a class="nav-link active btn" aria-current="page" (click)="openLoginModal()">Login</a>
         </li>
         <li *ngIf="isUserAuthenticated()" class="nav-item mx-4 textLi" id="loginLi">
