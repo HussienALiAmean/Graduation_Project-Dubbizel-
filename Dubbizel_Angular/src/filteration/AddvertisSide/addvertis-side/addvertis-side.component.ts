@@ -20,6 +20,8 @@ export class AddvertisSideComponent {
 Advertisments:IAdvertisment[]=[];
 Loaded_dedaddvertisment:IAdvertisment[]=[];
 filterationKeyArray:String[]=[];
+cat_locationFilterationArry :String[]=[];
+
 constructor(private activatRoute:ActivatedRoute,private advertismentService:AdvertismentServiceService)
 {
   activatRoute.paramMap.subscribe((params:ParamMap)=>{
@@ -31,6 +33,7 @@ constructor(private activatRoute:ActivatedRoute,private advertismentService:Adve
         next: (data:any) => {
           this.Loaded_dedaddvertisment=data.data;
           this.Advertisments=this.Loaded_dedaddvertisment;
+
         console.log(data);
         },
         error: err => {
@@ -38,7 +41,6 @@ constructor(private activatRoute:ActivatedRoute,private advertismentService:Adve
         }
       }); 
     }
-    
     else
     {
       this.advertismentService.getAdsBySubCategoryID(params.get('id')).subscribe({
@@ -53,13 +55,10 @@ constructor(private activatRoute:ActivatedRoute,private advertismentService:Adve
       }); 
       console.log(false)
     }
- 
-  
   })
-  
 }
 handleDataChange(newdata:String)
-{
+{  console.log(newdata);
   if (this.filterationKeyArray.includes(newdata))
   {
     console.log(this.filterationKeyArray=this.filterationKeyArray.filter(e=>e!=newdata));
@@ -69,7 +68,116 @@ handleDataChange(newdata:String)
     this.filterationKeyArray.push(newdata)
     console.log(this.filterationKeyArray);
   }
-    this.Advertisments=this.Loaded_dedaddvertisment.filter(adverte => adverte.advertisment_FiltrationValuesList.some(filtervale => this.filterationKeyArray.includes(filtervale)));
-
+  this.Advertisments=[];
+  this.Advertisments=this.filterByCat_locatiomFilterationArray(this.makefilterationByCheckbox(this.filterationKeyArray,this.Loaded_dedaddvertisment),this.cat_locationFilterationArry);
 }
+handelChanOfCategory(newdata:String)
+{
+  this.cat_locationFilterationArry[0]=newdata;
+  this.Advertisments=[];
+  this.Advertisments=this.filterByCat_locatiomFilterationArray(this.makefilterationByCheckbox(this.filterationKeyArray,this.Loaded_dedaddvertisment),this.cat_locationFilterationArry);
+  // this.Advertisments=this.filterByCat_locatiomFilterationArray(this.Loaded_dedaddvertisment,this.cat_locationFilterationArry);
+}
+handelChanOflocation(newdata:String)
+{   console.log(newdata);
+    this.cat_locationFilterationArry[1]=newdata;
+    this.Advertisments=[];
+    this.Advertisments=this.filterByCat_locatiomFilterationArray(this.makefilterationByCheckbox(this.filterationKeyArray,this.Loaded_dedaddvertisment),this.cat_locationFilterationArry);
+    //this.Advertisments=this.filterByCat_locatiomFilterationArray(this.Loaded_dedaddvertisment,this.cat_locationFilterationArry);
+}
+filterByCat_locatiomFilterationArray(advertisment:IAdvertisment[],cat_LocFilterArry:String[]):IAdvertisment[]
+{
+  if(cat_LocFilterArry.length==0)
+  { console.log("1#");
+    return advertisment;
+  }
+  else if (cat_LocFilterArry.length==1 && cat_LocFilterArry[0]!=null)
+  { 
+    console.log("2#");
+    if(Number(cat_LocFilterArry[0])==0)
+    return  advertisment;
+    else
+    return  advertisment.filter(item =>item.subCategoryID==Number(cat_LocFilterArry[0]) );
+
+  }
+  else if (cat_LocFilterArry.length==1 && cat_LocFilterArry[1]!=null)
+  {
+    console.log("3#");
+    return advertisment.filter(item =>item.location==cat_LocFilterArry[1] );
+  }
+  else if (cat_LocFilterArry.length==2 && cat_LocFilterArry[0]=="0" && cat_LocFilterArry[1]!=null && cat_LocFilterArry[1]!="all")
+  {
+    console.log("3#2");
+    return advertisment.filter(item =>item.location==cat_LocFilterArry[1] );
+  }
+  else if (cat_LocFilterArry.length==2 && cat_LocFilterArry[1]=="all" && cat_LocFilterArry[0]!=null && cat_LocFilterArry[0]!="0")
+  {
+    console.log("3#3");
+    return advertisment.filter(item =>item.subCategoryID==Number(cat_LocFilterArry[0]));
+  }
+  else if(cat_LocFilterArry.length==2 &&cat_LocFilterArry[1]!="all"&& cat_LocFilterArry[0]!="0")
+  {
+    console.log("4#");
+    return advertisment.filter(item =>item.subCategoryID==Number(cat_LocFilterArry[0]) &&item.location==cat_LocFilterArry[1] );
+  }
+  return advertisment;
+}
+makefilterationByCheckbox( filterationKeyArray: String[],advertismentArray: IAdvertisment[]): IAdvertisment[]
+{
+  if(filterationKeyArray.length>0)
+  {
+    return  advertismentArray.filter(item => {
+      return item.advertisment_FiltrationValuesList.some(filterValue => {
+        console.log(filterationKeyArray.includes(filterValue));
+        return filterationKeyArray.includes(filterValue);
+    });
+   });
+  }
+  else 
+  {
+    return advertismentArray;
+  } 
+}
+
+
+
+
+// makefilterationByCheckbox(filterationKeyArray:String[] ,advertismentArray:IAdvertisment[] ):IAdvertisment[]
+// {
+
+//   if(this.filterationKeyArray.length > 0)
+//   {
+//     let addvertisment:IAdvertisment[] =[];
+//     advertismentArray.forEach(item =>
+//       {
+//         let for2Condition=false;
+//         item.advertisment_FiltrationValuesList.forEach(Advertes_filterationItem=>
+//           {
+//               let forCondition=false;
+//               filterationKeyArray.forEach(filterationcondiotn =>
+//                 {
+//                   console.log(filterationcondiotn);
+//                   if(Advertes_filterationItem==filterationcondiotn)     
+//                   {
+//                     forCondition=true;
+//                     console.log(filterationcondiotn);
+//                   }
+//                 });
+//               if (forCondition){ for2Condition=true;}
+          
+//           });
+//           if (for2Condition)
+//           {
+//             addvertisment.push(item);
+//           }
+
+//       });
+//       return addvertisment;
+//   }
+//   else
+//   {
+//     return advertismentArray;
+//   }
+// }
+
 }

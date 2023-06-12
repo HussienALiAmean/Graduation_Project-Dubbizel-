@@ -14,9 +14,19 @@ namespace Dubbizle.API.Controllers
     [ApiController]
     public class AdvertismentController : ControllerBase
     {
+<<<<<<< HEAD
+        private readonly AdvertismentServise _advertismentServise;
+        private readonly CategoryServise _categoryServise;
+
+        public AdvertismentController(AdvertismentServise advertismentServise, CategoryServise categoryServise)
+        {
+            _advertismentServise = advertismentServise;
+            _categoryServise = categoryServise;
+=======
         AdvertismentService advertismentService;
         public AdvertismentController(AdvertismentService _advertismentService) { 
              advertismentService = _advertismentService;
+>>>>>>> c249ac7b5e103d1984d12f50ca8bd6586c4a77a5
         }
 
         [HttpGet("GetAllAdvertismentByCategory/categoryId")]
@@ -64,6 +74,7 @@ namespace Dubbizle.API.Controllers
                 {
                     advertismentDTO.AdvertismentImagesList.Add(item.ImageName);
                 }
+                
                 advertismentDTOs.Add(advertismentDTO);
             }
 
@@ -81,6 +92,8 @@ namespace Dubbizle.API.Controllers
             ResultDTO resultDTO = new ResultDTO();
             List<Advertisment> advertisments = (List<Advertisment>)advertismentService.GetAllByCategoryID("Advertisment_FiltrationValuesList.filtrationValue", "AdvertismentImagesList", CategoryID);
             List<AdvertismentDTO> advertismentDTOs = new List<AdvertismentDTO>();
+            List<Category> categories = (List<Category>)_categoryServise.Get(e =>  e.ParentCategoryID == CategoryID);
+
             AdvertismentDTO advertismentDTO;
 
             foreach (Advertisment ad in advertisments)
@@ -112,14 +125,16 @@ namespace Dubbizle.API.Controllers
                 }
                 advertismentDTOs.Add(advertismentDTO);
             }
-
             resultDTO.StatusCode = 200;
             resultDTO.Data = advertismentDTOs;
             return Ok(resultDTO);
         }
+<<<<<<< HEAD
+=======
 
 
 
        
+>>>>>>> c249ac7b5e103d1984d12f50ca8bd6586c4a77a5
     }
 }

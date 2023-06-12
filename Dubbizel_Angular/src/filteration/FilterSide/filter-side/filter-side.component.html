@@ -5,23 +5,20 @@
         <form>
           <div  class="form-group ">
             <label for="category">Category:</label>
-            <select class="form-control " id="category">
-              <option value="all">All</option>
-              <option value="cars">Cars</option>
-              <option value="electronics">Electronics</option>
-              <option value="furniture">Furniture</option>
+            <select class="form-control " [(ngModel)]="categorySelectedValue" (ngModelChange)="changeCategoryFiltertion()" [ngModelOptions]="{standalone: true}">
+              <option value="0" selected>All</option>
+              <option *ngFor="let item of categoryList" [value]="item.id" >{{item.name}}</option>
             </select>
           </div>
           <hr>
           <div class="form-group ">
             <label for="location">Location:</label>
-            <select class="form-control" id="location">
-              <option value="all">All</option>
-              <option value="dubai">Dubai</option>
-              <option value="abu-dhabi">Abu Dhabi</option>
-              <option value="sharjah">Sharjah</option>
+            <select class="form-control " [(ngModel)]="LocationSelectedValue" (ngModelChange)="changelocationFiltertion()" [ngModelOptions]="{standalone: true}">
+              <option value="all" selected>All</option>
+              <option *ngFor="let item of locationList" [value]="item">{{item}}</option>
             </select>
           </div>
+          <hr>
           <div *ngFor="let item of SubCategoryFilters" class="form-group ">
             <label for={{item.filterName}}>{{item.filterName}} :</label>
             <div *ngFor="let value of item.filtrationValuesList" class="check">
