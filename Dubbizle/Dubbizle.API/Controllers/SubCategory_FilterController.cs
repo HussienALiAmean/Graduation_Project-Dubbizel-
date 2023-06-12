@@ -24,7 +24,10 @@ namespace Dubbizle.API.Controllers
         public async Task<IActionResult> GetAllBySubCategoryID(int subCategoryID)
         {
             ResultDTO resultDTO = new ResultDTO();
-            List<SubCategory_Filter> SubCategory_Filters= (List<SubCategory_Filter>)_subCategory_FilterService.GetAllBySubCategoryID("Filter", "FiltrationValuesList", subCategoryID);
+
+            List<SubCategory_Filter> SubCategory_Filters = 
+                (List<SubCategory_Filter>)_subCategory_FilterService.GetAllBySubCategoryID("Filter", "FiltrationValuesList", subCategoryID);
+           
             List< SubCategory_FilterDTO > subCategory_FilterDTOs = new List<SubCategory_FilterDTO>();
             SubCategory_FilterDTO subCategory_FilterDTO;
 
@@ -40,7 +43,6 @@ namespace Dubbizle.API.Controllers
                 }
                 subCategory_FilterDTOs.Add(subCategory_FilterDTO);
             }
-
             resultDTO.StatusCode= 200;
             resultDTO.Data= subCategory_FilterDTOs;
             return Ok(resultDTO);

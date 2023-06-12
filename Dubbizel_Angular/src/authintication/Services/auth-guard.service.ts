@@ -13,10 +13,9 @@ export class AuthGuardService {
     const token = localStorage.getItem("jwt");
     if (token && !this.jwtHelper.isTokenExpired(token)){
       //const decodeToken = this.jwtHelper.decodeToken(token);
-      //if(decodeToken['http://schemas.microsoft.com/ws/2008/06/identity/claims/role']=='Resturant')
       return true;
     }
-   this.router.navigate(["/auth/ResturantLogin"]); 
+   //this.router.navigate(["/auth/ResturantLogin"]); 
     return false;
   }
 

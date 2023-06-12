@@ -12,10 +12,12 @@ namespace Dubbizle.API.Controllers
     public class AdvertismentController : ControllerBase
     {
         private readonly AdvertismentServise _advertismentServise;
+        private readonly CategoryServise _categoryServise;
 
-        public AdvertismentController(AdvertismentServise advertismentServise)
+        public AdvertismentController(AdvertismentServise advertismentServise, CategoryServise categoryServise)
         {
-            _advertismentServise = advertismentServise;  
+            _advertismentServise = advertismentServise;
+            _categoryServise = categoryServise;
         }
 
 
@@ -24,7 +26,7 @@ namespace Dubbizle.API.Controllers
         public async Task<IActionResult> GetAllBySubCategoryID(int subCategoryID)
         {
             ResultDTO resultDTO = new ResultDTO();
-            List<Advertisment> advertisments=(List<Advertisment>)_advertismentServise.GetAllBySubCategoryID("Advertisment_FiltrationValuesList.filtrationValue",subCategoryID);
+            List<Advertisment> advertisments=(List<Advertisment>)_advertismentServise.GetAllBySubCategoryID("Advertisment_FiltrationValuesList.filtrationValue", "AdvertismentImagesList", subCategoryID);
             List< AdvertismentDTO > advertismentDTOs = new List<AdvertismentDTO>();
             AdvertismentDTO advertismentDTO;
 
@@ -50,6 +52,12 @@ namespace Dubbizle.API.Controllers
                 {
                     advertismentDTO.Advertisment_FiltrationValuesList.Add(item.filtrationValue.Value);
                 }
+                advertismentDTO.AdvertismentImagesList= new List<string>(); 
+                foreach (AdvertismentImage item in ad.AdvertismentImagesList)
+                {
+                    advertismentDTO.AdvertismentImagesList.Add(item.ImageName);
+                }
+                
                 advertismentDTOs.Add(advertismentDTO);
             }
 
@@ -65,8 +73,10 @@ namespace Dubbizle.API.Controllers
         public async Task<IActionResult> GetAllByCategoryID(int CategoryID)
         {
             ResultDTO resultDTO = new ResultDTO();
-            List<Advertisment> advertisments = (List<Advertisment>)_advertismentServise.GetAllByCategoryID("Advertisment_FiltrationValuesList.filtrationValue",CategoryID);
+            List<Advertisment> advertisments = (List<Advertisment>)_advertismentServise.GetAllByCategoryID("Advertisment_FiltrationValuesList.filtrationValue", "AdvertismentImagesList", CategoryID);
             List<AdvertismentDTO> advertismentDTOs = new List<AdvertismentDTO>();
+            List<Category> categories = (List<Category>)_categoryServise.Get(e =>  e.ParentCategoryID == CategoryID);
+
             AdvertismentDTO advertismentDTO;
 
             foreach (Advertisment ad in advertisments)
@@ -91,17 +101,16 @@ namespace Dubbizle.API.Controllers
                 {
                     advertismentDTO.Advertisment_FiltrationValuesList.Add(item.filtrationValue.Value);
                 }
+                advertismentDTO.AdvertismentImagesList = new List<string>();
+                foreach (AdvertismentImage item in ad.AdvertismentImagesList)
+                {
+                    advertismentDTO.AdvertismentImagesList.Add(item.ImageName);
+                }
                 advertismentDTOs.Add(advertismentDTO);
             }
-
             resultDTO.StatusCode = 200;
             resultDTO.Data = advertismentDTOs;
             return Ok(resultDTO);
         }
-
-
-
-        // Alzhraa 
-       
     }
 }

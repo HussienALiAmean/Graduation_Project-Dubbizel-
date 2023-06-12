@@ -17,22 +17,30 @@ namespace Dubbizle.Services
         public IEnumerable<Category> GetAll()
         {
             return _repository.GetAll().ToList();
-        }
+        } 
+      
         // Alzhraa
         public IEnumerable<Category> GetAll(string property)
         {
             return _repository.GetAll(property).Where(c=>c.ParentCategoryID==null).ToList();
         }
 
+        //Hussien
+        public IEnumerable<Category> GetAllByID(string property,int id)
+        {
+            return _repository.GetAll(property).Where(c => c.ParentCategoryID == id).ToList();
+        }
+
         public IEnumerable<Category> Get(Expression<Func<Category, bool>> expression)
         {
-            return _repository.Get(expression);
+            return _repository.Get(expression).ToList();
         }
 
         public Category GetByID(int id)
         {
             return _repository.GetByID(id);
         }
+        
 
         public Category Add(Category category)
         {

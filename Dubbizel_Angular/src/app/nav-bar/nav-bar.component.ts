@@ -14,12 +14,14 @@ import { JwtHelperService } from '@auth0/angular-jwt';
 })
 export class NavBarComponent implements OnInit {
 
+  UserName:any;
   display = '';
   Emaildisplay = '';
   passworddisplay = '';
   confirmPassdisplay = '';
   ConfirmPasswordDiv = false;
 
+  passErrorMSG:string="";
 
   constructor(private jwtHelper: JwtHelperService,private enrollService: EnrollService, private fb: FormBuilder, private router: Router) { }
 
@@ -105,48 +107,20 @@ export class NavBarComponent implements OnInit {
 
 
 
-  // sendEmail(emailRefVarValue: any) {
-  //   var regex = /[a-z0-9]+@[a-z]+\.[a-z]{2,3}/
-  //   if (regex.test(emailRefVarValue)) {
-  //     //call service
-  //     this.openPasswordModal()
-  //   }
-  //   else {
-  //     Swal.fire({
-  //       icon: 'error',
-  //       title: 'Oops...',
-  //       text: 'Enter Valid Email',
-  //     })
-  //   }
-
-  // }
-
-
-  // sendPass(passRefVarValue: any, ConfirmpassRefVarValue: any) {
-  //   if (passRefVarValue == ConfirmpassRefVarValue) {
-  //     //call service
-  //   }
-  //   else {
-  //     Swal.fire({
-  //       icon: 'error',
-  //       title: 'Oops...',
-  //       text: 'Enter Valid Email',
-  //     })
-  //   }
-  // }
-
   sendEmail() {
     if (this.LoginForm.get('Email')?.valid) {
       //call service
       this.enrollService.PostEmail(this.LoginForm.value).subscribe({
-        next: data => {
-          console.log(data);
+        next: (data:any) => {
+          console.log(data.statusCode);
+          if(data.statusCode==200)
           this.openPasswordModal() // Login pass
+          else 
+          this.openConfirmPasswordModal();
         },
         error: err => {
           console.log(err);
           // Register pass
-          this.openConfirmPasswordModal();
         }
       });
     }
@@ -164,10 +138,17 @@ export class NavBarComponent implements OnInit {
     if (this.LoginForm.valid) {
       //call service
       this.enrollService.RegisterEmailAndPassword(this.LoginForm.value).subscribe({
-        next: data => {
+        next: (data:any) => {
         console.log(data);
-       //this.router.navigate(["/resturant/profile"]);
-        this.onCloseConfirmPasswordModal()
+        if(data.statusCode==200)
+        {
+          this.onCloseLoginModal();
+                 //this.router.navigate(["/resturant/profile"]);
+        }
+        else if(data.statusCode==404)
+        {
+            console.log(data.data.ModelStateErrors.errors)//errorMessage
+        }
         },
         error: err => {
           console.log(err);
@@ -187,16 +168,24 @@ export class NavBarComponent implements OnInit {
     if (this.LoginForm.get('Password')?.valid) {
       //call service
       this.enrollService.LoginEmailAndPassword(this.LoginForm.value).subscribe({
-        next: data => {
+        next: (data:any) => {
         console.log(data);
-        const token = (<any>data).token;
+        if(data.statusCode==200)
+        {
+        const token = (<any>data).data.token;
         localStorage.setItem("jwt", token);
         const decodeToken = this.jwtHelper.decodeToken(token);
         console.log(decodeToken)
         localStorage.setItem("ApplicationUserId",decodeToken['http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier']);
         localStorage.setItem("UserName", decodeToken['http://schemas.xmlsoap.org/ws/2005/05/identity/claims/name']);
         //this.router.navigate(["/resturant/profile"]);
-        this.onClosePasswordModal()
+        this.onCloseLoginModal();
+        }
+        else if(data.statusCode==404)
+        {
+            this.passErrorMSG=data.message;
+            console.log(this.passErrorMSG)
+        }
         },
         error: err => {
           console.log(err);
@@ -210,6 +199,28 @@ export class NavBarComponent implements OnInit {
         text: 'Enter Valid Password',
       })
     }
+  }
+
+
+
+  isUserAuthenticated() {
+    const token = localStorage.getItem("jwt");
+    if (token && !this.jwtHelper.isTokenExpired(token)) {
+      //this.UserName=localStorage.getItem("UserName");
+      const decodeToken = this.jwtHelper.decodeToken(token);
+      return true;
+    }
+    else {
+      return false;
+    }
+  }
+
+  
+  public logOut = () => {
+    localStorage.removeItem("jwt");
+    localStorage.removeItem("ApplicationUserId");
+    localStorage.removeItem("UserName");
+    //this.router.navigate(["/landing/home-page"]);
   }
 
 }
