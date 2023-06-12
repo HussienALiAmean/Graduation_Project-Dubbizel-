@@ -8,16 +8,16 @@ import { BehaviorSubject } from 'rxjs';
   styleUrls: ['./add-adv.component.scss']
 })
 export class AddAdvComponent {
-  AdForm!: FormGroup;
-  maxChars = 4096;
+  // AdForm!: FormGroup;
+  // maxChars = 4096;
 
-  constructor(private fb: FormBuilder) {
-    this.buildForm();
-  }
+  // constructor(private fb: FormBuilder) {
+  //   this.buildForm();
+  // }
 
-  buildForm() {
-    this.AdForm = this.fb.group({
-      twoWayControl: [""]
-    });
-  }
+  // buildForm() {
+  //   this.AdForm = this.fb.group({
+  //     twoWayControl: [""]
+  //   });
+  // }
  }

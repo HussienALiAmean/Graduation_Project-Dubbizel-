@@ -10,5 +10,7 @@ namespace Dubbizle.Models
         public int SubCategoryID { get; set; }
         public Filter Filter { get; set; }
         public int FilterID { get; set; }
+        public List<FiltrationValue> FiltrationValuesList { get; set; }
+
     }
 }

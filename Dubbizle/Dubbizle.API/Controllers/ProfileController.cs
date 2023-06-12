@@ -36,7 +36,7 @@ namespace Dubbizle.API.Controllers
             profileDTO.Gender = orgUser.Gender;
             profileDTO.PhoneNumber = orgUser.PhoneNumber;
             profileDTO.Email = orgUser.Email;
-            profileDTO.BirthDate = orgUser.BirthDate;
+            profileDTO.BirthDate = (DateTime)orgUser.BirthDate;
             profileDTO.Day = profileDTO.BirthDate.Day;
             profileDTO.Month = profileDTO.BirthDate.Month;
             profileDTO.Year = profileDTO.BirthDate.Year;

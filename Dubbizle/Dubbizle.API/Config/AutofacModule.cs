@@ -2,8 +2,13 @@
 using Dubbizle.Data;
 using Dubbizle.Data.Repository;
 using Dubbizle.Data.UnitOfWork;
+using Dubbizle.Models;
 using Dubbizle.Services;
+ 
 using Mapper;
+
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 
 namespace Dubbizle.API.Config
 {
@@ -20,6 +25,22 @@ namespace Dubbizle.API.Config
 
 
             // builder.RegisterAssemblyTypes(typeof(BranchService).Assembly).InstancePerLifetimeScope();
+            builder.RegisterAssemblyTypes(typeof(CategoryServise).Assembly).InstancePerLifetimeScope();
+            builder.RegisterAssemblyTypes(typeof(AdvertismentService).Assembly).InstancePerLifetimeScope();
+
+            //builder.RegisterAssemblyTypes(typeof(AdvertismentServise).Assembly).InstancePerLifetimeScope();
+            builder.RegisterAssemblyTypes(typeof(SubCategory_FilterService).Assembly).InstancePerLifetimeScope();
+
+
+            //builder.Services.AddIdentity<ApplicationUser, IdentityRole>().AddEntityFrameworkStores<Context>();
+            // builder.RegisterAssemblyTypes(typeof(BranchService).Assembly).InstancePerLifetimeScope();
+
+            //builder.RegisterType<UserStore<ApplicationUser>>().As<IUserStore<ApplicationUser>>();
+
+            //builder.RegisterType<UserManager<ApplicationUser>>();
+
+            //builder.RegisterType<UserManager<IdentityRole>>();
+
         }
     }
 }

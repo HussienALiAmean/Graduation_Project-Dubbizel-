@@ -6,6 +6,8 @@ namespace Dubbizle.Models
     public class Advertisment : BaseModel
     {
         public string Title { get; set; }
+        public string Location { get; set; }
+        //public DateTime PostedAt { get; set; }
         public Category Category { get; set; }
         public int CategoryID { get; set; }
         public Category SubCategory { get; set; }
@@ -13,6 +15,8 @@ namespace Dubbizle.Models
         public int SubCategoryID { get; set; }
         public string AdType { get; set; }
         public string AdStatus { get; set; }
+        //public string Location { get; set; }
+        public DateTime Date { get; set; }
         public DateTime ExpirationDate { get; set; }
         public DateTime ExpireDateOfPremium { get; set;}
         public List<AdvertismentImage> AdvertismentImagesList { get; set; }
@@ -20,6 +24,5 @@ namespace Dubbizle.Models
         public List<Advertisment_RentOption> Advertisment_RentOptionList { get; set; }  
         public List<Favorite> FavoritesList { get; set; }
         public List<Review> ReviewsList { get; set; }
-        public bool IsDeleted { get; set; } 
     }
 }

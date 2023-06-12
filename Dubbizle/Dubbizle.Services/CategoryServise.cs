@@ -1,4 +1,9 @@
+﻿using AutoMapper;
+using AutoMapper.QueryableExtensions;
+using Dubbizle.Data.Repository;
+using Dubbizle.Data.UnitOfWork;
 ﻿using Dubbizle.Data.Repository;
+using Dubbizle.DTOs;
 using Dubbizle.Models;
 using System.Linq.Expressions;
 
@@ -7,21 +12,36 @@ namespace Dubbizle.Services
     public class CategoryServise
     {
         IRepository<Category> _repository;
+        IMapper _mapper;
+        UnitOfWork unitOfWork;
 
-        public CategoryServise(IRepository<Category> repository)
+        public CategoryServise(IRepository<Category> repository,IMapper mapper,UnitOfWork _unitOfWork)
         {
             _repository = repository;
+            _mapper = mapper;
+            unitOfWork = _unitOfWork;
         }
-
+        
         public IEnumerable<Category> GetAll()
         {
             return _repository.GetAll().ToList();
         }
-
-        public IEnumerable<Category> Get(Expression<Func<Category, bool>> expression)
+        // Alzhraa
+        public IEnumerable<Category> GetAll(string property)
         {
-            return _repository.Get(expression);
+            return _repository.GetAll(property).Where(c=>c.ParentCategoryID==null).ToList();
         }
+
+        public IEnumerable<CategoryWithSubCategoriesDTO> GetCategoryWithSubCategories(Expression<Func<Category, bool>> expression)
+        {
+             var categories=_repository.Get(expression);
+            return categories.ProjectTo<CategoryWithSubCategoriesDTO>(_mapper.ConfigurationProvider);
+        }
+        //public IEnumerable<CategoryWithAdvertismentDTO> GetCategoryWithAdvertisments(Expression<Func<Category, bool>> expression)
+        //{
+        //    var categories = _repository.Get(expression);
+        //    return categories.ProjectTo<CategoryWithAdvertismentDTO>(_mapper.ConfigurationProvider);
+        //}
 
         public Category GetByID(int id)
         {
