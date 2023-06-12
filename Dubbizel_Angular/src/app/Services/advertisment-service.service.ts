@@ -12,7 +12,7 @@ export class AdvertismentServiceService {
 
   _AdvertismentCatUrl="http://localhost:7189/api/Advertisment/CategoryID?CategoryID=";
   _AdvertismentSubCatUrl="http://localhost:7189/api/Advertisment/subCategoryID?subCategoryID=";
-
+  
   constructor(private http:HttpClient) { }
 
   getAdsByCategoryID(catId:any):Observable<IAdvertisment[]>
@@ -28,5 +28,9 @@ export class AdvertismentServiceService {
     return throwError(() => err.message || "server error");
     }));
   }
+
+
+ 
+
  
 }
