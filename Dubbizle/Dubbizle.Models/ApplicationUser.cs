@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Text.Json.Serialization;
 
 namespace Dubbizle.Models
 
@@ -7,7 +8,7 @@ namespace Dubbizle.Models
     public class ApplicationUser:IdentityUser
     {
         public string Gender { get; set; }
-        public string AboutMe { get; set; }
+        public string  AboutMe { get; set; }
         public DateTime BirthDate { get; set; }
         public float Rating { get; set; }
         public List<ApplicationUser_Package> ApplicationUser_PackagesList { get; set; }
@@ -15,6 +16,7 @@ namespace Dubbizle.Models
         [InverseProperty("Sender")]
         public List<Chat> SenderChatList { get; set; }
         [InverseProperty("Reciver")]
+       
         public List<Chat> ReciverChatList { get; set; }
 
 

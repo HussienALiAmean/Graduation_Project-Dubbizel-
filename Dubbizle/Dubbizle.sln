@@ -3,15 +3,17 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.4.33213.308
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dubbizle.Models", "Dubbizle.Models\Dubbizle.Models.csproj", "{69F2738C-8B58-4683-8BF1-CC5AF1C4CB73}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Dubbizle.Models", "Dubbizle.Models\Dubbizle.Models.csproj", "{69F2738C-8B58-4683-8BF1-CC5AF1C4CB73}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dubbizle.Data", "Dubbizle.Data\Dubbizle.Data.csproj", "{CD2B1748-FC5F-4F0C-98EF-0F6BBA22F4B9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Dubbizle.Data", "Dubbizle.Data\Dubbizle.Data.csproj", "{CD2B1748-FC5F-4F0C-98EF-0F6BBA22F4B9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dubbizle.API", "Dubbizle.API\Dubbizle.API.csproj", "{906B325E-F97C-4152-A5D7-2B4226F5F042}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Dubbizle.API", "Dubbizle.API\Dubbizle.API.csproj", "{906B325E-F97C-4152-A5D7-2B4226F5F042}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dubbizle.DTOs", "Dubbizle.DTOs\Dubbizle.DTOs.csproj", "{BA9C34F2-C83D-4F0D-9B42-B2E08C1CB088}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Dubbizle.DTOs", "Dubbizle.DTOs\Dubbizle.DTOs.csproj", "{BA9C34F2-C83D-4F0D-9B42-B2E08C1CB088}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dubbizle.Services", "Dubbizle.Services\Dubbizle.Services.csproj", "{72424ACE-5285-4C7A-A1EC-101E72EC4172}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Dubbizle.Services", "Dubbizle.Services\Dubbizle.Services.csproj", "{72424ACE-5285-4C7A-A1EC-101E72EC4172}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mapper", "Mapper\Mapper.csproj", "{BF9A5685-7967-4D5B-BD0F-2AD19D2048C6}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -39,6 +41,10 @@ Global
 		{72424ACE-5285-4C7A-A1EC-101E72EC4172}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{72424ACE-5285-4C7A-A1EC-101E72EC4172}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{72424ACE-5285-4C7A-A1EC-101E72EC4172}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BF9A5685-7967-4D5B-BD0F-2AD19D2048C6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BF9A5685-7967-4D5B-BD0F-2AD19D2048C6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BF9A5685-7967-4D5B-BD0F-2AD19D2048C6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BF9A5685-7967-4D5B-BD0F-2AD19D2048C6}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

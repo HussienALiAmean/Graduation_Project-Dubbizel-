@@ -1,8 +1,12 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { UserprofileComponent } from './userprofile/userprofile.component';
 
 const routes: Routes = [
-  {path:"profile",loadChildren:()=>import("../profile/profile.module").then(m=>m.ProfileModule)}
+  //../profile/profile.module
+ //{path:"myprofile",loadChildren:()=>import("src/modules/profile/profile.module").then(m=>m.ProfileModule)}
+
+{path:"profile",component:UserprofileComponent}
 ];
 
 @NgModule({

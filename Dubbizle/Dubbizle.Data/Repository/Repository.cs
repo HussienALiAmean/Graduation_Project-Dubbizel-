@@ -6,13 +6,11 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
-
 namespace Dubbizle.Data.Repository;
 
 public class Repository<T> : IRepository<T> where T : BaseModel
 {
     Context _context;
-
     public Repository(Context context)
     {
         _context = context;
@@ -20,7 +18,7 @@ public class Repository<T> : IRepository<T> where T : BaseModel
 
     public IQueryable<T> GetAll()
     {
-        return _context.Set<T>();
+        return _context.Set<T>();//.Where(x=> !x.Deleted);
     }
 
     public IQueryable<T> Get(Expression<Func<T, bool>> expression)
@@ -58,14 +56,14 @@ public class Repository<T> : IRepository<T> where T : BaseModel
     //    }
     //    else
     //    {
-    //        entityEntry = 
+    //        entityEntry =
     //            _context.ChangeTracker.Entries<T>()
     //            .Where(x => x.Entity.ID == entity.ID).FirstOrDefault();
     //    }
 
     //    foreach (var property in entityEntry.Properties)
     //    {
-    //        if(properties.Contains(property.Metadata.Name))
+    //        if (properties.Contains(property.Metadata.Name))
     //        {
     //            property.CurrentValue = entity.GetType().GetProperty(property.Metadata.Name).GetValue(entity);
     //            property.IsModified = true;
@@ -75,7 +73,7 @@ public class Repository<T> : IRepository<T> where T : BaseModel
     //    entity.UpdatedDate = DateTime.Now;
     //    //entity.UpdatedBy = 12;
     //}
-    
+
     public void Delete(int id)
     {
         var entity = GetByID(id);
