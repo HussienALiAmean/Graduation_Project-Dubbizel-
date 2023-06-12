@@ -13,7 +13,8 @@ namespace Dubbizle.API.Config
             builder.RegisterType(typeof(Context)).InstancePerLifetimeScope();
             builder.RegisterType(typeof(UnitOfWork)).InstancePerLifetimeScope();
             builder.RegisterGeneric(typeof(Repository<>)).As(typeof(IRepository<>)).InstancePerLifetimeScope();
-           // builder.RegisterAssemblyTypes(typeof(BranchService).Assembly).InstancePerLifetimeScope();
+            builder.RegisterAssemblyTypes(typeof(CategoryServise).Assembly).InstancePerLifetimeScope();
+            builder.RegisterAssemblyTypes(typeof(AdvertismentService).Assembly).InstancePerLifetimeScope();
         }
     }
 }
