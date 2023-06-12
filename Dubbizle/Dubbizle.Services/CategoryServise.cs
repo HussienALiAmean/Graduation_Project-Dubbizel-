@@ -2,6 +2,7 @@
 using AutoMapper.QueryableExtensions;
 using Dubbizle.Data.Repository;
 using Dubbizle.Data.UnitOfWork;
+﻿using Dubbizle.Data.Repository;
 using Dubbizle.DTOs;
 using Dubbizle.Models;
 using System.Linq.Expressions;
@@ -20,10 +21,15 @@ namespace Dubbizle.Services
             _mapper = mapper;
             unitOfWork = _unitOfWork;
         }
-
+        
         public IEnumerable<Category> GetAll()
         {
             return _repository.GetAll().ToList();
+        }
+        // Alzhraa
+        public IEnumerable<Category> GetAll(string property)
+        {
+            return _repository.GetAll(property).Where(c=>c.ParentCategoryID==null).ToList();
         }
 
         public IEnumerable<CategoryWithSubCategoriesDTO> GetCategoryWithSubCategories(Expression<Func<Category, bool>> expression)

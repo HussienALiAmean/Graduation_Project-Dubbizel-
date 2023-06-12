@@ -13,7 +13,7 @@ namespace Dubbizle.Mapper
     {
         public AdertismentProfile()
         {
-            CreateMap<Advertisment, AdvertismentDTO>();
+            CreateMap<Advertisment, AdvertismentHomePageDTO>();
         }
     }
 }

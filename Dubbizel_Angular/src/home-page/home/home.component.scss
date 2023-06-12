@@ -30,3 +30,13 @@ i{
    cursor: pointer;
    box-shadow: 3px 1px 6px rgb(236, 236, 236);
 }
+.subCategory{
+    transition: 0.5s;
+}
+.subCategory:hover{
+    cursor: pointer;
+    color: #8a0f0f;
+}
+.category:hover{
+    cursor: pointer;
+}

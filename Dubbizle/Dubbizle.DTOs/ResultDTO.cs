@@ -6,10 +6,10 @@ using System.Threading.Tasks;
 
 namespace Dubbizle.DTOs
 {
-    public class SubCategoryDTO
+    public class ResultDTO
     {
-        public int ID { get; set; }
-        public string Name { get; set; }
-        public int ParentCategoryID { get; set; }
+        public int StatusCode { get; set; }
+        public dynamic Data { get; set; }
+        public string Message { get; set; }
     }
 }

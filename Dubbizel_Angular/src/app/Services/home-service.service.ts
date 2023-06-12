@@ -11,6 +11,6 @@ export class HomeServiceService {
   constructor(private http:HttpClient) { }
 
   getCategoriesWithSubAndAds():Observable<Icategory[]>{
-    return this.http.get<Icategory[]>(`http://localhost:5115/api/Category/CategoriesWithSubcategoriesAndAdvertisment`);
+    return this.http.get<Icategory[]>(`http://localhost:7189/api/Category/CategoriesWithSubcategoriesAndAdvertisment`);
   }
 }

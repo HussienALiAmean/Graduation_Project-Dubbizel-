@@ -6,7 +6,6 @@ namespace Dubbizle.Data
 {
     public class Context : IdentityDbContext<ApplicationUser>
     {
-        public Context() { }
         public Context(DbContextOptions options) : base(options)
         { }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
@@ -18,6 +17,7 @@ namespace Dubbizle.Data
 
             base.OnConfiguring(optionsBuilder);
         }
+
         public DbSet<Advertisment> Advertisments { get; set; }
         public DbSet<Advertisment_FiltrationValue> Advertisment_FiltrationValues { get; set; }
         public DbSet<Advertisment_RentOption> Advertisment_RentOptions { get; set; }

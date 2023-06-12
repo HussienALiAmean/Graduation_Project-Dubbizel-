@@ -10,6 +10,7 @@
     <PackageReference Include="Autofac" Version="7.0.1" />
     <PackageReference Include="Autofac.Extensions.DependencyInjection" Version="8.0.0" />
     <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="12.0.1" />
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="7.0.5" />
     <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="7.0.2" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="7.0.5">
       <PrivateAssets>all</PrivateAssets>
@@ -23,6 +24,10 @@
     <ProjectReference Include="..\Dubbizle.DTOs\Dubbizle.DTOs.csproj" />
     <ProjectReference Include="..\Dubbizle.Mapper\Dubbizle.Mapper.csproj" />
     <ProjectReference Include="..\Dubbizle.Services\Dubbizle.Services.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="wwwroot\Files\AdvertismentIMG\" />
   </ItemGroup>
 
 </Project>
