@@ -2,9 +2,9 @@ export interface profile{
   userName: string,
   gender: string,
   aboutMe: string,
-  day:number,
-  month:number,
-  year:number,
+  day:string,
+  month:string,
+  year:string,
   phoneNumber: string,
   email:string
 }

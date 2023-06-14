@@ -26,6 +26,7 @@ import { DropDownListModule } from '@syncfusion/ej2-angular-dropdowns';
 import { UserprofileComponent } from './userprofile/userprofile.component';
 import { DelAccountComponent } from './del-account/del-account.component';
 import { AddAdvComponent } from './add-adv/add-adv.component';
+import { PostAdComponent } from './post-ad/post-ad.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -37,6 +38,7 @@ import { AddAdvComponent } from './add-adv/add-adv.component';
     NavBarComponent,
     CatNavBarComponent,
     FooterComponent,
+    PostAdComponent,
     
 
   ],
