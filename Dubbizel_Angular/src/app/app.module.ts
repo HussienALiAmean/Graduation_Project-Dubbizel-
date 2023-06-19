@@ -6,8 +6,6 @@ import { AppComponent } from './app.component';
  
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
-import { HomeComponent } from 'src/home-page/home/home.component';
-import { HomePageComponentComponent } from './home-page-component/home-page-component.component';
 
 import { NavBarComponent } from './nav-bar/nav-bar.component';
 import { CatNavBarComponent } from './cat-nav-bar/cat-nav-bar.component';
@@ -23,20 +21,19 @@ import { MatIconModule, MatIconRegistry } from '@angular/material/icon';
 import { DomSanitizer } from '@angular/platform-browser';
 
 import { DropDownListModule } from '@syncfusion/ej2-angular-dropdowns';
-import { UserprofileComponent } from './userprofile/userprofile.component';
 import { DelAccountComponent } from './del-account/del-account.component';
 import { AddAdvComponent } from './add-adv/add-adv.component';
+import { HomeComponent } from './home/home.component';
+
 @NgModule({
   declarations: [
     AppComponent,
-    UserprofileComponent,
     DelAccountComponent,
     AddAdvComponent,
-    HomePageComponentComponent,
-
     NavBarComponent,
     CatNavBarComponent,
     FooterComponent,
+    HomeComponent
     
 
   ],

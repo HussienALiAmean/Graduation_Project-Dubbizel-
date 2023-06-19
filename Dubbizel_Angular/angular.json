@@ -30,20 +30,12 @@
               "src/assets"
             ],
             "styles": [
-<<<<<<< HEAD
               "node_modules/bootstrap/dist/css/bootstrap.min.css",
               "src/styles.scss"
             ],
+      
             "scripts": [
-              "node_modules/bootstrap/dist/js/bootstrap.min.js"
-
-=======
-              "src/styles.scss",
-              "node_modules/bootstrap/dist/css/bootstrap.min.css"
-            ],
-            "scripts": [
-              "node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"
->>>>>>> c249ac7b5e103d1984d12f50ca8bd6586c4a77a5
+             "node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"
             ]
           },
           "configurations": {
@@ -114,10 +106,7 @@
     }
   },
   "cli": {
-<<<<<<< HEAD
-    "analytics": false
-=======
+
     "analytics": "c2ca98d6-3a28-4a79-8b96-24294ea4642a"
->>>>>>> c249ac7b5e103d1984d12f50ca8bd6586c4a77a5
   }
 }

@@ -56,7 +56,7 @@ export class FilterSideComponent {
                   }
                 })
               },
-              error: err => {
+              error: (err:any) => {
                 console.log(err);
               }
             }); 
@@ -65,6 +65,7 @@ export class FilterSideComponent {
           {
                 this._CategoryServiceService.getAllofsubCategories(params.get('id')).subscribe({
                   next: (data:any) => {
+                    this.SubCategoryFilters=[];
                     console.log("data arrived correctly"+data);
                     this.categoryList=data.data;
                   },

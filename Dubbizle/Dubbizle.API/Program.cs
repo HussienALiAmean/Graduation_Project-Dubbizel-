@@ -155,7 +155,6 @@ namespace Dubbizle.API
             });
 
             var app = builder.Build();
-            app.UseCors("MyPolicy");
 
             
 
@@ -165,9 +164,7 @@ namespace Dubbizle.API
                 app.UseSwagger();
                 app.UseSwaggerUI();
             }
-            app.UseCors();
-            app.UseCors("CorsPolicy");
-
+        
             app.UseStaticFiles();
             app.UseCors("MyPolicy");
             app.UseAuthentication();

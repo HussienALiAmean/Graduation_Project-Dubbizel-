@@ -14,6 +14,7 @@ namespace Dubbizle.Data.Repository
         IQueryable<T> GetAll(string property1, string property2);
         IQueryable<T> Get(Expression<Func<T, bool>> expression);
         T GetByID(int id);
+        T GetByID(int id, string property1, string property2);
         T Add(T entity);
         void Update(T entity);
         //void Update(T entity, params string[] properties);

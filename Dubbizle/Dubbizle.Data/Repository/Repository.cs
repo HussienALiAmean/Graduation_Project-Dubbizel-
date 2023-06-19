@@ -43,11 +43,15 @@ public class Repository<T> : IRepository<T> where T : BaseModel
         return _context.Set<T>().FirstOrDefault(x => x.ID == id);
     }
 
+    public T GetByID(int id, string property1, string property2)
+    {
+        return _context.Set<T>().Include(property1).Include(property2).FirstOrDefault(x => x.ID == id);
+    }
+
     public T Add(T entity)
     {
         entity.Deleted = false;
         _context.Set<T>().Add(entity);
-
         return entity;
     }
 

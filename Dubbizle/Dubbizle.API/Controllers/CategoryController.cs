@@ -45,7 +45,7 @@ namespace Dubbizle.API.Controllers
             ResultDTO resultDTO = new ResultDTO();
             resultDTO.Data = (List<Category>)categoryServise.GetAllByID("SubCategoriesList", categoryId);
 
-            resultDTO.Data = (List<Category>)categoryServise.GetAll("SubCategoriesList");
+//            resultDTO.Data = (List<Category>)categoryServise.GetAll("SubCategoriesList");
             resultDTO.StatusCode= 200;
             return Ok(resultDTO);
         }
