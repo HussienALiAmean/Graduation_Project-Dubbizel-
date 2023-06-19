@@ -25,11 +25,13 @@ namespace Dubbizle.API.Controllers
             //_profileService = profileService;
             _userManager= userManager;
         }
+
+
         [HttpGet("getProfile/{id}")]
-        public async Task <IActionResult> GetNameAndEmail(string id)
+        public async Task<IActionResult> GetNameAndEmail(string id)
         {
             ApplicationUser orgUser = await _userManager.FindByIdAsync(id);
-            ProfileDTO profileDTO =new ProfileDTO();
+            ProfileDTO profileDTO = new ProfileDTO();
 
             profileDTO.userName = orgUser.UserName;
 
@@ -41,13 +43,14 @@ namespace Dubbizle.API.Controllers
             profileDTO.Month = profileDTO.BirthDate.Month.ToString();
             profileDTO.Year = profileDTO.BirthDate.Year.ToString();
             profileDTO.AboutMe= orgUser.AboutMe;
+            profileDTO.AboutMe = orgUser.AboutMe;
 
             return Ok(profileDTO);
-            
+
         }
 
         [HttpPut("id")]
-        public async Task <IActionResult> Edit(string id,ProfileDTO newUser)
+        public async Task<IActionResult> Edit(string id, ProfileDTO newUser)
         {
             ApplicationUser orgUser = await _userManager.FindByIdAsync(id);
             orgUser.UserName = newUser.userName;
@@ -55,6 +58,7 @@ namespace Dubbizle.API.Controllers
             orgUser.Gender = newUser.Gender;
             orgUser.PhoneNumber = newUser.PhoneNumber;
            // orgUser.BirthDate = newUser.BirthDate;
+            // orgUser.BirthDate = newUser.BirthDate;
             DateTime date = new DateTime(int.Parse(newUser.Year), int.Parse(newUser.Month), int.Parse(newUser.Day));
             orgUser.BirthDate = date;
 

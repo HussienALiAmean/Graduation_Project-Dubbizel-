@@ -29,7 +29,7 @@ namespace Dubbizle.Services
             return reviews;
         }
 
-        public async Task UpdateReview(int reviewId, ReviewDTO reviewDTO)
+        public async Task UpdateReview(int reviewId, ReviewDto reviewDTO)
         {
             Review review = _reviewRepo.GetAll("Auther").FirstOrDefault(d=>d.ID==reviewId);
             review.Auther.UserName = reviewDTO.userName;

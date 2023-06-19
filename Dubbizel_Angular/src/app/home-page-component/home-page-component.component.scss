@@ -2,7 +2,7 @@ i{
     font-size: 20px;
 }
 .header4{
-    color: #8a0f0f;
+    color: #e00000;
     font-weight: bold;
     font-size: 16px;
     position: relative;
@@ -22,7 +22,7 @@ i{
   margin-top: -6px;
   font-size: 25px;
   font-weight: bolder;
-  color: #8a0f0f;
+  color: #e00000;
 }
 .cardStyle{
     transition: 0.4s;
@@ -43,3 +43,12 @@ i{
 .category:hover{
     cursor: pointer;
 }
+ .btnHeart{
+    transition: 0.4s;
+    border: none; 
+    width: 40px;
+     height: 40px; 
+     border-radius: 60%; 
+     align-items: center;
+     background-color:rgba(33, 32, 32, 0.148);
+  } 

@@ -7,6 +7,11 @@ namespace Dubbizle.Models
     {
         public string Title { get; set; }
         public string Location { get; set; }
+        [ForeignKey("ApplicationUser")]
+        public string ApplicationUserId { get; set; }
+        public virtual ApplicationUser ApplicationUser { get; set; }
+
+
         //public DateTime PostedAt { get; set; }
         public Category Category { get; set; }
         public int CategoryID { get; set; }

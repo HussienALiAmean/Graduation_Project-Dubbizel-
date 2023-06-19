@@ -7,6 +7,9 @@ using Dubbizle.Services;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Dubbizle.API.Helper;
+using Dubbizle.Data.Repository;
+using System.Collections.Generic;
 
 namespace Dubbizle.API.Controllers
 {
@@ -14,115 +17,277 @@ namespace Dubbizle.API.Controllers
     [ApiController]
     public class AdvertismentController : ControllerBase
     {
-        private readonly AdvertismentService _advertismentServise;
-        private readonly CategoryServise _categoryServise;
-
-        public AdvertismentController(AdvertismentService advertismentServise, CategoryServise categoryServise)
+        AdvertismentService advertismentService;
+        AdvertismentFilterValueService AdvertismentFilterValueService;
+        UserManager<ApplicationUser> userManager;
+        SubCategory_FilterService subCategory_FilterService;
+        FilterService filterService;
+        FilterValueService filterValueService;
+        IRepository<FiltrationValue> repository;
+        IRepository<Advertisment> repositoryAds;
+        FavoriteService favoriteService;
+        CategoryServise categoryServise;
+        public AdvertismentController(CategoryServise _categoryServise, FavoriteService _favoriteService, IRepository<Advertisment> _repositoryAds, IRepository<FiltrationValue> _repository, FilterValueService _FilterValueService, FilterService _filterService, SubCategory_FilterService _subCategory_FilterService, AdvertismentFilterValueService _AdvertismentFilterValueService, UserManager<ApplicationUser> _userManager, AdvertismentFilterValueService _advertismentFilterValueService, AdvertismentService _advertismentService, AdvertismentImageService _advertismentImageService)
         {
-            _advertismentServise = advertismentServise;
-            _categoryServise = categoryServise;
-            AdvertismentService advertismentService;
+            advertismentService = _advertismentService;
+            userManager = _userManager;
+            AdvertismentFilterValueService = _advertismentFilterValueService;
+            subCategory_FilterService = _subCategory_FilterService;
+            filterService = _filterService;
+            filterValueService = _FilterValueService;
+            repository = _repository;
+            repositoryAds = _repositoryAds;
+            favoriteService = _favoriteService;
+            categoryServise = _categoryServise;
         }
 
-            [HttpGet("GetAllAdvertismentByCategory/categoryId")]
-            public IEnumerable<AdvertismentHomePageDTO> GetAllAdvertismentByCategory(int categoryId)
-            {
-                var ads = _advertismentServise.GetAdvertismentsAll(c => c.CategoryID == categoryId);
-                return ads;
-            }
-
-
-
-            // Alzhraa & Hussien
-            [HttpGet("subCategoryID")]
-            public async Task<IActionResult> GetAllBySubCategoryID(int subCategoryID)
-            {
-                ResultDTO resultDTO = new ResultDTO();
-                List<Advertisment> advertisments = (List<Advertisment>)_advertismentServise.GetAllBySubCategoryID("Advertisment_FiltrationValuesList.filtrationValue", "AdvertismentImagesList", subCategoryID);
-                List<AdvertismentDTO> advertismentDTOs = new List<AdvertismentDTO>();
-                AdvertismentDTO advertismentDTO;
-
-                foreach (Advertisment ad in advertisments)
-                {
-                    advertismentDTO = new AdvertismentDTO();
-                    advertismentDTO.ID = ad.ID;
-                    advertismentDTO.Title = ad.Title;
-                    advertismentDTO.CategoryID = ad.CategoryID;
-                    advertismentDTO.SubCategoryID = ad.SubCategoryID;
-                    advertismentDTO.AdType = ad.AdType;
-                    advertismentDTO.AdStatus = ad.AdStatus;
-                    advertismentDTO.Location = ad.Location;
-                    advertismentDTO.Date = ad.Date;
-                    advertismentDTO.ExpirationDate = ad.ExpirationDate;
-                    advertismentDTO.ExpireDateOfPremium = ad.ExpireDateOfPremium;
-                    if (ad.ExpireDateOfPremium > DateTime.Now)
-                        advertismentDTO.IsPremium = true;
-                    else
-                        advertismentDTO.IsPremium = false;
-                    advertismentDTO.Advertisment_FiltrationValuesList = new List<string>();
-                    foreach (Advertisment_FiltrationValue item in ad.Advertisment_FiltrationValuesList)
-                    {
-                        advertismentDTO.Advertisment_FiltrationValuesList.Add(item.filtrationValue.Value);
-                    }
-                    advertismentDTO.AdvertismentImagesList = new List<string>();
-                    foreach (AdvertismentImage item in ad.AdvertismentImagesList)
-                    {
-                        advertismentDTO.AdvertismentImagesList.Add(item.ImageName);
-                    }
-
-                    advertismentDTOs.Add(advertismentDTO);
-                }
-
-                resultDTO.StatusCode = 200;
-                resultDTO.Data = advertismentDTOs;
-                return Ok(resultDTO);
-            }
-
-
-
-            //Alzhraa & Hussien
-            [HttpGet("CategoryID")]
-            public async Task<IActionResult> GetAllByCategoryID(int CategoryID)
-            {
-                ResultDTO resultDTO = new ResultDTO();
-                List<Advertisment> advertisments = (List<Advertisment>)_advertismentServise.GetAllByCategoryID("Advertisment_FiltrationValuesList.filtrationValue", "AdvertismentImagesList", CategoryID);
-                List<AdvertismentDTO> advertismentDTOs = new List<AdvertismentDTO>();
-                List<Category> categories = (List<Category>)_categoryServise.Get(e => e.ParentCategoryID == CategoryID);
-
-                AdvertismentDTO advertismentDTO;
-
-                foreach (Advertisment ad in advertisments)
-                {
-                    advertismentDTO = new AdvertismentDTO();
-                    advertismentDTO.ID = ad.ID;
-                    advertismentDTO.Title = ad.Title;
-                    advertismentDTO.CategoryID = ad.CategoryID;
-                    advertismentDTO.SubCategoryID = ad.SubCategoryID;
-                    advertismentDTO.AdType = ad.AdType;
-                    advertismentDTO.AdStatus = ad.AdStatus;
-                    advertismentDTO.Location = ad.Location;
-                    advertismentDTO.Date = ad.Date;
-                    advertismentDTO.ExpirationDate = ad.ExpirationDate;
-                    advertismentDTO.ExpireDateOfPremium = ad.ExpireDateOfPremium;
-                    if (ad.ExpireDateOfPremium > DateTime.Now)
-                        advertismentDTO.IsPremium = true;
-                    else
-                        advertismentDTO.IsPremium = false;
-                    advertismentDTO.Advertisment_FiltrationValuesList = new List<string>();
-                    foreach (Advertisment_FiltrationValue item in ad.Advertisment_FiltrationValuesList)
-                    {
-                        advertismentDTO.Advertisment_FiltrationValuesList.Add(item.filtrationValue.Value);
-                    }
-                    advertismentDTO.AdvertismentImagesList = new List<string>();
-                    foreach (AdvertismentImage item in ad.AdvertismentImagesList)
-                    {
-                        advertismentDTO.AdvertismentImagesList.Add(item.ImageName);
-                    }
-                    advertismentDTOs.Add(advertismentDTO);
-                }
-                resultDTO.StatusCode = 200;
-                resultDTO.Data = advertismentDTOs;
-                return Ok(resultDTO);
-            }
+        [HttpGet("GetAllAdvertismentByCategory/categoryId")]
+        public IEnumerable<AdvertismentHomePageDTO> GetAllAdvertismentByCategory(int categoryId)
+        {
+            var ads = advertismentService.GetAdvertismentsAll(c => c.CategoryID == categoryId);
+            return ads;
         }
+
+
+
+        // Alzhraa & Hussien
+        [HttpGet("subCategoryID")]
+        public async Task<IActionResult> GetAllBySubCategoryID(int subCategoryID)
+        {
+            ResultDTO resultDTO = new ResultDTO();
+            List<Advertisment> advertisments = (List<Advertisment>)advertismentService.GetAllBySubCategoryID("Advertisment_FiltrationValuesList.filtrationValue", "AdvertismentImagesList", subCategoryID);
+            List<AdvertismentDTO> advertismentDTOs = new List<AdvertismentDTO>();
+            AdvertismentDTO advertismentDTO;
+
+            foreach (Advertisment ad in advertisments)
+            {
+                advertismentDTO = new AdvertismentDTO();
+                advertismentDTO.ID = ad.ID;
+                advertismentDTO.Title = ad.Title;
+                advertismentDTO.CategoryID = ad.CategoryID;
+                advertismentDTO.SubCategoryID = ad.SubCategoryID;
+                advertismentDTO.AdType = ad.AdType;
+                advertismentDTO.AdStatus = ad.AdStatus;
+                advertismentDTO.Location = ad.Location;
+                advertismentDTO.Date = ad.Date;
+                advertismentDTO.ExpirationDate = ad.ExpirationDate;
+                advertismentDTO.ExpireDateOfPremium = ad.ExpireDateOfPremium;
+                if (ad.ExpireDateOfPremium > DateTime.Now)
+                    advertismentDTO.IsPremium = true;
+                else
+                    advertismentDTO.IsPremium = false;
+                advertismentDTO.Advertisment_FiltrationValuesList = new List<string>();
+                foreach (Advertisment_FiltrationValue item in ad.Advertisment_FiltrationValuesList)
+                {
+                    advertismentDTO.Advertisment_FiltrationValuesList.Add(item.filtrationValue.Value);
+                }
+                advertismentDTO.AdvertismentImagesList = new List<string>();
+                foreach (AdvertismentImage item in ad.AdvertismentImagesList)
+                {
+                    advertismentDTO.AdvertismentImagesList.Add(item.ImageName);
+                }
+                advertismentDTOs.Add(advertismentDTO);
+            }
+
+            resultDTO.StatusCode = 200;
+            resultDTO.Data = advertismentDTOs;
+            return Ok(resultDTO);
+        }
+
+
+
+        //Alzhraa & Hussien
+        [HttpGet("CategoryID")]
+        public async Task<IActionResult> GetAllByCategoryID(int CategoryID)
+        {
+            ResultDTO resultDTO = new ResultDTO();
+            List<Advertisment> advertisments = (List<Advertisment>)advertismentService.GetAllByCategoryID("Advertisment_FiltrationValuesList.filtrationValue", "AdvertismentImagesList", CategoryID);
+            List<AdvertismentDTO> advertismentDTOs = new List<AdvertismentDTO>();
+            AdvertismentDTO advertismentDTO;
+
+            foreach (Advertisment ad in advertisments)
+            {
+                advertismentDTO = new AdvertismentDTO();
+                advertismentDTO.ID = ad.ID;
+                advertismentDTO.Title = ad.Title;
+                advertismentDTO.CategoryID = ad.CategoryID;
+                advertismentDTO.SubCategoryID = ad.SubCategoryID;
+                advertismentDTO.AdType = ad.AdType;
+                advertismentDTO.AdStatus = ad.AdStatus;
+                advertismentDTO.Location = ad.Location;
+                advertismentDTO.Date = ad.Date;
+                advertismentDTO.ExpirationDate = ad.ExpirationDate;
+                advertismentDTO.ExpireDateOfPremium = ad.ExpireDateOfPremium;
+                if (ad.ExpireDateOfPremium > DateTime.Now)
+                    advertismentDTO.IsPremium = true;
+                else
+                    advertismentDTO.IsPremium = false;
+                advertismentDTO.Advertisment_FiltrationValuesList = new List<string>();
+                foreach (Advertisment_FiltrationValue item in ad.Advertisment_FiltrationValuesList)
+                {
+                    advertismentDTO.Advertisment_FiltrationValuesList.Add(item.filtrationValue.Value);
+                }
+                advertismentDTO.AdvertismentImagesList = new List<string>();
+                foreach (AdvertismentImage item in ad.AdvertismentImagesList)
+                {
+                    advertismentDTO.AdvertismentImagesList.Add(item.ImageName);
+                }
+                advertismentDTOs.Add(advertismentDTO);
+            }
+
+            resultDTO.StatusCode = 200;
+            resultDTO.Data = advertismentDTOs;
+            return Ok(resultDTO);
+        }
+
+
+
+        // hager
+        [HttpGet("Details/{AdID:int}")]
+        public async Task<IActionResult> getDetails(int AdID)
+        {
+            List<Advertisment> advertisments = (List<Advertisment>)advertismentService.GetAllAdvertisments("AdvertismentImagesList", "Advertisment_FiltrationValuesList.filtrationValue", "Advertisment_RentOptionList", "ReviewsList");
+            Advertisment advertisment = advertisments.FirstOrDefault(a => a.ID == AdID);
+            ApplicationUser user = await userManager.FindByIdAsync(advertisment.ApplicationUserId);
+            AdvertismentDetailsDTO advertismentDetailsDTO = new AdvertismentDetailsDTO();
+            advertismentDetailsDTO.AdStatus = advertisment.AdStatus;
+            advertismentDetailsDTO.Title = advertisment.Title;
+            advertismentDetailsDTO.AdType = advertisment.AdType;
+            advertismentDetailsDTO.ApplicationUserId = user.Id;
+            advertismentDetailsDTO.ApplicationUserName = user.UserName;
+            advertismentDetailsDTO.ApplicationEmail = user.Email;
+            advertismentDetailsDTO.Date = advertisment.Date;
+            advertismentDetailsDTO.ExpirationDate = advertisment.ExpirationDate;
+            advertismentDetailsDTO.ExpireDateOfPremium = advertisment.ExpireDateOfPremium;
+            advertismentDetailsDTO.Location = advertisment.Location;
+            List<SubCategory_Filter> s = (List<SubCategory_Filter>)subCategory_FilterService.GetAllBySubCategory("Filter");
+            foreach (Advertisment_FiltrationValue filter in advertisment.Advertisment_FiltrationValuesList)
+            {
+                FiltrationValue fil = repository.GetByID(filter.FiltrationValueID);
+                SubCategory_Filter sub = s.FirstOrDefault(s => s.ID == fil.SubCategory_FilterID);
+
+
+                AdvertismentFilterValueDTO advertismentValueDTO = new AdvertismentFilterValueDTO();
+                advertismentValueDTO.Value = filter.filtrationValue.Value;
+                advertismentValueDTO.Key = sub.Filter.Name;
+                advertismentDetailsDTO.Advertisment_FiltrationValuesList.Add(advertismentValueDTO);
+            }
+            foreach (AdvertismentImage image in advertisment.AdvertismentImagesList)
+            {
+                AdvertismentImageDTO advertismentImageDTO = new AdvertismentImageDTO();
+                advertismentImageDTO.ImageName = image.ImageName;
+                advertismentDetailsDTO.AdvertismentImagesList.Add(advertismentImageDTO);
+            }
+            foreach (Advertisment_RentOption rentOption in advertisment.Advertisment_RentOptionList)
+            {
+                AdvertismentRentOptionDTO advertismentRentDTO = new AdvertismentRentOptionDTO();
+                advertismentRentDTO.Cost = rentOption.Cost;
+                advertismentDetailsDTO.Advertisment_RentOptionList.Add(advertismentRentDTO);
+
+            }
+            foreach (Review review in advertisment.ReviewsList)
+            {
+                ReviewDTO reviewDTO = new ReviewDTO();
+                ApplicationUser applicationUser = await userManager.FindByIdAsync(review.AutherId);
+                //Review rv = r.FirstOrDefault(r=>r.ID==review.ID);
+                reviewDTO.Text = review.Text;
+                reviewDTO.UserName = applicationUser.UserName;
+                reviewDTO.UserEmail = applicationUser.Email;
+                advertismentDetailsDTO.ReviewsList.Add(reviewDTO);
+            }
+            return Ok(advertismentDetailsDTO);
+        }
+
+        //hager
+        [HttpGet("Advertisment's User/{UserId}")]
+        public async Task<IActionResult> GetAdvertisments_User(string UserId)
+        {
+            //List<Advertisment> advertisments = (List<Advertisment>)advertismentService.Get(a => a.ApplicationUserId == UserId);
+            List<Advertisment> advertisments = (List<Advertisment>)advertismentService.GetAdvertismentUsers(UserId, "AdvertismentImagesList", "Advertisment_RentOptionList");
+            ApplicationUser applicationUser = await userManager.FindByIdAsync(UserId);
+            Advertisments_s_User ad = new Advertisments_s_User();
+            ad.UserName = applicationUser.UserName;
+            ad.UserEmail = applicationUser.Email;
+            foreach (Advertisment advertisment in advertisments)
+            {
+                AdvertismetsUsersDTO ad1 = new AdvertismetsUsersDTO();
+                ad1.Id = advertisment.ID;
+                ad1.AdType = advertisment.AdType;
+                ad1.ExpireDateOfPremium = advertisment.ExpireDateOfPremium;
+                ad1.AdStatus = advertisment.AdStatus;
+                ad1.Date = advertisment.Date;
+                ad1.ExpirationDate = advertisment.ExpirationDate;
+                ad1.Location = advertisment.Location;
+                ad1.Title = advertisment.Title;
+                ad.CountAds++;
+                ad.advertismetsUsersDTOs.Add(ad1);
+
+                foreach (AdvertismentImage advertismentImage in advertisment.AdvertismentImagesList)
+                {
+                    AdvertismentImageDTO advertismentImageDTO = new AdvertismentImageDTO();
+                    advertismentImageDTO.ImageName = advertismentImage.ImageName;
+                    ad1.imageDTOs.Add(advertismentImageDTO);
+                }
+                foreach (Advertisment_RentOption advertismentRent in advertisment.Advertisment_RentOptionList)
+                {
+                    AdvertismentRentOptionDTO advertismentRentDTO = new AdvertismentRentOptionDTO();
+                    advertismentRentDTO.Cost = advertismentRent.Cost;
+                    ad1.Advertisment_RentOptionList.Add(advertismentRentDTO);
+                }
+            }
+            return Ok(ad);
+        }
+
+        [HttpGet("GetAllAdsInHomePage/{userId}")]
+        public IActionResult GetAllAdvertismentInHomePage(string userId)
+        {
+            Boolean isSaved1 = false;
+            List<Category> categories = (List<Category>)categoryServise.GetAll("CategoryAdvertismentsList");
+            //List<Advertisment> advertisments =(List<Advertisment>) advertismentService.GetAllAdvertisments("AdvertismentImagesList", "Advertisment_RentOptionList");
+            List<CategoryWithAdvertismentDTO> categoryWithAdvertisment = new List<CategoryWithAdvertismentDTO>();
+            List<Favorite> favorites = (List<Favorite>)favoriteService.GetAll();
+            foreach (Category category in categories)
+            {
+                CategoryWithAdvertismentDTO category1 = new CategoryWithAdvertismentDTO();
+                category1.Name = category.Name;
+                List<Advertisment> advertisments = (List<Advertisment>)advertismentService.GetAllAdvertisments("AdvertismentImagesList", "Advertisment_RentOptionList", category.ID);
+                foreach (Advertisment advertisment in advertisments)
+                {
+                    foreach (Favorite favorite in favorites)
+                    {
+                        if (advertisment.ID == favorite.AdvertismentID && userId == favorite.ApplicationUserId)
+                        {
+                            isSaved1 = true;
+                        }
+                    }
+                    AdvertismentHomePageDTO advertismentHomePageDTO = new AdvertismentHomePageDTO();
+                    advertismentHomePageDTO.AdType = advertisment.AdType;
+                    advertismentHomePageDTO.AdStatus = advertisment.AdStatus;
+                    advertismentHomePageDTO.Title = advertisment.Title;
+                    advertismentHomePageDTO.Date = advertisment.Date;
+                    advertismentHomePageDTO.Location = advertisment.Location;
+                    advertismentHomePageDTO.Id = advertisment.ID;
+                    advertismentHomePageDTO.IsSaved = isSaved1;
+                    foreach (AdvertismentImage advertismentImage in advertisment.AdvertismentImagesList)
+                    {
+                        AdvertismentImageDTO advertismentImageDTO = new AdvertismentImageDTO();
+                        advertismentImageDTO.ImageName = advertismentImage.ImageName;
+                        advertismentHomePageDTO.AdvertismentImagesList.Add(advertismentImageDTO);
+                    }
+                    foreach (Advertisment_RentOption advertismentRent in advertisment.Advertisment_RentOptionList)
+                    {
+                        AdvertismentRentOptionDTO advertismentRentDTO = new AdvertismentRentOptionDTO();
+                        advertismentRentDTO.Cost = advertismentRent.Cost;
+                        advertismentHomePageDTO.Advertisment_RentOptionList.Add(advertismentRentDTO);
+                    }
+                    category1.CategoryAdvertismentsList.Add(advertismentHomePageDTO);
+                    isSaved1 = false;
+                }
+                categoryWithAdvertisment.Add(category1);
+            }
+            return Ok(categoryWithAdvertisment);
+        }
+
+
+    }
 }

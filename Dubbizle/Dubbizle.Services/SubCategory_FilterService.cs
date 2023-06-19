@@ -25,7 +25,10 @@ namespace Dubbizle.Services
         {
             return _repository.GetAll(property1,property2).Where(F=>F.SubCategoryID==id).ToList();
         }
-
+        public IEnumerable<SubCategory_Filter> GetAllBySubCategory(string property1)
+        {
+            return _repository.GetAll(property1).ToList();
+        }
         public IEnumerable<SubCategory_Filter> Get(Expression<Func<SubCategory_Filter, bool>> expression)
         {
             return _repository.Get(expression);

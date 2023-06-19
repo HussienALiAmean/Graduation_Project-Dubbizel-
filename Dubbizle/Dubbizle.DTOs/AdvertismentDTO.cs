@@ -18,8 +18,20 @@ namespace Dubbizle.DTOs
         public DateTime Date { get; set; }
         public DateTime ExpirationDate { get; set; }
         public DateTime ExpireDateOfPremium { get; set; }
-        public bool IsPremium { get; set; }
+        
+        public Boolean IsPremium { get; set; }
         public List<string> Advertisment_FiltrationValuesList { get; set; }
         public List<string> AdvertismentImagesList { get; set; }
+
+    }
+
+    // Alzhraa 
+    public class NotActiveAdvertismntDTO
+    {
+        public int ID { get; set; }
+        public string Title { get; set; }
+        public string SubCategoryName { get; set; }
+        public string Image { get; set; }
+
     }
 }

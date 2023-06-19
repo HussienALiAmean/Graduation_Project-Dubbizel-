@@ -10,7 +10,7 @@ import { ISubCategoryFilter } from '../Interfaces/ISubCategoryFilter';
 })
 export class FiltrationServiceService {
 
-  _SubCatFilterUrl="http://localhost:7189/api/SubCategory_Filter/subCategoryID?subCategoryID=";
+  _SubCatFilterUrl="http://localhost:5115/api/SubCategory_Filter/subCategoryID?subCategoryID=";
 
 
   constructor(private http:HttpClient) { }

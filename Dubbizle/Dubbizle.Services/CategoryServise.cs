@@ -30,7 +30,7 @@ namespace Dubbizle.Services
         // Alzhraa
         public IEnumerable<Category> GetAll(string property)
         {
-            return _repository.GetAll(property).Where(c=>c.ParentCategoryID==null).ToList();
+            return _repository.GetAll(property).Where(c=>c.ParentCategoryID==null&&c.Deleted==false).ToList();
         }
 
         //Hussien

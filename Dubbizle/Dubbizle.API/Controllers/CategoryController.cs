@@ -17,6 +17,8 @@ namespace Dubbizle.API.Controllers
         public CategoryController( CategoryServise _categoryServise) {
             categoryServise = _categoryServise;
          }
+
+        // hager
         [HttpGet("CategoriesWithSubcategoriesAndAdvertisment")]
         public IEnumerable<CategoryWithSubCategoriesDTO> GetCategoriesWithSubCategories()
         {
@@ -45,7 +47,7 @@ namespace Dubbizle.API.Controllers
             ResultDTO resultDTO = new ResultDTO();
             resultDTO.Data = (List<Category>)categoryServise.GetAllByID("SubCategoriesList", categoryId);
 
-            resultDTO.Data = (List<Category>)categoryServise.GetAll("SubCategoriesList");
+//            resultDTO.Data = (List<Category>)categoryServise.GetAll("SubCategoriesList");
             resultDTO.StatusCode= 200;
             return Ok(resultDTO);
         }

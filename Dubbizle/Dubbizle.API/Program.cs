@@ -62,6 +62,8 @@ namespace Dubbizle.API
 
             builder.Host.ConfigureContainer<ContainerBuilder>(opt =>
                 opt.RegisterModule(new AutofacModule()));
+           // builder.Services.AddAutoMapper(typeof(ProfileMap).Assembly);
+
             builder.Services.AddAutoMapper(typeof(ProfileMap).Assembly);
 
             builder.Services.AddAutoMapper(typeof(CategoryWithSubCategoryProfile).Assembly);
@@ -75,7 +77,6 @@ namespace Dubbizle.API
            );
             //signalR
             builder.Services.AddSignalR();
-
 
 
             builder.Services.AddIdentity<ApplicationUser, IdentityRole>().AddEntityFrameworkStores<Context>();
@@ -158,7 +159,7 @@ namespace Dubbizle.API
             var app = builder.Build();
             app.UseCors("MyPolicy");
 
-            
+
 
             // Configure the HTTP request pipeline.
             if (app.Environment.IsDevelopment())
@@ -166,18 +167,15 @@ namespace Dubbizle.API
                 app.UseSwagger();
                 app.UseSwaggerUI();
             }
-            app.UseCors();
-            app.UseCors("CorsPolicy");
-
+        
             app.UseStaticFiles();
             app.UseCors("MyPolicy");
             app.UseAuthentication();
 
-            //signalr
             app.MapHub<ReviewHub>("/Review");
 
             app.UseAuthorization();
-            
+
 
             app.MapControllers();
 

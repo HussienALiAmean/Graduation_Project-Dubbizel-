@@ -36,6 +36,7 @@
          
             "scripts": [
               "node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"
+      
             ]
           },
           "configurations": {
@@ -106,6 +107,7 @@
     }
   },
   "cli": {
-    "analytics": false
+    "analytics": "c2ca98d6-3a28-4a79-8b96-24294ea4642a"
+
   }
 }

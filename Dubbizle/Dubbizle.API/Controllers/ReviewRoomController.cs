@@ -37,7 +37,7 @@ namespace Dubbizle.API.Controllers
         }
 
         [HttpPost("ApplicationUserId")]
-        public async Task<ActionResult<Review>> AddReview(ReviewDTO reviewDTO, string ApplicationUserId)
+        public async Task<ActionResult<Review>> AddReview(ReviewDto reviewDTO, string ApplicationUserId)
         {
             ApplicationUser orgUser = await _userManager.FindByIdAsync(ApplicationUserId);
             orgUser.Id = reviewDTO.AutherId;
@@ -55,7 +55,7 @@ namespace Dubbizle.API.Controllers
         }
 
         [HttpPut("reviewId")]
-        public async Task<ActionResult<ReviewDTO>> EditReview(int reviewId, ReviewDTO reviewDTO)
+        public async Task<ActionResult<ReviewDto>> EditReview(int reviewId, ReviewDto reviewDTO)
         {
             _reviewService.UpdateReview(reviewId, reviewDTO);
 

@@ -1,0 +1,35 @@
+<div class="container">
+  <h2>{{advertismentUser.userName}}</h2>
+  <p>{{advertismentUser.userEmail}}</p>
+  <hr>
+  <br>
+  <h6>Published ads ({{advertismentUser.countAds}})</h6>
+  <br>
+  <div class="row">
+    <span *ngFor="let a of advertismentUser.advertismetsUsersDTOs" class=" col col-md-3 col-xs-6 col-sm-6">
+    <div class="card cardStyle" style="width: 90%; height:100%;  padding: 0px;"  (click)="AdvertismentUserDetails(a)">
+      <span >
+      <span *ngFor="let im of a.imageDTOs; index as i">
+      <img src="../assets/{{im.imageName}}" style="border-radius:10px 10px 0px 0px;" class="card-img-top" alt="..." *ngIf="i<1" width="25rem" height="200px"> </span>
+    
+      <div class="card-body" >
+        <div class="row">
+          <div class="col col-md-10">
+            <h6 class="card-title" style="font-size: 20px;color: #e00000;">{{a.title}}</h6>
+          </div>
+          <div class="col col-md-2">
+            <i class="fa-regular fa-heart" style="font-size: 18px; margin-top: 10px;"></i>
+          </div>
+        </div>
+        <br>
+        <span *ngFor="let r of a.advertisment_RentOptionList; index as i">
+        <p class="card-text" *ngIf="i<1"> <b style="font-size:16px ;">EGP {{r.cost}}</b></p>
+        </span>
+        <p class="card-text" style="font-size:15px ;font-weight: 500;">{{a.location}}</p>
+        <p class="card-text" style="font-size:15px">{{a.date | date : 'yyyy-MM-dd'}}</p>
+      </div>
+      </span>
+    </div>
+    </span>
+    </div>
+</div>

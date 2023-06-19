@@ -9,9 +9,9 @@ import { tokenGetter } from 'src/app/app.module';
 })
 export class EnrollService {
 
-  _EmailUrl:string="http://localhost:7189/api/User/GetEmail";
-  _EmailAndPasswordUrlRegister:string="http://localhost:7189/api/User/RegisterWithEmailAndPass";
-  _EmailAndPasswordUrlLogin:string="http://localhost:7189/api/User/LoginWithEmailAndPass";
+  _EmailUrl:string="http://localhost:5115/api/User/GetEmail";
+  _EmailAndPasswordUrlRegister:string="http://localhost:5115/api/User/RegisterWithEmailAndPass";
+  _EmailAndPasswordUrlLogin:string="http://localhost:5115/api/User/LoginWithEmailAndPass";
 
   headers?: HttpHeaders;
 
