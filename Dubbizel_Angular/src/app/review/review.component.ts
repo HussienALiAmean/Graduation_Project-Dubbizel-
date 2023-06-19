@@ -25,7 +25,7 @@ export class ReviewComponent {
   rateReview=0;
   autherId="99ba0e2f-a547-44ae-b85e-04b36dbeff4c" ;
   appUserId=localStorage.getItem("ApplicationUserId");
-  reviewId=14;
+  reviewId=1;
   username="Aya"
   editRev:any=[];
   editIndex:any
@@ -124,8 +124,7 @@ async delreview(rl:any,i:any)
  
   await this.hubConnectionBuilder.on('RemoveReviewNotify',(rev) => {
   
-    console.log(this.reviewList.splice(rev,1));
-    this.reviewList.splice(rev,1)
+    this.reviewList.splice(i,1)
   });
 
   this.reviewService.DeleteReview(this.reviewId).subscribe({
