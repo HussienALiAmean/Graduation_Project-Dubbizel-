@@ -4,8 +4,8 @@ import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { profile } from 'src/app/profile';
-import { ProfileService } from 'src/app/profile.service';
+import { profile } from 'src/app/Interfaces/profile';
+import { ProfileService } from 'src/app/Services/profile.service';
 @Component({
   selector: 'app-userprofile',
   templateUrl: './userprofile.component.html',

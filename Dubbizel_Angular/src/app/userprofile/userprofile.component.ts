@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
-import { profile } from '../profile';
-import { ProfileService } from '../profile.service';
+import { profile } from '../Interfaces/profile';
+import { ProfileService } from '../Services/profile.service';
 import { ActivatedRoute } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
@@ -15,7 +15,8 @@ constructor(private activatedroute:ActivatedRoute,private http:HttpClient,privat
   this.buildForm();
 }
 newProfile:any=[];
-AppuserId="99ba0e2f-a547-44ae-b85e-04b36dbeff4c";
+
+ApplicationUserId=localStorage.getItem("ApplicationUserId");
 userModel!:profile
 userForm:any;
 errorMessage:any;
@@ -78,7 +79,7 @@ get aboutMe()
 
 ngOnInit()
 {
-  this.profileService.GetProfile(this.AppuserId).subscribe({
+  this.profileService.GetProfile(this.ApplicationUserId).subscribe({
     next:(data:any)=>{
       console.log(data);
       //this.EditForm.value=data
@@ -121,7 +122,7 @@ public years=['2023','2022','2021','2020','2019','2018','2017','2016','2015','20
 loadData()
 {
   //this.newProfile
-  this.profileService.editProfile(this.AppuserId,this.EditForm.value).subscribe({
+  this.profileService.editProfile(this.ApplicationUserId,this.EditForm.value).subscribe({
     next:data=>{
       console.log(this.EditForm.value)
       console.log(data);

@@ -6,10 +6,9 @@ using System.Threading.Tasks;
 
 namespace Dubbizle.DTOs
 {
-    public class AdvertismentImageDTO
+    public class AdvertismentFilterValueDTO
     {
-        public string ImageName { get; set; }
-       // public List<> AdvertismentImagesList { get; set; }
-
+        public string Value { get; set; }
+        public string Key { get; set; }
     }
 }

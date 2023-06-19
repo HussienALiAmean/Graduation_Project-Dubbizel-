@@ -25,24 +25,30 @@ import { DomSanitizer } from '@angular/platform-browser';
 import { DropDownListModule } from '@syncfusion/ej2-angular-dropdowns';
 import { UserprofileComponent } from './userprofile/userprofile.component';
 import { DelAccountComponent } from './del-account/del-account.component';
-import { AddAdvComponent } from './add-adv/add-adv.component';
-import { PostAdComponent } from './post-ad/post-ad.component';
+import { ReviewComponent } from './review/review.component';
+import { AdDetailsComponent } from './ad-details/ad-details.component';
+
+//signalr
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { MyAdsComponent } from './my-ads/my-ads.component';
 @NgModule({
   declarations: [
     AppComponent,
     UserprofileComponent,
     DelAccountComponent,
-    AddAdvComponent,
     HomePageComponentComponent,
 
     NavBarComponent,
     CatNavBarComponent,
     FooterComponent,
-    PostAdComponent,
+    ReviewComponent,
+    AdDetailsComponent,
+    MyAdsComponent,
     
 
   ],
   imports: [
+    NgbModule,
     FormsModule,
     ReactiveFormsModule,
     BrowserModule,
