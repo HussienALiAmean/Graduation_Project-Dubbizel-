@@ -24,4 +24,14 @@ namespace Dubbizle.DTOs
         public List<string> AdvertismentImagesList { get; set; }
 
     }
+
+    // Alzhraa 
+    public class NotActiveAdvertismntDTO
+    {
+        public int ID { get; set; }
+        public string Title { get; set; }
+        public string SubCategoryName { get; set; }
+        public string Image { get; set; }
+
+    }
 }

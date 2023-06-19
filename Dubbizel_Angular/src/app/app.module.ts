@@ -3,12 +3,12 @@ import { BrowserModule } from '@angular/platform-browser';
 import {HttpClientModule} from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { HomePageComponentComponent } from './home-page-component/home-page-component.component';
 
+import { HomePageComponentComponent } from './home-page-component/home-page-component.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NavBarComponent } from './nav-bar/nav-bar.component';
 import { CatNavBarComponent } from './cat-nav-bar/cat-nav-bar.component';
 import { FooterComponent } from './footer/footer.component';
-import { ReactiveFormsModule } from '@angular/forms';
 import { JwtModule } from '@auth0/angular-jwt';
 
 
@@ -22,6 +22,10 @@ import { AdvertismentDetailsComponent } from './advertisment-details/advertismen
 import { AdvertismentUserComponent } from './advertisment-user/advertisment-user.component';
 import { FavoriteComponent } from './favorite/favorite.component';
 
+import { DropDownListModule } from '@syncfusion/ej2-angular-dropdowns';
+import { DelAccountComponent } from './del-account/del-account.component';
+import { AddAdvComponent } from './add-adv/add-adv.component';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -31,10 +35,22 @@ import { FavoriteComponent } from './favorite/favorite.component';
     FooterComponent,
     AdvertismentDetailsComponent,
     AdvertismentUserComponent,
-    FavoriteComponent,    
+    FavoriteComponent, 
+    DelAccountComponent,
+    AddAdvComponent,
+    NavBarComponent,
+    CatNavBarComponent,
+    FooterComponent,
+    HomePageComponentComponent
+  
   ],
   imports: [
+    FormsModule,
+    ReactiveFormsModule,
     BrowserModule,
+    DropDownListModule,
+    AppRoutingModule,
+    HttpClientModule,
     AppRoutingModule,
     HttpClientModule,
     ReactiveFormsModule,
@@ -48,6 +64,7 @@ import { FavoriteComponent } from './favorite/favorite.component';
   }),
 
     FilterationModule,
+
   ],
   providers: [MatIconRegistry],
   bootstrap: [AppComponent]

@@ -36,6 +36,18 @@ namespace Dubbizle.API.Controllers
         {
             ResultDTO resultDTO = new ResultDTO();
             resultDTO.Data = (List<Category>)categoryServise.GetAll("SubCategoriesList");
+            resultDTO.StatusCode = 200;
+            return Ok(resultDTO);
+        }
+
+
+        [HttpGet("categoryId")]
+        public async Task<IActionResult> GetAllbyId(int categoryId)
+        {
+            ResultDTO resultDTO = new ResultDTO();
+            resultDTO.Data = (List<Category>)categoryServise.GetAllByID("SubCategoriesList", categoryId);
+
+//            resultDTO.Data = (List<Category>)categoryServise.GetAll("SubCategoriesList");
             resultDTO.StatusCode= 200;
             return Ok(resultDTO);
         }

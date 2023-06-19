@@ -13,6 +13,7 @@
   <ItemGroup>
     <ProjectReference Include="..\Dubbizle.Data\Dubbizle.Data.csproj" />
     <ProjectReference Include="..\Dubbizle.DTOs\Dubbizle.DTOs.csproj" />
+    <ProjectReference Include="..\Mapper\Mapper.csproj" />
   </ItemGroup>
 
 </Project>

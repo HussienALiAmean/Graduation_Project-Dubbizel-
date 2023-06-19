@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+
 declare const gapi: any;
 @Component({
   selector: 'app-root',
@@ -6,4 +7,8 @@ declare const gapi: any;
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
+  title = 'Dubbizel_Angular';
+
+  step=1;
+
 }

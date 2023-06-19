@@ -12,8 +12,13 @@ import { IadvertismetUser } from '../Interface/Advertisments\'sUser';
 })
 export class AdvertismentServiceService {
 
+
   _AdvertismentCatUrl="http://localhost:5115/api/Advertisment/CategoryID?CategoryID=";
   _AdvertismentSubCatUrl="http://localhost:5115/api/Advertisment/subCategoryID?subCategoryID=";
+
+
+
+  
 
   constructor(private http:HttpClient) { }
 
@@ -31,6 +36,7 @@ export class AdvertismentServiceService {
     }));
   }
 
+
   getDetails(AdvertismentId:any):Observable<IAdvertismentDetails>{
     return this.http.get<IAdvertismentDetails>(`http://localhost:5115/api/Advertisment/Details/${AdvertismentId}`).pipe(catchError((err: any) => {
       return throwError(() => err.message || "server error");
@@ -42,5 +48,6 @@ export class AdvertismentServiceService {
       return throwError(() => err.message || "server error");
       }));
   }
+
  
 }

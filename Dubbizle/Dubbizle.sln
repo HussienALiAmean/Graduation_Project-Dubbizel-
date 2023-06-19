@@ -13,7 +13,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Dubbizle.DTOs", "Dubbizle.D
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Dubbizle.Services", "Dubbizle.Services\Dubbizle.Services.csproj", "{72424ACE-5285-4C7A-A1EC-101E72EC4172}"
 EndProject
+<<<<<<< HEAD
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mapper", "Mapper\Mapper.csproj", "{BF9A5685-7967-4D5B-BD0F-2AD19D2048C6}"
+=======
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dubbizle.Mapper", "Dubbizle.Mapper\Dubbizle.Mapper.csproj", "{754E2C9E-FC35-4DC1-8924-3DE954304E2B}"
+>>>>>>> c249ac7b5e103d1984d12f50ca8bd6586c4a77a5
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -41,10 +45,17 @@ Global
 		{72424ACE-5285-4C7A-A1EC-101E72EC4172}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{72424ACE-5285-4C7A-A1EC-101E72EC4172}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{72424ACE-5285-4C7A-A1EC-101E72EC4172}.Release|Any CPU.Build.0 = Release|Any CPU
+<<<<<<< HEAD
+		{BF9A5685-7967-4D5B-BD0F-2AD19D2048C6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BF9A5685-7967-4D5B-BD0F-2AD19D2048C6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BF9A5685-7967-4D5B-BD0F-2AD19D2048C6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BF9A5685-7967-4D5B-BD0F-2AD19D2048C6}.Release|Any CPU.Build.0 = Release|Any CPU
+=======
 		{754E2C9E-FC35-4DC1-8924-3DE954304E2B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{754E2C9E-FC35-4DC1-8924-3DE954304E2B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{754E2C9E-FC35-4DC1-8924-3DE954304E2B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{754E2C9E-FC35-4DC1-8924-3DE954304E2B}.Release|Any CPU.Build.0 = Release|Any CPU
+>>>>>>> c249ac7b5e103d1984d12f50ca8bd6586c4a77a5
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

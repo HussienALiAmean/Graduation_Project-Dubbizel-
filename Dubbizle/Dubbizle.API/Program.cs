@@ -5,6 +5,10 @@ using System.Diagnostics;
 using Autofac.Extensions.DependencyInjection;
 using Autofac;
 using Dubbizle.API.Config;
+using Dubbizle.DTOs;
+using Mapper;
+using Microsoft.AspNetCore.Identity;
+
 using Dubbizle.Mapper;
 
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -59,6 +63,8 @@ namespace Dubbizle.API
                 opt.RegisterModule(new AutofacModule()));
            // builder.Services.AddAutoMapper(typeof(ProfileMap).Assembly);
 
+            builder.Services.AddAutoMapper(typeof(ProfileMap).Assembly);
+
             builder.Services.AddAutoMapper(typeof(CategoryWithSubCategoryProfile).Assembly);
             builder.Services.AddAutoMapper(typeof(SubCategoryProfile).Assembly);
 
@@ -70,8 +76,6 @@ namespace Dubbizle.API
            );
             //signalR
             builder.Services.AddSignalR();
-
-
 
             builder.Services.AddIdentity<ApplicationUser, IdentityRole>().AddEntityFrameworkStores<Context>();
 
@@ -161,9 +165,7 @@ namespace Dubbizle.API
                 app.UseSwagger();
                 app.UseSwaggerUI();
             }
-            app.UseCors();
-            app.UseCors("CorsPolicy");
-
+        
             app.UseStaticFiles();
             app.UseCors("MyPolicy");
             app.UseAuthentication();

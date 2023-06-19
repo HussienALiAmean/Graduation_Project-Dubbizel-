@@ -1,0 +1,200 @@
+{
+  "format": 1,
+  "restore": {
+    "E:\\ITI_Intak43\\Graduation-Project\\Graduation_Project-Dubbizel-\\Dubbizle\\Mapper\\Mapper.csproj": {}
+  },
+  "projects": {
+    "E:\\ITI_Intak43\\Graduation-Project\\Graduation_Project-Dubbizel-\\Dubbizle\\Dubbizle.DTOs\\Dubbizle.DTOs.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "E:\\ITI_Intak43\\Graduation-Project\\Graduation_Project-Dubbizel-\\Dubbizle\\Dubbizle.DTOs\\Dubbizle.DTOs.csproj",
+        "projectName": "Dubbizle.DTOs",
+        "projectPath": "E:\\ITI_Intak43\\Graduation-Project\\Graduation_Project-Dubbizel-\\Dubbizle\\Dubbizle.DTOs\\Dubbizle.DTOs.csproj",
+        "packagesPath": "C:\\Users\\Electronica Care\\.nuget\\packages\\",
+        "outputPath": "E:\\ITI_Intak43\\Graduation-Project\\Graduation_Project-Dubbizel-\\Dubbizle\\Dubbizle.DTOs\\obj\\",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "C:\\Users\\Electronica Care\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "net7.0"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net7.0": {
+            "targetAlias": "net7.0",
+            "projectReferences": {
+              "E:\\ITI_Intak43\\Graduation-Project\\Graduation_Project-Dubbizel-\\Dubbizle\\Dubbizle.Models\\Dubbizle.Models.csproj": {
+                "projectPath": "E:\\ITI_Intak43\\Graduation-Project\\Graduation_Project-Dubbizel-\\Dubbizle\\Dubbizle.Models\\Dubbizle.Models.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "net7.0": {
+          "targetAlias": "net7.0",
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.202\\RuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "E:\\ITI_Intak43\\Graduation-Project\\Graduation_Project-Dubbizel-\\Dubbizle\\Dubbizle.Models\\Dubbizle.Models.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "E:\\ITI_Intak43\\Graduation-Project\\Graduation_Project-Dubbizel-\\Dubbizle\\Dubbizle.Models\\Dubbizle.Models.csproj",
+        "projectName": "Dubbizle.Models",
+        "projectPath": "E:\\ITI_Intak43\\Graduation-Project\\Graduation_Project-Dubbizel-\\Dubbizle\\Dubbizle.Models\\Dubbizle.Models.csproj",
+        "packagesPath": "C:\\Users\\Electronica Care\\.nuget\\packages\\",
+        "outputPath": "E:\\ITI_Intak43\\Graduation-Project\\Graduation_Project-Dubbizel-\\Dubbizle\\Dubbizle.Models\\obj\\",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "C:\\Users\\Electronica Care\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "net7.0"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net7.0": {
+            "targetAlias": "net7.0",
+            "projectReferences": {}
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "net7.0": {
+          "targetAlias": "net7.0",
+          "dependencies": {
+            "Microsoft.AspNetCore.Http.Features": {
+              "target": "Package",
+              "version": "[5.0.17, )"
+            },
+            "Microsoft.AspNetCore.Identity.EntityFrameworkCore": {
+              "target": "Package",
+              "version": "[7.0.5, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.202\\RuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "E:\\ITI_Intak43\\Graduation-Project\\Graduation_Project-Dubbizel-\\Dubbizle\\Mapper\\Mapper.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "E:\\ITI_Intak43\\Graduation-Project\\Graduation_Project-Dubbizel-\\Dubbizle\\Mapper\\Mapper.csproj",
+        "projectName": "Mapper",
+        "projectPath": "E:\\ITI_Intak43\\Graduation-Project\\Graduation_Project-Dubbizel-\\Dubbizle\\Mapper\\Mapper.csproj",
+        "packagesPath": "C:\\Users\\Electronica Care\\.nuget\\packages\\",
+        "outputPath": "E:\\ITI_Intak43\\Graduation-Project\\Graduation_Project-Dubbizel-\\Dubbizle\\Mapper\\obj\\",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "C:\\Users\\Electronica Care\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "net7.0"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net7.0": {
+            "targetAlias": "net7.0",
+            "projectReferences": {
+              "E:\\ITI_Intak43\\Graduation-Project\\Graduation_Project-Dubbizel-\\Dubbizle\\Dubbizle.DTOs\\Dubbizle.DTOs.csproj": {
+                "projectPath": "E:\\ITI_Intak43\\Graduation-Project\\Graduation_Project-Dubbizel-\\Dubbizle\\Dubbizle.DTOs\\Dubbizle.DTOs.csproj"
+              },
+              "E:\\ITI_Intak43\\Graduation-Project\\Graduation_Project-Dubbizel-\\Dubbizle\\Dubbizle.Models\\Dubbizle.Models.csproj": {
+                "projectPath": "E:\\ITI_Intak43\\Graduation-Project\\Graduation_Project-Dubbizel-\\Dubbizle\\Dubbizle.Models\\Dubbizle.Models.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "net7.0": {
+          "targetAlias": "net7.0",
+          "dependencies": {
+            "AutoMapper": {
+              "target": "Package",
+              "version": "[12.0.1, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.202\\RuntimeIdentifierGraph.json"
+        }
+      }
+    }
+  }
+}

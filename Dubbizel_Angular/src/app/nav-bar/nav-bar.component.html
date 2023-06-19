@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand-lg p-2">
+<nav class="navbar navbar-expand-lg p-2 fixed-top bg-white">
   <div class="container-fluid ">
     <a class="navbar-brand ms-4"><img height="35px" src="/assets/logo.svg" alt="Logo"></a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
@@ -31,15 +31,28 @@
           </div>
         </li>
 
-        <li class="nav-item mx-4 textLi">
+        <li *ngIf="!isUserAuthenticated()" class="nav-item mx-4 textLi">
           <a class="nav-link active" aria-current="page" href="#">العربية</a>
         </li>
-
-        <li *ngIf="!isUserAuthenticated()" class="nav-item mx-4 textLi" id="loginLi">
-          <a class="nav-link active btn" aria-current="page" (click)="openLoginModal()">Login</a>
+        
+         <li *ngIf="!isUserAuthenticated()" class="nav-item mx-4 textLi" id="loginLi"> 
+          <a class="nav-link active btn"  style="border: none;" aria-current="page" (click)="openLoginModal()">Login</a>
         </li>
+
+        <li *ngIf="isUserAuthenticated()" class="nav-item mx-4 dropdown" style="font-size:20px; margin-top:10px;">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            {{UserName}}
+          </a>
+          <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <li><a class="dropdown-item"  routerLink="/myprofile/account">Profile</a></li>
+            <li><a class="dropdown-item" href="#">My Ads</a></li>
+            <li><a class="dropdown-item" href="#">My Packages</a></li>
+            <li><a class="dropdown-item" href="#">Buy Business Packages</a></li>
+          </ul>
+        </li>
+
         <li *ngIf="isUserAuthenticated()" class="nav-item mx-4 textLi" id="loginLi">
-          <a class="nav-link active btn" aria-current="page" (click)="logOut()">LogOut</a>
+          <a class="nav-link active btn" style="border: none;" aria-current="page" (click)="logOut()">Logout</a>
         </li>
        
         <li class="nav-item mx-4 ">
@@ -61,7 +74,7 @@
 
 
 
-<div class="modal" id="exampleModal" [ngStyle]="{'display':display}" tabindex="-1" aria-labelledby="exampleModalLabel"
+<div class="modal"  id="exampleModal" [ngStyle]="{'display':display}" tabindex="-1" aria-labelledby="exampleModalLabel"
   aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">

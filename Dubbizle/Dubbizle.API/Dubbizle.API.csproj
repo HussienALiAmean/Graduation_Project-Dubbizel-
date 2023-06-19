@@ -24,6 +24,7 @@
     <ProjectReference Include="..\Dubbizle.DTOs\Dubbizle.DTOs.csproj" />
     <ProjectReference Include="..\Dubbizle.Mapper\Dubbizle.Mapper.csproj" />
     <ProjectReference Include="..\Dubbizle.Services\Dubbizle.Services.csproj" />
+    <ProjectReference Include="..\Mapper\Mapper.csproj" />
   </ItemGroup>
 
   <ItemGroup>

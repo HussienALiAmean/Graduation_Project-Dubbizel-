@@ -7,7 +7,6 @@
                     <div class="col-12 col-lg-5 ">
                         <div class="card ">
                             <img src='http://localhost:7189/Files/AdvertismentIMG/{{Ad.advertismentImagesList[0]}}' height="250px" class="card-img-top card-img" alt="Item Image">
-                            
                             <div *ngIf=" Ad.isPremium" class="card-img-overlay">
                                 <button type="button" class="btn btn-warning px-1">feture</button>
                             </div>
@@ -19,13 +18,7 @@
                      <div class="me-auto">
                         <h5 class="card-title">{{Ad.title}}</h5>
                      </div>
-                     <!-- <div class="">
-                            <i class="fa-regular fa-heart"  *ngIf="item.likedbyme ; else elseTemplate"></i>
-                        <ng-template #elseTemplate>
-                            <i class="fa-solid fa-heart"></i>   
-                        </ng-template>
-                     </div>     -->
-                     <div class=""></div>
+                    <div class=""></div>
                     </div>
                     <p class="card-text text-success">{{Ad.location}}</p>
                     <p class="card-text text-success">{{Ad.date}}</p>
@@ -37,7 +30,7 @@
         </div>
       </div>
       <div class="col-6 col-lg-3 ">
-        <app-filter-side  (dataChanged)="handleDataChange($event)"></app-filter-side>
+        <app-filter-side  (dataChanged)="handleDataChange($event)" (filterByCategory)="handelChanOfCategory($event)" (filterBylocation)="handelChanOflocation($event)"></app-filter-side>
       </div>
     </div>
 </div>
