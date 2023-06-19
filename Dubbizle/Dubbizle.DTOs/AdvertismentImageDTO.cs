@@ -9,5 +9,6 @@ namespace Dubbizle.DTOs
     public class AdvertismentImageDTO
     {
         public string ImageName { get; set; }
+
     }
 }

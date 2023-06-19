@@ -17,6 +17,8 @@ namespace Dubbizle.API.Controllers
         public CategoryController( CategoryServise _categoryServise) {
             categoryServise = _categoryServise;
          }
+
+        // hager
         [HttpGet("CategoriesWithSubcategoriesAndAdvertisment")]
         public IEnumerable<CategoryWithSubCategoriesDTO> GetCategoriesWithSubCategories()
         {

@@ -35,6 +35,20 @@ namespace Dubbizle.API
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
 
+            //builder.Host.UseServiceProviderFactory(new AutofacServiceProviderFactory());
+
+            //builder.Host.ConfigureContainer<ContainerBuilder>(opt =>
+            //    opt.RegisterModule(new AutofacModule()));
+            //builder.Services.AddAutoMapper(typeof(ProfileMap).Assembly);
+
+            //builder.Services.AddDbContext<Context>(opt =>
+            //opt.UseSqlServer(builder.Configuration.GetConnectionString("Default"))
+            //.UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking)
+            //.LogTo(log => Debug.WriteLine(log), LogLevel.Information)
+            //.EnableSensitiveDataLogging());
+
+            //builder.Services.AddIdentity<ApplicationUser, IdentityRole>().AddEntityFrameworkStores<Context>();
+
             // for json
             builder.Services.AddControllers().AddJsonOptions(x =>
                 x.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles);
@@ -43,6 +57,7 @@ namespace Dubbizle.API
 
             builder.Host.ConfigureContainer<ContainerBuilder>(opt =>
                 opt.RegisterModule(new AutofacModule()));
+           // builder.Services.AddAutoMapper(typeof(ProfileMap).Assembly);
 
             builder.Services.AddAutoMapper(typeof(CategoryWithSubCategoryProfile).Assembly);
             builder.Services.AddAutoMapper(typeof(SubCategoryProfile).Assembly);
@@ -53,7 +68,10 @@ namespace Dubbizle.API
             .LogTo(log => Debug.WriteLine(log), LogLevel.Information)
            .EnableSensitiveDataLogging()
            );
-  
+            //signalR
+            builder.Services.AddSignalR();
+
+
 
             builder.Services.AddIdentity<ApplicationUser, IdentityRole>().AddEntityFrameworkStores<Context>();
 
@@ -133,8 +151,9 @@ namespace Dubbizle.API
             });
 
             var app = builder.Build();
+            app.UseCors("MyPolicy");
 
-            
+
 
             // Configure the HTTP request pipeline.
             if (app.Environment.IsDevelopment())
@@ -148,8 +167,12 @@ namespace Dubbizle.API
             app.UseStaticFiles();
             app.UseCors("MyPolicy");
             app.UseAuthentication();
+
+            //signalr
+            //app.MapHub<ReviewHub>("/Review");
+
             app.UseAuthorization();
-            
+
 
             app.MapControllers();
 

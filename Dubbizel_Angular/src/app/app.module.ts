@@ -3,7 +3,6 @@ import { BrowserModule } from '@angular/platform-browser';
 import {HttpClientModule} from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { HomeComponent } from 'src/home-page/home/home.component';
 import { HomePageComponentComponent } from './home-page-component/home-page-component.component';
 
 import { NavBarComponent } from './nav-bar/nav-bar.component';
@@ -19,22 +18,25 @@ export function tokenGetter() {
 import { FilterationModule } from 'src/filteration/filteration.module';
 import { MatIconModule, MatIconRegistry } from '@angular/material/icon';
 import { DomSanitizer } from '@angular/platform-browser';
+import { AdvertismentDetailsComponent } from './advertisment-details/advertisment-details.component';
+import { AdvertismentUserComponent } from './advertisment-user/advertisment-user.component';
+import { FavoriteComponent } from './favorite/favorite.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     HomePageComponentComponent,
-
     NavBarComponent,
     CatNavBarComponent,
     FooterComponent,
-    
+    AdvertismentDetailsComponent,
+    AdvertismentUserComponent,
+    FavoriteComponent,    
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
-
     ReactiveFormsModule,
     HttpClientModule,
     JwtModule.forRoot({

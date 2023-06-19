@@ -33,13 +33,16 @@ public class Repository<T> : IRepository<T> where T : BaseModel
     {
         return _context.Set<T>().Include(property1).Include(property2);
     }
-
-
+    
+    public IQueryable<T> GetAll(string property1, string property2, string property3, string property4)
+    {
+        return _context.Set<T>().Include(property1).Include(property2).Include(property3).Include(property4);
+    }
     public IQueryable<T> Get(Expression<Func<T, bool>> expression)
     {
         return _context.Set<T>().Where(expression);
     }
-
+   
     public T GetByID(int id)
     {
         return _context.Set<T>().FirstOrDefault(x => x.ID == id);
@@ -51,6 +54,11 @@ public class Repository<T> : IRepository<T> where T : BaseModel
         _context.Set<T>().Add(entity);
 
         return entity;
+    }
+    public void create(T t)
+    {
+        _context.Set<T>().Add(t);
+        _context.SaveChanges();
     }
 
     public void Update(T entity)
@@ -93,7 +101,10 @@ public class Repository<T> : IRepository<T> where T : BaseModel
         var entity = GetByID(id);
         entity.Deleted = true;
     }
-
+    public void delete(T tt)
+    {
+        _context.Remove<T>(tt);
+    }
     public void SaveChanges()
     {
         _context.SaveChanges();

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Dubbizle.DTOs
 {
-    public class Advertisment_RentOptionDTO
+    public class AdvertismentRentOptionDTO
     {
         public float Cost { get; set; }
     }

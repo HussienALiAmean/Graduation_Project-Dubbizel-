@@ -1,4 +1,6 @@
-﻿namespace Dubbizle.Models
+﻿using Microsoft.AspNetCore.Http;
+
+namespace Dubbizle.Models
 
 {
     public class AdvertismentImage : BaseModel

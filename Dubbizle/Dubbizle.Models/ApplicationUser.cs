@@ -18,7 +18,8 @@ namespace Dubbizle.Models
         public List<Chat> SenderChatList { get; set; }
         [InverseProperty("Reciver")]
         public List<Chat> ReciverChatList { get; set; }
-        public bool? Deleted { get; set; }    
+        public bool? Deleted { get; set; } 
+        public List<Advertisment> advertismentList { get; set; }
 
     }
 }
