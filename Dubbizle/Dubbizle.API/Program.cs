@@ -157,7 +157,6 @@ namespace Dubbizle.API
             });
 
             var app = builder.Build();
-            app.UseCors("MyPolicy");
 
 
 
