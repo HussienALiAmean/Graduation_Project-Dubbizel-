@@ -12,7 +12,7 @@ constructor(private http:HttpClient) { }
 
   AddReview(obj:any,appUser:any)
 {
-    return defer(() => from(this.http.post(`http://localhost:7189/api/ReviewRoom/ApplicationUserId?ApplicationUserId=${appUser}`,obj))
+    return defer(() => from(this.http.post(`http://localhost:7189/api/Advertisment/Details/${appUser}`,obj))
     .pipe(catchError((err) => {
       return throwError(() => err.message || "server error");
     })));
@@ -30,14 +30,14 @@ EditReview(id:number,editreview:any):Observable<IReview>
   }))
 }
 
-GetAllReviews():Observable<IReview[]>
-{
-  return this.http.get<IReview[]>(`http://localhost:7189/api/ReviewRoom`)
-}
-GetThreeReviews():Observable<IReview[]>
-{
-  return this.http.get<IReview[]>(`http://localhost:7189/api/ReviewRoom/display`)
-}
+// GetAllReviews():Observable<IReview[]>
+// {
+//   return this.http.get<IReview[]>(`http://localhost:7189/api/ReviewRoom`)
+// }
+// GetThreeReviews():Observable<IReview[]>
+// {
+//   return this.http.get<IReview[]>(`http://localhost:7189/api/ReviewRoom/display`)
+// }
 
 
 }

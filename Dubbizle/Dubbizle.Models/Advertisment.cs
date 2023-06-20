@@ -6,6 +6,7 @@ namespace Dubbizle.Models
     public class Advertisment : BaseModel
     {
         public string Title { get; set; }
+        
         public string Location { get; set; }
         [ForeignKey("ApplicationUser")]
         public string ApplicationUserId { get; set; }

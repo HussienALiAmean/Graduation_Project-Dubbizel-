@@ -1,18 +1,23 @@
 <div class="container">
   <div class="revs" *ngFor="let rl of reviewList;index as i">
-    <div *ngIf="rl.autherId==appUserId; then thenShow; else elseHide"></div>
-    <ng-template #thenShow>
       <div class="row">
-        <div class="col-2">
+        <div *ngIf="rl.autherId==appUserId;then thenShow; else elseHide"></div>  
+        <ng-template #thenShow>
+        <div class="col-1">
           <label>{{rl.userName}}</label>
         </div>
-  
-        <div class="col-6">
-          <div id="textCol"><label>{{rl.text}}</label></div>
+        <div class="col-5">
+          <div id="textCol">
+            <input type="text" id="myText" class="form-control" [disabled]="isEnabledText" value={{rl.text}} />
+            <!-- <label>{{rl.text}}</label> -->
+          </div>
         </div>
   
         <div class="col-2">
-          <ngb-rating style="font-size: 25px;" [max]="5" [(rate)]="rl.rate" [readonly]="true"></ngb-rating>
+          <ngb-rating style="font-size: 25px;" id="myRate" [max]="5" [(rate)]="rl.rate" [readonly]="isEnableRate"></ngb-rating>
+        </div>
+        <div class="col-2">
+          <button  *ngIf="edited" type="button" class="btn btn-success" (click)="SaveEdit()">save</button>
         </div>
         <div class="col-1">
           <button type="button" class="btn btn-success" (click)="editreview(rl,i)">
@@ -35,24 +40,24 @@
             </svg>
           </button>
         </div>
-  
-      </div>
-    </ng-template >
-    <ng-template #elseHide>
-      <div class="row">
+     </ng-template>
+       <ng-template #elseHide> 
         <div class="col-2">
           <label>{{rl.userName}}</label>
         </div>
   
-        <div class="col-6">
-          <div id="textCol"><label>{{rl.text}}</label></div>
+        <div class="col-8">
+          <div id="textCol">
+            <input type="text" class="form-control" disabled value={{rl.text}} />
+
+          </div>
         </div>
   
         <div class="col-2">
           <ngb-rating style="font-size: 25px;" [max]="5" [(rate)]="rl.rate" [readonly]="true"></ngb-rating>
         </div>
+      </ng-template>
       </div>
-    </ng-template >
     
   </div>
   <div class="row">
@@ -76,8 +81,5 @@
 
       </div>
     </form>
-
-
   </div>
-
 </div>

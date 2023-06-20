@@ -13,7 +13,6 @@ const routes: Routes = [
 {path:'',component:HomePageComponentComponent},
   //{path:"profile",component:UserprofileComponent}
  {path:"myprofile",loadChildren:()=>import("../profile/profile.module").then(m=>m.ProfileModule)},
-  
   {path:'Home',component:HomePageComponentComponent},
   {path:'Details/:id',component:AdvertismentDetailsComponent},
   {path:'Favorite',component:FavoriteComponent},

@@ -10,7 +10,7 @@ import { ICategory } from '../Interfaces/ICategory';
 export class CategoryServiceService {
 
 
-  _CategoryUrl="http://localhost:5115/api/Category";
+  _CategoryUrl="http://localhost:7189/api/Category";
 
   _CategoryUrl2="http://localhost:7189/api/Category/categoryId?categoryId=2"; 
 
