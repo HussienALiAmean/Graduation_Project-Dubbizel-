@@ -13,8 +13,8 @@ import { IadvertismetUser } from '../Interface/Advertisments\'sUser';
 export class AdvertismentServiceService {
 
 
-  _AdvertismentCatUrl="http://localhost:5115/api/Advertisment/CategoryID?CategoryID=";
-  _AdvertismentSubCatUrl="http://localhost:5115/api/Advertisment/subCategoryID?subCategoryID=";
+  _AdvertismentCatUrl="http://localhost:7189/api/Advertisment/CategoryID?CategoryID=";
+  _AdvertismentSubCatUrl="http://localhost:7189/api/Advertisment/subCategoryID?subCategoryID=";
 
 
 
@@ -37,14 +37,14 @@ export class AdvertismentServiceService {
   }
 
 
-  getDetails(AdvertismentId:any):Observable<IAdvertismentDetails>{
-    return this.http.get<IAdvertismentDetails>(`http://localhost:5115/api/Advertisment/Details/${AdvertismentId}`).pipe(catchError((err: any) => {
+  getDetails(AdvertismentId:any,userId:any):Observable<IAdvertismentDetails>{
+    return this.http.get<IAdvertismentDetails>(`http://localhost:7189/api/Advertisment/Details/${AdvertismentId}/${userId}`).pipe(catchError((err: any) => {
       return throwError(() => err.message || "server error");
       }));
   }
 
   getAdvertismentUser(userId:any):Observable<IadvertismetUser>{
-    return this.http.get<IadvertismetUser>(`http://localhost:5115/api/Advertisment/Advertisment's User/${userId}`).pipe(catchError((err: any) => {
+    return this.http.get<IadvertismetUser>(`http://localhost:7189/api/Advertisment/Advertisment's User/${userId}`).pipe(catchError((err: any) => {
       return throwError(() => err.message || "server error");
       }));
   }

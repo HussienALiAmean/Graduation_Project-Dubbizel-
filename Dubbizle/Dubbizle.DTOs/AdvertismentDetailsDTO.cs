@@ -10,12 +10,14 @@ namespace Dubbizle.DTOs
 {
     public class AdvertismentDetailsDTO
     {
+        public int Id { get; set; }
         public string Title { get; set; }
         public string Location { get; set; }
         public string ApplicationUserId { get; set; }
         public string ApplicationUserName { get; set; }
         public string ApplicationEmail { get; set; }
         public string AdType { get; set; }
+        public bool IsSaved { get; set; }
         public string AdStatus { get; set; }
         public DateTime Date { get; set; }
         public DateTime ExpirationDate { get; set; }

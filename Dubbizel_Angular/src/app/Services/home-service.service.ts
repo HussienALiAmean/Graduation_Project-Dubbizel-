@@ -12,9 +12,9 @@ export class HomeServiceService {
   constructor(private http:HttpClient) { }
 
   getCategoriesWithSub():Observable<Icategory[]>{
-    return this.http.get<Icategory[]>(`http://localhost:5115/api/Category/CategoriesWithSubcategoriesAndAdvertisment`);
+    return this.http.get<Icategory[]>(`http://localhost:7189/api/Category/CategoriesWithSubcategoriesAndAdvertisment`);
   }
   getAdvertisments(userId:any):Observable<IAdsHomePage[]>{
-    return this.http.get<IAdsHomePage[]>(`http://localhost:5115/api/Advertisment/GetAllAdsInHomePage/${userId}`);
+    return this.http.get<IAdsHomePage[]>(`http://localhost:7189/api/Advertisment/GetAllAdsInHomePage/${userId}`);
   }
 }

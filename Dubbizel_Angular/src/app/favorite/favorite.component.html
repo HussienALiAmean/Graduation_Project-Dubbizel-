@@ -6,7 +6,7 @@
         <!-- (click)="AdvertismentDetails(a)"> -->
           <span >
           <span *ngFor="let im of f.advertismentImagesList; index as i" (click)="AdvertismentDetails(f)">
-          <img src="../assets/{{im.imageName}}" style="border-radius:10px 10px 0px 0px;" class="card-img-top" alt="..." *ngIf="i<1" width="25rem" height="200px"> </span>
+            <img src='http://localhost:7189/Files/AdvertismentIMG/{{im.imageName}}' style="border-radius:10px 10px 0px 0px;" class="card-img-top" alt="..." *ngIf="i<1" width="25rem" height="200px"> </span>
         
           <div class="card-body" >
             <div class="row">

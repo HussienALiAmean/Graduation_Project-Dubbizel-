@@ -12,12 +12,12 @@ export class FavoriteService {
   constructor(private http:HttpClient) { }
 
   AddFavorite(AdsFavourite:any):Observable<IFavourite>{
-    return this.http.post<IFavourite>(`http://localhost:5115/api/Favorite/AddFavorite`,AdsFavourite);
+    return this.http.post<IFavourite>(`http://localhost:7189/api/Favorite/AddFavorite`,AdsFavourite);
   }
   DeleteFavorite(AdsId:any,userId:any):Observable<IFavourite>{
-    return this.http.delete<IFavourite>(`http://localhost:5115/api/Favorite/DeleteFavourite/${AdsId}/${userId}`);
+    return this.http.delete<IFavourite>(`http://localhost:7189/api/Favorite/DeleteFavourite/${AdsId}/${userId}`);
   }
   getAllFavorite(userId:any):Observable<IGetAllFavorite>{
-    return this.http.get<IGetAllFavorite>(`http://localhost:5115/api/Favorite/GetAllFavorite/${userId}`);
+    return this.http.get<IGetAllFavorite>(`http://localhost:7189/api/Favorite/GetAllFavorite/${userId}`);
   }
 }

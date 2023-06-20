@@ -143,13 +143,21 @@ namespace Dubbizle.API.Controllers
 
 
         // hager
-        [HttpGet("Details/{AdID:int}")]
-        public async Task<IActionResult> getDetails(int AdID)
+        [HttpGet("Details/{AdID:int}/{UserId}")]
+        public async Task<IActionResult> getDetails(int AdID, string UserId)
         {
+            bool IsSaved = false;
             List<Advertisment> advertisments = (List<Advertisment>)advertismentService.GetAllAdvertisments("AdvertismentImagesList", "Advertisment_FiltrationValuesList.filtrationValue", "Advertisment_RentOptionList", "ReviewsList");
             Advertisment advertisment = advertisments.FirstOrDefault(a => a.ID == AdID);
             ApplicationUser user = await userManager.FindByIdAsync(advertisment.ApplicationUserId);
+            List<Favorite> favorites = (List<Favorite>)favoriteService.GetAll();
+            foreach(Favorite favorite in favorites){
+                if(favorite.AdvertismentID == AdID && favorite.ApplicationUserId==UserId) { 
+                   IsSaved = true;
+                }
+            }
             AdvertismentDetailsDTO advertismentDetailsDTO = new AdvertismentDetailsDTO();
+            advertismentDetailsDTO.Id = advertisment.ID;
             advertismentDetailsDTO.AdStatus = advertisment.AdStatus;
             advertismentDetailsDTO.Title = advertisment.Title;
             advertismentDetailsDTO.AdType = advertisment.AdType;
@@ -158,6 +166,7 @@ namespace Dubbizle.API.Controllers
             advertismentDetailsDTO.ApplicationEmail = user.Email;
             advertismentDetailsDTO.Date = advertisment.Date;
             advertismentDetailsDTO.ExpirationDate = advertisment.ExpirationDate;
+            advertismentDetailsDTO.IsSaved= IsSaved;
             advertismentDetailsDTO.ExpireDateOfPremium = advertisment.ExpireDateOfPremium;
             advertismentDetailsDTO.Location = advertisment.Location;
             List<SubCategory_Filter> s = (List<SubCategory_Filter>)subCategory_FilterService.GetAllBySubCategory("Filter");
@@ -195,6 +204,7 @@ namespace Dubbizle.API.Controllers
                 reviewDTO.UserEmail = applicationUser.Email;
                 advertismentDetailsDTO.ReviewsList.Add(reviewDTO);
             }
+            
             return Ok(advertismentDetailsDTO);
         }
 
