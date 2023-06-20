@@ -10,9 +10,9 @@ export class ReviewserviceService {
 
 constructor(private http:HttpClient) { }
 
-  AddReview(obj:any,appUser:any)
+  AddReview(obj:any)
 {
-    return defer(() => from(this.http.post(`http://localhost:7189/api/Advertisment/Details/${appUser}`,obj))
+    return defer(() => from(this.http.post("http://localhost:7189/api/ReviewRoom",obj))
     .pipe(catchError((err) => {
       return throwError(() => err.message || "server error");
     })));
@@ -23,9 +23,9 @@ DeleteReview(Id:any)
     return throwError(() => err.message || "server error");
   })));
 }
-EditReview(id:number,editreview:any):Observable<IReview>
+EditReview(editreview:any):Observable<IReview>
 {
-  return this.http.put<IReview>(`http://localhost:7189/api/ReviewRoom/reviewId?reviewId=${id}`,editreview).pipe(catchError((err)=>{
+  return this.http.put<IReview>("http://localhost:7189/api/ReviewRoom",editreview).pipe(catchError((err)=>{
     return throwError(()=>err.errorMessage || "server error")
   }))
 }

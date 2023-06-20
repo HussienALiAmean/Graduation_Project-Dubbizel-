@@ -15,12 +15,10 @@ namespace Dubbizle.API.Controllers
     public class ReviewRoomController : ControllerBase
     {
         private IRepository<Review> _reviewRepo;
-        private UserManager<ApplicationUser> _userManager;
         ReviewService _reviewService;
-        public ReviewRoomController(IRepository<Review> reviewRepo,UserManager<ApplicationUser> userManager, ReviewService reviewService)
+        public ReviewRoomController(IRepository<Review> reviewRepo, ReviewService reviewService)
         {
             _reviewRepo = reviewRepo;
-            _userManager = userManager;
             _reviewService = reviewService;
         }
 
@@ -36,28 +34,24 @@ namespace Dubbizle.API.Controllers
             return Ok(_reviewService.GetThreeReviews());
         }
 
-        [HttpPost("ApplicationUserId")]
-        public async Task<ActionResult<Review>> AddReview(ReviewDto reviewDTO, string ApplicationUserId)
+        [HttpPost]
+        public async Task<ActionResult<Review>> AddReview(ReviewDto reviewDTO)
         {
-            ApplicationUser orgUser = await _userManager.FindByIdAsync(ApplicationUserId);
-            orgUser.Id = reviewDTO.AutherId;
+            
             Review review = new Review();
             review.Text = reviewDTO.text;
             review.Rate = reviewDTO.Rate;
-            orgUser.UserName = reviewDTO.userName;
             review.AutherId = reviewDTO.AutherId;
             review.AdvertismentID = reviewDTO.AdvertismentID;
-            _reviewRepo.Add(review);
-            _reviewRepo.SaveChanges();
-
-
+            _reviewService.AddReview(review);
+            reviewDTO.ID = review.ID;
             return Ok(reviewDTO);
         }
 
-        [HttpPut("reviewId")]
-        public async Task<ActionResult<ReviewDto>> EditReview(int reviewId, ReviewDto reviewDTO)
+        [HttpPut]
+        public async Task<ActionResult<ReviewDto>> EditReview(ReviewDto reviewDTO)
         {
-            _reviewService.UpdateReview(reviewId, reviewDTO);
+            _reviewService.UpdateReview(reviewDTO);
 
             return Ok(reviewDTO);
         }

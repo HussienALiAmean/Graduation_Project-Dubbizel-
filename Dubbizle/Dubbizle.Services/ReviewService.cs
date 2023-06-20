@@ -29,14 +29,11 @@ namespace Dubbizle.Services
             return reviews;
         }
 
-        public async Task UpdateReview(int reviewId, ReviewDto reviewDTO)
+        public async Task UpdateReview(ReviewDto reviewDTO)
         {
-            Review review = _reviewRepo.GetAll("Auther").FirstOrDefault(d=>d.ID==reviewId);
-            review.Auther.UserName = reviewDTO.userName;
+            Review review = _reviewRepo.GetAll().FirstOrDefault(d=>d.ID==reviewDTO.ID);
             review.Text = reviewDTO.text;
             review.Rate = reviewDTO.Rate;
-            review.AutherId = reviewDTO.AutherId;
-            review.AdvertismentID = reviewDTO.AdvertismentID;
             _reviewRepo.Update(review);
             _reviewRepo.SaveChanges();
         }
@@ -48,6 +45,12 @@ namespace Dubbizle.Services
             _reviewRepo.SaveChanges();
         }
 
+        public Review AddReview(Review review)
+        {
+           Review reviewAfter= _reviewRepo.Add(review);
+            _reviewRepo.SaveChanges();
+            return reviewAfter;
+        }
 
     }
 }

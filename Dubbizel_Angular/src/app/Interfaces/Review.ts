@@ -4,5 +4,5 @@ export interface IReview{
     rate: number,
     autherId: string,
     advertismentID: number,
-    ID:number
+    id:number
 }

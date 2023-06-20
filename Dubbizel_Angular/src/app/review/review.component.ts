@@ -76,7 +76,7 @@ export class ReviewComponent {
 
     this.reviewAdded = {
       text: "", advertismentID: this.advertismentId, rate: this.rateReview
-      , autherId: this.authId, userName: this.username, ID: this.reviewId
+      , autherId: this.authId, userName: this.username, id: this.reviewId
     }
 
     this.hubConnectionBuilder = new signalR.HubConnectionBuilder().withUrl('http://localhost:7189/Review',
@@ -102,7 +102,7 @@ export class ReviewComponent {
 
     });
 
-    this.reviewService.AddReview(this.reviewAdded, this.appUserId).subscribe({
+    this.reviewService.AddReview(this.reviewAdded).subscribe({
       next: data => {
         console.log(data)
 
@@ -114,8 +114,8 @@ export class ReviewComponent {
     console.log(rl)
     this.reviewAdded.text = rl.text;
     this.reviewAdded.rate = rl.rate;
-    this.reviewAdded.ID = rl.ID
-    console.log(this.reviewAdded.ID)
+    this.reviewAdded.id = rl.ID
+    console.log(this.reviewAdded.id)
     this.hubConnectionBuilder.invoke('RemoveReview', this.reviewAdded);
     this.hubConnectionBuilder.on('RemoveReviewNotify', (rev) => {
       this.reviewList.splice(rev, 1)
@@ -152,7 +152,7 @@ export class ReviewComponent {
     console.log(this.ReviewForm.value)
   }
   SaveEdit() {
-    this.reviewService.EditReview(this.reviewId, this.ReviewForm.value).subscribe({
+    this.reviewService.EditReview(this.ReviewForm.value).subscribe({
       next: data => {
         console.log(this.ReviewForm.value)
         this.editRev = data;

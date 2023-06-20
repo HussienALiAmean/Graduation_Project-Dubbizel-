@@ -8,15 +8,8 @@ namespace Dubbizle.API.Hubs
 {
     public class ReviewHub : Hub
     {
-        IRepository<Review> _reviewRepo;
-        public ReviewHub(IRepository<Review> reviewRepo)
-        {
-            _reviewRepo = reviewRepo;
-        }
-        public override Task OnConnectedAsync()
-        {
-            return base.OnConnectedAsync();
-        }
+     
+      
         public async void NewReview(ReviewDto reviewDTO)
         {
             Clients.All.SendAsync("NewReviewNotify", reviewDTO);

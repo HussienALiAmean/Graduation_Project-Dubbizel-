@@ -13,31 +13,27 @@ import { Injectable } from "@angular/core";
   templateUrl: './advertisment-details.component.html',
   styleUrls: ['./advertisment-details.component.scss']
 })
-export class AdvertismentDetailsComponent{
+
+export class AdvertismentDetailsComponent implements OnInit{
   advertismentId: any
   reviewList: IReview[] = []
   private hubConnectionBuilder!: HubConnection
   appUserId: any;
-  reviewId = 13;
-  rateReview = 0
-  username = "Aya"
-  editRev: any = [];
-  editIndex: any
-  isEnabledText = true;
-  isEnableRate = true
-  isEnabledSaveBtn = true
-  edited = false
+  username :any
+  editIndex: any;
+  reviewId : any;
   advertismentDetail:any={};
   FirstChar:string="";
-  authId: any
   reviewAdded!: IReview
   constructor( private fb: FormBuilder, private reviewService: ReviewserviceService, private advertismentService:AdvertismentServiceService, private activeRoute:ActivatedRoute,private router:Router){}
+  
   ReviewForm: any = this.fb.group({
+    id:[0],
     text: [''],
     rate: [''],
-    userName: [''],
-    autherId: [''],
-    advertismentID: [''],
+    userName: [localStorage.getItem("UserName")],
+    autherId: [localStorage.getItem("ApplicationUserId")],
+    advertismentID: [this.activeRoute.snapshot.paramMap.get("id")],
   })
 
   get text() {
@@ -58,12 +54,14 @@ export class AdvertismentDetailsComponent{
 
   async ngOnInit(): Promise<void> {
  
-    this.appUserId = localStorage.getItem("ApplicationUserId")
+    this.appUserId = localStorage.getItem("ApplicationUserId");
     this.advertismentId = this.activeRoute.snapshot.paramMap.get("id");
-    this.reviewAdded = {
-      text: "", advertismentID: this.advertismentId, rate: this.rateReview
-      , autherId: this.authId, userName: this.username, ID: this.reviewId
-    }
+    this.username=localStorage.getItem("UserName");
+
+    // this.reviewAdded = {
+    //   text: "", advertismentID: this.advertismentId, rate: 0,
+    //    autherId: this.appUserId, userName: this.username, id: this.reviewId
+    // }
 
     this.hubConnectionBuilder = new signalR.HubConnectionBuilder().withUrl('http://localhost:7189/Review',
       {
@@ -112,72 +110,93 @@ export class AdvertismentDetailsComponent{
 
 
     async sendReview() {
-      this.hubConnectionBuilder.invoke('NewReview', this.reviewAdded);
-      this.hubConnectionBuilder.on('NewReviewNotify', (rev) => {
-        console.log(rev)
-        this.reviewList.unshift(rev)
-  
-      });
-  
-      this.reviewService.AddReview(this.reviewAdded, this.appUserId).subscribe({
-        next: data => {
-          console.log(data)
-  
+      
+      console.log(this.ReviewForm.value)
+
+  //     this.hubConnectionBuilder.invoke('NewReview', this.ReviewForm.value);
+  //     await this.hubConnectionBuilder.on('NewReviewNotify', (rev) => {
+  //     console.log(rev)
+  //     this.advertismentDetail.reviewsList.push(rev)
+  // });
+
+      this.reviewService.AddReview(this.ReviewForm.value).subscribe({
+        next: (data:any) => {
+          console.log(data);
+        //  this.ReviewForm.get('id').value=data.id;
+        this.advertismentDetail.reviewsList.push(data)
         },
         error: error => console.log(error),
       });
     }
-    async delreview(rl: any, i: any) {
-      console.log(rl)
-      this.reviewAdded.text = rl.text;
-      this.reviewAdded.rate = rl.rate;
-      this.reviewAdded.ID = rl.ID
-      console.log(this.reviewAdded.ID)
-      this.hubConnectionBuilder.invoke('RemoveReview', this.reviewAdded);
-      this.hubConnectionBuilder.on('RemoveReviewNotify', (rev) => {
-        this.reviewList.splice(rev, 1)
+
+
+
+     editreview(id: any, i: any,TextInput:any,RateInput:any,SaveBtn:any) {
+
+      TextInput.disabled=RateInput.readonly=false;
+      SaveBtn.hidden=false;
+
+      this.editIndex=i;
+      this.reviewId=id;
+    
+    }
+
+    async SaveEdit(TextInput:any,RateInput:any,SaveBtn:any) {
+
+      this.ReviewForm.patchValue({
+        id:this.reviewId,
+        text: TextInput.value,
+        rate: RateInput.rate
+      })
+
+         // this.hubConnectionBuilder.invoke('EditReview', this.ReviewForm.value);
+      // await this.hubConnectionBuilder.on('EditReviewNotify', (rev) => {
+      //   console.log(this.reviewList.indexOf(rev));
+      // });
+
+
+      this.reviewService.EditReview(this.ReviewForm.value).subscribe({
+        next: data => {
+          console.log(data);
+          this.advertismentDetail.reviewsList[this.editIndex]=data;
+        },
+        error: error => console.log(error),
       });
+
+      TextInput.disabled=RateInput.readonly=true;
+      SaveBtn.hidden=true
+
+    }
+
+
+
+    async delreview(rl: any, i: any) {
+     
+      this.reviewId=rl.id;
+
+      // this.ReviewForm.patchValue({
+      //   id:rl.id,
+      //   text: rl.text,
+      //   rate: rl.rate
+      // })
+
+      // this.hubConnectionBuilder.invoke('RemoveReview', this.ReviewForm.value);
+      // this.hubConnectionBuilder.on('RemoveReviewNotify', (rev) => {
+      //   this.reviewList.splice(rev, 1)
+      // });
   
   
       this.reviewService.DeleteReview(this.reviewId).subscribe({
         next: data => {
           console.log(data);
-        },
-        error: error => console.log(error),
-  
-      });
-    }
-  
-    async editreview(rl: any, i: any) {
-      this.isEnabledText = false;
-      this.isEnableRate = false;
-      this.isEnabledSaveBtn = false;
-      this.edited = true;
-  
-      this.hubConnectionBuilder.invoke('EditReview', this.reviewId);
-      await this.hubConnectionBuilder.on('EditReviewNotify', (rev) => {
-        console.log(this.reviewList.indexOf(rev));
-      });
-      this.ReviewForm.patchValue({
-  
-        text: rl.text,
-        rate: rl.rate,
-        userName: rl.userName,
-        autherId: rl.autherId,
-        advertismentID: rl.advertismentID,
-      })
-      console.log(this.ReviewForm.value)
-    }
-    SaveEdit() {
-      this.reviewService.EditReview(this.reviewId, this.ReviewForm.value).subscribe({
-        next: data => {
-          console.log(this.ReviewForm.value)
-          this.editRev = data;
-          console.log(data);
+          this.advertismentDetail.reviewsList.splice(i,1);
         },
         error: error => console.log(error),
       });
+
     }
+  
+    
 
 
 
