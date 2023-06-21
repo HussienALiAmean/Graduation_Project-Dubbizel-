@@ -11,7 +11,7 @@ namespace Dubbizle.DTOs
     public class ReviewDto
     {
         public int ID { get; set; }
-       public string userName { get; set; }
+        public string userName { get; set; }
         public string text { get; set; }
         public int Rate { get; set; }
         public string AutherId { get; set; }
@@ -29,5 +29,4 @@ namespace Dubbizle.DTOs
 //        public string AutherId { get; set; }
 //        public int AdvertismentID { get; set; }
 //    }
-//>>>>>>> aa9c3e3662bcd7cdd5a4e918f294f26d99d6b1f1
 }

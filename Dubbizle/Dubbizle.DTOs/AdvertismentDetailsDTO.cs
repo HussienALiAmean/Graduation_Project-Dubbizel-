@@ -24,6 +24,7 @@ namespace Dubbizle.DTOs
         public DateTime ExpireDateOfPremium { get; set; }
         public string Location { get; set; }
         public List<ReviewDto> ReviewsList { get; set; } = new List<ReviewDto>();
+
         public List<AdvertismentRentOptionDTO> Advertisment_RentOptionList { get; set; } = new List<AdvertismentRentOptionDTO>();
         public List<AdvertismentImageDTO> AdvertismentImagesList { get; set; } = new List<AdvertismentImageDTO>();
         public List<AdvertismentFilterValueDTO> Advertisment_FiltrationValuesList { get; set; } = new List<AdvertismentFilterValueDTO>();

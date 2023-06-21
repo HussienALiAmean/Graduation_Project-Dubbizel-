@@ -173,6 +173,10 @@ namespace Dubbizle.API.Controllers
             advertismentDetailsDTO.Location = advertisment.Location;
             List<SubCategory_Filter> s = (List<SubCategory_Filter>)subCategory_FilterService.GetAllBySubCategory("Filter");
 
+
+
+            
+
             foreach (Advertisment_FiltrationValue filter in advertisment.Advertisment_FiltrationValuesList)
             {
                 FiltrationValue fil = repository.GetByID(filter.FiltrationValueID);
@@ -203,11 +207,19 @@ namespace Dubbizle.API.Controllers
                 ApplicationUser applicationUser = await userManager.FindByIdAsync(review.AutherId);
                 //Review rv = r.FirstOrDefault(r=>r.ID==review.ID);
                 reviewDTO.text = review.Text;
+
                 reviewDTO.Rate = review.Rate;
                 reviewDTO.userName = applicationUser.UserName;
                 reviewDTO.AutherId = review.AutherId;
                 reviewDTO.AdvertismentID = review.AdvertismentID;
                 reviewDTO.ID = review.ID;
+
+                reviewDTO.Rate= review.Rate;
+                reviewDTO.userName = applicationUser.UserName;
+                reviewDTO.AutherId = review.AutherId;
+                reviewDTO.AdvertismentID= review.AdvertismentID;
+                reviewDTO.ID= review.ID;
+
                 advertismentDetailsDTO.ReviewsList.Add(reviewDTO);
             }
             return Ok(advertismentDetailsDTO);

@@ -4,11 +4,21 @@ import { HomePageComponentComponent } from './home-page-component/home-page-comp
 import { AdvertismentDetailsComponent } from './advertisment-details/advertisment-details.component';
 import { AdvertismentUserComponent } from './advertisment-user/advertisment-user.component';
 import { FavoriteComponent } from './favorite/favorite.component';
+
 import { PackageComponent } from 'src/admin/package/package.component';
 import { PackagesComponent } from './packages/packages.component';
 
 
+
+
+
+
+
+
+
+
 const routes: Routes = [
+{path:'',component:HomePageComponentComponent},
 
   //{path:"profile",component:UserprofileComponent}
  {path:"myprofile",loadChildren:()=>import("../profile/profile.module").then(m=>m.ProfileModule)},
