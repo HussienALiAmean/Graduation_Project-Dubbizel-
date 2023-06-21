@@ -7,6 +7,8 @@ import { HubConnection } from '@aspnet/signalr';
 import * as signalR from '@aspnet/signalr';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Injectable } from "@angular/core";
+import { IFavourite } from '../Interface/IFavorite';
+import { FavoriteService } from '../Services/favorite.service';
 
 @Component({
   selector: 'app-advertisment-details',
@@ -25,7 +27,10 @@ export class AdvertismentDetailsComponent implements OnInit{
   advertismentDetail:any={};
   FirstChar:string="";
   reviewAdded!: IReview
-  constructor( private fb: FormBuilder, private reviewService: ReviewserviceService, private advertismentService:AdvertismentServiceService, private activeRoute:ActivatedRoute,private router:Router){}
+  isSaved:boolean=false;
+  Favorite:IFavourite=new IFavourite("",0);
+  errorMessage:string=""
+  constructor( private favoriteService:FavoriteService,private fb: FormBuilder, private reviewService: ReviewserviceService, private advertismentService:AdvertismentServiceService, private activeRoute:ActivatedRoute,private router:Router){}
   
   ReviewForm: any = this.fb.group({
     id:[0],
@@ -49,10 +54,10 @@ export class AdvertismentDetailsComponent implements OnInit{
     return this.ReviewForm.get('autherId');
   }
   get advertismentID() {
-    return this.ReviewForm.get('advertismentID');
+    return parseInt(this.ReviewForm.get('advertismentID'));
   }
 
-  async ngOnInit(): Promise<void> {
+  async ngOnInit() {
  
     this.appUserId = localStorage.getItem("ApplicationUserId");
     this.advertismentId = this.activeRoute.snapshot.paramMap.get("id");
@@ -74,6 +79,42 @@ export class AdvertismentDetailsComponent implements OnInit{
         console.log("connection started");
       }).catch(err => console.log(err));
     }, 2000);
+
+    
+    await setTimeout(async ()=>{
+
+      console.log(this.ReviewForm.value)
+      console.log("after invoke")
+      await this.hubConnectionBuilder.on('NewReviewNotify', (rev) => {
+      console.log(rev)
+      this.advertismentDetail.reviewsList.push(rev)
+
+     
+  });
+  },2000)
+
+  await setTimeout(async ()=>{
+    console.log(this.ReviewForm.value)
+    console.log("after invoke")
+      this.hubConnectionBuilder.on('RemoveReviewNotify', (rev) => {
+        console.log(rev)
+        this.advertismentDetail.reviewsList.splice(rev,1);
+
+      });
+  },2000)
+
+  await setTimeout(async()=>{
+    console.log(this.ReviewForm.value)
+    console.log("after invoke")
+      await this.hubConnectionBuilder.on('EditReviewNotify', (rev) => {
+        console.log(rev)
+        this.advertismentDetail.reviewsList[this.editIndex]=rev;
+      });
+
+
+  },2000)
+
+
 
        this.advertismentService.getDetails(this.advertismentId).subscribe({
         next:data=>{
@@ -99,46 +140,41 @@ export class AdvertismentDetailsComponent implements OnInit{
 
     }
 
-
-    
   AdvertismentUser(advertismentDetail:any){
      this.router.navigate(["/AdvertismetUser",advertismentDetail.applicationUserId])
     } 
 
 
-
-
-
     async sendReview() {
-      
-      console.log(this.ReviewForm.value)
-
-  //     this.hubConnectionBuilder.invoke('NewReview', this.ReviewForm.value);
-  //     await this.hubConnectionBuilder.on('NewReviewNotify', (rev) => {
-  //     console.log(rev)
-  //     this.advertismentDetail.reviewsList.push(rev)
-  // });
-
       this.reviewService.AddReview(this.ReviewForm.value).subscribe({
         next: (data:any) => {
           console.log(data);
-        //  this.ReviewForm.get('id').value=data.id;
-        this.advertismentDetail.reviewsList.push(data)
+        this.hubConnectionBuilder.invoke('NewReview', data);
         },
         error: error => console.log(error),
       });
     }
 
+    async delreview(rl: any, i: any) {
 
+      this.reviewId=rl.id;
+      this.reviewService.DeleteReview(this.reviewId).subscribe({
+        next: data => {
+          console.log(data);
+          this.hubConnectionBuilder.invoke('RemoveReview', data);
+          //this.advertismentDetail.reviewsList.splice(i,1);
+
+        },
+        error: error => console.log(error),
+      });
+
+    }
 
      editreview(id: any, i: any,TextInput:any,RateInput:any,SaveBtn:any) {
-
       TextInput.disabled=RateInput.readonly=false;
       SaveBtn.hidden=false;
-
       this.editIndex=i;
       this.reviewId=id;
-    
     }
 
     async SaveEdit(TextInput:any,RateInput:any,SaveBtn:any) {
@@ -149,16 +185,12 @@ export class AdvertismentDetailsComponent implements OnInit{
         rate: RateInput.rate
       })
 
-         // this.hubConnectionBuilder.invoke('EditReview', this.ReviewForm.value);
-      // await this.hubConnectionBuilder.on('EditReviewNotify', (rev) => {
-      //   console.log(this.reviewList.indexOf(rev));
-      // });
-
 
       this.reviewService.EditReview(this.ReviewForm.value).subscribe({
         next: data => {
           console.log(data);
-          this.advertismentDetail.reviewsList[this.editIndex]=data;
+         
+          this.hubConnectionBuilder.invoke('EditReview', data);
         },
         error: error => console.log(error),
       });
@@ -167,34 +199,33 @@ export class AdvertismentDetailsComponent implements OnInit{
       SaveBtn.hidden=true
 
     }
+    async AddToFavorite(){
+      var heart=document.getElementById("heart");
+      console.log(heart?.style.color);
+      if(heart?.style.color=="rgb(255, 255, 255)"){
+      //console.log("hi")
+      this.Favorite.advertismentID=this.advertismentID;
+      this.Favorite.applicationUserId=this.appUserId;
+      await this.favoriteService.AddFavorite(this.Favorite).subscribe({
+      next:data=>console.log(data),
+      error:error=>this.errorMessage=error
+    })
+    heart.style.color="rgb(224, 0, 0)";
+  }
+  else{
+    console.log("hi")
+     this.favoriteService.DeleteFavorite(this.advertismentId,this.appUserId).subscribe({
+      next:data=>console.log(data),
+      error:error=>this.errorMessage=error
+     })
+     heart!.style.color="rgb(255, 255, 255)";
+  }
+  }
 
 
 
-    async delreview(rl: any, i: any) {
-     
-      this.reviewId=rl.id;
 
-      // this.ReviewForm.patchValue({
-      //   id:rl.id,
-      //   text: rl.text,
-      //   rate: rl.rate
-      // })
-
-      // this.hubConnectionBuilder.invoke('RemoveReview', this.ReviewForm.value);
-      // this.hubConnectionBuilder.on('RemoveReviewNotify', (rev) => {
-      //   this.reviewList.splice(rev, 1)
-      // });
   
-  
-      this.reviewService.DeleteReview(this.reviewId).subscribe({
-        next: data => {
-          console.log(data);
-          this.advertismentDetail.reviewsList.splice(i,1);
-        },
-        error: error => console.log(error),
-      });
-
-    }
   
     
 

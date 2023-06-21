@@ -1,5 +1,4 @@
 
-
     @media (max-width: 600px) {
       .space,.price,.user,.details {
         display: inline-block;
@@ -15,4 +14,13 @@
 
     .profile:hover{
        cursor: pointer;
+    }
+    .btnHeart{
+      transition: 0.4s;
+      border: none; 
+      width: 40px;
+       height: 40px; 
+       border-radius: 60%; 
+       align-items: center;
+       background-color:rgba(33, 32, 32,0.148);
     }
