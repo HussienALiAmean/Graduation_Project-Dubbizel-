@@ -13,6 +13,8 @@ export class FavoriteComponent implements OnInit{
   favorites:any;
   errorMessage:any;
   Favorite:IFavourite=new IFavourite("",0);
+  index:any;
+  arr:any;
   constructor(private favoriteService:FavoriteService,private router:Router){}
   ngOnInit(): void {
     this.userId=localStorage.getItem("ApplicationUserId");
@@ -26,7 +28,7 @@ export class FavoriteComponent implements OnInit{
     this.router.navigate(["/Details",a.id]);
   } 
 
-  async AddToFavorite(ads:any){
+  async AddToFavorite(ads:any,i:any){
     var heart=document.getElementById("heart"+ads.id+this.userId);
     console.log(heart?.style.color);
     if(heart?.style.color=="rgb(255, 255, 255)"){
@@ -45,7 +47,9 @@ else{
     next:data=>console.log(data),
     error:error=>this.errorMessage=error
    })
+   this.favorites.splice(i,1);
    heart!.style.color="rgb(255, 255, 255)";
+   this.favorites.splice(i,1);
 }
   }
 }

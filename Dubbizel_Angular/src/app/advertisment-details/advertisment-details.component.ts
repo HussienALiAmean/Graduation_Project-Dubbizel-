@@ -116,7 +116,7 @@ export class AdvertismentDetailsComponent implements OnInit{
 
 
 
-       this.advertismentService.getDetails(this.advertismentId).subscribe({
+       this.advertismentService.getDetails(this.advertismentId,this.appUserId).subscribe({
         next:data=>{
           console.log(data)
           this.advertismentDetail=data
@@ -127,7 +127,7 @@ export class AdvertismentDetailsComponent implements OnInit{
     
        })
 
-       this.advertismentService.getDetails(this.advertismentId).subscribe({
+       this.advertismentService.getDetails(this.advertismentId,this.appUserId).subscribe({
         next:data=>{
           console.log(data)
           this.FirstChar=data.applicationUserName.charAt(0)

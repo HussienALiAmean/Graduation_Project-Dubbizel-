@@ -1,9 +1,11 @@
 export interface IAdvertismentDetails{
+ id: number,
  title: string,
   location: string,
   applicationUserName: string,
   applicationEmail:string,
   adType: string,
+  isSaved:boolean,
   adStatus: string,
   date: Date,
   expirationDate: Date,
