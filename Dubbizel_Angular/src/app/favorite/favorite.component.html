@@ -1,19 +1,22 @@
 <div class="container">
 
     <div class="row">
-        <span *ngFor="let f of favorites" class=" col col-md-3 col-xs-6 col-sm-6" style="margin-top: 40px;">
+        <span *ngFor="let f of favorites; index as i" class=" col col-md-3 col-xs-6 col-sm-6" style="margin-top: 40px;">
         <div class="card cardStyle" style="width: 90%; height:100%;  padding: 0px;" >
         <!-- (click)="AdvertismentDetails(a)"> -->
           <span >
           <span *ngFor="let im of f.advertismentImagesList; index as i" (click)="AdvertismentDetails(f)">
+
             <img src='http://localhost:7189/Files/AdvertismentIMG/{{im.imageName}}' style="border-radius:10px 10px 0px 0px;" class="card-img-top" alt="..." *ngIf="i<1" width="25rem" height="200px"> </span>
+
+        
         
           <div class="card-body" >
             <div class="row">
               <div class="col col-md-10">
                 <h6 class="card-title" style="font-size: 20px;color: #e00000;">{{f.title}}</h6>
               </div>
-              <button  type="button" (click)="AddToFavorite(f)"  class="btnHeart btn-floating col-2 " >
+              <button  type="button" (click)="AddToFavorite(f,i)"  class="btnHeart btn-floating col-2 " >
                  <!-- <i class="fa-solid fa-heart heart" style="font-size: 18px; margin-top: 5px; color: #ffffff;" id="{{'heart'+a.id}}"></i>  -->
                  
                  <!-- <i  class='far fa-heart far1' style='font-size:24px' id="{{'heart'+a.id}}"></i> 

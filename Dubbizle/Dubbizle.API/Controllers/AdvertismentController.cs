@@ -151,13 +151,15 @@ namespace Dubbizle.API.Controllers
             Advertisment advertisment = advertisments.FirstOrDefault(a => a.ID == AdID);
             ApplicationUser user = await userManager.FindByIdAsync(advertisment.ApplicationUserId);
             List<Favorite> favorites = (List<Favorite>)favoriteService.GetAll();
-            foreach(Favorite favorite in favorites){
-                if(favorite.AdvertismentID == AdID && favorite.ApplicationUserId==UserId) { 
-                   IsSaved = true;
+            foreach (Favorite favorite in favorites)
+            {
+                if (favorite.AdvertismentID == AdID && favorite.ApplicationUserId == UserId)
+                {
+                    IsSaved = true;
                 }
             }
             AdvertismentDetailsDTO advertismentDetailsDTO = new AdvertismentDetailsDTO();
-            advertismentDetailsDTO.Id = advertisment.ID;
+            advertismentDetailsDTO.Id=AdID;
             advertismentDetailsDTO.AdStatus = advertisment.AdStatus;
             advertismentDetailsDTO.Title = advertisment.Title;
             advertismentDetailsDTO.AdType = advertisment.AdType;
@@ -166,10 +168,11 @@ namespace Dubbizle.API.Controllers
             advertismentDetailsDTO.ApplicationEmail = user.Email;
             advertismentDetailsDTO.Date = advertisment.Date;
             advertismentDetailsDTO.ExpirationDate = advertisment.ExpirationDate;
-            advertismentDetailsDTO.IsSaved= IsSaved;
+            advertismentDetailsDTO.IsSaved = IsSaved;
             advertismentDetailsDTO.ExpireDateOfPremium = advertisment.ExpireDateOfPremium;
             advertismentDetailsDTO.Location = advertisment.Location;
             List<SubCategory_Filter> s = (List<SubCategory_Filter>)subCategory_FilterService.GetAllBySubCategory("Filter");
+
             foreach (Advertisment_FiltrationValue filter in advertisment.Advertisment_FiltrationValuesList)
             {
                 FiltrationValue fil = repository.GetByID(filter.FiltrationValueID);
@@ -196,15 +199,17 @@ namespace Dubbizle.API.Controllers
             }
             foreach (Review review in advertisment.ReviewsList)
             {
-                ReviewDTO reviewDTO = new ReviewDTO();
+                ReviewDto reviewDTO = new ReviewDto();
                 ApplicationUser applicationUser = await userManager.FindByIdAsync(review.AutherId);
                 //Review rv = r.FirstOrDefault(r=>r.ID==review.ID);
-                reviewDTO.Text = review.Text;
-                reviewDTO.UserName = applicationUser.UserName;
-                reviewDTO.UserEmail = applicationUser.Email;
+                reviewDTO.text = review.Text;
+                reviewDTO.Rate = review.Rate;
+                reviewDTO.userName = applicationUser.UserName;
+                reviewDTO.AutherId = review.AutherId;
+                reviewDTO.AdvertismentID = review.AdvertismentID;
+                reviewDTO.ID = review.ID;
                 advertismentDetailsDTO.ReviewsList.Add(reviewDTO);
             }
-            
             return Ok(advertismentDetailsDTO);
         }
 

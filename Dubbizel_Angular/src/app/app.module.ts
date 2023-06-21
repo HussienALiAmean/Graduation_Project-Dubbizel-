@@ -24,21 +24,39 @@ import { FavoriteComponent } from './favorite/favorite.component';
 
 import { DropDownListModule } from '@syncfusion/ej2-angular-dropdowns';
 import { DelAccountComponent } from './del-account/del-account.component';
-import { AddAdvComponent } from './add-adv/add-adv.component';
+
+/* import { AddAdvComponent } from './add-adv/add-adv.component'; */
 import { PackagesComponent } from './packages/packages.component';
+
+
+import { AdDetailsComponent } from './ad-details/ad-details.component';
+
+//signalr
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap'; 
+import { MyAdsComponent } from './my-ads/my-ads.component';
+
+// import { UserprofileComponent } from 'src/profile/userprofile/userprofile.component';
+
+
+
 
 @NgModule({
   declarations: [
     AppComponent,
+    DelAccountComponent,
+    
     HomePageComponentComponent,
     NavBarComponent,
     CatNavBarComponent,
     FooterComponent,
+    AdDetailsComponent,
+    MyAdsComponent,
+    
+
     AdvertismentDetailsComponent,
     AdvertismentUserComponent,
     FavoriteComponent, 
     DelAccountComponent,
-    AddAdvComponent,
     NavBarComponent,
     CatNavBarComponent,
     FooterComponent,
@@ -47,6 +65,7 @@ import { PackagesComponent } from './packages/packages.component';
   
   ],
   imports: [
+    NgbModule,
     FormsModule,
     ReactiveFormsModule,
     BrowserModule,

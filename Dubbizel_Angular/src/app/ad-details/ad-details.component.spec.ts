@@ -1,16 +1,16 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { AddAdvComponent } from './add-adv.component';
+import { AdDetailsComponent } from './ad-details.component';
 
-describe('AddAdvComponent', () => {
-  let component: AddAdvComponent;
-  let fixture: ComponentFixture<AddAdvComponent>;
+describe('AdDetailsComponent', () => {
+  let component: AdDetailsComponent;
+  let fixture: ComponentFixture<AdDetailsComponent>;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [AddAdvComponent]
+      declarations: [AdDetailsComponent]
     });
-    fixture = TestBed.createComponent(AddAdvComponent);
+    fixture = TestBed.createComponent(AdDetailsComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

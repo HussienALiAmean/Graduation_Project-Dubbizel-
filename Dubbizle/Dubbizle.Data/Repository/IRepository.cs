@@ -26,6 +26,8 @@ namespace Dubbizle.Data.Repository
         void Update(T entity);
         //void Update(T entity, params string[] properties);
         void Delete(int id);
+       
+
         void SaveChanges();
     }
 }

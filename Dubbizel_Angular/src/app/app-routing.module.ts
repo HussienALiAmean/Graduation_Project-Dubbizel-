@@ -8,14 +8,10 @@ import { PackageComponent } from 'src/admin/package/package.component';
 import { PackagesComponent } from './packages/packages.component';
 
 
-
-
-
 const routes: Routes = [
-{path:'',component:HomePageComponentComponent},
+
   //{path:"profile",component:UserprofileComponent}
  {path:"myprofile",loadChildren:()=>import("../profile/profile.module").then(m=>m.ProfileModule)},
-  
   {path:'Home',component:HomePageComponentComponent},
   {path:'package',component:PackagesComponent},
   {path:'Details/:id',component:AdvertismentDetailsComponent},

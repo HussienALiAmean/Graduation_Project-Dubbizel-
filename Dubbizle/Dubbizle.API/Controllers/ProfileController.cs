@@ -42,6 +42,7 @@ namespace Dubbizle.API.Controllers
             profileDTO.Day = profileDTO.BirthDate.Day.ToString();
             profileDTO.Month = profileDTO.BirthDate.Month.ToString();
             profileDTO.Year = profileDTO.BirthDate.Year.ToString();
+            profileDTO.AboutMe= orgUser.AboutMe;
             profileDTO.AboutMe = orgUser.AboutMe;
 
             return Ok(profileDTO);
@@ -56,6 +57,7 @@ namespace Dubbizle.API.Controllers
             orgUser.Email = newUser.Email;
             orgUser.Gender = newUser.Gender;
             orgUser.PhoneNumber = newUser.PhoneNumber;
+           // orgUser.BirthDate = newUser.BirthDate;
             // orgUser.BirthDate = newUser.BirthDate;
             DateTime date = new DateTime(int.Parse(newUser.Year), int.Parse(newUser.Month), int.Parse(newUser.Day));
             orgUser.BirthDate = date;

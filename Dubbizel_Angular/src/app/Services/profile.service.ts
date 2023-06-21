@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, catchError, throwError } from 'rxjs';
 import { profile } from '../Interfaces/profile';
+import { Observable, catchError, throwError } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -17,7 +17,7 @@ export class ProfileService {
   }))
   }
 
-  GetProfile(id:string):Observable<profile>{
+  GetProfile(id:any):Observable<profile>{
     return this.http.get<profile>(`http://localhost:7189/api/Profile/getProfile/${id}`).pipe(catchError((err)=>{
       return throwError(()=>err.errorMessage || "server error")
     }))

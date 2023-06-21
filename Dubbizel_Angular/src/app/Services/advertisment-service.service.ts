@@ -37,10 +37,11 @@ export class AdvertismentServiceService {
   }
 
 
+
   getDetails(AdvertismentId:any,userId:any):Observable<IAdvertismentDetails>{
     return this.http.get<IAdvertismentDetails>(`http://localhost:7189/api/Advertisment/Details/${AdvertismentId}/${userId}`).pipe(catchError((err: any) => {
       return throwError(() => err.message || "server error");
-      }));
+  }));
   }
 
   getAdvertismentUser(userId:any):Observable<IadvertismetUser>{
