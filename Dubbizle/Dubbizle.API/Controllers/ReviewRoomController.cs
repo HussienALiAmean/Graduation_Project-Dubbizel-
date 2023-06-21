@@ -25,7 +25,7 @@ namespace Dubbizle.API.Controllers
         [HttpGet]
         public IActionResult GetAllReviews()
         {
-           
+
             return Ok(_reviewService.GetAllReviews());
         }
         [HttpGet("display")]
@@ -37,7 +37,10 @@ namespace Dubbizle.API.Controllers
         [HttpPost]
         public async Task<ActionResult<Review>> AddReview(ReviewDto reviewDTO)
         {
+
+
             
+
             Review review = new Review();
             review.Text = reviewDTO.text;
             review.Rate = reviewDTO.Rate;

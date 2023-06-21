@@ -25,12 +25,16 @@ import { FavoriteComponent } from './favorite/favorite.component';
 import { DropDownListModule } from '@syncfusion/ej2-angular-dropdowns';
 import { DelAccountComponent } from './del-account/del-account.component';
 
+/* import { AddAdvComponent } from './add-adv/add-adv.component'; */
+import { PackagesComponent } from './packages/packages.component';
+
+
 import { AdDetailsComponent } from './ad-details/ad-details.component';
 
 //signalr
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap'; 
 import { MyAdsComponent } from './my-ads/my-ads.component';
-import { ReviewComponent } from './review/review.component';
+
 // import { UserprofileComponent } from 'src/profile/userprofile/userprofile.component';
 
 
@@ -45,7 +49,6 @@ import { ReviewComponent } from './review/review.component';
     NavBarComponent,
     CatNavBarComponent,
     FooterComponent,
-    ReviewComponent,
     AdDetailsComponent,
     MyAdsComponent,
     
@@ -57,7 +60,8 @@ import { ReviewComponent } from './review/review.component';
     NavBarComponent,
     CatNavBarComponent,
     FooterComponent,
-    HomePageComponentComponent
+    HomePageComponentComponent,
+    PackagesComponent
   
   ],
   imports: [

@@ -1,0 +1,36 @@
+.head{
+    background-color: #fff6d9; 
+    text-align: center;
+    padding: 30px;
+}
+
+.card2,.card3{
+    padding-left: 30px;
+}
+
+
+@media (max-width: 600px) {
+    .container {
+    
+      width: 100%;
+    }
+    .smallCard{
+        width: 80%;
+    }
+    .sale{
+        width: 40%;
+    }
+ 
+    
+  }
+
+  @media (max-width: 1500px) {
+    .smallCard{
+        width: 80%;
+    }
+    .sale{
+        width: 40%;
+    }
+  
+    
+  }

@@ -20,18 +20,18 @@ namespace Dubbizle.Services
 
         public List<Review> GetAllReviews()
         {
-           List<Review> reviews = _reviewRepo.GetAll("Auther").Where(d => d.Deleted == false).ToList();
+            List<Review> reviews = _reviewRepo.GetAll("Auther").Where(d => d.Deleted == false).ToList();
             return reviews;
         }
         public List<Review> GetThreeReviews()
         {
-            List<Review> reviews = _reviewRepo.GetAll("Auther").Where(d=>d.Deleted==false).Take(3).ToList();
+            List<Review> reviews = _reviewRepo.GetAll("Auther").Where(d => d.Deleted == false).Take(3).ToList();
             return reviews;
         }
 
         public async Task UpdateReview(ReviewDto reviewDTO)
         {
-            Review review = _reviewRepo.GetAll().FirstOrDefault(d=>d.ID==reviewDTO.ID);
+            Review review = _reviewRepo.GetAll().FirstOrDefault(d => d.ID == reviewDTO.ID);
             review.Text = reviewDTO.text;
             review.Rate = reviewDTO.Rate;
             _reviewRepo.Update(review);
@@ -47,7 +47,8 @@ namespace Dubbizle.Services
 
         public Review AddReview(Review review)
         {
-           Review reviewAfter= _reviewRepo.Add(review);
+
+            Review reviewAfter = _reviewRepo.Add(review);
             _reviewRepo.SaveChanges();
             return reviewAfter;
         }
