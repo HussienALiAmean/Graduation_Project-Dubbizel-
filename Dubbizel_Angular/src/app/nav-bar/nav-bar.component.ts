@@ -143,6 +143,7 @@ export class NavBarComponent implements OnInit {
         if(data.statusCode==200)
         {
           this.onCloseLoginModal();
+          this.sendEmailAndPassLogin();
                  
         }
         else if(data.statusCode==404)
@@ -178,7 +179,6 @@ export class NavBarComponent implements OnInit {
         console.log(decodeToken)
         localStorage.setItem("ApplicationUserId",decodeToken['http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier']);
         localStorage.setItem("UserName", decodeToken['http://schemas.xmlsoap.org/ws/2005/05/identity/claims/name']);
-
         //this.router.navigate(["/resturant/profile"]);
         this.onCloseLoginModal();
         }
@@ -203,8 +203,10 @@ export class NavBarComponent implements OnInit {
   }
 
 
-
+counter:any=0
   isUserAuthenticated() {
+    console.log("Auth"+this.counter)
+    this.counter=this.counter+1
     const token = localStorage.getItem("jwt");
     if (token && !this.jwtHelper.isTokenExpired(token)) {
       this.UserName=localStorage.getItem("UserName");
@@ -221,7 +223,7 @@ export class NavBarComponent implements OnInit {
     localStorage.removeItem("jwt");
     localStorage.removeItem("ApplicationUserId");
     localStorage.removeItem("UserName");
-    //this.router.navigate(["/landing/home-page"]);
+    this.router.navigate(['']);
   }
 
 }

@@ -38,10 +38,14 @@ namespace Dubbizle.API.Controllers
             profileDTO.Gender = orgUser.Gender;
             profileDTO.PhoneNumber = orgUser.PhoneNumber;
             profileDTO.Email = orgUser.Email;
-            profileDTO.BirthDate = (DateTime)orgUser.BirthDate;
-            profileDTO.Day = profileDTO.BirthDate.Day.ToString();
-            profileDTO.Month = profileDTO.BirthDate.Month.ToString();
-            profileDTO.Year = profileDTO.BirthDate.Year.ToString();
+            if(orgUser.BirthDate!=null)
+            {
+                profileDTO.BirthDate = (DateTime)orgUser.BirthDate;
+                profileDTO.Day = profileDTO.BirthDate.Day.ToString();
+                profileDTO.Month = profileDTO.BirthDate.Month.ToString();
+                profileDTO.Year = profileDTO.BirthDate.Year.ToString();
+            }
+          
             profileDTO.AboutMe= orgUser.AboutMe;
             profileDTO.AboutMe = orgUser.AboutMe;
 
