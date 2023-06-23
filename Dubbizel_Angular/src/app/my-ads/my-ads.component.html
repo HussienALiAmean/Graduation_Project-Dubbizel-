@@ -2,35 +2,36 @@
     <div class="row">
         <div class="col-1"></div>
         <div class="col-2">
-            <div class="input-group">
+            <!-- <div class="input-group">
                 <button style="font-size: 12px;" class="input-group-text" id="basic-addon1"><i
                         class="fa-solid fa-magnifying-glass"></i></button>
                 <input type="text" class="form-control" placeholder="Search by Ad Title or ID" aria-label="Username"
                     aria-describedby="basic-addon1">
-            </div>
+            </div> -->
         </div>
         <div class="col-6"></div>
-        <div class="col-2">
+        <!-- <div class="col-2">
             <ejs-dropdownlist placeholder="Filter By Category" style="font-weight: bold;" />
-        </div>
+        </div> -->
         <div class="col-1"></div>
     </div>
+
     <div class="row mt-3">
         <div class="col-1"></div>
         <div class="col-1">
-            <button type="button" style="height: 50px;" class="btn btn-outline-danger btns">View all(1)</button>
+            <button type="button" style="height: 50px;" class="btn btn-outline-danger btns" (click)="AllAds()">View all(1)</button>
         </div>
         <div class="col-1">
-            <button type="button" style="height: 50px;"  class="btn btn-outline-danger btns">Active Ads(1)</button>
+            <button type="button" style="height: 50px;"  class="btn btn-outline-danger btns" (click)="ActiveAds()">Active Ads(1)</button>
         </div>
         <div class="col-1">
-            <button type="button" class="btn btn-outline-danger btns">Inactive Ads(1)</button>
+            <button type="button" class="btn btn-outline-danger btns" (click)="InactiveAds()">Inactive Ads(1)</button>
         </div>
         <div class="col-1">
-            <button type="button" class="btn btn-outline-danger btns">Pending Ads(1)</button>
+            <button type="button" class="btn btn-outline-danger btns" (click)="PendingAds()">Pending Ads(1)</button>
         </div>
         <div class="col-1">
-            <button type="button" class="btn btn-outline-danger btns">Moderated Adds(1)</button>
+            <button type="button" class="btn btn-outline-danger btns" (click)="ModeratedAds()">Moderated Adds(1)</button>
         </div>
         <div class="col-6"></div>
     </div>
@@ -41,27 +42,32 @@
             <p style="font-weight: bold;">Heavy discount on Packages </p>
         </div>
         <div class="col-2">
-            <a href="#" style="text-decoration: none;">View Packages ></a>
+            <a href="#" style="text-decoration: none;" [routerLink]="['/categories']">View Packages ></a>
         </div>
         <div class="col-8"></div>
     </div>
-    <div class="row ">
+
+
+    <div class="row mb-3"  *ngFor="let ad of FiltredAdvertisments">
         <div class="col-1"></div>
-        <div class="col-10 card cardForm ">
+        <div class="col-10 card cardForm">
+
             <div class="row " >
-              <div class="col-md-2 " style="background-color: rgb(223, 213, 213);" >
-                <p style="padding-top: 30px">From:<b> 18 Jan 23</b></p>
-                <p>From:<b> 16 Sept 23</b></p>
+
+              <div class="col-md-3" style="background-color: rgb(223, 213, 213); padding-top: 30px" >
+                <p >From:<b> {{ad.date}}</b></p>
+                <p>To:<b>{{ad.expirationDate}}</b></p>
               </div>
-              <div class="col-md-10">
+
+              <div class="col-md-9">
                 <div class="card-body">
                     <div class="row">
                         <div class="col-1" >
-                    <img src='...' class="d-block w-100" alt="..." >
+                    <img height="50" width="200" src='http://localhost:7189/Files/AdvertismentIMG/{{ad.advertismentImagesList[0]}}' class="d-block w-100" alt="..." >
                             
                         </div>
-                        <div class="col-2">
-                            <p class="card-text">Iphone cover</p>
+                        <div class="col-5">
+                            <p class="card-text">{{ad.title}}</p>
 
                         </div>
                         <div class="col-2">
@@ -69,14 +75,11 @@
 
                         </div>
                         <div class="col-1">
-                            <button type="button" style="border-radius: 25px;" class="btn btn-primary btn-sm">Active</button>
+                            <button type="button" style="border-radius: 25px;" class="btn btn-primary btn-sm">{{ad.adStatus}}</button>
                         </div>
 
-                        <div class="col-3" style="text-align: right;">
-                            <p class="card-text">This ad is currently live.</p>
-
+                        <div class="col-1" style="text-align: right;">
                         </div>
-                        <div class="col-1"></div>
                         <div class="col-2" style="text-align: right;">
                             <i class="fa-sharp fa-light fa-ellipsis"></i>
                         </div>
@@ -84,7 +87,7 @@
                 <div class="row mt-2">
                     <hr width="100%"/>
                 </div>
-                <div class="row mt-2">
+                <div class="row">
                     <div class="col-2 d-flex">
                         <i class="fa-sharp fa-light fa-eye icons"></i>
                         <p>Views:8</p>
@@ -98,13 +101,14 @@
                         <p>Chats:0</p>
                     </div>
                     <div class="col-4"></div>
-                    <div class="col-2"  style="text-align: right;">
-                        <button type="button" class="btn btn-primary btn-sm">Sell faster now</button>
-                    </div>
+                    <!-- <div class="col-2"  style="text-align: right;">
+                        <button type="button" class="btn btn-primary btn-sm" [routerLink]="['/categories']">Sell faster now</button>
+                    </div> -->
                     
                 </div>
                 </div>
               </div>
+
             </div>
           </div>
     <div class="col-1"></div>

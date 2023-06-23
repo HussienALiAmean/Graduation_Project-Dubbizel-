@@ -7,6 +7,8 @@ import { FavoriteComponent } from './favorite/favorite.component';
 
 import { PackageComponent } from 'src/admin/package/package.component';
 import { PackagesComponent } from './packages/packages.component';
+import { MyAdsComponent } from './my-ads/my-ads.component';
+import { CategoriesBeforePackagesComponent } from './categories-before-packages/categories-before-packages.component';
 
 
 
@@ -23,9 +25,11 @@ const routes: Routes = [
   //{path:"profile",component:UserprofileComponent}
  {path:"myprofile",loadChildren:()=>import("../profile/profile.module").then(m=>m.ProfileModule)},
   {path:'Home',component:HomePageComponentComponent},
-  {path:'package',component:PackagesComponent},
+  {path:'categories',component:CategoriesBeforePackagesComponent},
+  {path:'package/:id',component:PackagesComponent},
   {path:'Details/:id',component:AdvertismentDetailsComponent},
   {path:'Favorite',component:FavoriteComponent},
+  {path:'MyAds',component:MyAdsComponent},
   {path:'AdvertismetUser/:id',component:AdvertismentUserComponent},
    {path:'',component:HomePageComponentComponent},
 

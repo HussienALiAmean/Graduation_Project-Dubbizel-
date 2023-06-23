@@ -203,10 +203,7 @@ export class NavBarComponent implements OnInit {
   }
 
 
-counter:any=0
   isUserAuthenticated() {
-    console.log("Auth"+this.counter)
-    this.counter=this.counter+1
     const token = localStorage.getItem("jwt");
     if (token && !this.jwtHelper.isTokenExpired(token)) {
       this.UserName=localStorage.getItem("UserName");

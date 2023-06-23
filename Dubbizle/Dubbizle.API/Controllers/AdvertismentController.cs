@@ -322,5 +322,33 @@ namespace Dubbizle.API.Controllers
         }
 
 
+
+        // Alzhraa 
+        [HttpGet("GetMyAdvertisments")]
+        public ResultDTO GetMyAdvertisments(string ApplicationUserID)
+        {
+            List<Advertisment> advertisments = (List<Advertisment>)advertismentService.GetMyAdvertisments(ApplicationUserID);
+            List<AdvertismentDTO> advertismentDTOs = new List<AdvertismentDTO>();
+            AdvertismentDTO advertismentDTO;
+            foreach(Advertisment ad in advertisments)
+            {
+                advertismentDTO= new AdvertismentDTO();
+                advertismentDTO.ID= ad.ID;
+                advertismentDTO.Title= ad.Title;
+                advertismentDTO.AdStatus= ad.AdStatus;
+                advertismentDTO.Date= ad.Date;
+                advertismentDTO.ExpirationDate= ad.ExpirationDate;
+                advertismentDTO.CategoryID= ad.CategoryID;
+                advertismentDTO.SubCategoryID= ad.SubCategoryID;
+                advertismentDTO.AdvertismentImagesList = new List<string>();
+                advertismentDTO.AdvertismentImagesList.Add(ad.AdvertismentImagesList[0].ImageName);
+                advertismentDTOs.Add(advertismentDTO);
+            }
+            ResultDTO resultDTO = new ResultDTO();
+            resultDTO.Data=advertismentDTOs;
+            resultDTO.StatusCode= 200;
+            return resultDTO;
+        }
+
     }
 }
