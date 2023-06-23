@@ -19,19 +19,19 @@
     <div class="row mt-3">
         <div class="col-1"></div>
         <div class="col-1">
-            <button type="button" style="height: 50px;" class="btn btn-outline-danger btns" (click)="AllAds()">View all(1)</button>
+            <button type="button" style="height: 50px;" class="btn btn-outline-danger btns" (click)="AllAds()">View all({{AllAdsCounter}})</button>
         </div>
         <div class="col-1">
-            <button type="button" style="height: 50px;"  class="btn btn-outline-danger btns" (click)="ActiveAds()">Active Ads(1)</button>
+            <button type="button" style="height: 50px;"  class="btn btn-outline-danger btns" (click)="ActiveAds()">Active Ads({{ActivedsCounter}})</button>
         </div>
         <div class="col-1">
-            <button type="button" class="btn btn-outline-danger btns" (click)="InactiveAds()">Inactive Ads(1)</button>
+            <button type="button" class="btn btn-outline-danger btns" (click)="InactiveAds()">Inactive Ads({{InActivedsCounter}})</button>
         </div>
         <div class="col-1">
-            <button type="button" class="btn btn-outline-danger btns" (click)="PendingAds()">Pending Ads(1)</button>
+            <button type="button" class="btn btn-outline-danger btns" (click)="PendingAds()">Pending Ads({{PendingdsCounter}})</button>
         </div>
         <div class="col-1">
-            <button type="button" class="btn btn-outline-danger btns" (click)="ModeratedAds()">Moderated Adds(1)</button>
+            <button type="button" class="btn btn-outline-danger btns" (click)="ModeratedAds()">Moderated Adds({{ModerateddsCounter}})</button>
         </div>
         <div class="col-6"></div>
     </div>
@@ -75,7 +75,7 @@
 
                         </div>
                         <div class="col-1">
-                            <button type="button" style="border-radius: 25px;" class="btn btn-primary btn-sm">{{ad.adStatus}}</button>
+                            <button type="button" style="border-radius: 25px; width:100px;" class="btn btn-primary btn-sm">{{ad.adStatus}}</button>
                         </div>
 
                         <div class="col-1" style="text-align: right;">

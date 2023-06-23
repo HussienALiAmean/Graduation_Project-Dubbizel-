@@ -13,6 +13,12 @@ export class MyAdsComponent {
   FiltredAdvertisments:IAdvertisment[]=[];
 
   applicationUserId:any=localStorage.getItem('ApplicationUserId')
+  AllAdsCounter:number=0;
+  ActivedsCounter:number=0;
+  InActivedsCounter:number=0;
+  PendingdsCounter:number=0;
+  ModerateddsCounter:number=0;
+
   constructor(private advertismentUserService :AdvertismentServiceService){}
   
   ngOnInit(): void {
@@ -21,11 +27,27 @@ export class MyAdsComponent {
         next:(data:any)=>{
           this.LodedAdvertisments=data.data;
           this.FiltredAdvertisments=this.LodedAdvertisments;
+          this.counterAds();
         },
         error: err => {
           console.log(err);
         }
        })
+  }
+
+  counterAds()
+  {
+    this.LodedAdvertisments.forEach((ad:IAdvertisment)=>{
+      this.AllAdsCounter++;
+      if(ad.adStatus=="Active")
+          this.ActivedsCounter++;
+      else if (ad.adStatus=="Not Active")
+          this.InActivedsCounter++;
+      else if (ad.adStatus=="Pending")
+          this.PendingdsCounter++;
+      else 
+          this.ModerateddsCounter++;
+    })
   }
 
   AllAds()
