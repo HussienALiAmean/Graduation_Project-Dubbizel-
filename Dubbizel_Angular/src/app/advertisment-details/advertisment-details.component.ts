@@ -26,11 +26,11 @@ export class AdvertismentDetailsComponent implements OnInit{
   reviewId : any;
   advertismentDetail:any={};
   FirstChar:string="";
-  reviewAdded!: IReview;
+  reviewAdded!: IReview
   isSaved:boolean=false;
   Favorite:IFavourite=new IFavourite("",0);
   errorMessage:string=""
-  constructor( private fb: FormBuilder,private favoriteService:FavoriteService, private reviewService: ReviewserviceService, private advertismentService:AdvertismentServiceService, private activeRoute:ActivatedRoute,private router:Router){}
+  constructor( private favoriteService:FavoriteService,private fb: FormBuilder, private reviewService: ReviewserviceService, private advertismentService:AdvertismentServiceService, private activeRoute:ActivatedRoute,private router:Router){}
   
   ReviewForm: any = this.fb.group({
     id:[0],
@@ -103,13 +103,23 @@ export class AdvertismentDetailsComponent implements OnInit{
       });
   },2000)
 
+  await setTimeout(async()=>{
+    console.log(this.ReviewForm.value)
+    console.log("after invoke")
+      await this.hubConnectionBuilder.on('EditReviewNotify', (rev) => {
+        console.log(rev)
+        this.advertismentDetail.reviewsList[this.editIndex]=rev;
+      });
+
+
+  },2000)
+
 
 
        this.advertismentService.getDetails(this.advertismentId,this.appUserId).subscribe({
         next:data=>{
           console.log(data)
-          this.advertismentDetail=data,
-          this.isSaved=data.isSaved
+          this.advertismentDetail=data
         },
         error: err => {
           console.log(err);
@@ -130,13 +140,65 @@ export class AdvertismentDetailsComponent implements OnInit{
 
     }
 
-
-    
   AdvertismentUser(advertismentDetail:any){
      this.router.navigate(["/AdvertismetUser",advertismentDetail.applicationUserId])
     } 
 
 
+    async sendReview() {
+      this.reviewService.AddReview(this.ReviewForm.value).subscribe({
+        next: (data:any) => {
+          console.log(data);
+        this.hubConnectionBuilder.invoke('NewReview', data);
+        },
+        error: error => console.log(error),
+      });
+    }
+
+    async delreview(rl: any, i: any) {
+
+      this.reviewId=rl.id;
+      this.reviewService.DeleteReview(this.reviewId).subscribe({
+        next: data => {
+          console.log(data);
+          this.hubConnectionBuilder.invoke('RemoveReview', data);
+          //this.advertismentDetail.reviewsList.splice(i,1);
+
+        },
+        error: error => console.log(error),
+      });
+
+    }
+
+     editreview(id: any, i: any,TextInput:any,RateInput:any,SaveBtn:any) {
+      TextInput.disabled=RateInput.readonly=false;
+      SaveBtn.hidden=false;
+      this.editIndex=i;
+      this.reviewId=id;
+    }
+
+    async SaveEdit(TextInput:any,RateInput:any,SaveBtn:any) {
+
+      this.ReviewForm.patchValue({
+        id:this.reviewId,
+        text: TextInput.value,
+        rate: RateInput.rate
+      })
+
+
+      this.reviewService.EditReview(this.ReviewForm.value).subscribe({
+        next: data => {
+          console.log(data);
+         
+          this.hubConnectionBuilder.invoke('EditReview', data);
+        },
+        error: error => console.log(error),
+      });
+
+      TextInput.disabled=RateInput.readonly=true;
+      SaveBtn.hidden=true
+
+    }
     async AddToFavorite(){
       var heart=document.getElementById("heart");
       console.log(heart?.style.color);
@@ -160,68 +222,6 @@ export class AdvertismentDetailsComponent implements OnInit{
   }
   }
 
-
-    async sendReview() {
-      this.reviewService.AddReview(this.ReviewForm.value).subscribe({
-        next: (data:any) => {
-          console.log(data);
-        this.hubConnectionBuilder.invoke('NewReview', data);
-        },
-        error: error => console.log(error),
-      });
-    }
-
-    async delreview(rl: any, i: any) {
-
-      this.reviewId=rl.id;
-      this.reviewService.DeleteReview(this.reviewId).subscribe({
-        next: data => {
-          console.log(data);
-          this.hubConnectionBuilder.invoke('RemoveReview', data);
-          this.advertismentDetail.reviewsList.splice(i,1);
-
-        },
-        error: error => console.log(error),
-      });
-
-    }
-
-     editreview(id: any, i: any,TextInput:any,RateInput:any,SaveBtn:any) {
-
-      TextInput.disabled=RateInput.readonly=false;
-      SaveBtn.hidden=false;
-
-      this.editIndex=i;
-      this.reviewId=id;
-    
-    }
-
-    async SaveEdit(TextInput:any,RateInput:any,SaveBtn:any) {
-
-      this.ReviewForm.patchValue({
-        id:this.reviewId,
-        text: TextInput.value,
-        rate: RateInput.rate
-      })
-
-         // this.hubConnectionBuilder.invoke('EditReview', this.ReviewForm.value);
-      // await this.hubConnectionBuilder.on('EditReviewNotify', (rev) => {
-      //   console.log(this.reviewList.indexOf(rev));
-      // });
-
-
-      this.reviewService.EditReview(this.ReviewForm.value).subscribe({
-        next: data => {
-          console.log(data);
-          this.advertismentDetail.reviewsList[this.editIndex]=data;
-        },
-        error: error => console.log(error),
-      });
-
-      TextInput.disabled=RateInput.readonly=true;
-      SaveBtn.hidden=true
-
-    }
 
 
 
