@@ -17,6 +17,7 @@ using Microsoft.OpenApi.Models;
 using System.Text;
 using Microsoft.AspNetCore.Identity;
 using System.Text.Json.Serialization;
+using Dubbizle.API.Hubs;
 
 namespace Dubbizle.API
 {
@@ -25,6 +26,7 @@ namespace Dubbizle.API
         public static void Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
+            builder.Services.AddSignalR();
 
             // Add services to the container.
             // Add services to the container.
@@ -68,7 +70,7 @@ namespace Dubbizle.API
 
             builder.Services.AddDbContext<Context>(opt =>
            opt.UseSqlServer(builder.Configuration.GetConnectionString("Default"))
-           .UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking)
+           .UseQueryTrackingBehavior(QueryTrackingBehavior.TrackAll)
             .LogTo(log => Debug.WriteLine(log), LogLevel.Information)
            .EnableSensitiveDataLogging()
            );
@@ -155,7 +157,6 @@ namespace Dubbizle.API
             });
 
             var app = builder.Build();
-            app.UseCors("MyPolicy");
 
             
 
@@ -165,15 +166,13 @@ namespace Dubbizle.API
                 app.UseSwagger();
                 app.UseSwaggerUI();
             }
-            app.UseCors();
-            app.UseCors("CorsPolicy");
 
             app.UseStaticFiles();
             app.UseCors("MyPolicy");
             app.UseAuthentication();
             app.UseAuthorization();
-            
 
+            app.MapHub<ChatHub>("/ChatHub");
             app.MapControllers();
 
             app.Run();

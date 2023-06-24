@@ -5,9 +5,10 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
  
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-
+import { ChatComponent } from './chatpage/chat/chat.component';
 import { HomeComponent } from 'src/home-page/home/home.component';
 import { HomePageComponentComponent } from './home-page-component/home-page-component.component';
+import { CommonModule } from '@angular/common';
 
 import { NavBarComponent } from './nav-bar/nav-bar.component';
 import { CatNavBarComponent } from './cat-nav-bar/cat-nav-bar.component';
@@ -33,11 +34,11 @@ import { AddAdvComponent } from './add-adv/add-adv.component';
     DelAccountComponent,
     AddAdvComponent,
     HomePageComponentComponent,
-
+    ChatComponent,
     NavBarComponent,
     CatNavBarComponent,
     FooterComponent,
-    
+
 
   ],
   imports: [
@@ -49,7 +50,7 @@ import { AddAdvComponent } from './add-adv/add-adv.component';
     HttpClientModule,
     AppRoutingModule,
     HttpClientModule,
-
+    CommonModule,
     ReactiveFormsModule,
     HttpClientModule,
     JwtModule.forRoot({

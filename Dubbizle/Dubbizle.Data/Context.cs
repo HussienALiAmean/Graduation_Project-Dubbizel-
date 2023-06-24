@@ -8,15 +8,15 @@ namespace Dubbizle.Data
     {
         public Context(DbContextOptions options) : base(options)
         { }
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        {
-            optionsBuilder.UseSqlServer(@"Data Source=DESKTOP-LKBV544\SQL19;Initial Catalog=DubbizleDB;Integrated Security=True;Encrypt=False");
+        //protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        //{
+        //    optionsBuilder.UseSqlServer(@"Data Source=DESKTOP-LKBV544\SQL19;Initial Catalog=DubbizleDB;Integrated Security=True;Encrypt=False");
 
 
-            //optionsBuilder.UseSqlServer(@"Data Source=DESKTOP-SH1SPK1\SQL2019;Initial Catalog=DubbizleDB;Integrated Security=True;Encrypt=False");
+        //    //optionsBuilder.UseSqlServer(@"Data Source=DESKTOP-SH1SPK1\SQL2019;Initial Catalog=DubbizleDB;Integrated Security=True;Encrypt=False");
 
-            base.OnConfiguring(optionsBuilder);
-        }
+        //    base.OnConfiguring(optionsBuilder);
+        //}
 
         public DbSet<Advertisment> Advertisments { get; set; }
         public DbSet<Advertisment_FiltrationValue> Advertisment_FiltrationValues { get; set; }

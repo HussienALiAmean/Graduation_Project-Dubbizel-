@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "F:\\ITI Courses\\GradProject\\Graduation_Project-Dubbizel-\\Dubbizle\\Mapper\\Mapper.csproj": {}
+    "D:\\graduation project\\project Hussien\\Graduation_Project-Dubbizel-\\Dubbizle\\Mapper\\Mapper.csproj": {}
   },
   "projects": {
-    "F:\\ITI Courses\\GradProject\\Graduation_Project-Dubbizel-\\Dubbizle\\Dubbizle.DTOs\\Dubbizle.DTOs.csproj": {
+    "D:\\graduation project\\project Hussien\\Graduation_Project-Dubbizel-\\Dubbizle\\Dubbizle.DTOs\\Dubbizle.DTOs.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "F:\\ITI Courses\\GradProject\\Graduation_Project-Dubbizel-\\Dubbizle\\Dubbizle.DTOs\\Dubbizle.DTOs.csproj",
+        "projectUniqueName": "D:\\graduation project\\project Hussien\\Graduation_Project-Dubbizel-\\Dubbizle\\Dubbizle.DTOs\\Dubbizle.DTOs.csproj",
         "projectName": "Dubbizle.DTOs",
-        "projectPath": "F:\\ITI Courses\\GradProject\\Graduation_Project-Dubbizel-\\Dubbizle\\Dubbizle.DTOs\\Dubbizle.DTOs.csproj",
-        "packagesPath": "C:\\Users\\Electronica Care\\.nuget\\packages\\",
-        "outputPath": "F:\\ITI Courses\\GradProject\\Graduation_Project-Dubbizel-\\Dubbizle\\Dubbizle.DTOs\\obj\\",
+        "projectPath": "D:\\graduation project\\project Hussien\\Graduation_Project-Dubbizel-\\Dubbizle\\Dubbizle.DTOs\\Dubbizle.DTOs.csproj",
+        "packagesPath": "C:\\Users\\tarek\\.nuget\\packages\\",
+        "outputPath": "D:\\graduation project\\project Hussien\\Graduation_Project-Dubbizel-\\Dubbizle\\Dubbizle.DTOs\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\Electronica Care\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\tarek\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -28,8 +28,8 @@
           "net7.0": {
             "targetAlias": "net7.0",
             "projectReferences": {
-              "F:\\ITI Courses\\GradProject\\Graduation_Project-Dubbizel-\\Dubbizle\\Dubbizle.Models\\Dubbizle.Models.csproj": {
-                "projectPath": "F:\\ITI Courses\\GradProject\\Graduation_Project-Dubbizel-\\Dubbizle\\Dubbizle.Models\\Dubbizle.Models.csproj"
+              "D:\\graduation project\\project Hussien\\Graduation_Project-Dubbizel-\\Dubbizle\\Dubbizle.Models\\Dubbizle.Models.csproj": {
+                "projectPath": "D:\\graduation project\\project Hussien\\Graduation_Project-Dubbizel-\\Dubbizle\\Dubbizle.Models\\Dubbizle.Models.csproj"
               }
             }
           }
@@ -43,6 +43,12 @@
       "frameworks": {
         "net7.0": {
           "targetAlias": "net7.0",
+          "dependencies": {
+            "Microsoft.AspNetCore.Http.Features": {
+              "target": "Package",
+              "version": "[5.0.17, )"
+            }
+          },
           "imports": [
             "net461",
             "net462",
@@ -59,21 +65,21 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.101\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.203\\RuntimeIdentifierGraph.json"
         }
       }
     },
-    "F:\\ITI Courses\\GradProject\\Graduation_Project-Dubbizel-\\Dubbizle\\Dubbizle.Models\\Dubbizle.Models.csproj": {
+    "D:\\graduation project\\project Hussien\\Graduation_Project-Dubbizel-\\Dubbizle\\Dubbizle.Models\\Dubbizle.Models.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "F:\\ITI Courses\\GradProject\\Graduation_Project-Dubbizel-\\Dubbizle\\Dubbizle.Models\\Dubbizle.Models.csproj",
+        "projectUniqueName": "D:\\graduation project\\project Hussien\\Graduation_Project-Dubbizel-\\Dubbizle\\Dubbizle.Models\\Dubbizle.Models.csproj",
         "projectName": "Dubbizle.Models",
-        "projectPath": "F:\\ITI Courses\\GradProject\\Graduation_Project-Dubbizel-\\Dubbizle\\Dubbizle.Models\\Dubbizle.Models.csproj",
-        "packagesPath": "C:\\Users\\Electronica Care\\.nuget\\packages\\",
-        "outputPath": "F:\\ITI Courses\\GradProject\\Graduation_Project-Dubbizel-\\Dubbizle\\Dubbizle.Models\\obj\\",
+        "projectPath": "D:\\graduation project\\project Hussien\\Graduation_Project-Dubbizel-\\Dubbizle\\Dubbizle.Models\\Dubbizle.Models.csproj",
+        "packagesPath": "C:\\Users\\tarek\\.nuget\\packages\\",
+        "outputPath": "D:\\graduation project\\project Hussien\\Graduation_Project-Dubbizel-\\Dubbizle\\Dubbizle.Models\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\Electronica Care\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\tarek\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -120,21 +126,21 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.101\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.203\\RuntimeIdentifierGraph.json"
         }
       }
     },
-    "F:\\ITI Courses\\GradProject\\Graduation_Project-Dubbizel-\\Dubbizle\\Mapper\\Mapper.csproj": {
+    "D:\\graduation project\\project Hussien\\Graduation_Project-Dubbizel-\\Dubbizle\\Mapper\\Mapper.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "F:\\ITI Courses\\GradProject\\Graduation_Project-Dubbizel-\\Dubbizle\\Mapper\\Mapper.csproj",
+        "projectUniqueName": "D:\\graduation project\\project Hussien\\Graduation_Project-Dubbizel-\\Dubbizle\\Mapper\\Mapper.csproj",
         "projectName": "Mapper",
-        "projectPath": "F:\\ITI Courses\\GradProject\\Graduation_Project-Dubbizel-\\Dubbizle\\Mapper\\Mapper.csproj",
-        "packagesPath": "C:\\Users\\Electronica Care\\.nuget\\packages\\",
-        "outputPath": "F:\\ITI Courses\\GradProject\\Graduation_Project-Dubbizel-\\Dubbizle\\Mapper\\obj\\",
+        "projectPath": "D:\\graduation project\\project Hussien\\Graduation_Project-Dubbizel-\\Dubbizle\\Mapper\\Mapper.csproj",
+        "packagesPath": "C:\\Users\\tarek\\.nuget\\packages\\",
+        "outputPath": "D:\\graduation project\\project Hussien\\Graduation_Project-Dubbizel-\\Dubbizle\\Mapper\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\Electronica Care\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\tarek\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -148,11 +154,11 @@
           "net7.0": {
             "targetAlias": "net7.0",
             "projectReferences": {
-              "F:\\ITI Courses\\GradProject\\Graduation_Project-Dubbizel-\\Dubbizle\\Dubbizle.DTOs\\Dubbizle.DTOs.csproj": {
-                "projectPath": "F:\\ITI Courses\\GradProject\\Graduation_Project-Dubbizel-\\Dubbizle\\Dubbizle.DTOs\\Dubbizle.DTOs.csproj"
+              "D:\\graduation project\\project Hussien\\Graduation_Project-Dubbizel-\\Dubbizle\\Dubbizle.DTOs\\Dubbizle.DTOs.csproj": {
+                "projectPath": "D:\\graduation project\\project Hussien\\Graduation_Project-Dubbizel-\\Dubbizle\\Dubbizle.DTOs\\Dubbizle.DTOs.csproj"
               },
-              "F:\\ITI Courses\\GradProject\\Graduation_Project-Dubbizel-\\Dubbizle\\Dubbizle.Models\\Dubbizle.Models.csproj": {
-                "projectPath": "F:\\ITI Courses\\GradProject\\Graduation_Project-Dubbizel-\\Dubbizle\\Dubbizle.Models\\Dubbizle.Models.csproj"
+              "D:\\graduation project\\project Hussien\\Graduation_Project-Dubbizel-\\Dubbizle\\Dubbizle.Models\\Dubbizle.Models.csproj": {
+                "projectPath": "D:\\graduation project\\project Hussien\\Graduation_Project-Dubbizel-\\Dubbizle\\Dubbizle.Models\\Dubbizle.Models.csproj"
               }
             }
           }
@@ -188,7 +194,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.101\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.203\\RuntimeIdentifierGraph.json"
         }
       }
     }

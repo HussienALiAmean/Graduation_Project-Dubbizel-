@@ -14,13 +14,13 @@ namespace Dubbizle.Models
         public DateTime? BirthDate { get; set; }
         public float? Rating { get; set; }
         public string? Location { get; set; }   
-
         public List<ApplicationUser_Package> ApplicationUser_PackagesList { get; set; }
-        public List<Favorite> FavoritesList { get; set; }
+        public virtual List<Favorite> FavoritesList { get; set; }
+
         [InverseProperty("Sender")]
         public List<Chat> SenderChatList { get; set; }
         [InverseProperty("Reciver")]
-       
+
         public List<Chat> ReciverChatList { get; set; }
         public bool? Deleted { get; set; }    
 

@@ -3,6 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { UserprofileComponent } from './userprofile/userprofile.component';
 import { HomeComponent } from 'src/home-page/home/home.component';
 import { HomePageComponentComponent } from './home-page-component/home-page-component.component';
+import { ChatComponent } from './chatpage/chat/chat.component';
 
 
 
@@ -10,7 +11,8 @@ import { HomePageComponentComponent } from './home-page-component/home-page-comp
 const routes: Routes = [
   //{path:"profile",component:UserprofileComponent}
  {path:"myprofile",loadChildren:()=>import("src/modules/profile/profile.module").then(m=>m.ProfileModule)},
-  
+ {path:"chat",component:ChatComponent},
+
   {path:'Home/:id',component:HomePageComponentComponent},
   {path:'home-page',loadChildren:()=>import("../home-page/home-page.module").then(m=>m.HomePageModule)},
 

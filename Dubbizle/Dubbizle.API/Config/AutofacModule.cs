@@ -26,6 +26,7 @@ namespace Dubbizle.API.Config
 
             // builder.RegisterAssemblyTypes(typeof(BranchService).Assembly).InstancePerLifetimeScope();
             builder.RegisterAssemblyTypes(typeof(CategoryServise).Assembly).InstancePerLifetimeScope();
+            //builder.RegisterAssemblyTypes(typeof(UserServices).Assembly).InstancePerLifetimeScope();
             builder.RegisterAssemblyTypes(typeof(AdvertismentService).Assembly).InstancePerLifetimeScope();
 
             //builder.RegisterAssemblyTypes(typeof(AdvertismentServise).Assembly).InstancePerLifetimeScope();
