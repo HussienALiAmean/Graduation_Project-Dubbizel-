@@ -22,6 +22,7 @@
             <button type="button" style="height: 50px;" class="btn btn-outline-danger btns" (click)="AllAds()">View all({{AllAdsCounter}})</button>
         </div>
         <div class="col-1">
+
             <button type="button" style="height: 50px;"  class="btn btn-outline-danger btns" (click)="ActiveAds()">Active Ads({{ActivedsCounter}})</button>
         </div>
         <div class="col-1">
@@ -50,10 +51,8 @@
 
     <div class="row mb-3"  *ngFor="let ad of FiltredAdvertisments">
         <div class="col-1"></div>
-        <div class="col-10 card cardForm">
-
-            <div class="row " >
-
+        <div class="col-10 card cardForm ">
+            <div class="row ">
               <div class="col-md-3" style="background-color: rgb(223, 213, 213); padding-top: 30px" >
                 <p >From:<b> {{ad.date}}</b></p>
                 <p>To:<b>{{ad.expirationDate}}</b></p>
@@ -81,7 +80,14 @@
                         <div class="col-1" style="text-align: right;">
                         </div>
                         <div class="col-2" style="text-align: right;">
-                            <i class="fa-sharp fa-light fa-ellipsis"></i>
+                            <button id="btnGroupDrop1" type="button" class="btn" style="border: none;" data-bs-toggle="dropdown" aria-expanded="false">
+                                <i class="fa-sharp fa-light fa-ellipsis"></i>
+                            </button>
+                            <ul class="dropdown-menu" aria-labelledby="btnGroupDrop1">
+                                <li><a class="dropdown-item" href="#">Edit now</a></li>
+                                <li><a class="dropdown-item" href="#">Deactivate</a></li>
+                                <li><a class="dropdown-item" href="#">mark as sold</a></li>
+                            </ul>
                         </div>
                 </div>
                 <div class="row mt-2">
@@ -110,7 +116,7 @@
               </div>
 
             </div>
-          </div>
-    <div class="col-1"></div>
-</div>
+        </div>
+        <div class="col-1"></div>
+    </div>
 </div>
