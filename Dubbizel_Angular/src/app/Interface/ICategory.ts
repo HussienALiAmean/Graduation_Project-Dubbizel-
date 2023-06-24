@@ -5,7 +5,6 @@ export interface Icategory{
     name: string,
     parentCategoryID: number,
     subCategoriesList: IsubCategory[],
-    categoryAdvertismentsList: IcategoryAds []
 }
 
 export interface IsubCategory{
@@ -14,12 +13,12 @@ export interface IsubCategory{
     parentCategoryID: number
 }
 
-export interface IcategoryAds{
+/* export interface IcategoryAds{
     title: string,
     adType: string,
     adStatus: string,
     location: string,
-    postedAt: Date,
+    date: Date,
     advertismentImagesList:  IAdvertismentImages[]
     advertisment_RentOptionList:IAdvertismentRent[]
 }
@@ -29,4 +28,4 @@ export interface IAdvertismentImages{
 }
 export interface IAdvertismentRent{
     cost: number
-}
+} */

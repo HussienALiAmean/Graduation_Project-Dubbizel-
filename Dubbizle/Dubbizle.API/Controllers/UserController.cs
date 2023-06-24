@@ -89,7 +89,8 @@ namespace Dubbizle.API.Controllers
             {
                 ApplicationUser applicationUser = new ApplicationUser();
                 applicationUser.Email = userDTO.Email;
-                applicationUser.UserName = $"{"User"}{Guid.NewGuid()}";
+                Random rnd = new Random();
+                applicationUser.UserName = $"{"User"}{rnd.Next(1,1000)}";
                 IdentityResult result = await userManager.CreateAsync(applicationUser, userDTO.Password);
                 if (result.Succeeded)
                 {

@@ -7,5 +7,6 @@
         public string ApplicationUserId { get; set; }
         public Advertisment? Advertisment { get; set; }
         public int AdvertismentID { get; set; } 
+
     }
 }

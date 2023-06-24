@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand-lg p-2">
+<nav class="navbar navbar-expand-lg p-2 fixed-top bg-white">
   <div class="container-fluid ">
     <a class="navbar-brand ms-4"><img height="35px" src="/assets/logo.svg" alt="Logo"></a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
@@ -31,19 +31,31 @@
           </div>
         </li>
 
-        <li class="nav-item mx-4 textLi">
+        <li *ngIf="!isUserAuthenticated()" class="nav-item mx-4 textLi">
           <a class="nav-link active" aria-current="page" href="#">العربية</a>
         </li>
-         <!-- <img src="/assets/iconArrowDown_noinline.ec05eae7013321c193965ef15d4e2174.svg" class="_874da736 _419576f3" alt="User profile dropdown arrow">
-         <img src="/assets/iconChat_noinline.31f5df4a6a21fc770ed6863958662677.svg" alt="Go to chat">
-         <img src="/assets/iconNotifications_noinline.4444f6b42acbe30d772d80ef1225f574.svg" alt="Notifications icon">
-         -->
+        
          <li *ngIf="!isUserAuthenticated()" class="nav-item mx-4 textLi" id="loginLi"> 
-          <a class="nav-link active btn" aria-current="page" (click)="openLoginModal()">Login</a>
+          <a class="nav-link active btn"  style="border: none;" aria-current="page" (click)="openLoginModal()">Login</a>
         </li>
+
+        <li *ngIf="isUserAuthenticated()" class="nav-item mx-4 dropdown" style="font-size:20px; margin-top:10px;">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            {{UserName}}
+          </a>
+          <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <li><a class="dropdown-item"  routerLink="/myprofile/account">Profile</a></li>
+            <li><a class="dropdown-item" [routerLink]="['MyAds']">My Ads</a></li>
+            <li><a class="dropdown-item" [routerLink]="['/Favorite']">My Favoriets</a></li>
+            <!-- <li><a class="dropdown-item" [routerLink]="['/package']">My Packages</a></li> -->
+            <li><a class="dropdown-item" [routerLink]="['/categories']">Buy Business Packages</a></li>
+          </ul>
+        </li>
+
         <li *ngIf="isUserAuthenticated()" class="nav-item mx-4 textLi" id="loginLi">
-          <a class="nav-link active btn" aria-current="page" (click)="logOut()">LogOut</a>
+          <a class="nav-link active btn" style="border: none;" aria-current="page" (click)="logOut()">Logout</a>
         </li>
+       
         <li class="nav-item mx-4 ">
           <button class="btn" id="sellBtn">Sell</button>
         </li>
@@ -59,11 +71,7 @@
 
 
 
-
-
-
-
-<div class="modal" id="exampleModal" [ngStyle]="{'display':display}" tabindex="-1" aria-labelledby="exampleModalLabel"
+<div class="modal"  id="exampleModal" [ngStyle]="{'display':display}" tabindex="-1" aria-labelledby="exampleModalLabel"
   aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">

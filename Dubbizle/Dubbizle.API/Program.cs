@@ -63,6 +63,8 @@ namespace Dubbizle.API
 
             builder.Host.ConfigureContainer<ContainerBuilder>(opt =>
                 opt.RegisterModule(new AutofacModule()));
+           // builder.Services.AddAutoMapper(typeof(ProfileMap).Assembly);
+
             builder.Services.AddAutoMapper(typeof(ProfileMap).Assembly);
 
             builder.Services.AddAutoMapper(typeof(CategoryWithSubCategoryProfile).Assembly);
@@ -74,10 +76,9 @@ namespace Dubbizle.API
             .LogTo(log => Debug.WriteLine(log), LogLevel.Information)
            .EnableSensitiveDataLogging()
            );
+            //signalR
+            builder.Services.AddSignalR();
 
-
-
-  
 
             builder.Services.AddIdentity<ApplicationUser, IdentityRole>().AddEntityFrameworkStores<Context>();
 
@@ -158,7 +159,7 @@ namespace Dubbizle.API
 
             var app = builder.Build();
 
-            
+
 
             // Configure the HTTP request pipeline.
             if (app.Environment.IsDevelopment())
@@ -170,7 +171,11 @@ namespace Dubbizle.API
             app.UseStaticFiles();
             app.UseCors("MyPolicy");
             app.UseAuthentication();
+
+            app.MapHub<ReviewHub>("/Review");
+
             app.UseAuthorization();
+
 
             app.MapHub<ChatHub>("/ChatHub");
             app.MapControllers();

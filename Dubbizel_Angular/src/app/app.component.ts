@@ -9,6 +9,6 @@ declare const gapi: any;
 export class AppComponent {
   title = 'Dubbizel_Angular';
 
-  
+  step=1;
 
 }

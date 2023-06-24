@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "srhWnYe9sIm+81u/dqt+/WyWxaV9+i+/C3MjoEbDsR9uoq6fd4xzYPJgewHef4eE+gK0n7bTd8XvhfZSxQHAtg==",
+  "dgSpecHash": "dH8ggJytfKsXub9800HIx+NKIxJiOsHWm7bJS1zqVaYMOHn06WYOlpfeRkH1Wb7dJuydmr17o+q/JtE+BJI+Yg==",
   "success": true,
   "projectFilePath": "D:\\graduation project\\project Hussien\\Graduation_Project-Dubbizel-\\Dubbizle\\Dubbizle.Mapper\\Dubbizle.Mapper.csproj",
   "expectedPackageFiles": [
@@ -27,5 +27,12 @@
     "C:\\Users\\tarek\\.nuget\\packages\\microsoft.extensions.primitives\\7.0.0\\microsoft.extensions.primitives.7.0.0.nupkg.sha512",
     "C:\\Users\\tarek\\.nuget\\packages\\system.io.pipelines\\5.0.2\\system.io.pipelines.5.0.2.nupkg.sha512"
   ],
-  "logs": []
+  "logs": [
+    {
+      "code": "Undefined",
+      "level": "Warning",
+      "warningLevel": 1,
+      "message": "Problem reading the cache file D:\\graduation project\\project Hussien\\Graduation_Project-Dubbizel-\\Dubbizle\\Dubbizle.Mapper\\obj\\project.nuget.cache : Invalid property identifier character: <. Path 'version', line 3, position 0."
+    }
+  ]
 }

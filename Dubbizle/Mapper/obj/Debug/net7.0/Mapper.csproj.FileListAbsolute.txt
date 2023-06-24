@@ -1,20 +1,3 @@
-F:\ITI Courses\GradProject\Graduation_Project-Dubbizel-\Dubbizle\Mapper\bin\Debug\net7.0\Mapper.deps.json
-F:\ITI Courses\GradProject\Graduation_Project-Dubbizel-\Dubbizle\Mapper\bin\Debug\net7.0\Mapper.dll
-F:\ITI Courses\GradProject\Graduation_Project-Dubbizel-\Dubbizle\Mapper\bin\Debug\net7.0\Mapper.pdb
-F:\ITI Courses\GradProject\Graduation_Project-Dubbizel-\Dubbizle\Mapper\bin\Debug\net7.0\Dubbizle.DTOs.dll
-F:\ITI Courses\GradProject\Graduation_Project-Dubbizel-\Dubbizle\Mapper\bin\Debug\net7.0\Dubbizle.Models.dll
-F:\ITI Courses\GradProject\Graduation_Project-Dubbizel-\Dubbizle\Mapper\bin\Debug\net7.0\Dubbizle.DTOs.pdb
-F:\ITI Courses\GradProject\Graduation_Project-Dubbizel-\Dubbizle\Mapper\bin\Debug\net7.0\Dubbizle.Models.pdb
-F:\ITI Courses\GradProject\Graduation_Project-Dubbizel-\Dubbizle\Mapper\obj\Debug\net7.0\Mapper.csproj.AssemblyReference.cache
-F:\ITI Courses\GradProject\Graduation_Project-Dubbizel-\Dubbizle\Mapper\obj\Debug\net7.0\Mapper.GeneratedMSBuildEditorConfig.editorconfig
-F:\ITI Courses\GradProject\Graduation_Project-Dubbizel-\Dubbizle\Mapper\obj\Debug\net7.0\Mapper.AssemblyInfoInputs.cache
-F:\ITI Courses\GradProject\Graduation_Project-Dubbizel-\Dubbizle\Mapper\obj\Debug\net7.0\Mapper.AssemblyInfo.cs
-F:\ITI Courses\GradProject\Graduation_Project-Dubbizel-\Dubbizle\Mapper\obj\Debug\net7.0\Mapper.csproj.CoreCompileInputs.cache
-F:\ITI Courses\GradProject\Graduation_Project-Dubbizel-\Dubbizle\Mapper\obj\Debug\net7.0\Mapper.csproj.CopyComplete
-F:\ITI Courses\GradProject\Graduation_Project-Dubbizel-\Dubbizle\Mapper\obj\Debug\net7.0\Mapper.dll
-F:\ITI Courses\GradProject\Graduation_Project-Dubbizel-\Dubbizle\Mapper\obj\Debug\net7.0\refint\Mapper.dll
-F:\ITI Courses\GradProject\Graduation_Project-Dubbizel-\Dubbizle\Mapper\obj\Debug\net7.0\Mapper.pdb
-F:\ITI Courses\GradProject\Graduation_Project-Dubbizel-\Dubbizle\Mapper\obj\Debug\net7.0\ref\Mapper.dll
 D:\graduation project\project Hussien\Graduation_Project-Dubbizel-\Dubbizle\Mapper\bin\Debug\net7.0\Mapper.deps.json
 D:\graduation project\project Hussien\Graduation_Project-Dubbizel-\Dubbizle\Mapper\bin\Debug\net7.0\Mapper.dll
 D:\graduation project\project Hussien\Graduation_Project-Dubbizel-\Dubbizle\Mapper\bin\Debug\net7.0\Mapper.pdb

@@ -8,7 +8,7 @@ namespace Dubbizle.DTOs
         public string Name { get; set; }
         public int ParentCategoryID { get; set; }
         public List<SubCategoryDTO> SubCategoriesList { get; set; }
-        public List<AdvertismentHomePageDTO> CategoryAdvertismentsList { get; set; }
+        //public List<AdvertismentHomePageDTO> CategoryAdvertismentsList { get; set; }
 
     }
 }

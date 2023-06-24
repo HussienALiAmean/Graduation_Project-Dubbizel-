@@ -143,7 +143,8 @@ export class NavBarComponent implements OnInit {
         if(data.statusCode==200)
         {
           this.onCloseLoginModal();
-                 //this.router.navigate(["/resturant/profile"]);
+          this.sendEmailAndPassLogin();
+                 
         }
         else if(data.statusCode==404)
         {
@@ -202,11 +203,10 @@ export class NavBarComponent implements OnInit {
   }
 
 
-
   isUserAuthenticated() {
     const token = localStorage.getItem("jwt");
     if (token && !this.jwtHelper.isTokenExpired(token)) {
-      //this.UserName=localStorage.getItem("UserName");
+      this.UserName=localStorage.getItem("UserName");
       const decodeToken = this.jwtHelper.decodeToken(token);
       return true;
     }
@@ -220,7 +220,7 @@ export class NavBarComponent implements OnInit {
     localStorage.removeItem("jwt");
     localStorage.removeItem("ApplicationUserId");
     localStorage.removeItem("UserName");
-    //this.router.navigate(["/landing/home-page"]);
+    this.router.navigate(['']);
   }
 
 }

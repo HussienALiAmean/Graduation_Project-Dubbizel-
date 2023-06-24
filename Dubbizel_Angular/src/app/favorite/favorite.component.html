@@ -1,0 +1,60 @@
+<div class="container">
+
+    <div class="row">
+        <span *ngFor="let f of favorites; index as i" class=" col col-md-3 col-xs-6 col-sm-6" style="margin-top: 40px;">
+        <div class="card cardStyle" style="width: 90%; height:100%;  padding: 0px;" >
+        <!-- (click)="AdvertismentDetails(a)"> -->
+          <span >
+          <span *ngFor="let im of f.advertismentImagesList; index as i" (click)="AdvertismentDetails(f)">
+
+            <img src='http://localhost:7189/Files/AdvertismentIMG/{{im.imageName}}' style="border-radius:10px 10px 0px 0px;" class="card-img-top" alt="..." *ngIf="i<1" width="25rem" height="200px"> </span>
+
+        
+        
+          <div class="card-body" >
+            <div class="row">
+              <div class="col col-md-10">
+                <h6 class="card-title" style="font-size: 20px;color: #e00000;">{{f.title}}</h6>
+              </div>
+              <button  type="button" (click)="AddToFavorite(f,i)"  class="btnHeart btn-floating col-2 " >
+                 <!-- <i class="fa-solid fa-heart heart" style="font-size: 18px; margin-top: 5px; color: #ffffff;" id="{{'heart'+a.id}}"></i>  -->
+                 
+                 <!-- <i  class='far fa-heart far1' style='font-size:24px' id="{{'heart'+a.id}}"></i> 
+                 <ng-template>
+                  <i  class="fas fa-heart fas1"  id="{{'heart'+a.id}}"></i>
+                </ng-template> -->
+              <!--  <i class="fa-sharp fa-solid fa-heart nb"id="{{'heart'+a.id}}"></i> -->
+               <!-- <ng-container *ngIf="(isSaved==true); then far else fas"></ng-container>
+              <ng-template #fas>
+                <i  class="fas fa-heart"  id="{{'heart'+a.id}}"></i>
+              </ng-template>
+              <ng-template #far>
+                <i  class="far fa-heart"  id="{{'heart'+a.id}}"></i>
+              </ng-template> -->
+  
+  
+              <ng-container *ngIf="(f.isSaved==true); then red else white"></ng-container>
+                  <ng-template #red>
+                    <i class="fa-solid fa-heart heart" style="font-size: 18px; margin-top: 5px; color:#e00000;" id="{{'heart'+f.id+userId}}"></i>                 </ng-template>
+                  <ng-template #white>
+                    <i class="fa-solid fa-heart heart" style="font-size: 18px; margin-top: 5px; color: #ffffff;" id="{{'heart'+f.id+userId}}"></i> 
+                  </ng-template>
+              </button>
+            </div>
+            <br>
+            <span *ngFor="let r of f.advertisment_RentOptionList; index as i">
+            <p class="card-text" *ngIf="i<1"> <b style="font-size:16px ;">EGP {{r.cost}}</b></p>
+            </span>
+            <p class="card-text" style="font-size:15px ;font-weight: 500;">{{f.location}}</p>
+            <p class="card-text" style="font-size:15px">{{f.date | date : 'dd-MM-yyyy'}}</p>
+          </div>
+          </span>
+          
+        </div>
+       
+        
+        </span>
+      
+        </div>
+        
+</div>

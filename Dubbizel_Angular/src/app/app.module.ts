@@ -4,12 +4,13 @@ import {HttpClientModule} from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
  
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ChatComponent } from './chatpage/chat/chat.component';
-import { HomeComponent } from 'src/home-page/home/home.component';
-import { HomePageComponentComponent } from './home-page-component/home-page-component.component';
+// import { HomeComponent } from 'src/home-page/home/home.component';
 import { CommonModule } from '@angular/common';
 
+
+import { HomePageComponentComponent } from './home-page-component/home-page-component.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NavBarComponent } from './nav-bar/nav-bar.component';
 import { CatNavBarComponent } from './cat-nav-bar/cat-nav-bar.component';
 import { FooterComponent } from './footer/footer.component';
@@ -22,26 +23,57 @@ export function tokenGetter() {
 import { FilterationModule } from 'src/filteration/filteration.module';
 import { MatIconModule, MatIconRegistry } from '@angular/material/icon';
 import { DomSanitizer } from '@angular/platform-browser';
+import { AdvertismentDetailsComponent } from './advertisment-details/advertisment-details.component';
+import { AdvertismentUserComponent } from './advertisment-user/advertisment-user.component';
+import { FavoriteComponent } from './favorite/favorite.component';
 
 import { DropDownListModule } from '@syncfusion/ej2-angular-dropdowns';
-import { UserprofileComponent } from './userprofile/userprofile.component';
 import { DelAccountComponent } from './del-account/del-account.component';
-import { AddAdvComponent } from './add-adv/add-adv.component';
+
+/* import { AddAdvComponent } from './add-adv/add-adv.component'; */
+import { PackagesComponent } from './packages/packages.component';
+
+
+import { AdDetailsComponent } from './ad-details/ad-details.component';
+
+//signalr
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap'; 
+import { MyAdsComponent } from './my-ads/my-ads.component';
+import { CategoriesBeforePackagesComponent } from './categories-before-packages/categories-before-packages.component';
+
+// import { UserprofileComponent } from 'src/profile/userprofile/userprofile.component';
+
+
+
+
 @NgModule({
   declarations: [
     AppComponent,
-    UserprofileComponent,
     DelAccountComponent,
-    AddAdvComponent,
-    HomePageComponentComponent,
+    
     ChatComponent,
+
     NavBarComponent,
     CatNavBarComponent,
     FooterComponent,
+    AdDetailsComponent,
+    MyAdsComponent,
+    
 
-
+    AdvertismentDetailsComponent,
+    AdvertismentUserComponent,
+    FavoriteComponent, 
+    DelAccountComponent,
+    NavBarComponent,
+    CatNavBarComponent,
+    FooterComponent,
+    HomePageComponentComponent,
+    PackagesComponent,
+    CategoriesBeforePackagesComponent
+  
   ],
   imports: [
+    NgbModule,
     FormsModule,
     ReactiveFormsModule,
     BrowserModule,
@@ -49,10 +81,7 @@ import { AddAdvComponent } from './add-adv/add-adv.component';
     AppRoutingModule,
     HttpClientModule,
     AppRoutingModule,
-    HttpClientModule,
     CommonModule,
-    ReactiveFormsModule,
-    HttpClientModule,
     JwtModule.forRoot({
       config: {
         tokenGetter: tokenGetter,
