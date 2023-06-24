@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { CategoryService } from '../Services/category.service';
 import { FormBuilder, Validators } from '@angular/forms';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-categories',
@@ -51,7 +52,7 @@ export class CategoriesComponent {
       console.log(this.parentCategoryID?.value)
       let counter = 0;
       this.ParentCategoryList.forEach((category: any) => {
-        if (this.name?.value == category.name)
+        if (this.id?.value == category.id)
             {
               this.ParentCategoryList.splice(counter, 1)
             }
@@ -169,24 +170,24 @@ export class CategoriesComponent {
       this.categoryService.EditCategory(this.AddForm.value).subscribe({
         next: (data: any) => {
           if (data.statusCode == 200) {
-            this.CategoryList[this.EditIndex] = data.data;
-            // let counter = 0;
-            // this.ParentCategoryList.forEach((category: any) => {
-            //   if (category.parentCategoryID != null)
-            //     this.ParentCategoryList.splice(counter, 1)
-            //   counter++;
-            // });
-
-            if (this.parentCategoryID?.value != null) {
-              let counter = 0;
-              this.ParentCategoryList.forEach((category: any) => {
-                if (this.id?.value == category.id)
-                  this.ParentCategoryList.splice(counter, 1)
-                counter++;
-              });
-            }
-
-            this.onCloseCategoryEditModal();
+              this.CategoryList[this.EditIndex] = data.data;
+              this.onCloseCategoryEditModal();
+              if(data.message!=null)
+              {
+                Swal.fire({
+                  icon: 'info',
+                  title: 'Notice',
+                  text: data.message
+                })
+              }
+              if (this.parentCategoryID?.value != null) {
+                let counter = 0;
+                this.ParentCategoryList.forEach((category: any) => {
+                  if (this.id?.value == category.id)
+                    this.ParentCategoryList.splice(counter, 1)
+                  counter++;
+                });
+              }
           }
           else {
             console.log(data.message);
@@ -205,13 +206,26 @@ export class CategoriesComponent {
     this.categoryService.DeleteCategory(categoryID).subscribe({
       next: (data: any) => {
         if (data.statusCode == 200) {
-          this.CategoryList.splice(index, 1);
-          let counter = 0;
-          this.ParentCategoryList.forEach((category: any) => {
-            if (category.id == categoryID)
-              this.ParentCategoryList.splice(counter, 1)
-            counter++;
-          });
+         
+            if(data.message!=null)
+              {
+                Swal.fire({
+                  icon: 'info',
+                  title: 'Notice',
+                  text: data.message
+                })
+              }
+              else
+              {
+                this.CategoryList.splice(index, 1);
+              
+              }
+              let counter = 0;
+              this.ParentCategoryList.forEach((category: any) => {
+                if (category.id == categoryID)
+                  this.ParentCategoryList.splice(counter, 1)
+                counter++;
+              });
         }
         else {
           console.log(data.message);

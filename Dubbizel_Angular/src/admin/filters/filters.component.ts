@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { FilterService } from '../Services/filter.service';
 import { FormBuilder, Validators } from '@angular/forms';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-filters',
@@ -120,7 +121,6 @@ export class FiltersComponent {
           if(data.statusCode==200)
         {
         this.FilterList[this.EditIndex]=data.data;
-        let counter = 0;
         this.onCloseFilterEditModal();
         }
         else
@@ -143,7 +143,19 @@ export class FiltersComponent {
       next: (data:any) => {
         if(data.statusCode==200)
       {
-      this.FilterList.splice(index,1);
+            if(data.message!=null)
+            {
+              Swal.fire({
+                icon: 'info',
+                title: 'Notice',
+                text: data.message
+              })
+            }
+            else
+            {
+              this.FilterList.splice(index,1);
+            }
+    
       }
       else
       {

@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { SubcatgoryFiltersService } from '../Services/subcatgory-filters.service';
 import { FormBuilder, Validators } from '@angular/forms';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-subcategory-filters',
@@ -117,8 +118,19 @@ export class SubcategoryFiltersComponent {
       this.subCategoryFilterService.EditSubCatFilter(this.AddForm.value).subscribe({
         next: (data: any) => {
           if (data.statusCode == 200) {
-            this.SubCatFilterList[this.EditIndex] = data.data;
             this.onCloseSubCatFilterEditModal();
+            if(data.message!=null)
+              {
+                Swal.fire({
+                  icon: 'info',
+                  title: 'Notice',
+                  text: data.message
+                })
+              }
+              else
+              {
+                this.SubCatFilterList[this.EditIndex] = data.data;
+              }
           }
           else {
             this.messageError = data.data.ModelStateErrors.errors;
@@ -138,7 +150,19 @@ export class SubcategoryFiltersComponent {
     this.subCategoryFilterService.DeleteSubCatFilter(SubCatfilterID).subscribe({
       next: (data: any) => {
         if (data.statusCode == 200) {
-          this.SubCatFilterList.splice(index, 1);
+          if(data.message!=null)
+          {
+            Swal.fire({
+              icon: 'info',
+              title: 'Notice',
+              text: data.message
+            })
+          }
+          else
+          {
+            this.SubCatFilterList.splice(index, 1);
+          }
+          
         }
         else {
           console.log(data.message);
