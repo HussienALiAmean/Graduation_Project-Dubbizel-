@@ -80,6 +80,13 @@ namespace Dubbizle.Services
         }
 
 
+        // Alzhraa
+        public IEnumerable<Advertisment> GetMyAdvertisments(string ApplicationUserId)
+        {
+            return _repository.GetAll("AdvertismentImagesList", "Advertisment_RentOptionList").Where(A => A.ApplicationUserId == ApplicationUserId&&A.Deleted==false).ToList();
+        }
+
+
         public void Add(Advertisment advertisment)
         {
             _repository.Add(advertisment);

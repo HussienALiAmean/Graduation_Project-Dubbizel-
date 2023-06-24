@@ -82,23 +82,20 @@ export class AdvertismentDetailsComponent implements OnInit{
 
     
     await setTimeout(async ()=>{
-
       console.log(this.ReviewForm.value)
       console.log("after invoke")
       await this.hubConnectionBuilder.on('NewReviewNotify', (rev) => {
       console.log(rev)
       this.advertismentDetail.reviewsList.push(rev)
-
-     
   });
   },2000)
 
-  await setTimeout(async ()=>{
+  await setTimeout(async (i:any)=>{
     console.log(this.ReviewForm.value)
     console.log("after invoke")
       this.hubConnectionBuilder.on('RemoveReviewNotify', (rev) => {
         console.log(rev)
-        this.advertismentDetail.reviewsList.splice(rev,1);
+        this.advertismentDetail.reviewsList.splice(i,1);
 
       });
   },2000)
@@ -189,7 +186,6 @@ export class AdvertismentDetailsComponent implements OnInit{
       this.reviewService.EditReview(this.ReviewForm.value).subscribe({
         next: data => {
           console.log(data);
-         
           this.hubConnectionBuilder.invoke('EditReview', data);
         },
         error: error => console.log(error),

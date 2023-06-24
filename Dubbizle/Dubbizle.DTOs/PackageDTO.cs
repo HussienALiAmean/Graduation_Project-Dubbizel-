@@ -20,4 +20,13 @@ namespace Dubbizle.DTOs
         public string? SubCategoryName { get; set; }
 
     }
+
+    public class PackageAppUserDTO
+    {
+        public string ApplicationUserId { get; set; }
+        public int PackageID { get; set; }
+        public int NumOfRemainAds { get; set; }
+    }
+
+
 }

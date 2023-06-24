@@ -34,6 +34,7 @@ import { AdDetailsComponent } from './ad-details/ad-details.component';
 //signalr
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap'; 
 import { MyAdsComponent } from './my-ads/my-ads.component';
+import { CategoriesBeforePackagesComponent } from './categories-before-packages/categories-before-packages.component';
 
 // import { UserprofileComponent } from 'src/profile/userprofile/userprofile.component';
 
@@ -61,7 +62,8 @@ import { MyAdsComponent } from './my-ads/my-ads.component';
     CatNavBarComponent,
     FooterComponent,
     HomePageComponentComponent,
-    PackagesComponent
+    PackagesComponent,
+    CategoriesBeforePackagesComponent
   
   ],
   imports: [
