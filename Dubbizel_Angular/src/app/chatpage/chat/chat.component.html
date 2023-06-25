@@ -39,7 +39,7 @@
                 <span class="float-end btn btn-info"> view ad</span>
             </div>
             <div class="rounded-lg border chat_room" >
-                <div *ngFor="let userchat of getChatDataForPage() ">
+                <div *ngFor="let userchat of chatData ">
                     <div id="{{userchat.id}}">
                         
                         <div class="sendersection" *ngIf="userchat.senderID == CurrentUserId">
@@ -78,10 +78,10 @@
                         </div>
                     </div>
                 </div>
-                <button class="btn-primary" (click)="itemsPerPage 
-                = itemsPerPage + 5" 
-                [disabled]="currentPage === getCeil(chatData.length 
-                / itemsPerPage)">Next</button>
+                <!-- [disabled]="currentPage === getCeil(chatData.length 
+                / itemsPerPage)" -->
+                <button class="btn-primary" (click)="GetMessage()" 
+                >More</button>
                 <div>
                     {{newChat}}
                     <div *ngIf="img != null">

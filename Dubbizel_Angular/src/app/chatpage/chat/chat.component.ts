@@ -44,12 +44,14 @@ export class ChatComponent  implements OnInit  {
   newChat!: any;
   img!:any
   Id!:any
+  top:number = 5;
   // fb: any;
   constructor(private chatService:ChatService
     ,private fb: FormBuilder){}
   ngOnInit(): void {
     this.Users()
     this.createForm()
+    this.top=5
     this.StartHubConnection()
     this.openHubToListenAnychat()
     this.openHubToListenRemovechat()
@@ -61,14 +63,7 @@ export class ChatComponent  implements OnInit  {
     this.chat.file = fileInput.target.files[0];
     console.log(this.file)
     console.log(this.chat.file)
-    // const dataTransfer = new ClipboardEvent('').clipboardData || new DataTransfer();
-    // dataTransfer.items.add(new File(['my-file'], 'new-file-name'));
-    // console.log(dataTransfer.items)
-    // console.log(dataTransfer.files)
-    // const inputElement: HTMLInputElement = document.getElementById('formFile') as HTMLInputElement
-    // console.log(inputElement)
-    // inputElement.files = dataTransfer.files;
-
+    
   }
 
   createForm() {
@@ -237,6 +232,8 @@ export class ChatComponent  implements OnInit  {
         error:error=>this.errorMessage=error
     })
     setTimeout(()=> {
+      // this.chatService.top+=5;
+      this.chatService.skip+=5;
 
       console.log(this.tempData)
       console.log("All Keys");
@@ -245,7 +242,13 @@ export class ChatComponent  implements OnInit  {
       let values =Object.values(this.tempData)
       console.log("result arrays")
       console.log(values[0])
-      this.chatData = values[0]
+      for (let index = 0; index < values[0].length; index++) {
+        const element =  values[0][index];
+        console.log(element)
+
+        this.chatData.push(element)
+      }
+      // this.chatData = values[0]
       // console.log(Object.entries(this.tempData));
       // console.log(Array.from( this.tempData))
       // this.chatData = this.tempData

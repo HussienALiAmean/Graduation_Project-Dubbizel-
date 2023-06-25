@@ -9,18 +9,19 @@ using System.Text;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Azure;
+using Dubbizle.Data.Migrations;
 
 namespace Dubbizle.Services
 {
     public class ChatServices
     {
         private readonly IRepository<Chat> _chatRepository;
-
         public ChatServices(IRepository<Chat> repository
             )
         {
             _chatRepository = repository;
-           
+            limit += 7;
         }
 
         public async Task<string> Add(ChatDTO Msg)
@@ -47,8 +48,10 @@ namespace Dubbizle.Services
             }
 
         }
+         static int  limit { get;  set; }
+        public int page { get; private set; }
         public int total { get; set; }
-        public async Task<dynamic> Get(string sender, string reciver)
+        public async Task<dynamic> Get(string sender, string reciver,int top, int Skip)
         {
            if(sender != null || reciver != null)
             {
@@ -59,27 +62,23 @@ namespace Dubbizle.Services
                     (c.SenderID == sender && c.ReciverID == reciver) 
                     ||(c.ReciverID == sender && c.SenderID == reciver))
                         .Include(r => r.Sender).Include(r => r.Reciver)
-                    .Take(29)
+                        .Skip(Skip)
+                    .Take(top)
                     .Select(x => new { gender = x.Reciver.Gender, ReseverName = x.Reciver.UserName, contenten = x.Content, image = x.File })
                     .ToList();
          
                 total = chats.Count();
-                //IEnumerable<Chat> pageChat =
-                //    _chatRepository.GetAll(c => c.Deleted == false &&
-                // (c.SenderID == sender && c.ReciverID == reciver) ||
-                // (c.ReciverID == sender && c.SenderID == reciver))
-                //    .Skip(1)
-                //    .Take(total)
-                // .ToList();
-                IEnumerable<Chat> chat = _chatRepository.GetAll(c => c.Deleted == false &&
-                    (c.SenderID == sender && c.ReciverID == reciver)
-                    || (c.ReciverID == sender && c.SenderID == reciver))
-                    .ToList();
-                //.Include(r => r.Sender).Include(r => r.Reciver)
-                //.OrderBy(c => c.ID)
-                //.Take(9)
-
-                return chat;
+               
+                
+                IEnumerable<Chat> pageChat =
+                    _chatRepository.GetAll(c => c.Deleted == false &&
+                 (c.SenderID == sender && c.ReciverID == reciver) ||
+                 (c.ReciverID == sender && c.SenderID == reciver))
+                    .Skip(Skip)
+                    .Take(top)
+                 .ToList();
+                
+                return pageChat; 
             }
             else
             {

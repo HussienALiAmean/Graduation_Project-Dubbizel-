@@ -37,17 +37,12 @@ namespace Dubbizle.API.Controllers
             //MessageRepo.AddMessage(Msg);
         }
         [HttpGet("GetMessages")]
-        public async Task<IActionResult> GetMessages( string sender , string reciver)
+        public async Task<IActionResult> GetMessages( string sender , string reciver,int top,int skip)
         {
-            var chats = await chatServices.Get(sender, reciver);
-            //List<Chat> chats
+            var chats = await chatServices.Get(sender, reciver, top,skip);
+            
 
-            //     = _chatRepository.GetAll(c => (c.SenderID == sender && c.ReciverID == reciver) ||
-            //     (c.ReciverID == sender && c.SenderID == reciver))
-            //        .ToList();
-            //.Include(r => r.Sender).Include(r => r.Reciver)
-
-            return Ok(chatServices.Get(sender, reciver));
+            return Ok(chatServices.Get(sender, reciver,top,skip));
 
         }
 
@@ -61,7 +56,7 @@ namespace Dubbizle.API.Controllers
             _chatRepository.SaveChanges();
             return Ok("Your obj has been deleted");
         }
-        [HttpGet()]
+        [HttpGet("GetChatUsers")]
         public async Task<IActionResult> GetChatUsers(string id)
         {
             IEnumerable<Chat> chats = 
