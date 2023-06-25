@@ -134,9 +134,9 @@ export class AdvertismentDetailsComponent implements OnInit{
     
   AdvertismentUser(advertismentDetail:any){
      this.router.navigate(["/AdvertismetUser",advertismentDetail.applicationUserId])
-    } 
+    }
 
-
+    
     async AddToFavorite(){
       var heart=document.getElementById("heart");
       console.log(heart?.style.color);
@@ -178,7 +178,7 @@ export class AdvertismentDetailsComponent implements OnInit{
         next: data => {
           console.log(data);
           this.hubConnectionBuilder.invoke('RemoveReview', data);
-          this.advertismentDetail.reviewsList.splice(i,1);
+          //this.advertismentDetail.reviewsList.splice(i,1);
 
         },
         error: error => console.log(error),
