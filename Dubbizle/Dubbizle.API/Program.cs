@@ -6,7 +6,7 @@ using Autofac.Extensions.DependencyInjection;
 using Autofac;
 using Dubbizle.API.Config;
 using Dubbizle.DTOs;
-using Mapper;
+////using Mapper;
 using Microsoft.AspNetCore.Identity;
 
 using Dubbizle.Mapper;
@@ -65,7 +65,7 @@ namespace Dubbizle.API
                 opt.RegisterModule(new AutofacModule()));
            // builder.Services.AddAutoMapper(typeof(ProfileMap).Assembly);
 
-            builder.Services.AddAutoMapper(typeof(ProfileMap).Assembly);
+            //builder.Services.AddAutoMapper(typeof(ProfileMap).Assembly);
 
             builder.Services.AddAutoMapper(typeof(CategoryWithSubCategoryProfile).Assembly);
             builder.Services.AddAutoMapper(typeof(SubCategoryProfile).Assembly);
