@@ -30,7 +30,7 @@ export class AdvertismentDetailsComponent implements OnInit {
   isSaved: boolean = false;
   Favorite: IFavourite = new IFavourite("", 0);
   errorMessage: string = ""
-  
+  numRate=[1,2,3,4,5];
 
     constructor(private favoriteService: FavoriteService, private fb: FormBuilder, private reviewService: ReviewserviceService, private advertismentService: AdvertismentServiceService, private activeRoute: ActivatedRoute, private router: Router) { }
 
@@ -229,7 +229,12 @@ await setTimeout(async () => {
       })
       heart!.style.color = "rgb(255, 255, 255)";
     }
+
+    
   }
+  counter(i: number) {
+    return new Array(i);
+}
 
 
 
