@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { FilterValueService } from '../Services/filter-value.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-filter-values',
@@ -116,6 +117,14 @@ export class FilterValuesComponent {
             if (data.statusCode == 200) {
               this.FilterValuesList[this.EditIndex] = data.data;
               this.onCloseFilterValueEditModal();
+              if(data.message!=null)
+              {
+                Swal.fire({
+                  icon: 'info',
+                  title: 'Notice',
+                  text: data.message
+                })
+              }
             }
             else {
               console.log(data.message);
@@ -134,7 +143,18 @@ export class FilterValuesComponent {
       this.filterValueService.DeleteFilterValue(filterValueID).subscribe({
         next: (data: any) => {
           if (data.statusCode == 200) {
-            this.FilterValuesList.splice(index, 1);
+            if(data.message!=null)
+            {
+              Swal.fire({
+                icon: 'info',
+                title: 'Notice',
+                text: data.message
+              })
+            }
+            else
+            {
+              this.FilterValuesList.splice(index, 1);
+            }
           }
           else {
             console.log(data.message);

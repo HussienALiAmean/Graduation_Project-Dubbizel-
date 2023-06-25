@@ -6,6 +6,8 @@ using Dubbizle.Services;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore.Metadata;
+using Dubbizle.Data;
 
 namespace Dubbizle.API.Controllers
 {
@@ -14,14 +16,29 @@ namespace Dubbizle.API.Controllers
     public class AdminController : ControllerBase
     {
         AdminService _AdminService;
-        public AdminController( AdminService adminService) {
+        Context _context;
+        public AdminController( AdminService adminService, Context context) {
             _AdminService = adminService;
+            _context = context;
          }
 
 
         //////////////////////////////////////////  Category /////////////////////////////////
 
         // Alzhraa 
+
+        //[HttpGet("CheckCategory")]
+        //public ResultDTO CheckCategory(int id )
+        //{
+           
+
+        //    ResultDTO resultDTO = new ResultDTO();
+        //    resultDTO.Data= _AdminService.CheckCategory(id);
+        //    return resultDTO;
+
+        //}
+
+
 
         [HttpGet("GetAllCategories")]
         public ResultDTO GetAllCategories()
@@ -63,7 +80,17 @@ namespace Dubbizle.API.Controllers
             {
                 Category categoryBeforeEdit = _AdminService.GetCategoryByID(subCategoryDTO.ID);
                 categoryBeforeEdit.Name = subCategoryDTO.Name;
-                categoryBeforeEdit.ParentCategoryID = subCategoryDTO.ParentCategoryID;
+                if(_AdminService.CheckCategory(subCategoryDTO.ID))
+                {
+                    if(categoryBeforeEdit.ParentCategoryID!=subCategoryDTO.ParentCategoryID)
+                    {
+                        resultDTO.Message = "It is not allowed to update this parentCategory because there are records in DB depend on this category.";
+                    }
+                }
+                else
+                {
+                    categoryBeforeEdit.ParentCategoryID = subCategoryDTO.ParentCategoryID;
+                }
                 Category categoryAfterEdit = _AdminService.EditCategory(categoryBeforeEdit);
                 resultDTO.StatusCode = 200;
                 resultDTO.Data = categoryAfterEdit; ;
@@ -76,13 +103,22 @@ namespace Dubbizle.API.Controllers
             return resultDTO;
 
         }
+       
         [HttpDelete("DeleteCategory")]
         public ResultDTO DeleteCategory(int id)
         {
-            _AdminService.DeleteCategory(id);
             ResultDTO resultDTO = new ResultDTO();
+
+            if (_AdminService.CheckCategory(id))
+            {
+                resultDTO.Message = "It is not allowed to delete this category because there are records in DB depend on it.";
+            }
+            else
+            {
+                _AdminService.DeleteCategory(id);
+               // resultDTO.Message = "Deleted Successfully";
+            }
             resultDTO.StatusCode = 200;
-            resultDTO.Message = "Deleted Successfully";
             return resultDTO;
         }
 
@@ -147,10 +183,18 @@ namespace Dubbizle.API.Controllers
         [HttpDelete("DeleteFilter")]
         public ResultDTO DeleteFilter(int id)
         {
-            _AdminService.DeleteFilter(id);
             ResultDTO resultDTO = new ResultDTO();
+
+            if (_AdminService.CheckFilter(id))
+            {
+                resultDTO.Message = "It is not allowed to delete this filter because there are records in DB depend on it.";
+            }
+            else
+            {
+                _AdminService.DeleteFilter(id);
+                // resultDTO.Message = "Deleted Successfully";
+            }
             resultDTO.StatusCode = 200;
-            resultDTO.Message = "Deleted Successfully";
             return resultDTO;
         }
 
@@ -216,13 +260,23 @@ namespace Dubbizle.API.Controllers
             if (ModelState.IsValid)
             {
                 SubCategory_Filter subCategory_Filter = _AdminService.GetSubCatFilterByID(subCatFilterDTO.ID);
-                subCategory_Filter.FilterID = subCatFilterDTO.FilterID;
-                subCategory_Filter.SubCategoryID = subCatFilterDTO.SubCatID;
-                SubCategory_Filter SubCategory_FilterAfter = _AdminService.EditSubCategoryFilter(subCategory_Filter);
-                subCatFilterDTO.SubCatName = SubCategory_FilterAfter.SubCategory.Name;
-                subCatFilterDTO.FilterName = SubCategory_FilterAfter.Filter.Name;
+                if (_AdminService.CheckSubCategoryFilter(subCatFilterDTO.ID))
+                {
+                   
+                        resultDTO.Message = "It is not allowed to update this SubCategoryFilter because there are records in DB depend on it.";
+                    
+                }
+                else
+                {
+                    subCategory_Filter.FilterID = subCatFilterDTO.FilterID;
+                    subCategory_Filter.SubCategoryID = subCatFilterDTO.SubCatID;
+                    SubCategory_Filter SubCategory_FilterAfter = _AdminService.EditSubCategoryFilter(subCategory_Filter);
+                    subCatFilterDTO.SubCatName = SubCategory_FilterAfter.SubCategory.Name;
+                    subCatFilterDTO.FilterName = SubCategory_FilterAfter.Filter.Name;
+                    resultDTO.Data = subCatFilterDTO;
+                }
+
                 resultDTO.StatusCode = 200;
-                resultDTO.Data = subCatFilterDTO;
             }
             else
             {
@@ -235,10 +289,17 @@ namespace Dubbizle.API.Controllers
         [HttpDelete("DeleteSubCatFilter")]
         public ResultDTO DeleteSubCatFilter(int id)
         {
-            _AdminService.DeleteSubCatFilter(id);
             ResultDTO resultDTO = new ResultDTO();
+
+            if (_AdminService.CheckSubCategoryFilter(id))
+            {
+                resultDTO.Message = "It is not allowed to delete this subCategoryFilter because there are records in DB depend on it.";
+            }
+            else
+            {
+                _AdminService.DeleteSubCatFilter(id);
+            }
             resultDTO.StatusCode = 200;
-            resultDTO.Message = "Deleted Successfully";
             return resultDTO;
         }
 
@@ -306,7 +367,19 @@ namespace Dubbizle.API.Controllers
             {
                 FiltrationValue filtrationValue =_AdminService.GetFilterValueByID(filterValueDTO.ID);   
                 filtrationValue.Value=filterValueDTO.Value;
-                filtrationValue.SubCategory_FilterID= filterValueDTO.SubCategory_FilterID;
+                if (_AdminService.CheckFilterValue(filterValueDTO.ID))
+                {
+                    if (filtrationValue.SubCategory_FilterID != filterValueDTO.SubCategory_FilterID)
+                    {
+                        resultDTO.Message = "It is not allowed to update this SubCategoryFilter because there are records in DB depend on this filterValue.";
+                        filterValueDTO.SubCategory_FilterID = filtrationValue.SubCategory_FilterID;
+
+                    }
+                }
+                else
+                {
+                    filtrationValue.SubCategory_FilterID = filterValueDTO.SubCategory_FilterID;
+                }
                 FiltrationValue filtrationValueAfter = _AdminService.EditFilterValue(filtrationValue);
                 filterValueDTO.SubCategory_FilterName = filtrationValueAfter.SubCategory_Filter.SubCategory.Name + " # " + filtrationValueAfter.SubCategory_Filter.Filter.Name;
                 resultDTO.StatusCode = 200;
@@ -323,10 +396,17 @@ namespace Dubbizle.API.Controllers
         [HttpDelete("DeleteFilterValue")]
         public ResultDTO DeleteFilterValue(int id)
         {
-            _AdminService.DeleteFilterValue(id);
             ResultDTO resultDTO = new ResultDTO();
+            if (_AdminService.CheckFilterValue(id))
+            {
+                resultDTO.Message = "It is not allowed to delete this filterValue because there are records in DB depend on it.";
+            }
+            else
+            {
+                _AdminService.DeleteFilterValue(id);
+
+            }
             resultDTO.StatusCode = 200;
-            resultDTO.Message = "Deleted Successfully";
             return resultDTO;
         }
 
@@ -403,11 +483,28 @@ namespace Dubbizle.API.Controllers
             {
                 Package package = _AdminService.GetPackageByID(packageDTO.ID);
                 package.Name= packageDTO.Name;
-                package.NumOfAds= packageDTO.NumOfAds;
-                package.NumOfPremiumDays = packageDTO.NumOfPremiumDays;
-                package.Cost= packageDTO.Cost;
-                package.AdDuration = packageDTO.AdDuration;
-                package.SubCategoryID = packageDTO.SubCategoryID;
+                
+                if (_AdminService.CheckPackage(packageDTO.ID))
+                {
+                    if (package.NumOfAds != packageDTO.NumOfAds || package.Cost != packageDTO.Cost || package.AdDuration != packageDTO.AdDuration
+                        || package.SubCategoryID != packageDTO.SubCategoryID || package.NumOfPremiumDays != packageDTO.NumOfPremiumDays)
+                    {
+                        resultDTO.Message = "It is not allowed to update this package because there are records in DB depend on it.";
+                        packageDTO.NumOfAds = package.NumOfAds;
+                        packageDTO.NumOfPremiumDays = package.NumOfPremiumDays;
+                        packageDTO.Cost = package.Cost;
+                        packageDTO.AdDuration = package.AdDuration;
+                        packageDTO.SubCategoryID = package.SubCategoryID;
+                    }
+                }
+                else
+                {
+                    package.NumOfAds = packageDTO.NumOfAds;
+                    package.NumOfPremiumDays = packageDTO.NumOfPremiumDays;
+                    package.Cost = packageDTO.Cost;
+                    package.AdDuration = packageDTO.AdDuration;
+                    package.SubCategoryID = packageDTO.SubCategoryID;
+                }
                 Package packageAfter = _AdminService.EditPackage(package);
                 packageDTO.SubCategoryName= packageAfter.SubCategory.Name;
                 resultDTO.StatusCode = 200;
@@ -424,10 +521,16 @@ namespace Dubbizle.API.Controllers
         [HttpDelete("DeletePackage")]
         public ResultDTO DeletePackage(int id)
         {
-            _AdminService.DeletePackage(id);
             ResultDTO resultDTO = new ResultDTO();
+            if (_AdminService.CheckPackage(id))
+            {
+                resultDTO.Message = "It is not allowed to delete this package because there are records in DB depend on it.";
+            }
+            else
+            {
+                _AdminService.DeletePackage(id);
+            }
             resultDTO.StatusCode = 200;
-            resultDTO.Message = "Deleted Successfully";
             return resultDTO;
         }
 

@@ -241,7 +241,8 @@
       },
       "Dubbizle.DTOs/1.0.0": {
         "dependencies": {
-          "Dubbizle.Models": "1.0.0"
+          "Dubbizle.Models": "1.0.0",
+          "Microsoft.AspNetCore.Http.Features": "5.0.17"
         },
         "runtime": {
           "Dubbizle.DTOs.dll": {}

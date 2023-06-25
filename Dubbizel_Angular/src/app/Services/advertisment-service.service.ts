@@ -17,9 +17,6 @@ export class AdvertismentServiceService {
   _AdvertismentSubCatUrl="http://localhost:7189/api/Advertisment/subCategoryID?subCategoryID=";
 
 
-
-  
-
   constructor(private http:HttpClient) { }
 
   getAdsByCategoryID(catId:any):Observable<IAdvertisment[]>
@@ -50,5 +47,11 @@ export class AdvertismentServiceService {
       }));
   }
 
- 
+
+  getMyAdvertisments(userId:any):Observable<IAdvertisment>{
+    return this.http.get<IAdvertisment>(`http://localhost:7189/api/Advertisment/GetMyAdvertisments?ApplicationUserID=${userId}`).pipe(catchError((err: any) => {
+      return throwError(() => err.message || "server error");
+      }));
+  }
+
 }

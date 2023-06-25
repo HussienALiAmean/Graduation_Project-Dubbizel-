@@ -4,6 +4,7 @@ using Dubbizle.Data.Repository;
 using Dubbizle.Data.UnitOfWork;
 using Dubbizle.DTOs;
 using Dubbizle.Models;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -86,6 +87,27 @@ namespace Dubbizle.Services
             _categoryRepository.SaveChanges();
         }
 
+        public bool CheckCategory(int id)
+        {
+            var category = _categoryRepository.GetAll("SubCategoriesList", "CategoryAdvertismentsList", "SubCaategoryAdvertismentsList", "SubCaategoryPackagesList", "SubCategory_FilterList").FirstOrDefault(c=>c.ID==id);
+
+             // Check if any related records exist
+                if (
+                    category.SubCategoriesList.Any(L1=>L1.Deleted==false) ||
+                    category.CategoryAdvertismentsList.Any(L2 => L2.Deleted == false) ||
+                    category.SubCaategoryAdvertismentsList.Any(L3 => L3.Deleted == false) ||
+                    category.SubCaategoryPackagesList.Any(L4 => L4.Deleted == false) ||
+                    category.SubCategory_FilterList.Any(L5 => L5.Deleted == false)
+                    )
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+        }
+
 
         //////////////////////////////////////////  Filter /////////////////////////////////
 
@@ -119,6 +141,20 @@ namespace Dubbizle.Services
             _filterRepository.SaveChanges();
         }
 
+        public bool CheckFilter(int id)
+        {
+            var filter = _filterRepository.GetAll("SubCategory_FiltersList").FirstOrDefault(c => c.ID == id);
+
+            // Check if any related records exist
+            if (filter.SubCategory_FiltersList.Any(L1 => L1.Deleted == false))
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
 
         ////////////////////////////////////////// SubCategory Filters /////////////////////////////////
 
@@ -162,6 +198,23 @@ namespace Dubbizle.Services
         }
 
 
+
+        public bool CheckSubCategoryFilter(int id)
+        {
+            var subCategoryFilter = _subCatFilterRepository.GetAll("FiltrationValuesList").FirstOrDefault(c => c.ID == id);
+
+            // Check if any related records exist
+            if (subCategoryFilter.FiltrationValuesList.Any(L1 => L1.Deleted == false))
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+
         ////////////////////////////////////////// SubCategory Filters Values /////////////////////////////////
         public IEnumerable<FiltrationValue> GetAllFiltrationValues()
         {
@@ -198,6 +251,20 @@ namespace Dubbizle.Services
         }
 
 
+        public bool CheckFilterValue(int id)
+        {
+            var filterValue = _filtrationValueRepository.GetAll("Advertisment_FiltrationValuesList").FirstOrDefault(c => c.ID == id);
+
+            // Check if any related records exist
+            if (filterValue.Advertisment_FiltrationValuesList.Any(L1 => L1.Deleted == false))
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
 
         ////////////////////////////////////////// Packages ////////////////////////////////////////
 
@@ -233,6 +300,23 @@ namespace Dubbizle.Services
             _packageRepository.Update(package);
             _packageRepository.SaveChanges();
         }
+
+
+        public bool CheckPackage(int id)
+        {
+            var package = _packageRepository.GetAll("ApplicationUser_PackagesList").FirstOrDefault(c => c.ID == id);
+
+            // Check if any related records exist
+            if (package.ApplicationUser_PackagesList.Any(L1 => L1.Deleted == false))
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
 
         ////////////////////////////////////////// Advertisments /////////////////////////////////
         public IEnumerable<Advertisment> GetAllNotActiveAdvertisments()

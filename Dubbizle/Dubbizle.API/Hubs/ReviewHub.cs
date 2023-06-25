@@ -14,14 +14,20 @@ namespace Dubbizle.API.Hubs
         {
             Clients.All.SendAsync("NewReviewNotify", reviewDTO);
         }
-        public async void RemoveReview(ReviewDto reviewDTO)
+        //public async void RemoveReview(int id)
+        //{
+        //    Clients.All.SendAsync("RemoveReviewNotify", id);
+        //}
+        public async void RemoveReview(int index)
         {
-            Clients.All.SendAsync("RemoveReviewNotify", reviewDTO);
+            await Clients.All.SendAsync("RemoveReviewNotify", index);
+
         }
 
-        public async void EditReview(ReviewDto newReviewDTO)
+
+        public async void EditReview(int editIndex,ReviewDto newReviewDTO)
         {
-            Clients.All.SendAsync("EditReviewNotify", newReviewDTO);
+            Clients.All.SendAsync("EditReviewNotify", editIndex, newReviewDTO);
         }
     }
 }

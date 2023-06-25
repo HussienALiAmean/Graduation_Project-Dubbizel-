@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { PackageService } from '../Services/package.service';
 import { FormBuilder, Validators } from '@angular/forms';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-package',
@@ -128,6 +129,14 @@ export class PackageComponent {
             if (data.statusCode == 200) {
               this.PackageList[this.EditIndex] = data.data;
               this.onClosePackageEditModal();
+              if(data.message!=null)
+              {
+                Swal.fire({
+                  icon: 'info',
+                  title: 'Notice',
+                  text: data.message
+                })
+              }
             }
             else {
               console.log(data.message);
@@ -146,7 +155,18 @@ export class PackageComponent {
       this.packageService.DeletePackage(categoryID).subscribe({
         next: (data: any) => {
           if (data.statusCode == 200) {
-            this.PackageList.splice(index, 1);
+            if(data.message!=null)
+              {
+                Swal.fire({
+                  icon: 'info',
+                  title: 'Notice',
+                  text: data.message
+                })
+              }
+              else
+              {
+                this.PackageList.splice(index, 1);              
+              }
           }
           else {
             console.log(data.message);

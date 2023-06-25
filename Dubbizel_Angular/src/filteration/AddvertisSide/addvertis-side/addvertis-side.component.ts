@@ -69,7 +69,9 @@ handleDataChange(newdata:String)
     console.log(this.filterationKeyArray);
   }
   this.Advertisments=[];
-  this.Advertisments=this.filterByCat_locatiomFilterationArray(this.makefilterationByCheckbox(this.filterationKeyArray,this.Loaded_dedaddvertisment),this.cat_locationFilterationArry);
+  this.Advertisments=this.filterByCat_locatiomFilterationArray
+  (this.makefilterationByCheckbox(this.filterationKeyArray,
+    this.Loaded_dedaddvertisment),this.cat_locationFilterationArry);
 }
 handelChanOfCategory(newdata:String)
 {

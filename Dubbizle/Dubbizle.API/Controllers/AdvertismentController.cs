@@ -27,7 +27,8 @@ namespace Dubbizle.API.Controllers
         IRepository<Advertisment> repositoryAds;
         FavoriteService favoriteService;
         CategoryServise categoryServise;
-        public AdvertismentController(CategoryServise _categoryServise, FavoriteService _favoriteService, IRepository<Advertisment> _repositoryAds, IRepository<FiltrationValue> _repository, FilterValueService _FilterValueService, FilterService _filterService, SubCategory_FilterService _subCategory_FilterService, AdvertismentFilterValueService _AdvertismentFilterValueService, UserManager<ApplicationUser> _userManager, AdvertismentFilterValueService _advertismentFilterValueService, AdvertismentService _advertismentService, AdvertismentImageService _advertismentImageService)
+        IRepository<Review> reviewrepository;
+        public AdvertismentController(IRepository<Review> _reviewrepository,CategoryServise _categoryServise, FavoriteService _favoriteService, IRepository<Advertisment> _repositoryAds, IRepository<FiltrationValue> _repository, FilterValueService _FilterValueService, FilterService _filterService, SubCategory_FilterService _subCategory_FilterService, AdvertismentFilterValueService _AdvertismentFilterValueService, UserManager<ApplicationUser> _userManager, AdvertismentFilterValueService _advertismentFilterValueService, AdvertismentService _advertismentService, AdvertismentImageService _advertismentImageService)
         {
             advertismentService = _advertismentService;
             userManager = _userManager;
@@ -39,6 +40,7 @@ namespace Dubbizle.API.Controllers
             repositoryAds = _repositoryAds;
             favoriteService = _favoriteService;
             categoryServise = _categoryServise;
+            reviewrepository = _reviewrepository;
         }
 
         [HttpGet("GetAllAdvertismentByCategory/categoryId")]
@@ -201,6 +203,8 @@ namespace Dubbizle.API.Controllers
                 advertismentDetailsDTO.Advertisment_RentOptionList.Add(advertismentRentDTO);
 
             }
+            //Review review = reviewrepository.GetAll().FirstOrDefault(d => d.Deleted == false);
+
             foreach (Review review in advertisment.ReviewsList)
             {
                 ReviewDto reviewDTO = new ReviewDto();
@@ -220,8 +224,10 @@ namespace Dubbizle.API.Controllers
                 reviewDTO.AdvertismentID= review.AdvertismentID;
                 reviewDTO.ID= review.ID;
 
+
                 advertismentDetailsDTO.ReviewsList.Add(reviewDTO);
             }
+            
             return Ok(advertismentDetailsDTO);
         }
 
@@ -315,6 +321,34 @@ namespace Dubbizle.API.Controllers
             return Ok(categoryWithAdvertisment);
         }
 
+
+
+        // Alzhraa 
+        [HttpGet("GetMyAdvertisments")]
+        public ResultDTO GetMyAdvertisments(string ApplicationUserID)
+        {
+            List<Advertisment> advertisments = (List<Advertisment>)advertismentService.GetMyAdvertisments(ApplicationUserID);
+            List<AdvertismentDTO> advertismentDTOs = new List<AdvertismentDTO>();
+            AdvertismentDTO advertismentDTO;
+            foreach(Advertisment ad in advertisments)
+            {
+                advertismentDTO= new AdvertismentDTO();
+                advertismentDTO.ID= ad.ID;
+                advertismentDTO.Title= ad.Title;
+                advertismentDTO.AdStatus= ad.AdStatus;
+                advertismentDTO.Date= ad.Date;
+                advertismentDTO.ExpirationDate= ad.ExpirationDate;
+                advertismentDTO.CategoryID= ad.CategoryID;
+                advertismentDTO.SubCategoryID= ad.SubCategoryID;
+                advertismentDTO.AdvertismentImagesList = new List<string>();
+                advertismentDTO.AdvertismentImagesList.Add(ad.AdvertismentImagesList[0].ImageName);
+                advertismentDTOs.Add(advertismentDTO);
+            }
+            ResultDTO resultDTO = new ResultDTO();
+            resultDTO.Data=advertismentDTOs;
+            resultDTO.StatusCode= 200;
+            return resultDTO;
+        }
 
     }
 }

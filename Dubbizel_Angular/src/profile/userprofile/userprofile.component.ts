@@ -17,11 +17,8 @@ constructor(private activatedroute:ActivatedRoute,private http:HttpClient,privat
 {
   this.buildForm();
 }
-newProfile:any=[];
 
 ApplicationUserId=localStorage.getItem("ApplicationUserId");
-userModel!:profile
-userForm:any;
 errorMessage:any;
 AdForm!: FormGroup;
 maxChars = 200;
@@ -124,17 +121,14 @@ public years=['2023','2022','2021','2020','2019','2018','2017','2016','2015','20
 
 loadData()
 {
-  //this.newProfile
   this.profileService.editProfile(this.ApplicationUserId,this.EditForm.value).subscribe({
     next:data=>{
       console.log(this.EditForm.value)
       console.log(data);
-      this.newProfile=data;
+      this.EditForm.value=data;
+      localStorage.setItem("UserName",this.EditForm.get('userName').value);
     },
     error:error=>this.errorMessage=error
   })
 }
-
-
-
 }
