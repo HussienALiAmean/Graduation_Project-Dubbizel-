@@ -13,4 +13,7 @@ export interface IAdvertisment
     isPremium:boolean,
     advertisment_FiltrationValuesList:string[]
     advertismentImagesList:string[]
+    isSaved: boolean,
+    applicationUserId:string
+
 }

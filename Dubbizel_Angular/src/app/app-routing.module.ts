@@ -24,7 +24,7 @@ const routes: Routes = [
 {path:'',component:HomePageComponentComponent},
 
   //{path:"profile",component:UserprofileComponent}
- {path:"chat",component:ChatComponent},
+ {path:"chat/:adId/:UserID",component:ChatComponent},
 
   {path:'Home/:id',component:HomePageComponentComponent},
   // {path:'home-page',loadChildren:()=>import("../home-page/home-page.module").then(m=>m.HomePageModule)},

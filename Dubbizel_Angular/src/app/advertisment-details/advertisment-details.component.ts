@@ -278,9 +278,15 @@ await setTimeout(async () => {
   }
   }
 
-  BeginChat(applicationUserId:string)
+
+//   BeginChat(applicationUserId:string)
+// {
+//   console.log(applicationUserId)
+  BeginChat(advertismentDetail:any)
 {
-  console.log(applicationUserId)
+  console.log(advertismentDetail.id,advertismentDetail.applicationUserId)
+  console.log(this.appUserId)
+  this.router.navigate(['/chat/',advertismentDetail.id,advertismentDetail.applicationUserId])
 }
 
 
