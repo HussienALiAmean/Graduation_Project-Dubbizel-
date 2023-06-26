@@ -1,4 +1,4 @@
-﻿using AutoMapper;
+using AutoMapper;
 using Dubbizle.Data;
 using Dubbizle.Data.Repository;
 using Dubbizle.Data.UnitOfWork;
@@ -28,11 +28,7 @@ namespace Dubbizle.Services
         }
         public IEnumerable<Favorite> GetAll(string property1, string userId)
         {
-            return _repository.GetAll(property1).Where(f => f.ApplicationUserId == userId && f.Deleted == false).ToList();
-        }
-        public IEnumerable<Favorite> GetAllByUserId(string userId)
-        {
-            return _repository.Get(f => f.ApplicationUserId == userId && f.Deleted == false).ToList();
+            return _repository.GetAll(property1).Where(f=>f.ApplicationUserId==userId).ToList();
         }
         public void AddFavorit(FavoriteDTO favoriteDTO)
         {
@@ -44,10 +40,10 @@ namespace Dubbizle.Services
         }
         public void DeleteFavourite(int id, string userId)
         {
-
-            Favorite favorite = (Favorite)_repository.Get(f => f.AdvertismentID == id && f.ApplicationUserId == userId).FirstOrDefault();
-            _repository.delete(favorite);
-            _repository.SaveChanges();
+            //List<Favorite> favorites = (List<Favorite>)_repository.GetAll();
+            //Favorite favorite=favorites.FirstOrDefault(f=>f.AdvertismentID==id);
+            //_repository.delete(favorite);
+            //_repository.SaveChanges();
 
         }
 

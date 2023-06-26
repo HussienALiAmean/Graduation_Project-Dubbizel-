@@ -28,7 +28,13 @@ namespace Dubbizle.API.Controllers
         FavoriteService favoriteService;
         CategoryServise categoryServise;
         IRepository<Review> reviewrepository;
-        public AdvertismentController(IRepository<Review> _reviewrepository,CategoryServise _categoryServise, FavoriteService _favoriteService, IRepository<Advertisment> _repositoryAds, IRepository<FiltrationValue> _repository, FilterValueService _FilterValueService, FilterService _filterService, SubCategory_FilterService _subCategory_FilterService, AdvertismentFilterValueService _AdvertismentFilterValueService, UserManager<ApplicationUser> _userManager, AdvertismentFilterValueService _advertismentFilterValueService, AdvertismentService _advertismentService, AdvertismentImageService _advertismentImageService)
+        public AdvertismentController(IRepository<Review> _reviewrepository,CategoryServise _categoryServise,
+            FavoriteService _favoriteService, IRepository<Advertisment> _repositoryAds, 
+            IRepository<FiltrationValue> _repository, FilterValueService _FilterValueService,
+            FilterService _filterService, SubCategory_FilterService _subCategory_FilterService, 
+            AdvertismentFilterValueService _AdvertismentFilterValueService, UserManager<ApplicationUser> _userManager,
+            AdvertismentFilterValueService _advertismentFilterValueService, AdvertismentService _advertismentService,
+            AdvertismentImageService _advertismentImageService)
         {
             advertismentService = _advertismentService;
             userManager = _userManager;

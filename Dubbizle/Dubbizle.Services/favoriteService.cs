@@ -1,4 +1,4 @@
-﻿using AutoMapper;
+using AutoMapper;
 using Dubbizle.Data;
 using Dubbizle.Data.Repository;
 using Dubbizle.Data.UnitOfWork;

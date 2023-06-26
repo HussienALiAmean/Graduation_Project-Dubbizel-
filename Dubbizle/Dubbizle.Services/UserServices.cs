@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
-using Dubbizle.Data.Repository;
-using Dubbizle.Data.UnitOfWork;
-using Dubbizle.Models;
+//using Dubbizle.Data.Repository;
+//using Dubbizle.Data.UnitOfWork;
+//using Dubbizle.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
