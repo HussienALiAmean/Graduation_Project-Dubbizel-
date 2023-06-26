@@ -26,10 +26,11 @@ cat_locationFilterationArry :String[]=[];
 userId:any=localStorage.getItem('ApplicationUserId');
 Favorite:IFavourite=new IFavourite("",0);
 errorMessage:string=""
-
+appUserId:any;
 
 constructor(private activatRoute:ActivatedRoute,private advertismentService:AdvertismentServiceService,private router:Router,private favoriteService:FavoriteService)
 {
+  
   activatRoute.paramMap.subscribe((params:ParamMap)=>{
     console.log(params.get('id'))
     if(params.get('type')=='category')
@@ -91,9 +92,11 @@ AdvertismentDetails(a:any){
   this.router.navigate(["/Details",a.id]);
 } 
 
-BeginChat(applicationUserId:string)
+BeginChat(advertismentDetail:any)
 {
-  console.log(applicationUserId)
+  console.log(advertismentDetail.id,advertismentDetail.applicationUserId)
+  this.appUserId = localStorage.getItem("ApplicationUserId");
+  console.log(this.appUserId)
 }
 
 handleDataChange(newdata:String)
