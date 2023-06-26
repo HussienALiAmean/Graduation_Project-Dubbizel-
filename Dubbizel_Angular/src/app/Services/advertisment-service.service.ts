@@ -19,16 +19,16 @@ export class AdvertismentServiceService {
 
   constructor(private http:HttpClient) { }
 
-  getAdsByCategoryID(catId:any):Observable<IAdvertisment[]>
+  getAdsByCategoryID(catId:any,userId:any):Observable<IAdvertisment[]>
   {
-   return this.http.get<IAdvertisment[]>(this._AdvertismentCatUrl+catId).pipe(catchError((err: any) => {
+   return this.http.get<IAdvertisment[]>(this._AdvertismentCatUrl+catId+'&UserId='+userId).pipe(catchError((err: any) => {
     return throwError(() => err.message || "server error");
     }));
   }
 
-  getAdsBySubCategoryID(SubCatID:any):Observable<IAdvertisment[]>
+  getAdsBySubCategoryID(SubCatID:any,userId:any):Observable<IAdvertisment[]>
   {
-   return this.http.get<IAdvertisment[]>(this._AdvertismentSubCatUrl+SubCatID).pipe(catchError((err: any) => {
+   return this.http.get<IAdvertisment[]>(this._AdvertismentSubCatUrl+SubCatID+'&UserId='+userId).pipe(catchError((err: any) => {
     return throwError(() => err.message || "server error");
     }));
   }

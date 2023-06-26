@@ -11,26 +11,30 @@
 
 @media (max-width: 600px) {
     .container {
-    
       width: 100%;
     }
-    .smallCard{
-        width: 80%;
+     .smallCard{
+        width: 100%;
     }
     .sale{
         width: 40%;
     }
+    img{
+        width: 50%;
+    } 
  
     
   }
 
-  @media (max-width: 1500px) {
-    .smallCard{
-        width: 80%;
-    }
-    .sale{
+  @media (max-width: 2000px) {
+    .container {
+        width: 50%;
+      } 
+     .smallCard{
+        width: 100%;
+    } 
+     .sale{
         width: 40%;
-    }
+    } 
   
-    
   }

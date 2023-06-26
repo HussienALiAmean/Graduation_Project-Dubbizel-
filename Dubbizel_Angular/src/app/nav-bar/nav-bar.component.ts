@@ -180,6 +180,7 @@ export class NavBarComponent implements OnInit {
         localStorage.setItem("ApplicationUserId",decodeToken['http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier']);
         localStorage.setItem("UserName", decodeToken['http://schemas.xmlsoap.org/ws/2005/05/identity/claims/name']);
         //this.router.navigate(["/resturant/profile"]);
+        window.location.href='';
         this.onCloseLoginModal();
         }
         else if(data.statusCode==404)
@@ -220,7 +221,9 @@ export class NavBarComponent implements OnInit {
     localStorage.removeItem("jwt");
     localStorage.removeItem("ApplicationUserId");
     localStorage.removeItem("UserName");
-    this.router.navigate(['']);
+    //this.router.navigate(['']);
+    window.location.href='';
+
   }
 
 }

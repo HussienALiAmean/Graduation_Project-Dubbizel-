@@ -3,6 +3,11 @@ import { BrowserModule } from '@angular/platform-browser';
 import {HttpClientModule} from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+ 
+import { ChatComponent } from './chatpage/chat/chat.component';
+// import { HomeComponent } from 'src/home-page/home/home.component';
+import { CommonModule } from '@angular/common';
+
 
 import { HomePageComponentComponent } from './home-page-component/home-page-component.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -46,7 +51,8 @@ import { CategoriesBeforePackagesComponent } from './categories-before-packages/
     AppComponent,
     DelAccountComponent,
     
-    HomePageComponentComponent,
+    ChatComponent,
+
     NavBarComponent,
     CatNavBarComponent,
     FooterComponent,
@@ -75,9 +81,7 @@ import { CategoriesBeforePackagesComponent } from './categories-before-packages/
     AppRoutingModule,
     HttpClientModule,
     AppRoutingModule,
-    HttpClientModule,
-    ReactiveFormsModule,
-    HttpClientModule,
+    CommonModule,
     JwtModule.forRoot({
       config: {
         tokenGetter: tokenGetter,

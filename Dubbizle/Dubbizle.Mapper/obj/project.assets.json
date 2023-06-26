@@ -375,7 +375,8 @@
         "type": "project",
         "framework": ".NETCoreApp,Version=v7.0",
         "dependencies": {
-          "Dubbizle.Models": "1.0.0"
+          "Dubbizle.Models": "1.0.0",
+          "Microsoft.AspNetCore.Http.Features": "5.0.17"
         },
         "compile": {
           "bin/placeholder/Dubbizle.DTOs.dll": {}

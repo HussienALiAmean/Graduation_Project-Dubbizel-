@@ -2,11 +2,11 @@
     <div class="row   g-2">
       <div class="col-6 col-lg-9">
         <div class="container" >
-            <div class="card mb-2" *ngFor="let Ad of Advertisments">
+            <div class="card mb-2 cardStyle" *ngFor="let Ad of Advertisments">
                 <div class="row">
                     <div class="col-12 col-lg-5 ">
-                        <div class="card ">
-                            <img src='http://localhost:7189/Files/AdvertismentIMG/{{Ad.advertismentImagesList[0]}}' height="250px" class="card-img-top card-img" alt="Item Image">
+                        <div class="card " (click)="AdvertismentDetails(Ad)">
+                            <img  src='http://localhost:7189/Files/AdvertismentIMG/{{Ad.advertismentImagesList[0]}}' height="250px" class="card-img-top card-img" alt="Item Image">
                             <div *ngIf=" Ad.isPremium" class="card-img-overlay">
                                 <button type="button" class="btn btn-warning px-1">feture</button>
                             </div>
@@ -16,14 +16,23 @@
                     <div class="col-12 col-lg-7 card-body">
                     <div class="d-flex flex-row justify-content-center">
                      <div class="me-auto">
-                        <h5 class="card-title">{{Ad.title}}</h5>
+                        <h5 class="card-title" (click)="AdvertismentDetails(Ad)">{{Ad.title}}</h5>
                      </div>
+                     
+                     <button  type="button" (click)="AddToFavorite(Ad)"  class="btnHeart btn-floating col-2 mx-2" >
+                        <ng-container *ngIf="(Ad.isSaved==true); then red else white"></ng-container>
+                            <ng-template #red>
+                              <i class="fa-solid fa-heart heart" style="font-size: 18px; margin-top: 5px; color:#e00000;" id="{{'heart'+Ad.id+userId}}"></i>                 </ng-template>
+                            <ng-template #white>
+                              <i class="fa-solid fa-heart heart" style="font-size: 18px; margin-top: 5px; color: #ffffff;" id="{{'heart'+Ad.id+userId}}"></i> 
+                            </ng-template>
+                        </button>
                     <div class=""></div>
                     </div>
-                    <p class="card-text text-success">{{Ad.location}}</p>
-                    <p class="card-text text-success">{{Ad.date}}</p>
+                    <p class="card-text text-success" (click)="AdvertismentDetails(Ad)">{{Ad.location}}</p>
+                    <p class="card-text text-success" (click)="AdvertismentDetails(Ad)">{{Ad.date}}</p>
                     <a href="#" class="btn anchors me-2 mt-5" ><i class="fa fa-phone-volume fa-danger"></i> Call</a>
-                    <a href="#" class="btn mt-5 anchors" ><i class="fa fa-comments"></i> Chat</a><!-- *ngIf="item.havechat"-->
+                    <a class="btn mt-5 anchors" (click)="BeginChat(Ad.applicationUserId)"><i class="fa fa-comments"></i> Chat</a><!-- *ngIf="item.havechat"-->
                     </div>
                 </div>
             </div>

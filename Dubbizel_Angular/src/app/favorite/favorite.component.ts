@@ -49,7 +49,6 @@ else{
    })
    this.favorites.splice(i,1);
    heart!.style.color="rgb(255, 255, 255)";
-   this.favorites.splice(i,1);
 }
   }
 }

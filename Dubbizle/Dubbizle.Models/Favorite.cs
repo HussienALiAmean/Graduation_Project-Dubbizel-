@@ -6,6 +6,7 @@
         public ApplicationUser? ApplicationUser { get; set; }
         public string ApplicationUserId { get; set; }
         public Advertisment? Advertisment { get; set; }
-        public int AdvertismentID { get; set; }
+        public int AdvertismentID { get; set; } 
+
     }
 }

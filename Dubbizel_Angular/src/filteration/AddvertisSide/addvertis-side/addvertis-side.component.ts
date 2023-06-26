@@ -1,7 +1,9 @@
 import { Component } from '@angular/core';
-import { ActivatedRoute, ParamMap } from '@angular/router';
+import { ActivatedRoute, ParamMap, Router } from '@angular/router';
+import { IFavourite } from 'src/app/Interface/IFavorite';
 import { IAdvertisment } from 'src/app/Interfaces/IAdvertisment';
 import { AdvertismentServiceService } from 'src/app/Services/advertisment-service.service';
+import { FavoriteService } from 'src/app/Services/favorite.service';
 @Component({
   selector: 'app-addvertis-side',
   templateUrl: './addvertis-side.component.html',
@@ -21,15 +23,19 @@ Advertisments:IAdvertisment[]=[];
 Loaded_dedaddvertisment:IAdvertisment[]=[];
 filterationKeyArray:String[]=[];
 cat_locationFilterationArry :String[]=[];
+userId:any=localStorage.getItem('ApplicationUserId');
+Favorite:IFavourite=new IFavourite("",0);
+errorMessage:string=""
 
-constructor(private activatRoute:ActivatedRoute,private advertismentService:AdvertismentServiceService)
+
+constructor(private activatRoute:ActivatedRoute,private advertismentService:AdvertismentServiceService,private router:Router,private favoriteService:FavoriteService)
 {
   activatRoute.paramMap.subscribe((params:ParamMap)=>{
     console.log(params.get('id'))
     if(params.get('type')=='category')
     {
       console.log(true)
-      this.advertismentService.getAdsByCategoryID(params.get('id')).subscribe({
+      this.advertismentService.getAdsByCategoryID(params.get('id'),this.userId).subscribe({
         next: (data:any) => {
           this.Loaded_dedaddvertisment=data.data;
           this.Advertisments=this.Loaded_dedaddvertisment;
@@ -43,7 +49,7 @@ constructor(private activatRoute:ActivatedRoute,private advertismentService:Adve
     }
     else
     {
-      this.advertismentService.getAdsBySubCategoryID(params.get('id')).subscribe({
+      this.advertismentService.getAdsBySubCategoryID(params.get('id'),this.userId).subscribe({
         next: (data:any) => {
           this.Loaded_dedaddvertisment=data.data;
           this.Advertisments=this.Loaded_dedaddvertisment;
@@ -57,6 +63,39 @@ constructor(private activatRoute:ActivatedRoute,private advertismentService:Adve
     }
   })
 }
+
+async AddToFavorite(ads:any){
+  var heart=document.getElementById("heart"+ads.id+this.userId);
+  console.log(heart?.style.color);
+  if(heart?.style.color=="rgb(255, 255, 255)"){
+  //console.log("hi")
+  this.Favorite.advertismentID=ads.id;
+  this.Favorite.applicationUserId=this.userId;
+  await this.favoriteService.AddFavorite(this.Favorite).subscribe({
+  next:data=>console.log(data),
+  error:error=>this.errorMessage=error
+})
+heart.style.color="rgb(224, 0, 0)";
+}
+else{
+console.log("hi")
+ this.favoriteService.DeleteFavorite(ads.id,this.userId).subscribe({
+  next:data=>console.log(data),
+  error:error=>this.errorMessage=error
+ })
+ heart!.style.color="rgb(255, 255, 255)";
+}
+}
+
+AdvertismentDetails(a:any){
+  this.router.navigate(["/Details",a.id]);
+} 
+
+BeginChat(applicationUserId:string)
+{
+  console.log(applicationUserId)
+}
+
 handleDataChange(newdata:String)
 {  console.log(newdata);
   if (this.filterationKeyArray.includes(newdata))
@@ -69,7 +108,9 @@ handleDataChange(newdata:String)
     console.log(this.filterationKeyArray);
   }
   this.Advertisments=[];
-  this.Advertisments=this.filterByCat_locatiomFilterationArray(this.makefilterationByCheckbox(this.filterationKeyArray,this.Loaded_dedaddvertisment),this.cat_locationFilterationArry);
+  this.Advertisments=this.filterByCat_locatiomFilterationArray
+  (this.makefilterationByCheckbox(this.filterationKeyArray,
+    this.Loaded_dedaddvertisment),this.cat_locationFilterationArry);
 }
 handelChanOfCategory(newdata:String)
 {

@@ -6,7 +6,7 @@ using Autofac.Extensions.DependencyInjection;
 using Autofac;
 using Dubbizle.API.Config;
 using Dubbizle.DTOs;
-using Mapper;
+////using Mapper;
 using Microsoft.AspNetCore.Identity;
 
 using Dubbizle.Mapper;
@@ -26,6 +26,7 @@ namespace Dubbizle.API
         public static void Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
+            builder.Services.AddSignalR();
 
             // Add services to the container.
             // Add services to the container.
@@ -64,14 +65,14 @@ namespace Dubbizle.API
                 opt.RegisterModule(new AutofacModule()));
            // builder.Services.AddAutoMapper(typeof(ProfileMap).Assembly);
 
-            builder.Services.AddAutoMapper(typeof(ProfileMap).Assembly);
+            //builder.Services.AddAutoMapper(typeof(ProfileMap).Assembly);
 
             builder.Services.AddAutoMapper(typeof(CategoryWithSubCategoryProfile).Assembly);
             builder.Services.AddAutoMapper(typeof(SubCategoryProfile).Assembly);
 
             builder.Services.AddDbContext<Context>(opt =>
            opt.UseSqlServer(builder.Configuration.GetConnectionString("Default"))
-           .UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking)
+           .UseQueryTrackingBehavior(QueryTrackingBehavior.TrackAll)
             .LogTo(log => Debug.WriteLine(log), LogLevel.Information)
            .EnableSensitiveDataLogging()
            );
@@ -166,7 +167,7 @@ namespace Dubbizle.API
                 app.UseSwagger();
                 app.UseSwaggerUI();
             }
-        
+
             app.UseStaticFiles();
             app.UseCors("MyPolicy");
             app.UseAuthentication();
@@ -176,6 +177,7 @@ namespace Dubbizle.API
             app.UseAuthorization();
 
 
+            app.MapHub<ChatHub>("/ChatHub");
             app.MapControllers();
 
             app.Run();
