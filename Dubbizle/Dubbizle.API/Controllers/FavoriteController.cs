@@ -34,7 +34,7 @@ namespace Dubbizle.API.Controllers
         [HttpDelete("DeleteFavourite/{id:int}/{userId}")]
         public IActionResult DeleteFavourite(int id, string userId)
         {
-            favoriteService.DeleteFavourite(id,userId);
+            favoriteService.DeleteFavourite(id, userId);
             return Ok();
         }
 
