@@ -19,9 +19,9 @@ import { CategoriesBeforePackagesComponent } from './categories-before-packages/
 
 
 
-
 const routes: Routes = [
-{path:'',component:HomePageComponentComponent},
+
+  {path:'',component:HomePageComponentComponent},
 
   //{path:"profile",component:UserprofileComponent}
  {path:"chat/:adId/:UserID",component:ChatComponent},

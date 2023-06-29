@@ -10,20 +10,20 @@ namespace Dubbizle.API.Hubs
 {
     public class ChatHub : Hub
     {
-        public async Task NewChatHub( ChatDTO message,string image)
+        public async Task NewChatHub( string Content,string image)
         {
-            string content = message.Content;
+            //string content = message.Content;
             string img; 
-            if(message.Image != null)
-            {
+            //if(message.Image != null)
+            //{
 
-             img = message.Image.FileName.ToString();
-            }
-            else
-            {
-                 img = "empty";
-            }
-            await Clients.All.SendAsync("NewMessageNotify", content, image);
+            // img = message.Image.FileName.ToString();
+            //}
+            //else
+            //{
+            //     img = "empty";
+            //}
+            await Clients.All.SendAsync("NewMessageNotify", Content, image);
 
         }
 

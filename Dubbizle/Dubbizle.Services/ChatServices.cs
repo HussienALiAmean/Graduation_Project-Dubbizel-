@@ -10,17 +10,20 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Azure;
-using Dubbizle.Data.Migrations;
+//using Dubbizle.Data.Migrations;
 
 namespace Dubbizle.Services
 {
     public class ChatServices
     {
         private readonly IRepository<Chat> _chatRepository;
+        private readonly IRepository<Room> _roomRepository;
         public ChatServices(IRepository<Chat> repository
+            , IRepository<Room> roomRopository
             )
         {
             _chatRepository = repository;
+            _roomRepository = roomRopository;
             limit += 7;
         }
 
@@ -28,6 +31,9 @@ namespace Dubbizle.Services
         {
             if (Msg != null)
             {
+                //int AdvertismentId =int.Parse( Msg.AdvertismentID.ToString());
+              Room Room = _roomRepository.GetObject(r => r.SenderId == Msg.SenderID || r.ReceiverId == Msg.SenderID 
+              && r.ReceiverId == Msg.ReceiverID || r.SenderId == Msg.ReceiverID);
                 Chat chat = new Chat();
                 chat.SenderID = Msg.SenderID;
                 chat.ReciverID = Msg.ReceiverID;
@@ -37,6 +43,22 @@ namespace Dubbizle.Services
                     chat.File = ImagesHelper.UploadImg(Msg.Image, "ChatImages");
                 }
                 chat.Date = DateTime.Now;
+                if(Room is null)
+                {
+                    Room room = new Room();
+                    room.AdvertismentID = Msg.AdvertismentID;
+                    room.SenderId = Msg.SenderID;
+                    room.ReceiverId = Msg.ReceiverID;
+                    room.Sold = false;
+                    _roomRepository.Add(room);
+                    _roomRepository.SaveChanges();
+                    chat.RoomId = room.ID;
+
+                }
+                else
+                {
+                    chat.RoomId = Room.ID;
+                }
 
                 _chatRepository.Add(chat);
                 _chatRepository.SaveChanges();
@@ -44,7 +66,7 @@ namespace Dubbizle.Services
             }
             else
             {
-                return "BadRequest()";
+                return "BadRequest Please input your data correctly";
             }
 
         }
@@ -74,6 +96,7 @@ namespace Dubbizle.Services
                     _chatRepository.GetAll(c => c.Deleted == false &&
                  (c.SenderID == sender && c.ReciverID == reciver) ||
                  (c.ReciverID == sender && c.SenderID == reciver))
+                    .Include(c=>c.Room)
                     .Skip(Skip)
                     .Take(top)
                  .ToList();

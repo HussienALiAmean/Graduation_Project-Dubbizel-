@@ -11,16 +11,18 @@ export class ChatService {
 
   public top = 5;
   public skip = 0;
-  private apiUrl = "http://localhost:7189/api/Chat/GetChatUsers?id=2946b9f6-35f7-4e2f-8c2a-7a0ab10885db" //'http://localhost:7189/api/User'
-  private apiUrl3 = "http://localhost:7189/api/Chat/GetMessages?sender=2946b9f6-35f7-4e2f-8c2a-7a0ab10885db&reciver=99ba0e2f-a547-44ae-b85e-04b36dbeff4c" //'http://localhost:7189/api/User'
+  private apiUrlUsers = 'http://localhost:7189/api/User?id='
+  private apiUrl = "http://localhost:7189/api/Chat/GetChatUsers?id=" //'http://localhost:7189/api/User'
+  private apiUrl3 = "http://localhost:7189/api/Chat/GetMessages?" //'http://localhost:7189/api/User'
   private apiUrl2 = "http://localhost:7189/api/Chat/AddMessage" //'http://localhost:7189/api/User'
   private apiUrldelete = "http://localhost:7189/api/Chat" //'http://localhost:7189/api/User'
   constructor(private http:HttpClient) { }
 
-  GetUsers():Observable<IUser[]>{
+  GetUsers(id:any,loginId:any):Observable<IUser[]>{
     console.log('reach')
-
-    return this.http.get<IUser[]>(this.apiUrl).pipe(catchError((err: any) => {
+    console.log(`${this.apiUrl}${id}&loginId=${loginId}`)
+    
+    return this.http.get<IUser[]>(`${this.apiUrl}${id}&loginId=${loginId}`).pipe(catchError((err: any) => {
       return throwError(() => err.message || "server error");
       }));
   }
@@ -30,10 +32,10 @@ export class ChatService {
       return throwError(() => err.message || "server error");
       }));
   }
-  getChat(){
+  getChat(sender:any,receiver:any){
     console.log(this.top)
     console.log(this.skip)
-    return  this.http.get<any>(`${this.apiUrl3+'&top='}${this.top}&skip=${this.skip}`).pipe(catchError((err: any) => {
+    return  this.http.get<any>(`${this.apiUrl3+'sender='}${sender}&reciver=${receiver}&top=${this.top}&skip=${this.skip}`).pipe(catchError((err: any) => {
       return throwError(() => err.message || "server error");
       }));
   }

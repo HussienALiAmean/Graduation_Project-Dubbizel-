@@ -14,5 +14,9 @@ namespace Dubbizle.DTOs
         public string ReceiverID { get; set; }
         public string Content { get; set; }
         public IFormFile? Image { get; set; }
+
+        public bool Sold { get; set; }
+        public int AdvertismentID { get; set; }
+
     }
 }
