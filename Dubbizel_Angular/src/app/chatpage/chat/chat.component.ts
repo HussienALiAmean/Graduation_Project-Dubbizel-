@@ -303,9 +303,13 @@ export class ChatComponent  implements OnInit  {
       for (let index = 0; index < values[0].length; index++) {
         const element =  values[0][index];
         console.log(element)
+        console.log( element.date.slice(11,16))
         console.log(element.room.sold)
-
+        element.date = element.date.slice(11,16)
         this.chatData.push(element)
+       
+        // console.log(this.chatData[index].date.)
+        
       }
       // this.chatData = values[0]
       // console.log(Object.entries(this.tempData));

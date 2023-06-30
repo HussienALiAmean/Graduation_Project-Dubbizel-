@@ -2,12 +2,12 @@
 <div class="container">
     <div class="row">
 
-        <div class="col-md-4">
+        <div class="col-md-4 col-sm-4">
             <div class="rounded-lg border  title" >
-                <span> inbox</span>
+                <span style="font-weight: bold;margin-bottom: 2%;">INBOX</span>
             </div>
             <div class="rounded-lg border header" >
-                <div> quick filter</div>
+                <p style="font-size: 10px;padding-top: 3px;">QUICK FILTERS</p>
                 <span  class="H_item"> all</span>
                 <span class="H_item"> unread chats</span>
                 <span class="H_item"> important</span>
@@ -35,10 +35,10 @@
                 </div>
             </div>
         </div>
-        <div class="col-md-8">
+        <div class="col-md-8 col-sm-8 col-xs-8">
             <div class="rounded-lg border title" >
+                <span class=""> S </span>
                 <span> Owner profile</span>
-                <span> Owner</span>
             </div>
             <div class="rounded-lg border p-2" >
                 <span>
@@ -52,6 +52,7 @@
                     <span >
 
                         <img  src="../assets/emptyChat.a6b9befc0789bd419ec5ed4fad199ab4 (1).webp" alt="" >
+                        <p>Select a chat to view conversation</p>
                     </span>
                 </div>
                 <div *ngFor="let userchat of chatData ">
@@ -64,6 +65,7 @@
     
                                     <p>{{userchat.id}}</p>
                                     {{userchat.content}}
+                                    <span>{{userchat.date}}</span>
                                     <span *ngIf="userchat.room?.sold" class="float-end deleteicon" (click)="delete(userchat.id)">
                                         <i class="fa fa-trash" aria-hidden="true"></i>
                                     </span>
@@ -80,7 +82,11 @@
                             <div class="rightMsg float-end">
                             <div class="reciver d-lg">
                                
-                                    {{userchat.content}}
+                                    <span class="p-1">
+
+                                        {{userchat.content}}
+                                    </span>
+                                    <span class="p-1 float-end">{{userchat.date}}</span>
                                     <span *ngIf="userchat.room?.sold" class="float-start deleteiconleft" (click)="delete(userchat.id)">
                                         <i class="fa fa-trash" aria-hidden="true"  >
     
@@ -97,14 +103,19 @@
                 </div>
                 <!-- [disabled]="currentPage === getCeil(chatData.length 
                 / itemsPerPage)" -->
-                <button class="btn-primary" (click)="GetMessage()" 
-                >More</button>
                 <div>
                     {{newChat}}
                     <div *ngIf="img != null">
                         <img class="image" src="http://localhost:7189/Files/ChatImages/{{img}}" alt="">
                     </div>
                     <!-- {{tempData |json}} -->
+                    <br>
+                    
+                    <br>
+                    <div class="emptyimg" *ngIf="chatData != null">
+                        <button class="btn-primary" (click)="GetMessage()" 
+                        >More</button>
+                    </div>
                 </div>
             </div>
             <div class="rounded-lg border" >

@@ -11,5 +11,6 @@ export interface IChatData{
     room?:IRoom
     roomId:number
     file?:string
+    date?:Date
 
 }
