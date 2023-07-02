@@ -32,7 +32,7 @@ namespace Dubbizle.Services
         }
         public IEnumerable<Favorite> GetAllByUserId(string userId)
         {
-            return _repository.Get(f => f.ApplicationUserId == userId&&f.Deleted==false).ToList();
+            return _repository.Get(f => f.ApplicationUserId == userId && f.Deleted == false).ToList();
         }
         public void AddFavorit(FavoriteDTO favoriteDTO)
         {
@@ -45,8 +45,8 @@ namespace Dubbizle.Services
         public void DeleteFavourite(int id, string userId)
         {
 
-            Favorite favorite = (Favorite)_repository.Get(f=>f.AdvertismentID==id&&f.ApplicationUserId==userId).FirstOrDefault();
-            _repository.delete(favorite);   
+            Favorite favorite = (Favorite)_repository.Get(f => f.AdvertismentID == id && f.ApplicationUserId == userId).FirstOrDefault();
+            _repository.delete(favorite);
             _repository.SaveChanges();
 
         }
