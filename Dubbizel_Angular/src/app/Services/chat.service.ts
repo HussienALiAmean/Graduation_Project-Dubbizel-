@@ -14,6 +14,7 @@ export class ChatService {
   private apiUrlUsers = 'http://localhost:7189/api/User?id='
   private apiUrl = "http://localhost:7189/api/Chat/GetChatUsers?id=" //'http://localhost:7189/api/User'
   private apiUrl3 = "http://localhost:7189/api/Chat/GetMessages?" //'http://localhost:7189/api/User'
+  private apiUrl4 = "http://localhost:7189/api/Chat/GetLastMessages?" //'http://localhost:7189/api/User'
   private apiUrl2 = "http://localhost:7189/api/Chat/AddMessage" //'http://localhost:7189/api/User'
   private apiUrldelete = "http://localhost:7189/api/Chat" //'http://localhost:7189/api/User'
   constructor(private http:HttpClient) { }
@@ -36,6 +37,12 @@ export class ChatService {
     console.log(this.top)
     console.log(this.skip)
     return  this.http.get<any>(`${this.apiUrl3+'sender='}${sender}&reciver=${receiver}&top=${this.top}&skip=${this.skip}`).pipe(catchError((err: any) => {
+      return throwError(() => err.message || "server error");
+      }));
+  }
+  getLastChat(sender:any,receiver:any){
+   
+    return  this.http.get<any>(`${this.apiUrl4+'sender='}${sender}&reciver=${receiver}`).pipe(catchError((err: any) => {
       return throwError(() => err.message || "server error");
       }));
   }

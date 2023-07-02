@@ -73,6 +73,22 @@ namespace Dubbizle.Services
          static int  limit { get;  set; }
         public int page { get; private set; }
         public int total { get; set; }
+        public async Task<dynamic> GetLast(string sender, string reciver)
+        {
+            if (sender != null || reciver != null)
+            {
+                var chat = _chatRepository.Get(c => c.Deleted == false &&
+                    (c.SenderID == sender && c.ReciverID == reciver)
+                    || (c.ReciverID == sender && c.SenderID == reciver)).OrderBy(c=>c.ID)
+                    .LastOrDefault();
+                return chat;
+            }
+            else
+            {
+                return "sender and receiver should not be null";
+            }
+        }
+
         public async Task<dynamic> Get(string sender, string reciver,int top, int Skip)
         {
            if(sender != null || reciver != null)

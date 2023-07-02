@@ -49,6 +49,14 @@ namespace Dubbizle.API.Controllers
             return Ok(chatServices.Get(sender, reciver,top,skip));
 
         }
+         [HttpGet("GetLastMessages")]
+        public async Task<IActionResult> GetLastMessages( string sender , string reciver)
+        {
+            
+
+            return Ok(chatServices.GetLast(sender, reciver));
+
+        }
 
         [HttpPut]
         public async Task<IActionResult> Delete(int id)

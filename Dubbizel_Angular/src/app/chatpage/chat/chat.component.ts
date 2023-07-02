@@ -11,6 +11,7 @@ import { ActivatedRoute, ParamMap } from '@angular/router';
 import { IAdvertismentDetails } from 'src/app/Interface/AdvertismentDetails';
 import { AdvertismentService } from 'src/admin/Services/advertisment.service';
 import { AdvertismentServiceService } from 'src/app/Services/advertisment-service.service';
+import { getDataDetail } from '@microsoft/signalr/dist/esm/Utils';
 
 
 @Component({
@@ -45,6 +46,7 @@ export class ChatComponent  implements OnInit  {
   }
   CurrentUserId:any = "2946b9f6-35f7-4e2f-8c2a-7a0ab10885db"
   chatData!:IChatData[]
+  LastchatData!:IChatData
   errorMessage:any
   hubConnectionBuilder: any;
   hubconnection!: signalR.HubConnection;
@@ -52,6 +54,7 @@ export class ChatComponent  implements OnInit  {
   UserTemp:any
   img!:any
   Id!:any
+  DateDay!:Date
   top:number = 5;
   AdvertismentId:any
   userId:any
@@ -69,6 +72,10 @@ export class ChatComponent  implements OnInit  {
     this.AdvertismentId= params.get('adId');
     this.userId=params.get('UserID')
     });
+    let date = new Date()
+    console.log(date.toLocaleDateString())
+    this.DateDay = date 
+    console.log(this.DateDay.toLocaleDateString())
     this.Users()
     this.createForm()
     this.top=5
@@ -126,7 +133,7 @@ export class ChatComponent  implements OnInit  {
       next:data=>this.UserTemp=data,//this.users=data ,//.push(data[0],data[1])
       error:error=>this.errorMessage=error
     })
-    
+   this.GetLastMessage()
     setTimeout(()=> {
       let values = Object.values(this.UserTemp)
       console.log('users here')
@@ -284,15 +291,13 @@ export class ChatComponent  implements OnInit  {
 
     },3000)
   }
-  async GetMessage(){
+   GetMessage(){
         this.chatService.getChat(this.chat.senderID , this.chat.receiverID).subscribe({
         next:data=>this.tempData=data ,//.push(data[0],data[1])
         error:error=>this.errorMessage=error
     })
     setTimeout(()=> {
-      // this.chatService.top+=5;
       this.chatService.skip+=5;
-
       console.log(this.tempData)
       console.log("All Keys");
       console.log(Object.keys(this.tempData))
@@ -307,18 +312,34 @@ export class ChatComponent  implements OnInit  {
         console.log(element.room.sold)
         element.date = element.date.slice(11,16)
         this.chatData.push(element)
-       
-        // console.log(this.chatData[index].date.)
-        
       }
-      // this.chatData = values[0]
-      // console.log(Object.entries(this.tempData));
-      // console.log(Array.from( this.tempData))
-      // this.chatData = this.tempData
       
-      // console.log(this.chatData)
     } ,3000)
-  //  console.log( this.chatData[0].room?.sold)
+    console.log(this.errorMessage)
+  }
+   GetLastMessage(){
+        this.chatService.getLastChat(this.chat.senderID , this.chat.receiverID).subscribe({
+        next:data=>this.tempData=data ,//.push(data[0],data[1])
+        error:error=>this.errorMessage=error
+    })
+    setTimeout(()=> {
+      this.chatService.skip+=5;
+      console.log(this.tempData)
+      console.log(this.LastchatData)
+      console.log(Object.keys(this.tempData))
+      let values =Object.values(this.tempData)
+      console.log(values[0])
+      this.LastchatData = values[0]
+      for (let index = 0; index < values[0].length; index++) {
+        const element =  values[0][index];
+        console.log(element)
+        console.log( element.date.slice(11,16))
+        console.log(element.room.sold)
+        element.date = element.date.slice(11,16)
+        // this.LastchatData.push(element)
+      }
+      
+    } ,3000)
     console.log(this.errorMessage)
   }
 }

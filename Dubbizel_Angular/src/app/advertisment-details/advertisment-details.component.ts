@@ -278,6 +278,10 @@ await setTimeout(async () => {
   }
   }
 
+
+//   BeginChat(applicationUserId:string)
+// {
+//   console.log(applicationUserId)
   BeginChat(advertismentDetail:any)
 {
   console.log(advertismentDetail.id,advertismentDetail.applicationUserId)

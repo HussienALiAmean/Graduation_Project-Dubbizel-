@@ -21,7 +21,7 @@ namespace Dubbizle.Models
         public bool Sold { get; set; }
         public virtual ApplicationUser Sender { get; set; }
         public virtual ApplicationUser Reciver { get; set; }
-
+        public List<Chat> chats { get; set; }
 
     }
 }
