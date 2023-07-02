@@ -14,16 +14,22 @@ namespace Dubbizle.API.Controllers
     [ApiController]
     public class ProfileController : ControllerBase
     {
-        ProfileService _profileService;
-
-        UnitOfWork _unitOfWork;
-        //ProfileService profileService
         readonly UserManager<ApplicationUser> _userManager;
-
-        public ProfileController(UserManager<ApplicationUser> userManager) 
+        IRepository<Advertisment> _advertismentRepo;
+        IRepository<Review> _reviewRepo;
+        IRepository<ApplicationUser_Package> _packageRepo;
+        FavoriteService _favoriteService;
+        //FilterValueService _filtrationValue;
+        IRepository<FiltrationValue> _filtrationValueRepo;
+        public ProfileController(UserManager<ApplicationUser> userManager, IRepository<Advertisment> advertismentRepo, 
+            IRepository<Review> reviewRepo, IRepository<ApplicationUser_Package> packageRepo, FavoriteService favoriteService, IRepository<FiltrationValue> filtrationValueRepo ) 
         {
-            //_profileService = profileService;
             _userManager= userManager;
+            _advertismentRepo = advertismentRepo;
+            _reviewRepo = reviewRepo;
+            _packageRepo = packageRepo;
+            _favoriteService = favoriteService;
+            _filtrationValueRepo = filtrationValueRepo;
         }
 
 
@@ -53,7 +59,7 @@ namespace Dubbizle.API.Controllers
 
         }
 
-        [HttpPut("id")]
+        [HttpPut("editProfile/{id}")]
         public async Task<IActionResult> Edit(string id, ProfileDTO newUser)
         {
             ApplicationUser orgUser = await _userManager.FindByIdAsync(id);
@@ -61,14 +67,9 @@ namespace Dubbizle.API.Controllers
             orgUser.Email = newUser.Email;
             orgUser.Gender = newUser.Gender;
             orgUser.PhoneNumber = newUser.PhoneNumber;
-           // orgUser.BirthDate = newUser.BirthDate;
-            // orgUser.BirthDate = newUser.BirthDate;
             DateTime date = new DateTime(int.Parse(newUser.Year), int.Parse(newUser.Month), int.Parse(newUser.Day));
             orgUser.BirthDate = date;
 
-            //newUser.Day = newUser.BirthDate.Day.ToString();
-            //newUser.Month = newUser.BirthDate.Month.ToString();
-            //newUser.Year = newUser.BirthDate.Year.ToString();
             orgUser.AboutMe = newUser.AboutMe;
             await _userManager.UpdateAsync(orgUser);
 
@@ -76,5 +77,50 @@ namespace Dubbizle.API.Controllers
 
         }
 
-    }
+
+        [HttpDelete("deleteProfile/{id}")]
+        public async Task<IActionResult> Delete(string id)
+        {
+            ApplicationUser AppUser = await _userManager.FindByIdAsync(id);
+            AppUser.Deleted = true;
+            await _userManager.UpdateAsync(AppUser);
+
+            List<Advertisment> advertismentsList =_advertismentRepo.GetAll("Advertisment_FiltrationValuesList.filtrationValue", "AdvertismentImagesList").Where(ad => ad.ApplicationUserId == id).ToList();
+            foreach (Advertisment advertisment in advertismentsList)
+            {
+                advertisment.Deleted = true;
+                foreach (AdvertismentImage adImage in advertisment.AdvertismentImagesList)
+                {
+                    adImage.Deleted = true;
+                }
+
+                foreach (Advertisment_FiltrationValue filterValue in advertisment.Advertisment_FiltrationValuesList)
+                {
+                    filterValue.Deleted = true;
+                }
+            }
+
+            List<Favorite> favoritesList = (List<Favorite>)_favoriteService.GetAllByUserId(id);
+            foreach (Favorite favorite in favoritesList)
+            {
+                favorite.Deleted = true;
+            }
+
+            List<Review> reviewsList = _reviewRepo.GetAll().Where(rev => rev.AutherId == id).ToList();
+            foreach (Review review in reviewsList)
+            {
+                review.Deleted = true;
+            }
+
+            List<ApplicationUser_Package> packagesList = _packageRepo.GetAll().Where(p => p.ApplicationUserId == id).ToList();
+            foreach (ApplicationUser_Package package in packagesList)
+            {
+                package.Deleted = true;
+            }
+
+           
+            return Ok();
+        }
+
+     }
 }

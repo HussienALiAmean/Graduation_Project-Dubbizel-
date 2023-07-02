@@ -10,6 +10,7 @@ import { PackageComponent } from 'src/admin/package/package.component';
 import { PackagesComponent } from './packages/packages.component';
 import { MyAdsComponent } from './my-ads/my-ads.component';
 import { CategoriesBeforePackagesComponent } from './categories-before-packages/categories-before-packages.component';
+import { UserprofileComponent } from 'src/profile/userprofile/userprofile.component';
 
 
 
@@ -22,8 +23,9 @@ import { CategoriesBeforePackagesComponent } from './categories-before-packages/
 
 const routes: Routes = [
 {path:'',component:HomePageComponentComponent},
-
-  //{path:"profile",component:UserprofileComponent}
+//test
+  //{path:"profile",component:UserprofileComponent},
+  
  {path:"chat/:adId/:UserID",component:ChatComponent},
 
   {path:'Home/:id',component:HomePageComponentComponent},
