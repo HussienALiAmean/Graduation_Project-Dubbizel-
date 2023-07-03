@@ -4,6 +4,8 @@ using Dubbizle.Data.Repository;
 using Dubbizle.Data.UnitOfWork;
 using Dubbizle.DTOs;
 using Dubbizle.Models;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -25,7 +27,7 @@ namespace Dubbizle.Services
             _mapper = mapper;
             //unitOfWork = _unitOfWork;
         }
-        
+
         public IEnumerable<Advertisment> GetAll()
         {
             return _repository.GetAll().ToList();
@@ -37,36 +39,36 @@ namespace Dubbizle.Services
             var categories = _repository.Get(expression);
             return categories.ProjectTo<AdvertismentHomePageDTO>(_mapper.ConfigurationProvider);
         }
-    
+
 
 
         // Alzhraa & Hussien
         public IEnumerable<Advertisment> GetAllBySubCategoryID(string property1, string property2, int id)
         {
-            return _repository.GetAll(property1,property2).Where(A=>A.ExpirationDate > DateTime.Now && A.SubCategoryID==id).OrderByDescending(A=>A.ExpireDateOfPremium).ToList();
+            return _repository.GetAll(property1, property2).Where(A => A.ExpirationDate > DateTime.Now && A.SubCategoryID == id).OrderByDescending(A => A.ExpireDateOfPremium).ToList();
         }
 
         // Alzhraa & Hussien
         public IEnumerable<Advertisment> GetAllByCategoryID(string property1, string property2, int id)
         {
-            return _repository.GetAll(property1, property2).Where(A => A.ExpirationDate > DateTime.Now && A.CategoryID==id).OrderByDescending(A => A.ExpireDateOfPremium).ToList();
+            return _repository.GetAll(property1, property2).Where(A => A.ExpirationDate > DateTime.Now && A.CategoryID == id).OrderByDescending(A => A.ExpireDateOfPremium).ToList();
         }
 
         public IEnumerable<Advertisment> Get(Expression<Func<Advertisment, bool>> expression)
         {
             return _repository.Get(expression).ToList();
         }
-        public IEnumerable<Advertisment> GetAdvertismentUsers(string id,string property1,string property2)
+        public IEnumerable<Advertisment> GetAdvertismentUsers(string id, string property1, string property2)
         {
-            return _repository.GetAll(property1,property2).Where(a=>a.ApplicationUserId==id).ToList();
+            return _repository.GetAll(property1, property2).Where(a => a.ApplicationUserId == id).ToList();
         }
         public IEnumerable<Advertisment> GetAllAdvertisments(string property1, string property2, string property3, string property4)
         {
             return _repository.GetAll(property1, property2, property3, property4).ToList();
         }
-        public IEnumerable<Advertisment> GetAllAdvertisments(string property1, string property2,int id)
+        public IEnumerable<Advertisment> GetAllAdvertisments(string property1, string property2, int id)
         {
-            return _repository.GetAll(property1, property2).Where(a=>a.CategoryID==id).ToList();
+            return _repository.GetAll(property1, property2).Where(a => a.CategoryID == id).ToList();
         }
         public Advertisment GetByID(int id)
         {
@@ -74,29 +76,35 @@ namespace Dubbizle.Services
         }
 
 
-        public Advertisment GetAdsByID(int id,string prperty1,string property2)
+        public Advertisment GetAdsByID(int id, string prperty1, string property2)
         {
-            return _repository.GetAll(property2,prperty1).FirstOrDefault(a=>a.ID==id);
+            return _repository.GetAll(property2, prperty1).FirstOrDefault(a => a.ID == id);
         }
 
 
         // Alzhraa
         public IEnumerable<Advertisment> GetMyAdvertisments(string ApplicationUserId)
         {
-            return _repository.GetAll("AdvertismentImagesList", "Advertisment_RentOptionList").Where(A => A.ApplicationUserId == ApplicationUserId&&A.Deleted==false).ToList();
+            return _repository.GetAll("AdvertismentImagesList", "Advertisment_RentOptionList").Where(A => A.ApplicationUserId == ApplicationUserId && A.Deleted == false).ToList();
         }
 
 
+        public IEnumerable<Advertisment> GetBySearchQuery(string query,string property1,string property2,string property3,string property4)
+        {
+            var results = _repository.GetAll(property1, property2,property3, property4).Where(A => A.ExpirationDate > DateTime.Now && (A.Title.Contains(query) || A.Category.Name.Contains(query) || A.SubCategory.Name.Contains(query))).OrderByDescending(A => A.ExpireDateOfPremium).ToList();
+            return results;
+        }
         public void Add(Advertisment advertisment)
         {
             _repository.Add(advertisment);
             _repository.SaveChanges();
         }
 
+
         public void Update(Advertisment advertisment)
         {
             advertisment.Location = "Cairo";
-          //  _repository.Update(category, nameof(category.Name));
+            //  _repository.Update(category, nameof(category.Name));
         }
 
         //public void UpdateName()

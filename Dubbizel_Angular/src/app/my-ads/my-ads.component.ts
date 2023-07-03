@@ -19,6 +19,26 @@ export class MyAdsComponent {
   PendingdsCounter:number=0;
   ModerateddsCounter:number=0;
 
+  FlagStatus:any="";
+  
+  display = '';
+  AdInModal:IAdvertisment={
+    title: '',
+    categoryID: 0,
+    subCategoryID: 0,
+    adType: '',
+    adStatus: '',
+    location: '',
+    date: '',
+    expirationDate: '',
+    expireDateOfPremium: '',
+    isPremium: false,
+    advertisment_FiltrationValuesList: [],
+    advertismentImagesList: [],
+    isSaved: false,
+    applicationUserId: ''
+  };
+
   constructor(private advertismentUserService :AdvertismentServiceService){}
   
   ngOnInit(): void {
@@ -37,6 +57,7 @@ export class MyAdsComponent {
 
   counterAds()
   {
+    this.AllAdsCounter=this.ActivedsCounter=this.InActivedsCounter=this.PendingdsCounter=this.ModerateddsCounter=0;
     this.LodedAdvertisments.forEach((ad:IAdvertisment)=>{
       this.AllAdsCounter++;
       if(ad.adStatus=="Active")
@@ -53,6 +74,7 @@ export class MyAdsComponent {
   AllAds()
   {
     this.FiltredAdvertisments=this.LodedAdvertisments;
+    this.FlagStatus="All";
   }
 
   ActiveAds()
@@ -60,6 +82,7 @@ export class MyAdsComponent {
      this.FiltredAdvertisments = this.LodedAdvertisments.filter((ad:IAdvertisment) =>{
       return ad.adStatus=="Active";
   });
+  this.FlagStatus="Active";
 
   }
 
@@ -67,7 +90,9 @@ export class MyAdsComponent {
   {
     this.FiltredAdvertisments = this.LodedAdvertisments.filter((ad:IAdvertisment) =>{
       return ad.adStatus=="Not Active";
-  });
+     });
+     this.FlagStatus="Not Active";
+
   }
 
   PendingAds()
@@ -75,6 +100,8 @@ export class MyAdsComponent {
     this.FiltredAdvertisments = this.LodedAdvertisments.filter((ad:IAdvertisment) =>{
       return ad.adStatus=="Pending";
   });
+  this.FlagStatus="Pending";
+
   }
 
   ModeratedAds()
@@ -82,6 +109,97 @@ export class MyAdsComponent {
     this.FiltredAdvertisments = this.LodedAdvertisments.filter((ad:IAdvertisment) =>{
       return ad.adStatus=="Moderated";
   });
+  this.FlagStatus="Moderated";
+  }
+
+
+  DeActive(AdID:any)
+  {
+    this.advertismentUserService.deActivateMyAd(AdID).subscribe({
+      next:(data:any)=>{
+
+       let index1= this.LodedAdvertisments.findIndex(Ad => Ad.id == AdID) 
+       this.LodedAdvertisments[index1].adStatus="Moderated";
+       let index2= this.FiltredAdvertisments.findIndex(Ad => Ad.id == AdID) 
+       this.FiltredAdvertisments[index2].adStatus="Moderated";
+
+       if(this.FlagStatus=="All" || this.FlagStatus=="")
+       {
+          this.AllAds();
+       }
+       else if(this.FlagStatus=="Active")
+       {
+          this.ActiveAds()
+       }
+       else if(this.FlagStatus=="Moderated")
+       {
+          this.ModeratedAds()
+       }
+       else if(this.FlagStatus=="Pending")
+       {
+          this.PendingAds()
+       }
+       else
+       {
+          this.InactiveAds();
+       }
+       this.counterAds()
+      },
+      error: err => {
+        console.log(err);
+      }
+     })
+  }
+
+  Active(AdID:any)
+  {
+    this.advertismentUserService.ActivateMyAd(AdID).subscribe({
+      next:(data:any)=>{
+        let index1= this.LodedAdvertisments.findIndex(Ad => Ad.id == AdID) 
+        this.LodedAdvertisments[index1].adStatus="Active";
+        let index2= this.FiltredAdvertisments.findIndex(Ad => Ad.id == AdID) 
+        this.FiltredAdvertisments[index2].adStatus="Active";
+ 
+        if(this.FlagStatus=="All" || this.FlagStatus=="")
+        {
+           this.AllAds();
+        }
+        else if(this.FlagStatus=="Active")
+        {
+           this.ActiveAds()
+        }
+        else if(this.FlagStatus=="Moderated")
+        {
+           this.ModeratedAds()
+        }
+        else if(this.FlagStatus=="Pending")
+        {
+           this.PendingAds()
+        }
+        else
+        {
+           this.InactiveAds();
+        }
+        this.counterAds()
+      },
+      error: err => {
+        console.log(err);
+      }
+     })
+  }
+
+  openModal(ad:IAdvertisment) {
+    this.display = 'block';
+    this.AdInModal=ad;
+  }
+
+  onCloseModal() {
+    this.display = 'none';
+  }
+
+  MarkAsSold(soldBtn:any)
+  {
+      soldBtn.disabled=false;
   }
 
 }

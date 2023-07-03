@@ -17,6 +17,8 @@ namespace Dubbizle.Models
         [InverseProperty("SubCategory")]
         public List<Advertisment> SubCaategoryAdvertismentsList { get; set; }
         public List<Package> SubCaategoryPackagesList { get; set; }
+        [JsonIgnore]
+
         public List<SubCategory_Filter> SubCategory_FilterList { get; set; }
 
     }

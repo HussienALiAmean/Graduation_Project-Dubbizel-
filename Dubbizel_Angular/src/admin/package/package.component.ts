@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { PackageService } from '../Services/package.service';
 import { FormBuilder, Validators } from '@angular/forms';
 import Swal from 'sweetalert2';
+import { DisplayService } from 'src/app/Services/display.service';
 
 @Component({
   selector: 'app-package',
@@ -17,9 +18,11 @@ export class PackageComponent {
     messageError = '';
     EditIndex: any;
   
-    constructor(private packageService: PackageService, private fb: FormBuilder) { }
+    constructor(private packageService: PackageService, private fb: FormBuilder,private displayService: DisplayService) { }
   
     ngOnInit() {
+      this.displayService.setNavigationVisibility(false);
+
       this.packageService.getallPackages().subscribe({
         next: (data: any) => {
           if (data.statusCode == 200) {
@@ -40,6 +43,10 @@ export class PackageComponent {
   
     }
   
+    ngOnDestroy(): void {
+      this.displayService.setNavigationVisibility(true);
+    }
+    
     openPackageModal() {
       this.display = 'block';
     }

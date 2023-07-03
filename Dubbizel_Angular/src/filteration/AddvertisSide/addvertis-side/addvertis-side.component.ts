@@ -48,9 +48,24 @@ constructor(private activatRoute:ActivatedRoute,private advertismentService:Adve
         }
       }); 
     }
-    else
+    else if(params.get('type')=='subcategory')
     {
       this.advertismentService.getAdsBySubCategoryID(params.get('id'),this.userId).subscribe({
+        next: (data:any) => {
+          this.Loaded_dedaddvertisment=data.data;
+          this.Advertisments=this.Loaded_dedaddvertisment;
+        console.log(data);
+        },
+        error: err => {
+          console.log(err);
+        }
+      }); 
+      console.log(false)
+    }
+    else
+    {
+      console.log(params.get('type'))
+      this.advertismentService.getAdvertismentByQuery(params.get('type'),this.userId).subscribe({
         next: (data:any) => {
           this.Loaded_dedaddvertisment=data.data;
           this.Advertisments=this.Loaded_dedaddvertisment;

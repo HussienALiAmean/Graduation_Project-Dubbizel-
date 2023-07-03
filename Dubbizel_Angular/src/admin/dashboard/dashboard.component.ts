@@ -5,6 +5,7 @@ import { JwtHelperService } from '@auth0/angular-jwt';
 import { EnrollService } from 'src/authintication/Services/enroll.service';
 import { ForbiddenEmailValidator } from 'src/authintication/validations/email.validators';
 import Swal from 'sweetalert2';
+import { DisplayService } from 'src/app/Services/display.service';
 
 
 @Component({
@@ -14,7 +15,7 @@ import Swal from 'sweetalert2';
 })
 export class DashboardComponent {
 
-  constructor(private jwtHelper: JwtHelperService,private enrollService: EnrollService, private fb: FormBuilder, private router: Router) { }
+  constructor(private jwtHelper: JwtHelperService,private enrollService: EnrollService, private fb: FormBuilder, private router: Router,private displayService: DisplayService) { }
 
   LoginForm = this.fb.group({
     Password: ['', [Validators.required]],
@@ -34,6 +35,14 @@ export class DashboardComponent {
   }
 
 
+  ngOnInit() {
+    this.displayService.setNavigationVisibility(false);
+  }
+  
+  ngOnDestroy(): void {
+    this.displayService.setNavigationVisibility(true);
+  }
+  
   Login() {
     if (this.LoginForm.valid) {
        this.enrollService.LoginEmailAndPassword(this.LoginForm.value).subscribe({
