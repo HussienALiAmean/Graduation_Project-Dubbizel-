@@ -21,11 +21,19 @@ namespace Dubbizle.DTOs
 
     }
 
-    public class PackageAppUserDTO
+    public class PackageAppUserDTOCreated
     {
         public string ApplicationUserId { get; set; }
         public int PackageID { get; set; }
         public int NumOfRemainAds { get; set; }
+    }
+
+
+    public class PackageAppUserDTO
+    {
+        public int NumOfRemainAds { get; set; }
+        public DateTime ExpirationDate { get; set; }
+        public string Status { get; set; }
     }
 
 

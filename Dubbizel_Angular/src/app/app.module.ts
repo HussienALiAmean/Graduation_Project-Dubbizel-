@@ -40,6 +40,7 @@ import { AdDetailsComponent } from './ad-details/ad-details.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap'; 
 import { MyAdsComponent } from './my-ads/my-ads.component';
 import { CategoriesBeforePackagesComponent } from './categories-before-packages/categories-before-packages.component';
+import { MyPackagesComponent } from './my-packages/my-packages.component';
 
 // import { UserprofileComponent } from 'src/profile/userprofile/userprofile.component';
 
@@ -69,7 +70,8 @@ import { CategoriesBeforePackagesComponent } from './categories-before-packages/
     FooterComponent,
     HomePageComponentComponent,
     PackagesComponent,
-    CategoriesBeforePackagesComponent
+    CategoriesBeforePackagesComponent,
+    MyPackagesComponent
   
   ],
   imports: [

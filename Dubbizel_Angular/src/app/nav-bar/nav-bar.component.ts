@@ -226,4 +226,11 @@ export class NavBarComponent implements OnInit {
 
   }
 
+
+  search(serachInputValue:any)
+  {
+    console.log(serachInputValue)
+      this.router.navigate(['/filteration/Advertisment/',0,serachInputValue]);
+  }
+
 }

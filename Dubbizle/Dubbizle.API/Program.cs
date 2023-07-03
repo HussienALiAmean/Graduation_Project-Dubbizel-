@@ -63,7 +63,7 @@ namespace Dubbizle.API
 
             builder.Host.ConfigureContainer<ContainerBuilder>(opt =>
                 opt.RegisterModule(new AutofacModule()));
-           // builder.Services.AddAutoMapper(typeof(ProfileMap).Assembly);
+            // builder.Services.AddAutoMapper(typeof(ProfileMap).Assembly);
 
             //builder.Services.AddAutoMapper(typeof(ProfileMap).Assembly);
 

@@ -31,11 +31,11 @@ namespace Dubbizle.Services
         {
             _categoryRepository = categoryRepository;
             _filterRepository = filterRepository;
-            _subCatFilterRepository= subCatFilterRepository;
+            _subCatFilterRepository = subCatFilterRepository;
             _packageRepository = packageRepository;
-            _filtrationValueRepository= filtrationValueRepository;
-            _advertismentRepository= advertismentRepository;
-            
+            _filtrationValueRepository = filtrationValueRepository;
+            _advertismentRepository = advertismentRepository;
+
         }
 
 
@@ -47,7 +47,7 @@ namespace Dubbizle.Services
         //}
         public IEnumerable<Category> GetAllCategories(string property)
         {
-            return _categoryRepository.GetAll(property).Where(c=>c.Deleted==false).ToList();
+            return _categoryRepository.GetAll(property).Where(c => c.Deleted == false).ToList();
         }
 
         public Category GetCategoryByID(int id)
@@ -56,7 +56,7 @@ namespace Dubbizle.Services
         }
         public Category EditCategory(Category categoty)
         {
-             _categoryRepository.Update(categoty);
+            _categoryRepository.Update(categoty);
             _categoryRepository.SaveChanges();
             if (categoty.ParentCategoryID != null)
             {
@@ -68,7 +68,7 @@ namespace Dubbizle.Services
 
         public Category AddCategory(Category category)
         {
-            Category newCategory= _categoryRepository.Add(category);
+            Category newCategory = _categoryRepository.Add(category);
             _categoryRepository.SaveChanges();
             if (newCategory.ParentCategoryID != null)
             {
@@ -80,7 +80,7 @@ namespace Dubbizle.Services
 
         public void DeleteCategory(int id)
         {
-           // _categoryRepository.Delete(id);
+            // _categoryRepository.Delete(id);
             Category category = _categoryRepository.GetByID(id);
             category.Deleted = true;
             _categoryRepository.Update(category);
@@ -89,23 +89,23 @@ namespace Dubbizle.Services
 
         public bool CheckCategory(int id)
         {
-            var category = _categoryRepository.GetAll("SubCategoriesList", "CategoryAdvertismentsList", "SubCaategoryAdvertismentsList", "SubCaategoryPackagesList", "SubCategory_FilterList").FirstOrDefault(c=>c.ID==id);
+            var category = _categoryRepository.GetAll("SubCategoriesList", "CategoryAdvertismentsList", "SubCaategoryAdvertismentsList", "SubCaategoryPackagesList", "SubCategory_FilterList").FirstOrDefault(c => c.ID == id);
 
-             // Check if any related records exist
-                if (
-                    category.SubCategoriesList.Any(L1=>L1.Deleted==false) ||
-                    category.CategoryAdvertismentsList.Any(L2 => L2.Deleted == false) ||
-                    category.SubCaategoryAdvertismentsList.Any(L3 => L3.Deleted == false) ||
-                    category.SubCaategoryPackagesList.Any(L4 => L4.Deleted == false) ||
-                    category.SubCategory_FilterList.Any(L5 => L5.Deleted == false)
-                    )
-                {
-                    return true;
-                }
-                else
-                {
-                    return false;
-                }
+            // Check if any related records exist
+            if (
+                category.SubCategoriesList.Any(L1 => L1.Deleted == false) ||
+                category.CategoryAdvertismentsList.Any(L2 => L2.Deleted == false) ||
+                category.SubCaategoryAdvertismentsList.Any(L3 => L3.Deleted == false) ||
+                category.SubCaategoryPackagesList.Any(L4 => L4.Deleted == false) ||
+                category.SubCategory_FilterList.Any(L5 => L5.Deleted == false)
+                )
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
 
 
@@ -160,11 +160,11 @@ namespace Dubbizle.Services
 
         public IEnumerable<SubCategory_Filter> GetAllSubCategoryFilters()
         {
-            return _subCatFilterRepository.GetAll("SubCategory", "Filter").Where(SF=>SF.Deleted==false).ToList();
+            return _subCatFilterRepository.GetAll("SubCategory", "Filter").Where(SF => SF.Deleted == false).ToList();
         }
         public IEnumerable<Category> GetSubCategoryList()
         {
-            return _categoryRepository.GetAll().Where(c => c.ParentCategoryID != null && c.Deleted==false).ToList();
+            return _categoryRepository.GetAll().Where(c => c.ParentCategoryID != null && c.Deleted == false).ToList();
         }
 
         public SubCategory_Filter PostSubCategoryFilter(SubCategory_Filter subCategory_Filter)
@@ -172,7 +172,7 @@ namespace Dubbizle.Services
             SubCategory_Filter newSubCategory_Filter = _subCatFilterRepository.Add(subCategory_Filter);
             _categoryRepository.SaveChanges();
             newSubCategory_Filter.Filter = _filterRepository.GetByID(newSubCategory_Filter.FilterID);
-            newSubCategory_Filter.SubCategory =_categoryRepository.GetByID(newSubCategory_Filter.SubCategoryID);
+            newSubCategory_Filter.SubCategory = _categoryRepository.GetByID(newSubCategory_Filter.SubCategoryID);
             return newSubCategory_Filter;
         }
 
@@ -223,7 +223,7 @@ namespace Dubbizle.Services
 
         public FiltrationValue PostFilterValue(FiltrationValue filtrationValue)
         {
-            FiltrationValue newFiltrationValue=_filtrationValueRepository.Add(filtrationValue);
+            FiltrationValue newFiltrationValue = _filtrationValueRepository.Add(filtrationValue);
             _filtrationValueRepository.SaveChanges();
             newFiltrationValue.SubCategory_Filter = _subCatFilterRepository.GetByID(newFiltrationValue.SubCategory_FilterID, "SubCategory", "Filter");
             return newFiltrationValue;
@@ -275,7 +275,7 @@ namespace Dubbizle.Services
 
         public Package PostPackage(Package package)
         {
-            Package newPackage=_packageRepository.Add(package);
+            Package newPackage = _packageRepository.Add(package);
             _packageRepository.SaveChanges();
             newPackage.SubCategory = _categoryRepository.GetByID(newPackage.SubCategoryID);
             return newPackage;
@@ -321,7 +321,7 @@ namespace Dubbizle.Services
         ////////////////////////////////////////// Advertisments /////////////////////////////////
         public IEnumerable<Advertisment> GetAllNotActiveAdvertisments()
         {
-            return _advertismentRepository.GetAll("SubCategory", "AdvertismentImagesList").Where(A => A.Deleted == false&&A.AdStatus== "Not Active").ToList();
+            return _advertismentRepository.GetAll("SubCategory", "AdvertismentImagesList").Where(A => A.Deleted == false && A.AdStatus == "Not Active").ToList();
         }
         public Advertisment GetAdvertismentByID(int id)
         {

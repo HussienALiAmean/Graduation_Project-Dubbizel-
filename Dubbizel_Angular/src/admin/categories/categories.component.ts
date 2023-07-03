@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { CategoryService } from '../Services/category.service';
 import { FormBuilder, Validators } from '@angular/forms';
 import Swal from 'sweetalert2';
+import { DisplayService } from 'src/app/Services/display.service';
 
 @Component({
   selector: 'app-categories',
@@ -17,12 +18,13 @@ export class CategoriesComponent {
   messageError = '';
   EditIndex: any;
 
-  constructor(private categoryService: CategoryService, private fb: FormBuilder) { }
+  constructor(private categoryService: CategoryService, private fb: FormBuilder,private displayService: DisplayService) { }
 
 
 
 
   ngOnInit() {
+    this.displayService.setNavigationVisibility(false);
     this.categoryService.getallCategories().subscribe({
       next: (data: any) => {
         if (data.statusCode == 200) {
@@ -46,6 +48,10 @@ export class CategoriesComponent {
 
   }
 
+  ngOnDestroy(): void {
+    this.displayService.setNavigationVisibility(true);
+  }
+  
   openCategoryModal() {
     this.display = 'block';
     if (this.parentCategoryID?.value == null) {
