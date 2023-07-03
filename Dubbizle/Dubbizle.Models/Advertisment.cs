@@ -12,7 +12,6 @@ namespace Dubbizle.Models
         public string ApplicationUserId { get; set; }
         public virtual ApplicationUser ApplicationUser { get; set; }
 
-
         //public DateTime PostedAt { get; set; }
         public Category Category { get; set; }
         public int CategoryID { get; set; }

@@ -1,72 +1,115 @@
 <div class="container-fluid">
     <div class="row">
-        <div class="col-1"></div>
-        <div class="mt-3 col-4 col-md-12 col-lg-4 col-xl-4 col-sm-12 inbox">
+        <!-- <div class="col-1"></div> -->
+        <!-- <div class="mt-3  col-md-12  col-sm-12 inbox">
             <div class="row rounded-lg border  title" style="padding-top: 20px;">
                 <span style="font-weight: bold;margin-bottom: 2%;">INBOX</span>
-            </div>
+            </div> -->
 
-            <div class="row  rounded-lg border header" style="padding-bottom: 7px;">
-                <p style="font-size: 10px;padding-top: 3px;">QUICK FILTERS</p>
-                <div class="col-1"></div>
-                <div class="col-2 ">
-                    <button type="button" class="btn btn-outline-danger H_item">All</button>
+            <div class="col-md-4 col-sm-4">
+                <div class="rounded-lg border  title" style="padding-top: 20px;" >
+                    <span style="font-weight: bold;margin-bottom: 2%;">INBOX</span>
                 </div>
-                <div class="col-5" style="text-align: center;">
-                    <button type="button" class="btn btn-outline-danger H_item">Unread Chats</button>
-                </div>
-                <div class="col-3" style="text-align: right;">
-                    <button type="button" class="btn btn-outline-danger H_item">Important</button>
-                </div>
-                <div class="col-1"></div>
-            </div>
-
-            <div class="row rounded-lg border list_user" style="padding-top: 20px;height: 373px;">
-                
-                <div *ngFor="let user of users">
-
-                    <div class="profile">
-                        <span *ngIf="user.gender == 'Female'">
-                            <img class="profile-image" src="../assets/user_female.jpg" alt="Profile Image">
-                        </span>
-                        <span *ngIf="user.gender == 'Male'">
-                            <img class="profile-image" src="../assets/user_male.jpg" alt="Profile Image">
-                        </span>
-                        <div class="profile-name">{{user.userName}}</div>
+                <div class="rounded-lg border header" >
+                    <p style="font-size: 13px;
+                    padding-top: 3px; margin-left: 8px;">QUICK FILTERS</p>
+                    <div class="formatHeaderButton">
+                        <span  class="H_item btn btn-outline-danger "
+                        style="background-color: red;color: black;"> all</span>
+                        <span class="H_item btn btn-outline-danger"> unread chats</span>
+                        <span class="H_item btn btn-outline-danger"> important</span>
                     </div>
-
                 </div>
-            </div>
-        </div>
+                <!-- <div class="row  rounded-lg border header" style="padding-bottom: 7px;">
+                    <p style="font-size: 10px;padding-top: 3px;">QUICK FILTERS</p>
+                    <div class="col-1"></div>
+                    <div class="col-2 ">
+                        <button type="button" class="btn btn-outline-danger H_item">All</button>
+                    </div>
+                    <div class="col-5" style="text-align: center;">
+                        <button type="button" class="btn btn-outline-danger H_item">Unread Chats</button>
+                    </div>
+                    <div class="col-3" style="text-align: right;">
+                        <button type="button" class="btn btn-outline-danger H_item">Important</button>
+                    </div>
+                    <div class="col-1"></div>
+                </div> -->
+                <!-- <div class="rounded-lg border list_user" > -->
+                    <!-- {{users | json}} -->
+                    
+                    <div class=" rounded-lg border list_user" style="padding-top: 10px;height: 373px;">
+                        <div class="emptyimg " *ngIf="users == null">
+                            <span >
+    
+                                <img  src="../assets/emptyChat.a6b9befc0789bd419ec5ed4fad199ab4 (1).webp" alt="" >
+                            </span>
+                        </div>
+                        
+                        <span class="float-end" *ngIf="users != null">{{DateDay.toLocaleDateString()}}</span>
+                        <div *ngFor="let user of users">
 
-        <div class=" mt-3 col-6 col-md-12 col-lg-6 col-xl-6 col-sm-12 chatt">
-
-            <div class=" row rounded-lg border title">
-                <div
-                    style="border-radius: 50%;background-color: rgb(255, 220, 226);width:50px;height: 50px;text-align: center;padding-top: 10px;">
-                    User</div>
-                <span class="col-3 mt-2"> Owner profile</span>
-                <div class="col-9"></div>
+                            <div class="profile" (click)="GetUser(user.id)">
+                                <span *ngIf="user.gender == 'Female'">
+                                    <img class="profile-image" src="../assets/user_female.jpg" alt="Profile Image">
+                                </span>
+                                <span *ngIf="user.gender == 'Male'">
+                                    <img class="profile-image" src="../assets/user_male.jpg" alt="Profile Image">
+                                </span>
+                                <div class="profile-name">{{user.userName}}</div>
+                                <div class="dropdown float-end">
+                                    <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">...
+                                        <span class="caret"></span></button>
+                                        <ul class="dropdown-menu dropdown-menu-left">
+                                            <li><div>Your first div content</div></li>
+                                            <li><div>Your second div content</div></li>
+                                        </ul>
+                                    </div>
+                                    <br>
+                                    <span>{{LastchatData.content}}</span>
+                                  
+                            </div>
+                            
+                        </div>
+                    </div>
+                <!-- </div> -->
             </div>
-            <!-- rounded-lg border p-2 -->
-            <div class="row rounded-lg border" style="padding-top: 20px;">
-                <span class="col-3 "> advertisment</span>
-                <div class="col-6"></div>
-                <div class="col-3" style="text-align: end;padding-bottom: 20px;">
-                    <button type="button" class="btn" style="background-color: rgb(83,151,241);color: white;">view
-                        ad</button>
+        <div class="col-md-8 col-sm-8 col-xs-8">
+            <div class="rounded-lg border title" >
+                <span class=""> S </span>
+                <span> Owner profile</span>
+            </div>
+            <div class="rounded-lg border p-2" >
+                <span>
+                    <img class="imageAdv" 
+                    src="http://localhost:7189/Files/AdvertismentIMG/{{AdvertismentDetails.advertismentImagesList[0].imageName}}"
+                     alt="">
+                </span>
+                <span> {{AdvertismentDetails.title}} </span>
+                <span class="float-end btn btn-info"><a routerLink="/Details/{{AdvertismentId}}">view ad</a> </span>
+            </div>
+            <div class="rounded-lg border chat_room" >
+                <div class="emptyimg " *ngIf="chatData == null">
+                    <span >
+
+                        <img  src="../assets/emptyChat.a6b9befc0789bd419ec5ed4fad199ab4 (1).webp" alt="" >
+                        <p>Select a chat to view conversation</p>
+                    </span>
                 </div>
-            </div>
-            <div class="row rounded-lg border chat_room " style="padding-top: 2%;" >
                 <div *ngFor="let userchat of chatData ">
+
                     <div id="{{userchat.id}}">
 
                         <div class="sendersection" *ngIf="userchat.senderID == CurrentUserId">
                             <div class="sendersection">
+                                <div class="sender">
+    
+                                    <p>{{userchat.id}}</p>
                                 <div class="sender" style="padding-left: 10px;">
 
                                     {{userchat.content}}
-                                    <span class="float-end deleteicon" (click)="delete(userchat.id)">
+                                    <span>{{userchat.date}}</span>
+                                    <span *ngIf="userchat.room?.sold" class="float-end deleteicon" 
+                                    (click)="delete(userchat.id)">
                                         <i class="fa fa-trash" aria-hidden="true"></i>
 
                                     </span>
@@ -82,25 +125,43 @@
                         <div *ngIf="userchat.senderID != CurrentUserId">
 
                             <div class="rightMsg float-end">
+ 
                                 <div class="reciver d-lg">
-                                    {{userchat.content}}
-                                    <span class="float-start deleteiconleft" (click)="delete(userchat.id)">
-                                        <i class="fa fa-trash" aria-hidden="true">
+                                
+                                        <span class="p-1">
 
-                                        </i>
+                                            {{userchat.content}}
+                                        </span>
+                                        <span class="p-1 float-end">{{userchat.date}}</span>
+                                        <span *ngIf="userchat.room?.sold" class="float-start deleteiconleft" 
+                                        (click)="delete(userchat.id)">
+                                            <i class="fa fa-trash" aria-hidden="true"  ></i>
+                                            </span>
+        
 
-                                    </span>
-                                    <div *ngIf="userchat.file != null">
-                                        <img class="image"
-                                            src="http://localhost:7189/Files/ChatImages/{{userchat.file}}" alt="">
+                                    <div class="reciver d-lg">
+                                        {{userchat.content}}
+                                        <span class="float-start deleteiconleft" (click)="delete(userchat.id)">
+                                            <i class="fa fa-trash" aria-hidden="true">
+
+                                            </i>
+
+                                        </span>
+                                        <div *ngIf="userchat.file != null">
+                                            <img class="image"
+                                                src="http://localhost:7189/Files/ChatImages/{{userchat.file}}" alt="">
+                                        </div>
                                     </div>
                                 </div>
                             </div>
+
                         </div>
                     </div>
                 </div>
                 <!-- [disabled]="currentPage === getCeil(chatData.length 
                 / itemsPerPage)" -->
+ 
+
 
                 <button class="btn btn-light mt-3" (click)="GetMessage()">More</button>
 
@@ -110,6 +171,13 @@
                         <img class="img-fluid image" src="http://localhost:7189/Files/ChatImages/{{img}}" alt="">
                     </div>
                     <!-- {{tempData |json}} -->
+                    <br>
+                    
+                    <br>
+                    <div class="emptyimg" *ngIf="chatData != null">
+                        <button class="btn-primary" (click)="GetMessage()" 
+                        >More</button>
+                    </div>
                 </div>
             </div>
 

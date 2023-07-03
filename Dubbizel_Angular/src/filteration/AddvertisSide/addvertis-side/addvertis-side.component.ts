@@ -97,6 +97,7 @@ BeginChat(advertismentDetail:any)
   console.log(advertismentDetail.id,advertismentDetail.applicationUserId)
   this.appUserId = localStorage.getItem("ApplicationUserId");
   console.log(this.appUserId)
+  this.router.navigate(["/chat",advertismentDetail.id,advertismentDetail.applicationUserId])
 }
 
 handleDataChange(newdata:String)

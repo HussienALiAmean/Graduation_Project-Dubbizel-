@@ -20,12 +20,15 @@ import { UserprofileComponent } from 'src/profile/userprofile/userprofile.compon
 
 
 
-
 const routes: Routes = [
 {path:'',component:HomePageComponentComponent},
 //test
   //{path:"profile",component:UserprofileComponent},
   
+
+  {path:'',component:HomePageComponentComponent},
+
+  //{path:"profile",component:UserprofileComponent}
  {path:"chat/:adId/:UserID",component:ChatComponent},
 
   {path:'Home/:id',component:HomePageComponentComponent},

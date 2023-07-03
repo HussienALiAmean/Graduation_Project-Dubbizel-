@@ -15,7 +15,9 @@ namespace Dubbizle.Models
 
         public string ReciverID { get; set; }
         public string Content { get; set; }
-
+        [ForeignKey("Room")]
+        public int RoomId { get; set; }
+        public virtual Room Room { get; set; }
         public string? File { get; set; }
         public DateTime Date { get; set; }
     }

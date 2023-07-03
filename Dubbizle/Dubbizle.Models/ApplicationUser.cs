@@ -23,7 +23,7 @@ namespace Dubbizle.Models
 
         public List<Chat> ReciverChatList { get; set; }
         public bool? Deleted { get; set; } 
-        public List<Advertisment> advertismentList { get; set; }
+        public virtual List<Advertisment> advertismentList { get; set; }
 
     }
 }

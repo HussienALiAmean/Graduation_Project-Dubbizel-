@@ -47,7 +47,6 @@ namespace Dubbizle.API.Controllers
             {
                 UserDTO userDTO = new UserDTO();
                 userDTO.Email = user.Email;
-                userDTO.Password = user.PasswordHash;
                 userDTOs.Add(userDTO);
             }
             return Ok(users);
