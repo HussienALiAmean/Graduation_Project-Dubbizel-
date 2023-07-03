@@ -39,7 +39,7 @@
 }
 .chat_room{
     
-    height: 300px;
+    height: auto;
     // width: 100%;
     overflow: auto;
 }
@@ -95,7 +95,7 @@
 }
 .file{
    position: relative;
-   right:  27px; 
+//    right:  27px; 
 }
 .filebrowse{
     opacity: 0;

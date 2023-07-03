@@ -121,11 +121,11 @@ export class ChatComponent  implements OnInit  {
       next:data=>this.AdvertismentDetails=data,//this.users=data ,//.push(data[0],data[1])
       error:error=>this.errorMessage=error
     })
-    setTimeout(()=>{
+    // setTimeout(()=>{
 
-      console.log(this.AdvertismentDetails)
-      console.log(this.AdvertismentDetails.advertismentImagesList[0].imageName)
-    },2000)
+    //   console.log(this.AdvertismentDetails)
+    //   console.log(this.AdvertismentDetails.advertismentImagesList[0].imageName)
+    // },2000)
   }
   Users(){
     console.log(this.userId)
@@ -133,7 +133,7 @@ export class ChatComponent  implements OnInit  {
       next:data=>this.UserTemp=data,//this.users=data ,//.push(data[0],data[1])
       error:error=>this.errorMessage=error
     })
-   this.GetLastMessage()
+  //  this.GetLastMessage(this.loginId,:)
     setTimeout(()=> {
       let values = Object.values(this.UserTemp)
       console.log('users here')
@@ -158,7 +158,7 @@ export class ChatComponent  implements OnInit  {
           transport: signalR.HttpTransportType.WebSockets
         }).configureLogging(signalR.LogLevel.Debug).build();
 
-      setTimeout(async () => {
+      setTimeout( () => {
 
         
         this.hubconnection.start().then(() => {
@@ -317,7 +317,7 @@ export class ChatComponent  implements OnInit  {
     } ,3000)
     console.log(this.errorMessage)
   }
-   GetLastMessage(){
+   GetLastMessage(login :any,userId:any){
         this.chatService.getLastChat(this.chat.senderID , this.chat.receiverID).subscribe({
         next:data=>this.tempData=data ,//.push(data[0],data[1])
         error:error=>this.errorMessage=error

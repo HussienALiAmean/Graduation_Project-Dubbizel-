@@ -95,7 +95,7 @@
                         <p>Select a chat to view conversation</p>
                     </span>
                 </div>
-                <div *ngFor="let userchat of chatData ">
+                <div class="" *ngFor="let userchat of chatData ">
 
                     <div id="{{userchat.id}}">
 
@@ -163,7 +163,7 @@
  
 
 
-                <button class="btn btn-light mt-3" (click)="GetMessage()">More</button>
+                <!-- <button class="btn btn-light mt-3" (click)="GetMessage()">More</button> -->
 
                 <div>
                     {{newChat}}
@@ -180,27 +180,37 @@
                     </div>
                 </div>
             </div>
+            <div class="rounded-lg border" >
 
-            <form class="row rounded-lg border" [formGroup]="myForm" novalidate (ngSubmit)="onSubmit()">
-                <div class="col-10  mt-3">
-                    <div class=" input-group mb-3">
-                        <div class="input-group-prepend">
-                            <span class="input-group-text"><i class="fa-solid fa-paperclip"
-                                    style="height: 25px;"></i></span>
+            <form class="row " [formGroup]="myForm" novalidate (ngSubmit)="onSubmit()">
+                    <div class="col-10  mt-3">
+                        <div class=" input-group mb-3">
+                            <div class="input-group-prepend">
+                                <span class="file">
+                                    <span class="input-group-text"><i class="fa-solid fa-paperclip"
+                                        style="height: 25px;"></i>
+                                        <input class="filebrowse"  aria-label="File browser example"
+                                        type="file"
+                                        [(ngModel)]="chat.file"
+                                        (change)="onSelectFile($event)"
+                                        formControlName="file">
+                                    </span>
+                                </span>
+                            </div>
+                            <input class="form-control" type="text" placeholder="type message" formControlName="content"
+                                [(ngModel)]="chat.content">
                         </div>
-                        <input class="form-control" type="text" placeholder="type message" formControlName="content"
-                            [(ngModel)]="chat.content">
                     </div>
-                </div>
-                <div class="col-1"></div>
-                <div class="col-1  mt-3">
-                    <button class="btn float-end send_icon" type="submit">
-                        <span>
-                            <i class="fa fa-paper-plane" aria-hidden="true"></i>
-                        </span>
-                    </button>
-                </div>
-            </form>
+                    <div class="col-1"></div>
+                    <div class="col-1  mt-3">
+                        <button class="btn float-end send_icon" type="submit">
+                            <span>
+                                <i class="fa fa-paper-plane" aria-hidden="true"></i>
+                            </span>
+                        </button>
+                    </div>
+                </form>
+            </div>
         </div>
     </div>
     <div class="col-1"></div>
