@@ -51,6 +51,10 @@ public class Repository<T> : IRepository<T> where T : BaseModel
     {
         return _context.Set<T>().Where(expression);
     }
+   public T GetObject(Expression<Func<T, bool>> expression)
+    {
+        return _context.Set<T>().Where(expression).FirstOrDefault();
+    }
    
     public T GetByID(int id)
     {

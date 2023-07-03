@@ -32,3 +32,20 @@ D:\ITI-9month\Asp.net Core Web API\Graduation Project\Graduation_Project-Dubbize
 D:\ITI-9month\Asp.net Core Web API\Graduation Project\Graduation_Project-Dubbizel-\Dubbizle\Dubbizle.Mapper\obj\Debug\net7.0\refint\Dubbizle.Mapper.dll
 D:\ITI-9month\Asp.net Core Web API\Graduation Project\Graduation_Project-Dubbizel-\Dubbizle\Dubbizle.Mapper\obj\Debug\net7.0\Dubbizle.Mapper.pdb
 D:\ITI-9month\Asp.net Core Web API\Graduation Project\Graduation_Project-Dubbizel-\Dubbizle\Dubbizle.Mapper\obj\Debug\net7.0\ref\Dubbizle.Mapper.dll
+D:\graduation project\project Hussien\Graduation_Project-Dubbizel-\Dubbizle\Dubbizle.Mapper\bin\Debug\net7.0\Dubbizle.Mapper.deps.json
+D:\graduation project\project Hussien\Graduation_Project-Dubbizel-\Dubbizle\Dubbizle.Mapper\bin\Debug\net7.0\Dubbizle.Mapper.dll
+D:\graduation project\project Hussien\Graduation_Project-Dubbizel-\Dubbizle\Dubbizle.Mapper\bin\Debug\net7.0\Dubbizle.Mapper.pdb
+D:\graduation project\project Hussien\Graduation_Project-Dubbizel-\Dubbizle\Dubbizle.Mapper\bin\Debug\net7.0\Dubbizle.DTOs.dll
+D:\graduation project\project Hussien\Graduation_Project-Dubbizel-\Dubbizle\Dubbizle.Mapper\bin\Debug\net7.0\Dubbizle.Models.dll
+D:\graduation project\project Hussien\Graduation_Project-Dubbizel-\Dubbizle\Dubbizle.Mapper\bin\Debug\net7.0\Dubbizle.DTOs.pdb
+D:\graduation project\project Hussien\Graduation_Project-Dubbizel-\Dubbizle\Dubbizle.Mapper\bin\Debug\net7.0\Dubbizle.Models.pdb
+D:\graduation project\project Hussien\Graduation_Project-Dubbizel-\Dubbizle\Dubbizle.Mapper\obj\Debug\net7.0\Dubbizle.Mapper.csproj.AssemblyReference.cache
+D:\graduation project\project Hussien\Graduation_Project-Dubbizel-\Dubbizle\Dubbizle.Mapper\obj\Debug\net7.0\Dubbizle.Mapper.GeneratedMSBuildEditorConfig.editorconfig
+D:\graduation project\project Hussien\Graduation_Project-Dubbizel-\Dubbizle\Dubbizle.Mapper\obj\Debug\net7.0\Dubbizle.Mapper.AssemblyInfoInputs.cache
+D:\graduation project\project Hussien\Graduation_Project-Dubbizel-\Dubbizle\Dubbizle.Mapper\obj\Debug\net7.0\Dubbizle.Mapper.AssemblyInfo.cs
+D:\graduation project\project Hussien\Graduation_Project-Dubbizel-\Dubbizle\Dubbizle.Mapper\obj\Debug\net7.0\Dubbizle.Mapper.csproj.CoreCompileInputs.cache
+D:\graduation project\project Hussien\Graduation_Project-Dubbizel-\Dubbizle\Dubbizle.Mapper\obj\Debug\net7.0\Dubbizle.Mapper.csproj.CopyComplete
+D:\graduation project\project Hussien\Graduation_Project-Dubbizel-\Dubbizle\Dubbizle.Mapper\obj\Debug\net7.0\Dubbizle.Mapper.dll
+D:\graduation project\project Hussien\Graduation_Project-Dubbizel-\Dubbizle\Dubbizle.Mapper\obj\Debug\net7.0\refint\Dubbizle.Mapper.dll
+D:\graduation project\project Hussien\Graduation_Project-Dubbizel-\Dubbizle\Dubbizle.Mapper\obj\Debug\net7.0\Dubbizle.Mapper.pdb
+D:\graduation project\project Hussien\Graduation_Project-Dubbizel-\Dubbizle\Dubbizle.Mapper\obj\Debug\net7.0\ref\Dubbizle.Mapper.dll

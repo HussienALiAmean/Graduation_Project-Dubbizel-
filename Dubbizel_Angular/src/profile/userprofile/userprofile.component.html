@@ -7,14 +7,15 @@
             <hr style="width: 100%;" />
             <form [formGroup]="EditForm" novalidate (ngSubmit)="loadData()">
                 <div class="row">
-                    <div class="col-6 ">
+                    <div class="col-6 details">
                         <div class="form-group ">
                             <br />
                             <!--  formControlName="userName" -->
                             <label style="font-weight: bold;font-size: 14px;margin-bottom: 2%;">Name</label>
-                            
-                            <input  formControlName="userName" [class.is-invalid]="userName?.invalid && userName?.touched" [value]="userName.value" type="text"
-                                class="form-control" />
+
+                            <input formControlName="userName"
+                                [class.is-invalid]="userName?.invalid && userName?.touched" [value]="userName.value"
+                                type="text" class="form-control" />
                             <small *ngIf="userName?.invalid && userName?.touched" class="text-danger">Name is
                                 required.</small>
                         </div>
@@ -23,24 +24,24 @@
                             <label style="font-weight: bold;font-size: 14px;margin-bottom: 2%;">Date of birth</label>
                             <div class="col form-group">
 
-                                <ejs-dropdownlist formControlName="day" [dataSource]="days"  [value]="day.value" [fields]="dataOfDays"
-                                    placeholder="DD" />
+                                <ejs-dropdownlist formControlName="day" [dataSource]="days" [value]="day.value"
+                                    [fields]="dataOfDays" placeholder="DD" />
                             </div>
                             <div class="col">
                                 <!-- formControlName="month" -->
-                                <ejs-dropdownlist formControlName="month" [dataSource]="months"  [value]="month.value" [fields]="dataOfMonths"
-                                    placeholder="MM" />
+                                <ejs-dropdownlist formControlName="month" [dataSource]="months" [value]="month.value"
+                                    [fields]="dataOfMonths" placeholder="MM" />
                             </div>
                             <div class="col">
                                 <!-- formControlName="year" -->
-                                
-                                <ejs-dropdownlist formControlName="year" [dataSource]="years" [value]="year.value" [fields]="dataOfYears"
-                                placeholder="YYYY" />
 
-                                    <!-- <ejs-dropdownlist formControlName="gender" [dataSource]="genders" value="{{newProfile.gender}}" [fields]="dataFields"
+                                <ejs-dropdownlist formControlName="year" [dataSource]="years" [value]="year.value"
+                                    [fields]="dataOfYears" placeholder="YYYY" />
+
+                                <!-- <ejs-dropdownlist formControlName="gender" [dataSource]="genders" value="{{newProfile.gender}}" [fields]="dataFields"
                                 placeholder="Select your gender" /> -->
 
-                                  
+
                             </div>
                         </div>
                         <br /><br />
@@ -48,20 +49,22 @@
                             <label style="font-weight: bold;font-size: 14px;;margin-bottom: 2%;">Gender</label>
                             <br />
 
-                            <ejs-dropdownlist formControlName="gender" [dataSource]="genders" [value]="gender.value" [fields]="dataFields"
-                                placeholder="Select your gender" />
+                            <ejs-dropdownlist formControlName="gender" [dataSource]="genders" [value]="gender.value"
+                                [fields]="dataFields" placeholder="Select your gender" />
                         </div>
 
                         <div class="mb-3" style="margin-top: 5%;padding-bottom: 5%;">
                             <!-- formControlName="twoWayControl" -->
-                            <textarea  #myInput [maxlength]="maxChars" class="form-control" rows="5"
-                            placeholder="About Me (optional)"  formControlName="aboutMe" [value]="aboutMe.value"></textarea>
-                              <label style="font-size: 13px;" class="nopadding clrlbl">{{myInput.value.length}}/{{maxChars}}</label>
-                            
+                            <textarea #myInput [maxlength]="maxChars" class="form-control" rows="5"
+                                placeholder="About Me (optional)" formControlName="aboutMe"
+                                [value]="aboutMe.value"></textarea>
+                            <label style="font-size: 13px;"
+                                class="nopadding clrlbl">{{myInput.value.length}}/{{maxChars}}</label>
+
                         </div>
                     </div>
 
-                    <div class="col-4">
+                    <div class="col-4 Description">
                         <div style="border: 1px solid rgb(163, 155, 155);padding-top: 3%;margin-top: 10%;">
                             <p style="font-weight: bold;font-size: 13px;margin-left: 2%;">Why is it important?</p>
                             <p style="font-size: 12px;margin-left: 2%;">Dubizzle is built on trust. Help other people
@@ -76,23 +79,30 @@
                     <p style="font-weight: bold;font-size: 16px;;margin-bottom: 2%;">Contact information</p>
 
 
-                    <div class="row">
-                        <div class="col-6">
-                            <input type="tel" formControlName="phoneNumber" [value]="phoneNumber.value" placeholder="Phone number:1XXXXXXXXX"
-                                class="form-control" />
-                            <br />
-                            <!-- formControlName="email" -->
-                            <input type="email" placeholder="Email:XXXX@XXXXX.XXX" [value]="email.value" formControlName="email" class="form-control" />
+                    <div class="row ">
+                        <div class="col-6 inputNumAndEmail">
+                            <input type="tel" formControlName="phoneNumber" [value]="phoneNumber.value"
+                                placeholder="Phone number:1XXXXXXXXX" class="form-control" />
                         </div>
-                        <div class="col-6" style="margin-bottom: 5%;">
+                            <br />
+                            <div class="col-6 paraNumAndEmail">
                             <p style="font-size: 12px;">This is the number for buyers contacts, reminders, and other
                                 notifications.</p>
-                            <p style="font-size: 12px;padding-top: 6%;">We won't reveal your email to anyone else nor
+                            </div>
+                           
+                    </div>
+                    <div class="row mt-3">
+                        <div class="col-6 inputNumAndEmail" style="margin-bottom: 5%;">
+                            <input type="email" placeholder="Email:XXXX@XXXXX.XXX" [value]="email.value"
+                                formControlName="email" class="form-control" />
+                        </div>
+                        <div class="col-6 paraNumAndEmail">
+                            <p style="font-size: 12px;">We won't reveal your email to anyone else nor
                                 use it to send you spam</p>
                         </div>
                     </div>
 
-                    <hr style="width: 100%;" />
+                    <!-- <hr style="width: 100%;" />
                     <p style="font-weight: bold;font-size: 16px;;margin-bottom: 2%;">Optional information</p>
 
                     <div class="row">
@@ -114,19 +124,16 @@
                             <button class="btn btn-outline-danger" style="color: black;;height: 50px;font-weight: bold;"
                                 type="button">Disconnect</button>
                         </div>
-                    </div>
+                    </div> -->
 
                     <hr style="width: 100%;" />
-                    <div class="row">
-                        <div class="col-1">
-                            <!-- routerLink="/home"  back to home -->
-                            <a href="#" style="color: black;">
-                                <h6>Discard</h6>
-                            </a>
+                    <div class="row saveeDiv">
+                        <div class="col-1 saveDiv">
+                            <a style="text-decoration: underline;" class="dropdown-item" [routerLink]="['/Home']"><b>Discard</b></a>
                         </div>
                         <div class="col-8"></div>
-                        <div class="col-3">
-                            <button  style="margin-bottom: 8%;" class="btn btn-danger">Save
+                        <div class="col-3 saveBtn">
+                            <button style="margin-bottom: 8%;" class="btn btn-danger">Save
                                 changes</button>
                         </div>
                     </div>
@@ -141,17 +148,22 @@
     <div class="row">
         <div class="col-2"></div>
 
-        <div class="col-8"
+        <div class="col-8 " 
             style="border: 1px solid rgb(163, 155, 155);margin-top: 5%;margin-bottom: 5%;border-radius: 10px;">
             <h5 style="padding-top: 2%;">Delete this account</h5>
             <hr style="width: 100%;" />
-            <h5>Are you sure you want to delete your account?</h5>
-            <p>Fill the form and your request will be directed to our Customer Support Team</p>
-            <a href="#" style="color: black;">
-                <h6>Submit request</h6>
-            </a>
-        </div>
+            <div class="row">
+                <div class="col-7 delHeader delAccDiv">
+                    <h5>Are you sure you want to delete your account?</h5>
+                </div>
+                <div class="col-2"></div>
+                <div class="col-3 delBtn delAccDiv">
+                    <button type="button" style="margin-bottom: 8%;" class="btn btn-danger"
+                        (click)="delAccount()">Delete Account</button>
 
+                </div>
+            </div>
+        </div>
         <div class="col-2"></div>
     </div>
 </div>

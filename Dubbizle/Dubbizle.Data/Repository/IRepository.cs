@@ -18,6 +18,8 @@ namespace Dubbizle.Data.Repository
         IQueryable<T> GetAll(string property1, string property2, string property3, string property4, string property5);
 
         IQueryable<T> Get(Expression<Func<T, bool>> expression);
+
+         T GetObject(Expression<Func<T, bool>> expression);
         T GetByID(int id);
 
         void create(T t);

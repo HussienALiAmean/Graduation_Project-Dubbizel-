@@ -12,6 +12,7 @@ import { MyAdsComponent } from './my-ads/my-ads.component';
 import { CategoriesBeforePackagesComponent } from './categories-before-packages/categories-before-packages.component';
 import { MyPackagesComponent } from './my-packages/my-packages.component';
 
+import { UserprofileComponent } from 'src/profile/userprofile/userprofile.component';
 
 
 
@@ -23,6 +24,11 @@ import { MyPackagesComponent } from './my-packages/my-packages.component';
 
 const routes: Routes = [
 {path:'',component:HomePageComponentComponent},
+//test
+  //{path:"profile",component:UserprofileComponent},
+  
+
+  {path:'',component:HomePageComponentComponent},
 
   //{path:"profile",component:UserprofileComponent}
  {path:"chat/:adId/:UserID",component:ChatComponent},

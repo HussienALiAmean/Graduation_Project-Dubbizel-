@@ -1,3 +1,4 @@
+import { IRoom } from "./IRoom";
 import { IUser } from "./IUser";
 
 export interface IChatData{
@@ -7,5 +8,9 @@ export interface IChatData{
     content:string
     senderID:string
     receiverID:string
+    room?:IRoom
+    roomId:number
     file?:string
+    date?:Date
+
 }
