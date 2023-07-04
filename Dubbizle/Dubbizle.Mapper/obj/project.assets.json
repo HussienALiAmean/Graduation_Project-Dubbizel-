@@ -915,19 +915,24 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\Electronica Care\\.nuget\\packages\\": {}
+    "C:\\Users\\Electronica Care\\.nuget\\packages\\": {},
+    "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "E:\\ITI_Intak43\\Graduation-Project\\Graduation_Project-Dubbizel-\\Dubbizle\\Dubbizle.Mapper\\Dubbizle.Mapper.csproj",
+      "projectUniqueName": "D:\\Final Project\\Graduation Project\\Dubbizle\\Dubbizle.Mapper\\Dubbizle.Mapper.csproj",
       "projectName": "Dubbizle.Mapper",
-      "projectPath": "E:\\ITI_Intak43\\Graduation-Project\\Graduation_Project-Dubbizel-\\Dubbizle\\Dubbizle.Mapper\\Dubbizle.Mapper.csproj",
+      "projectPath": "D:\\Final Project\\Graduation Project\\Dubbizle\\Dubbizle.Mapper\\Dubbizle.Mapper.csproj",
       "packagesPath": "C:\\Users\\Electronica Care\\.nuget\\packages\\",
-      "outputPath": "E:\\ITI_Intak43\\Graduation-Project\\Graduation_Project-Dubbizel-\\Dubbizle\\Dubbizle.Mapper\\obj\\",
+      "outputPath": "D:\\Final Project\\Graduation Project\\Dubbizle\\Dubbizle.Mapper\\obj\\",
       "projectStyle": "PackageReference",
+      "fallbackFolders": [
+        "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+      ],
       "configFilePaths": [
         "C:\\Users\\Electronica Care\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -935,17 +940,18 @@
       ],
       "sources": {
         "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+        "C:\\Program Files\\dotnet\\library-packs": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
         "net7.0": {
           "targetAlias": "net7.0",
           "projectReferences": {
-            "E:\\ITI_Intak43\\Graduation-Project\\Graduation_Project-Dubbizel-\\Dubbizle\\Dubbizle.DTOs\\Dubbizle.DTOs.csproj": {
-              "projectPath": "E:\\ITI_Intak43\\Graduation-Project\\Graduation_Project-Dubbizel-\\Dubbizle\\Dubbizle.DTOs\\Dubbizle.DTOs.csproj"
+            "D:\\Final Project\\Graduation Project\\Dubbizle\\Dubbizle.DTOs\\Dubbizle.DTOs.csproj": {
+              "projectPath": "D:\\Final Project\\Graduation Project\\Dubbizle\\Dubbizle.DTOs\\Dubbizle.DTOs.csproj"
             },
-            "E:\\ITI_Intak43\\Graduation-Project\\Graduation_Project-Dubbizel-\\Dubbizle\\Dubbizle.Models\\Dubbizle.Models.csproj": {
-              "projectPath": "E:\\ITI_Intak43\\Graduation-Project\\Graduation_Project-Dubbizel-\\Dubbizle\\Dubbizle.Models\\Dubbizle.Models.csproj"
+            "D:\\Final Project\\Graduation Project\\Dubbizle\\Dubbizle.Models\\Dubbizle.Models.csproj": {
+              "projectPath": "D:\\Final Project\\Graduation Project\\Dubbizle\\Dubbizle.Models\\Dubbizle.Models.csproj"
             }
           }
         }
@@ -981,7 +987,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.202\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.201\\RuntimeIdentifierGraph.json"
       }
     }
   }

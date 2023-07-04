@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "7WAupJvFCVLQ1H5M57FNV/TdSAl7r5Ma8VCsZvkpQ3zqqeQwLvgdXuvPxAM7DouXFPZqY++4nfKohfYQkm6TJg==",
+  "dgSpecHash": "F5+L8y+7TIVvtpH7VABHY5gI8cLt+12LV8KlNtSA2t/yBKfs1OaztIBLmVKUil1G4rrX1/kGBOLgCTVLYQcNQg==",
   "success": true,
-  "projectFilePath": "E:\\ITI_Intak43\\Graduation-Project\\Graduation_Project-Dubbizel-\\Dubbizle\\Dubbizle.Mapper\\Dubbizle.Mapper.csproj",
+  "projectFilePath": "D:\\Final Project\\Graduation Project\\Dubbizle\\Dubbizle.Mapper\\Dubbizle.Mapper.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Electronica Care\\.nuget\\packages\\automapper\\12.0.1\\automapper.12.0.1.nupkg.sha512",
     "C:\\Users\\Electronica Care\\.nuget\\packages\\microsoft.aspnetcore.cryptography.internal\\7.0.5\\microsoft.aspnetcore.cryptography.internal.7.0.5.nupkg.sha512",

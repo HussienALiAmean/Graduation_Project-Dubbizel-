@@ -4,6 +4,7 @@ import { ICategory } from 'src/app/Interfaces/ICategory';
 import { ISubCategoryFilter } from 'src/app/Interfaces/ISubCategoryFilter';
 import { FiltrationServiceService } from 'src/app/Services/filtration-service.service';
 import { CategoryServiceService } from '../../../app/Services/category-service.service';
+import { FilterValueKey } from 'src/app/Interfaces/IAdvertisment';
 
 
 @Component({
@@ -15,14 +16,14 @@ export class FilterSideComponent {
   categorySelectedValue: String="";
   LocationSelectedValue: String="";
   SubCategoryFilters:ISubCategoryFilter[]=[];
-  @Output() dataChanged = new EventEmitter<String>();
+  @Output() dataChanged = new EventEmitter<FilterValueKey>();
   @Output() filterByCategory = new EventEmitter<String>();
   @Output() filterBylocation = new EventEmitter<String>();
   locationList:String[]=["Cairo","Asuuit","Sohag","Alex"];
   categoryList:ICategory[]=[];
-  makefilter(newData: string)
+  makefilter(newData: string,id:number)
   {
-    this.dataChanged.emit(newData);
+    this.dataChanged.emit(new FilterValueKey(id,newData));
   }
   changeCategoryFiltertion() 
   {
@@ -65,6 +66,7 @@ export class FilterSideComponent {
           {
                 this._CategoryServiceService.getAllofsubCategories(params.get('id')).subscribe({
                   next: (data:any) => {
+                    this.SubCategoryFilters=[];
                     console.log("data arrived correctly"+data);
                     this.categoryList=data.data;
                   },

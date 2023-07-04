@@ -1,17 +1,17 @@
-E:\ITI_Intak43\Graduation-Project\Graduation_Project-Dubbizel-\Dubbizle\Dubbizle.Mapper\bin\Debug\net7.0\Dubbizle.Mapper.deps.json
-E:\ITI_Intak43\Graduation-Project\Graduation_Project-Dubbizel-\Dubbizle\Dubbizle.Mapper\bin\Debug\net7.0\Dubbizle.Mapper.dll
-E:\ITI_Intak43\Graduation-Project\Graduation_Project-Dubbizel-\Dubbizle\Dubbizle.Mapper\bin\Debug\net7.0\Dubbizle.Mapper.pdb
-E:\ITI_Intak43\Graduation-Project\Graduation_Project-Dubbizel-\Dubbizle\Dubbizle.Mapper\bin\Debug\net7.0\Dubbizle.DTOs.dll
-E:\ITI_Intak43\Graduation-Project\Graduation_Project-Dubbizel-\Dubbizle\Dubbizle.Mapper\bin\Debug\net7.0\Dubbizle.Models.dll
-E:\ITI_Intak43\Graduation-Project\Graduation_Project-Dubbizel-\Dubbizle\Dubbizle.Mapper\bin\Debug\net7.0\Dubbizle.DTOs.pdb
-E:\ITI_Intak43\Graduation-Project\Graduation_Project-Dubbizel-\Dubbizle\Dubbizle.Mapper\bin\Debug\net7.0\Dubbizle.Models.pdb
-E:\ITI_Intak43\Graduation-Project\Graduation_Project-Dubbizel-\Dubbizle\Dubbizle.Mapper\obj\Debug\net7.0\Dubbizle.Mapper.csproj.AssemblyReference.cache
-E:\ITI_Intak43\Graduation-Project\Graduation_Project-Dubbizel-\Dubbizle\Dubbizle.Mapper\obj\Debug\net7.0\Dubbizle.Mapper.GeneratedMSBuildEditorConfig.editorconfig
-E:\ITI_Intak43\Graduation-Project\Graduation_Project-Dubbizel-\Dubbizle\Dubbizle.Mapper\obj\Debug\net7.0\Dubbizle.Mapper.AssemblyInfoInputs.cache
-E:\ITI_Intak43\Graduation-Project\Graduation_Project-Dubbizel-\Dubbizle\Dubbizle.Mapper\obj\Debug\net7.0\Dubbizle.Mapper.AssemblyInfo.cs
-E:\ITI_Intak43\Graduation-Project\Graduation_Project-Dubbizel-\Dubbizle\Dubbizle.Mapper\obj\Debug\net7.0\Dubbizle.Mapper.csproj.CoreCompileInputs.cache
-E:\ITI_Intak43\Graduation-Project\Graduation_Project-Dubbizel-\Dubbizle\Dubbizle.Mapper\obj\Debug\net7.0\Dubbizle.Mapper.csproj.CopyComplete
-E:\ITI_Intak43\Graduation-Project\Graduation_Project-Dubbizel-\Dubbizle\Dubbizle.Mapper\obj\Debug\net7.0\Dubbizle.Mapper.dll
-E:\ITI_Intak43\Graduation-Project\Graduation_Project-Dubbizel-\Dubbizle\Dubbizle.Mapper\obj\Debug\net7.0\refint\Dubbizle.Mapper.dll
-E:\ITI_Intak43\Graduation-Project\Graduation_Project-Dubbizel-\Dubbizle\Dubbizle.Mapper\obj\Debug\net7.0\Dubbizle.Mapper.pdb
-E:\ITI_Intak43\Graduation-Project\Graduation_Project-Dubbizel-\Dubbizle\Dubbizle.Mapper\obj\Debug\net7.0\ref\Dubbizle.Mapper.dll
+D:\Final Project\Graduation Project\Dubbizle\Dubbizle.Mapper\bin\Debug\net7.0\Dubbizle.Mapper.deps.json
+D:\Final Project\Graduation Project\Dubbizle\Dubbizle.Mapper\bin\Debug\net7.0\Dubbizle.Mapper.dll
+D:\Final Project\Graduation Project\Dubbizle\Dubbizle.Mapper\bin\Debug\net7.0\Dubbizle.Mapper.pdb
+D:\Final Project\Graduation Project\Dubbizle\Dubbizle.Mapper\bin\Debug\net7.0\Dubbizle.DTOs.dll
+D:\Final Project\Graduation Project\Dubbizle\Dubbizle.Mapper\bin\Debug\net7.0\Dubbizle.Models.dll
+D:\Final Project\Graduation Project\Dubbizle\Dubbizle.Mapper\bin\Debug\net7.0\Dubbizle.DTOs.pdb
+D:\Final Project\Graduation Project\Dubbizle\Dubbizle.Mapper\bin\Debug\net7.0\Dubbizle.Models.pdb
+D:\Final Project\Graduation Project\Dubbizle\Dubbizle.Mapper\obj\Debug\net7.0\Dubbizle.Mapper.csproj.AssemblyReference.cache
+D:\Final Project\Graduation Project\Dubbizle\Dubbizle.Mapper\obj\Debug\net7.0\Dubbizle.Mapper.GeneratedMSBuildEditorConfig.editorconfig
+D:\Final Project\Graduation Project\Dubbizle\Dubbizle.Mapper\obj\Debug\net7.0\Dubbizle.Mapper.AssemblyInfoInputs.cache
+D:\Final Project\Graduation Project\Dubbizle\Dubbizle.Mapper\obj\Debug\net7.0\Dubbizle.Mapper.AssemblyInfo.cs
+D:\Final Project\Graduation Project\Dubbizle\Dubbizle.Mapper\obj\Debug\net7.0\Dubbizle.Mapper.csproj.CoreCompileInputs.cache
+D:\Final Project\Graduation Project\Dubbizle\Dubbizle.Mapper\obj\Debug\net7.0\Dubbizle.Mapper.csproj.CopyComplete
+D:\Final Project\Graduation Project\Dubbizle\Dubbizle.Mapper\obj\Debug\net7.0\Dubbizle.Mapper.dll
+D:\Final Project\Graduation Project\Dubbizle\Dubbizle.Mapper\obj\Debug\net7.0\refint\Dubbizle.Mapper.dll
+D:\Final Project\Graduation Project\Dubbizle\Dubbizle.Mapper\obj\Debug\net7.0\Dubbizle.Mapper.pdb
+D:\Final Project\Graduation Project\Dubbizle\Dubbizle.Mapper\obj\Debug\net7.0\ref\Dubbizle.Mapper.dll

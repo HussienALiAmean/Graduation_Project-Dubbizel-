@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Dubbizle.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -19,7 +20,14 @@ namespace Dubbizle.DTOs
         public DateTime ExpirationDate { get; set; }
         public DateTime ExpireDateOfPremium { get; set; }
         public bool IsPremium { get; set; }
-        public List<string> Advertisment_FiltrationValuesList { get; set; }
+        public List<filterValuKey> Advertisment_FiltrationValuesList { get; set; }
         public List<string> AdvertismentImagesList { get; set; }
+        public List<RentCost_DurationDTO> advertisment_RentOptionsList { get; set; }
     }
+    public class filterValuKey
+    {
+        public int id { get; set; }
+        public string filtervalue { get; set; }
+    }
+
 }

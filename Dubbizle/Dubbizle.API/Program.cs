@@ -48,9 +48,9 @@ namespace Dubbizle.API
             builder.Services.AddAutoMapper(typeof(SubCategoryProfile).Assembly);
 
             builder.Services.AddDbContext<Context>(opt =>
-           opt.UseSqlServer(builder.Configuration.GetConnectionString("Default"))
-           .UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking)
-            .LogTo(log => Debug.WriteLine(log), LogLevel.Information)
+                opt.UseSqlServer(builder.Configuration.GetConnectionString("Default"))
+               .UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking)
+               .LogTo(log => Debug.WriteLine(log), LogLevel.Information)
            .EnableSensitiveDataLogging()
            );
   
@@ -134,25 +134,16 @@ namespace Dubbizle.API
 
             var app = builder.Build();
 
-            
-
-            // Configure the HTTP request pipeline.
             if (app.Environment.IsDevelopment())
             {
                 app.UseSwagger();
                 app.UseSwaggerUI();
             }
             app.UseCors();
-            app.UseCors("CorsPolicy");
-
             app.UseStaticFiles();
-            app.UseCors("MyPolicy");
             app.UseAuthentication();
             app.UseAuthorization();
-            
-
             app.MapControllers();
-
             app.Run();
         }
     }

@@ -98,4 +98,9 @@ public class Repository<T> : IRepository<T> where T : BaseModel
     {
         _context.SaveChanges();
     }
+
+    public IQueryable<T> GetAll(string property1, string property2, string property3)
+    {
+        return _context.Set<T>().Include(property1).Include(property2).Include(property3);
+    }
 }

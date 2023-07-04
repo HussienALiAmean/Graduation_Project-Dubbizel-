@@ -1,4 +1,5 @@
 <div class="container w-100 mr-auto">
+<div class="container w-100 mr-auto">
     <div class="row">
       <div class="col-md-3 w-100">
         <h3>Filter by:</h3>
@@ -23,7 +24,7 @@
             <label for={{item.filterName}}>{{item.filterName}} :</label>
             <div *ngFor="let value of item.filtrationValuesList" class="check">
               <label>
-                <input class="form-check-input me-2" type="checkbox" name={{value}} value="low-to-high" (click)="makefilter(value)">{{value}} 
+                <input class="form-check-input me-2" type="checkbox" name={{value}} value="low-to-high" (click)="makefilter(value,item.filterID)">{{value}} 
               </label>
             </div>
             <hr>

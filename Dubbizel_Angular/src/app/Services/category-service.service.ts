@@ -10,7 +10,7 @@ import { ICategory } from '../Interfaces/ICategory';
 export class CategoryServiceService {
 
   _CategoryUrl="http://localhost:7189/api/Category";
-  _CategoryUrl2="http://localhost:7189/api/Category/categoryId?categoryId=2"; 
+  _CategoryUrl2="http://localhost:7189/api/Category/categoryId?categoryId="; 
 
   constructor(private http:HttpClient) { }
 
@@ -22,7 +22,7 @@ export class CategoryServiceService {
   }
   getAllofsubCategories(id:any):Observable<ICategory[]>
   {
-    return this.http.get<ICategory[]>(this._CategoryUrl2).pipe(catchError((err: any) => {
+    return this.http.get<ICategory[]>(this._CategoryUrl2+id).pipe(catchError((err: any) => {
     return throwError(() => err.message || "server error");
     }));
   }
