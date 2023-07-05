@@ -54,4 +54,25 @@ export class AdvertismentServiceService {
       }));
   }
 
+  deActivateMyAd(AdID:any)
+  {
+    return this.http.put(`http://localhost:7189/api/AdUser/DeActivateMyAd?id=${AdID}`,0).pipe(catchError((err: any) => {
+      return throwError(() => err.message || "server error");
+      }));
+  }
+  
+  ActivateMyAd(AdID:any)
+  {
+    return this.http.put(`http://localhost:7189/api/AdUser/AvtivateMyAd?id=${AdID}`,0).pipe(catchError((err: any) => {
+      return throwError(() => err.message || "server error");
+      }));
+  }
+
+  getAdvertismentByQuery(query:any,UserId:any)
+{
+    return this.http.get(`http://localhost:7189/api/Advertisment/search?query=${query}&UserId=${UserId}`).pipe(catchError((err: any) => {
+    return throwError(() => err.message || "server error");
+    }));
+  }
+
 }

@@ -24,7 +24,7 @@ namespace Dubbizle.Services
             return _packageRepo.Get(p=>p.SubCategoryID== SubCategoryID&&p.Deleted==false).ToList();
         } 
       
-        public void PostApplicationUser_Package(PackageAppUserDTO packageAppUserDTO)
+        public void PostApplicationUser_Package(PackageAppUserDTOCreated packageAppUserDTO)
         {
             ApplicationUser_Package applicationUser_Package = new ApplicationUser_Package();
             applicationUser_Package.ApplicationUserId= packageAppUserDTO.ApplicationUserId;
@@ -35,5 +35,27 @@ namespace Dubbizle.Services
             _applicationUser_PackageRepo.SaveChanges();
         }
 
+        public IEnumerable<PackageAppUserDTO> GetAllByUserID(string ApplicationUserId)
+        {
+            List<ApplicationUser_Package> applicationUser_Packages=_applicationUser_PackageRepo.Get(p => p.ApplicationUserId== ApplicationUserId).ToList();
+            List<PackageAppUserDTO> packageAppUserDTOs = new List<PackageAppUserDTO>();
+            PackageAppUserDTO packageAppUserDTO;
+            foreach (var package in applicationUser_Packages)
+            {
+                packageAppUserDTO=new PackageAppUserDTO();
+                packageAppUserDTO.ExpirationDate=package.ExpirationDate;
+                packageAppUserDTO.NumOfRemainAds=package.NumOfRemainAds;
+                if (DateTime.Now > packageAppUserDTO.ExpirationDate)
+                {
+                    packageAppUserDTO.Status = "Expired";
+                }
+                else
+                {
+                    packageAppUserDTO.Status = "Active";
+                }
+                packageAppUserDTOs.Add(packageAppUserDTO);
+            }
+            return packageAppUserDTOs;
+        }
     }
 }

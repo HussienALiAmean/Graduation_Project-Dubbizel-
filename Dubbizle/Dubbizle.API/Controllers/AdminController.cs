@@ -17,10 +17,11 @@ namespace Dubbizle.API.Controllers
     {
         AdminService _AdminService;
         Context _context;
-        public AdminController( AdminService adminService, Context context) {
+        public AdminController(AdminService adminService, Context context)
+        {
             _AdminService = adminService;
             _context = context;
-         }
+        }
 
 
         //////////////////////////////////////////  Category /////////////////////////////////
@@ -30,7 +31,7 @@ namespace Dubbizle.API.Controllers
         //[HttpGet("CheckCategory")]
         //public ResultDTO CheckCategory(int id )
         //{
-           
+
 
         //    ResultDTO resultDTO = new ResultDTO();
         //    resultDTO.Data= _AdminService.CheckCategory(id);
@@ -45,24 +46,24 @@ namespace Dubbizle.API.Controllers
         {
             ResultDTO resultDTO = new ResultDTO();
             var categories = _AdminService.GetAllCategories("ParentCategory");
-            resultDTO.StatusCode= 200;
-            resultDTO.Data= categories;
+            resultDTO.StatusCode = 200;
+            resultDTO.Data = categories;
             return resultDTO;
         }
 
         [HttpPost("PostCategory")]
         public ResultDTO PostCategory(SubCategoryDTO subCategoryDTO)
         {
-            ResultDTO resultDTO= new ResultDTO();
+            ResultDTO resultDTO = new ResultDTO();
 
-            if(ModelState.IsValid)
+            if (ModelState.IsValid)
             {
-                Category categoryBeforeAdd= new Category();
-                categoryBeforeAdd.Name=subCategoryDTO.Name;
+                Category categoryBeforeAdd = new Category();
+                categoryBeforeAdd.Name = subCategoryDTO.Name;
                 categoryBeforeAdd.ParentCategoryID = subCategoryDTO.ParentCategoryID;
                 Category categoryAfterAdd = _AdminService.AddCategory(categoryBeforeAdd);
-                resultDTO.StatusCode= 200;
-                resultDTO.Data= categoryAfterAdd;
+                resultDTO.StatusCode = 200;
+                resultDTO.Data = categoryAfterAdd;
             }
             else
             {
@@ -80,9 +81,9 @@ namespace Dubbizle.API.Controllers
             {
                 Category categoryBeforeEdit = _AdminService.GetCategoryByID(subCategoryDTO.ID);
                 categoryBeforeEdit.Name = subCategoryDTO.Name;
-                if(_AdminService.CheckCategory(subCategoryDTO.ID))
+                if (_AdminService.CheckCategory(subCategoryDTO.ID))
                 {
-                    if(categoryBeforeEdit.ParentCategoryID!=subCategoryDTO.ParentCategoryID)
+                    if (categoryBeforeEdit.ParentCategoryID != subCategoryDTO.ParentCategoryID)
                     {
                         resultDTO.Message = "It is not allowed to update this parentCategory because there are records in DB depend on this category.";
                     }
@@ -103,7 +104,7 @@ namespace Dubbizle.API.Controllers
             return resultDTO;
 
         }
-       
+
         [HttpDelete("DeleteCategory")]
         public ResultDTO DeleteCategory(int id)
         {
@@ -116,7 +117,7 @@ namespace Dubbizle.API.Controllers
             else
             {
                 _AdminService.DeleteCategory(id);
-               // resultDTO.Message = "Deleted Successfully";
+                // resultDTO.Message = "Deleted Successfully";
             }
             resultDTO.StatusCode = 200;
             return resultDTO;
@@ -200,7 +201,7 @@ namespace Dubbizle.API.Controllers
 
 
         ////////////////////////////////////////// SubCategory Filters /////////////////////////////////
-        
+
         [HttpGet("GetAllSubCategoriesFilters")]
         public ResultDTO GetAllSubCategoriesFilters()
         {
@@ -213,16 +214,20 @@ namespace Dubbizle.API.Controllers
             foreach (var subCatFilter in subCategoriesFilters)
             {
                 subCatFilterDTO = new SubCatFilterDTO();
-                subCatFilterDTO.ID= subCatFilter.ID;
-                subCatFilterDTO.FilterID= subCatFilter.FilterID;
+                subCatFilterDTO.ID = subCatFilter.ID;
+                subCatFilterDTO.FilterID = subCatFilter.FilterID;
                 subCatFilterDTO.FilterName = subCatFilter.Filter.Name;
                 subCatFilterDTO.SubCatID = subCatFilter.SubCategoryID;
                 subCatFilterDTO.SubCatName = subCatFilter.SubCategory.Name;
                 subCatFilterDTOs.Add(subCatFilterDTO);
             }
             resultDTO.StatusCode = 200;
-            resultDTO.Data = new { subCatFilterDTOs = subCatFilterDTOs , filterList = filterList ,
-            subCategoryList = subCategoryList  };
+            resultDTO.Data = new
+            {
+                subCatFilterDTOs = subCatFilterDTOs,
+                filterList = filterList,
+                subCategoryList = subCategoryList
+            };
             return resultDTO;
         }
 
@@ -233,7 +238,7 @@ namespace Dubbizle.API.Controllers
 
             if (ModelState.IsValid)
             {
-                SubCategory_Filter subCategory_Filter =new SubCategory_Filter();
+                SubCategory_Filter subCategory_Filter = new SubCategory_Filter();
                 subCategory_Filter.FilterID = subCatFilterDTO.FilterID;
                 subCategory_Filter.SubCategoryID = subCatFilterDTO.SubCatID;
                 SubCategory_Filter SubCategory_FilterAfter = _AdminService.PostSubCategoryFilter(subCategory_Filter);
@@ -262,9 +267,9 @@ namespace Dubbizle.API.Controllers
                 SubCategory_Filter subCategory_Filter = _AdminService.GetSubCatFilterByID(subCatFilterDTO.ID);
                 if (_AdminService.CheckSubCategoryFilter(subCatFilterDTO.ID))
                 {
-                   
-                        resultDTO.Message = "It is not allowed to update this SubCategoryFilter because there are records in DB depend on it.";
-                    
+
+                    resultDTO.Message = "It is not allowed to update this SubCategoryFilter because there are records in DB depend on it.";
+
                 }
                 else
                 {
@@ -305,7 +310,7 @@ namespace Dubbizle.API.Controllers
 
 
         ////////////////////////////////////////// SubCategory Filters Values /////////////////////////////////
-       
+
         [HttpGet("GetAllFiltrationValues")]
         public ResultDTO GetAllFiltrationValues()
         {
@@ -318,10 +323,10 @@ namespace Dubbizle.API.Controllers
             foreach (var filterValue in filterValuesList)
             {
                 filterValueDTO = new FilterValueDTO();
-                filterValueDTO.ID=filterValue.ID;
-                filterValueDTO.Value= filterValue.Value;
-                filterValueDTO.SubCategory_FilterID= filterValue.SubCategory_FilterID;
-                filterValueDTO.SubCategory_FilterName = filterValue.SubCategory_Filter.SubCategory.Name +" # "+ filterValue.SubCategory_Filter.Filter.Name;
+                filterValueDTO.ID = filterValue.ID;
+                filterValueDTO.Value = filterValue.Value;
+                filterValueDTO.SubCategory_FilterID = filterValue.SubCategory_FilterID;
+                filterValueDTO.SubCategory_FilterName = filterValue.SubCategory_Filter.SubCategory.Name + " # " + filterValue.SubCategory_Filter.Filter.Name;
                 filterValueDTOs.Add(filterValueDTO);
             }
             resultDTO.StatusCode = 200;
@@ -342,10 +347,10 @@ namespace Dubbizle.API.Controllers
             {
                 FiltrationValue filtrationValue = new FiltrationValue();
                 filtrationValue.Value = filterValueDTO.Value;
-                filtrationValue.SubCategory_FilterID=filterValueDTO.SubCategory_FilterID;
+                filtrationValue.SubCategory_FilterID = filterValueDTO.SubCategory_FilterID;
                 FiltrationValue filtrationValueAfter = _AdminService.PostFilterValue(filtrationValue);
-                filterValueDTO.ID=filtrationValueAfter.ID;
-                filterValueDTO.SubCategory_FilterName= filtrationValueAfter.SubCategory_Filter.SubCategory.Name + " # " + filtrationValueAfter.SubCategory_Filter.Filter.Name;
+                filterValueDTO.ID = filtrationValueAfter.ID;
+                filterValueDTO.SubCategory_FilterName = filtrationValueAfter.SubCategory_Filter.SubCategory.Name + " # " + filtrationValueAfter.SubCategory_Filter.Filter.Name;
                 resultDTO.StatusCode = 200;
                 resultDTO.Data = filterValueDTO;
             }
@@ -365,8 +370,8 @@ namespace Dubbizle.API.Controllers
 
             if (ModelState.IsValid)
             {
-                FiltrationValue filtrationValue =_AdminService.GetFilterValueByID(filterValueDTO.ID);   
-                filtrationValue.Value=filterValueDTO.Value;
+                FiltrationValue filtrationValue = _AdminService.GetFilterValueByID(filterValueDTO.ID);
+                filtrationValue.Value = filterValueDTO.Value;
                 if (_AdminService.CheckFilterValue(filterValueDTO.ID))
                 {
                     if (filtrationValue.SubCategory_FilterID != filterValueDTO.SubCategory_FilterID)
@@ -422,17 +427,17 @@ namespace Dubbizle.API.Controllers
             var subCategoryList = _AdminService.GetSubCategoryList();
             List<PackageDTO> packageDTOs = new List<PackageDTO>();
             PackageDTO packageDTO;
-            foreach(var package in packages)
+            foreach (var package in packages)
             {
                 packageDTO = new PackageDTO();
-                packageDTO.ID= package.ID;
+                packageDTO.ID = package.ID;
                 packageDTO.Name = package.Name;
                 packageDTO.NumOfAds = package.NumOfAds;
                 packageDTO.NumOfPremiumDays = package.NumOfPremiumDays;
-                packageDTO.Cost= package.Cost;
-                packageDTO.AdDuration= package.AdDuration;
-                packageDTO.SubCategoryID=package.SubCategory.ID;
-                packageDTO.SubCategoryName=package.SubCategory.Name;
+                packageDTO.Cost = package.Cost;
+                packageDTO.AdDuration = package.AdDuration;
+                packageDTO.SubCategoryID = package.SubCategory.ID;
+                packageDTO.SubCategoryName = package.SubCategory.Name;
                 packageDTOs.Add(packageDTO);
             }
             resultDTO.StatusCode = 200;
@@ -453,15 +458,15 @@ namespace Dubbizle.API.Controllers
             if (ModelState.IsValid)
             {
                 Package package = new Package();
-                package.Name= packageDTO.Name;
-                package.NumOfAds= packageDTO.NumOfAds;
-                package.NumOfPremiumDays= packageDTO.NumOfPremiumDays;
-                package.Cost= packageDTO.Cost;  
-                package.AdDuration= packageDTO.AdDuration;
-                package.SubCategoryID= packageDTO.SubCategoryID;
+                package.Name = packageDTO.Name;
+                package.NumOfAds = packageDTO.NumOfAds;
+                package.NumOfPremiumDays = packageDTO.NumOfPremiumDays;
+                package.Cost = packageDTO.Cost;
+                package.AdDuration = packageDTO.AdDuration;
+                package.SubCategoryID = packageDTO.SubCategoryID;
                 Package packageAfter = _AdminService.PostPackage(package);
-                packageDTO.ID=packageAfter.ID;
-                packageDTO.SubCategoryName=packageAfter.SubCategory.Name;
+                packageDTO.ID = packageAfter.ID;
+                packageDTO.SubCategoryName = packageAfter.SubCategory.Name;
                 resultDTO.StatusCode = 200;
                 resultDTO.Data = packageDTO;
             }
@@ -482,8 +487,8 @@ namespace Dubbizle.API.Controllers
             if (ModelState.IsValid)
             {
                 Package package = _AdminService.GetPackageByID(packageDTO.ID);
-                package.Name= packageDTO.Name;
-                
+                package.Name = packageDTO.Name;
+
                 if (_AdminService.CheckPackage(packageDTO.ID))
                 {
                     if (package.NumOfAds != packageDTO.NumOfAds || package.Cost != packageDTO.Cost || package.AdDuration != packageDTO.AdDuration
@@ -506,7 +511,7 @@ namespace Dubbizle.API.Controllers
                     package.SubCategoryID = packageDTO.SubCategoryID;
                 }
                 Package packageAfter = _AdminService.EditPackage(package);
-                packageDTO.SubCategoryName= packageAfter.SubCategory.Name;
+                packageDTO.SubCategoryName = packageAfter.SubCategory.Name;
                 resultDTO.StatusCode = 200;
                 resultDTO.Data = packageDTO;
             }
@@ -545,17 +550,17 @@ namespace Dubbizle.API.Controllers
             var Advertisments = _AdminService.GetAllNotActiveAdvertisments();
             List<NotActiveAdvertismntDTO> NotActiveadvertismentDTOs = new List<NotActiveAdvertismntDTO>();
             NotActiveAdvertismntDTO NotActiveadvertismentDTO;
-            foreach(var ad in Advertisments)
+            foreach (var ad in Advertisments)
             {
-                NotActiveadvertismentDTO= new NotActiveAdvertismntDTO();
-                NotActiveadvertismentDTO.ID= ad.ID;
+                NotActiveadvertismentDTO = new NotActiveAdvertismntDTO();
+                NotActiveadvertismentDTO.ID = ad.ID;
                 NotActiveadvertismentDTO.Title = ad.Title;
                 NotActiveadvertismentDTO.SubCategoryName = ad.SubCategory.Name;
                 NotActiveadvertismentDTO.Image = ad.AdvertismentImagesList[0].ImageName;
                 NotActiveadvertismentDTOs.Add(NotActiveadvertismentDTO);
             }
             resultDTO.StatusCode = 200;
-            resultDTO.Data= NotActiveadvertismentDTOs;
+            resultDTO.Data = NotActiveadvertismentDTOs;
             return resultDTO;
         }
 
@@ -566,7 +571,7 @@ namespace Dubbizle.API.Controllers
 
             if (ModelState.IsValid)
             {
-               Advertisment advertisment = _AdminService.GetAdvertismentByID(id);
+                Advertisment advertisment = _AdminService.GetAdvertismentByID(id);
                 advertisment.AdStatus = "Active";
                 _AdminService.EditAdvertismentState(advertisment);
                 resultDTO.StatusCode = 200;

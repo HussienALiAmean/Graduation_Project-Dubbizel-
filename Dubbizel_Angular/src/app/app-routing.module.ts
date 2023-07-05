@@ -10,6 +10,9 @@ import { PackageComponent } from 'src/admin/package/package.component';
 import { PackagesComponent } from './packages/packages.component';
 import { MyAdsComponent } from './my-ads/my-ads.component';
 import { CategoriesBeforePackagesComponent } from './categories-before-packages/categories-before-packages.component';
+import { MyPackagesComponent } from './my-packages/my-packages.component';
+
+import { UserprofileComponent } from 'src/profile/userprofile/userprofile.component';
 
 
 
@@ -20,6 +23,10 @@ import { CategoriesBeforePackagesComponent } from './categories-before-packages/
 
 
 const routes: Routes = [
+{path:'',component:HomePageComponentComponent},
+//test
+  //{path:"profile",component:UserprofileComponent},
+  
 
   {path:'',component:HomePageComponentComponent},
 
@@ -36,6 +43,7 @@ const routes: Routes = [
   {path:'Details/:id',component:AdvertismentDetailsComponent},
   {path:'Favorite',component:FavoriteComponent},
   {path:'MyAds',component:MyAdsComponent},
+  {path:'MyPackages',component:MyPackagesComponent},
   {path:'AdvertismetUser/:id',component:AdvertismentUserComponent},
    {path:'',component:HomePageComponentComponent},
 

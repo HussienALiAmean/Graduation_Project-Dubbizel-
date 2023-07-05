@@ -17,26 +17,28 @@ export class ChatService {
   private apiUrl4 = "http://localhost:7189/api/Chat/GetLastMessages?" //'http://localhost:7189/api/User'
   private apiUrl2 = "http://localhost:7189/api/Chat/AddMessage" //'http://localhost:7189/api/User'
   private apiUrldelete = "http://localhost:7189/api/Chat" //'http://localhost:7189/api/User'
+  private apiUrldeleteRoom = "http://localhost:7189/api/Chat/DeleteMessagesRoom" //'http://localhost:7189/api/User'
   constructor(private http:HttpClient) { }
 
-  GetUsers(id:any,loginId:any):Observable<IUser[]>{
+  GetUsers(id:any,loginId:any,AdvID:number):Observable<IUser[]>{
     console.log('reach')
     console.log(`${this.apiUrl}${id}&loginId=${loginId}`)
     
-    return this.http.get<IUser[]>(`${this.apiUrl}${id}&loginId=${loginId}`).pipe(catchError((err: any) => {
+    return this.http.get<IUser[]>(`${this.apiUrl}${id}&loginId=${loginId}&Advertisment=${AdvID}`).pipe(catchError((err: any) => {
       return throwError(() => err.message || "server error");
       }));
   }
 
-  AddMessage(data:any){
-    return this.http.post(this.apiUrl2,data).pipe(catchError((err: any) => {
+  AddMessage(data:any):Observable<IChatData>{
+    return this.http.post<IChatData>(this.apiUrl2,data).pipe(catchError((err: any) => {
       return throwError(() => err.message || "server error");
       }));
   }
-  getChat(sender:any,receiver:any){
+  getChat(sender:any,receiver:any,AdvID:number){
     console.log(this.top)
     console.log(this.skip)
-    return  this.http.get<any>(`${this.apiUrl3+'sender='}${sender}&reciver=${receiver}&top=${this.top}&skip=${this.skip}`).pipe(catchError((err: any) => {
+    console.log(`${this.apiUrl3+'sender='}${sender}&reciver=${receiver}&Advertisment=${AdvID}&top=${this.top}&skip=${this.skip}`)
+    return  this.http.get<any>(`${this.apiUrl3+'sender='}${sender}&reciver=${receiver}&Advertisment=${AdvID}&top=${this.top}&skip=${this.skip}`).pipe(catchError((err: any) => {
       return throwError(() => err.message || "server error");
       }));
   }
@@ -48,6 +50,11 @@ export class ChatService {
   }
   delete(id:any){
     return this.http.put(`${this.apiUrldelete}?id=${id}`,id).pipe(catchError((err: any) => {
+      return throwError(() => err.message || "server error");
+      }));
+  }
+  deleteRoom(id:any){
+    return this.http.put(`${this.apiUrldeleteRoom}?id=${id}`,id).pipe(catchError((err: any) => {
       return throwError(() => err.message || "server error");
       }));
   }

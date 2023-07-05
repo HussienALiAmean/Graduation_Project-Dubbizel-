@@ -9,5 +9,6 @@ export interface IChat{
     file?:File
     sold:boolean
     sender?:IUser
+    date?:Date
     receiver?:IUser
 }

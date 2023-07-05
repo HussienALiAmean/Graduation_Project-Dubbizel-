@@ -1,3 +1,6 @@
+import { IChat } from "./IChat"
+import { IChatData } from "./IChatData"
+
 export interface IUser{
     id:string
     emial:string
@@ -11,4 +14,5 @@ export interface IUser{
     phoneNumberConfirmed:boolean
     twoFactorEnabled:boolean
     phoneNumber:string
+    chat?:IChatData
 }

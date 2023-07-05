@@ -9,7 +9,7 @@ import { IFavourite } from '../Interface/IFavorite';
   styleUrls: ['./favorite.component.scss']
 })
 export class FavoriteComponent implements OnInit{
-  userId:any
+  userId:any=''
   favorites:any;
   errorMessage:any;
   Favorite:IFavourite=new IFavourite("",0);

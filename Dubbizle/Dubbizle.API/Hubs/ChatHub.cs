@@ -16,14 +16,14 @@ namespace Dubbizle.API.Hubs
             string img; 
             //if(message.Image != null)
             //{
-
+            var date = DateTime.Now;
             // img = message.Image.FileName.ToString();
             //}
             //else
             //{
             //     img = "empty";
             //}
-            await Clients.All.SendAsync("NewMessageNotify", Content, image);
+            await Clients.All.SendAsync("NewMessageNotify", Content, image, date);
 
         }
 

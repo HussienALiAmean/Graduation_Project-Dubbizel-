@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-del-account',
@@ -6,5 +7,6 @@ import { Component } from '@angular/core';
   styleUrls: ['./del-account.component.scss']
 })
 export class DelAccountComponent {
-category=['Vehicles','Properties','Mobile Phones & accesories','Electronics & Home Appliances','Home Furniture & Decor','Fashion & Beauty','Pets','Kids & Babies','Sports & Equipment','Jobs','Business & Industrial','Hobbies, Music, Art & Books','Services','Other/unclear']
+  
 }
+

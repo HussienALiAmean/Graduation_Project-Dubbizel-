@@ -10,6 +10,7 @@ export class PackageServiceService {
 
   _PackagesUrl="http://localhost:7189/api/Package/GetAllPackageBySubCategoryID?SubCategoryID=";
   _PayPackagesUrl="http://localhost:7189/api/Package/PostApplicationUser_Package";
+  _PackagesUserUrl="http://localhost:7189/api/Package/GetAllPackageByUserID?ApplicationUserId=";
 
 
 
@@ -29,4 +30,11 @@ export class PackageServiceService {
       })); 
   }
  
+
+  getPackagesOfLoggedUser(userId:any)
+  {
+   return this.http.get(this._PackagesUserUrl+userId).pipe(catchError((err: any) => {
+    return throwError(() => err.message || "server error");
+    }));
+  }
 }

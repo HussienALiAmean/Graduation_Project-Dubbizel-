@@ -12,6 +12,8 @@ import { IAdvertismentDetails } from 'src/app/Interface/AdvertismentDetails';
 import { AdvertismentService } from 'src/admin/Services/advertisment.service';
 import { AdvertismentServiceService } from 'src/app/Services/advertisment-service.service';
 import { getDataDetail } from '@microsoft/signalr/dist/esm/Utils';
+import { IRoom } from 'src/app/Interfaces/IRoom';
+import { IUserChat } from 'src/app/Interface/IUserChat';
 
 
 @Component({
@@ -24,6 +26,7 @@ export class ChatComponent  implements OnInit  {
   currentPage = 1; 
   itemsPerPage = 5;
   
+  usersChat:IUserChat[]=[]
   users:any[]=[]
   myForm= this.fb.group({
     content: ['', [Validators.required,
@@ -38,26 +41,32 @@ export class ChatComponent  implements OnInit  {
   chat:IChat={
     // id:0,
     AdvertismentId:5,
-    senderID:"2946b9f6-35f7-4e2f-8c2a-7a0ab10885db",
-    receiverID:"99ba0e2f-a547-44ae-b85e-04b36dbeff4c",
+    senderID:"",
+    receiverID: "",
     content:"",
     sold:false,
     file:this.file
   }
+  room!:IRoom
   CurrentUserId:any = "2946b9f6-35f7-4e2f-8c2a-7a0ab10885db"
   chatData!:IChatData[]
   LastchatData!:IChatData
+  AllLastchatData:any[]=[]
   errorMessage:any
   hubConnectionBuilder: any;
   hubconnection!: signalR.HubConnection;
   newChat!: any;
+  dateNewchat:any
   UserTemp:any
+  DataTemp!:any
+  SignalChat!:any
   img!:any
   Id!:any
   DateDay!:Date
   top:number = 5;
   AdvertismentId:any
   userId:any
+  lastChat:any
   loginId:any = localStorage.getItem('ApplicationUserId')
   // fb: any;
   constructor(private chatService:ChatService
@@ -65,13 +74,16 @@ export class ChatComponent  implements OnInit  {
     ,private AdvertismentService:AdvertismentServiceService
     ,private fb: FormBuilder){
     this.loginId = localStorage.getItem('ApplicationUserId')
-
+    this.chat.senderID=this.loginId
+    this.chat.receiverID= ""
     }
   ngOnInit(): void {
     this.activatRoute.paramMap.subscribe((params:ParamMap)=>{
     this.AdvertismentId= params.get('adId');
     this.userId=params.get('UserID')
     });
+    
+    
     let date = new Date()
     console.log(date.toLocaleDateString())
     this.DateDay = date 
@@ -121,33 +133,39 @@ export class ChatComponent  implements OnInit  {
       next:data=>this.AdvertismentDetails=data,//this.users=data ,//.push(data[0],data[1])
       error:error=>this.errorMessage=error
     })
-    // setTimeout(()=>{
-
-    //   console.log(this.AdvertismentDetails)
-    //   console.log(this.AdvertismentDetails.advertismentImagesList[0].imageName)
-    // },2000)
+   
   }
-  Users(){
+ async Users(){
     console.log(this.userId)
-    this.chatService.GetUsers(this.userId,this.loginId).subscribe({
-      next:data=>this.UserTemp=data,//this.users=data ,//.push(data[0],data[1])
-      error:error=>this.errorMessage=error
-    })
-  //  this.GetLastMessage(this.loginId,:)
-    setTimeout(()=> {
-      let values = Object.values(this.UserTemp)
-      console.log('users here')
-      console.log(values[0])
-      console.log(values)
-      console.log(this.UserTemp[0])
-      for (let index = 0; index < values.length; index++) {
-        const element = values[index];
+    await this.chatService.GetUsers(this.userId,this.loginId,this.AdvertismentId).subscribe({
+      next:data=>{this.UserTemp= data
+  
+    let values = Object.values(this.UserTemp)
+    console.log('users here')
+    console.log(values[0])
+    this.chat.receiverID= this.UserTemp[0].id
+    console.log(values)
+    for (let index = 0; index < values.length; index++) {
+      
+      const element = values[index];
+      console.log(this.UserTemp[index].id)
+      this.GetLastMessage(this.UserTemp[index].id,this.loginId)
+      // this.UserTemp.push(  this.GetLastMessage(this.loginId,this.UserTemp[index].id))
+      console.log(this.UserTemp)
+    
         // if(type( element) == Array)
+        console.log( values[index])
         console.log(element)
+        // this.AllLastchatData.push(this.LastchatData)
+        // this.users[index]. = element
         this.users.push(element)
+        console.log(this.LastchatData)
       }
       console.log(this.users)
-    },2000)
+      console.log(this.AllLastchatData)
+     },
+      error:error=>this.errorMessage=error
+    })
   }
 
   StartHubConnection(){
@@ -177,38 +195,23 @@ export class ChatComponent  implements OnInit  {
     return Array(pageCount).fill(0).map((_, i) => i + 1);
   }
 
-  getCeil(num: number): number {
-    return Math.ceil(num);
-  }
+  
 
   getChatDataForPage() {
     const startIndex = 0;//(this.currentPage - 1) * this.itemsPerPage;
     const endIndex = startIndex + this.itemsPerPage;
     return this.chatData.slice(startIndex, endIndex);
   }
-  setPage(page: number) {
-    this.currentPage = page;
-  }
-
-  nextPage() {
-    if (this.currentPage < this.totalPages) {
-      this.currentPage++;
-    }
-  }
-
-  prevPage() {
-    if (this.currentPage > 1) {
-      this.currentPage--;
-    }
-  }
+ 
 
   openHubToListenAnychat(){
     console.log("try to liesten")
-    this.hubconnection.on('NewMessageNotify', (message,image) => {
+    this.hubconnection.on('NewMessageNotify', (message,image,date) => {
       console.log(message);
       console.log(image);
       this.img = image
       this.newChat = message
+      this.dateNewchat = date.slice(11,16)
     })
     console.log(this.newChat)
     console.log("this.newChat")
@@ -251,21 +254,19 @@ export class ChatComponent  implements OnInit  {
       console.log("after invoke con here")
       const self = this;
 
-    },2000)
+    },1000)
 
   }
 
   onSubmit(){
     console.log(this.chat.content)
     var formData = new FormData()
-   
     formData.append("AdvertismentId", this.chat.AdvertismentId.toString())
     formData.append("senderID", this.chat.senderID)
     formData.append("receiverID", this.chat.receiverID)
     formData.append("content", this.chat.content)
     formData.append("sold", "false")
     
-
     if (this.chat.file != null) {
       formData.append("image", this.chat.file, this.chat.file.name)
       console.log(this.chat.file)
@@ -277,10 +278,14 @@ export class ChatComponent  implements OnInit  {
     console.log(formData.get("image"))
     console.log(this.chat)
     this.chatService.AddMessage(formData).subscribe({
-       next:data=>console.log(data) ,//.push(data[0],data[1])
+       next:data=>{this.DataTemp=data
+        this.SignalChat = this.DataTemp.result
+      console.log(this.SignalChat)
+      console.log(this.SignalChat.reciverID)
+    } ,//.push(data[0],data[1])
       error:error=>this.errorMessage=error
     })
-    setTimeout(  ()=>{
+    // setTimeout(  ()=>{
       
       
       this.hubconnection
@@ -289,59 +294,80 @@ export class ChatComponent  implements OnInit  {
       console.log("after invoke con here")
       const self = this;
 
-    },3000)
+    // },1000)
   }
-   GetMessage(){
-        this.chatService.getChat(this.chat.senderID , this.chat.receiverID).subscribe({
-        next:data=>this.tempData=data ,//.push(data[0],data[1])
-        error:error=>this.errorMessage=error
-    })
-    setTimeout(()=> {
-      this.chatService.skip+=5;
-      console.log(this.tempData)
-      console.log("All Keys");
-      console.log(Object.keys(this.tempData))
-      console.log("All Values");
-      let values =Object.values(this.tempData)
-      console.log("result arrays")
-      console.log(values[0])
-      for (let index = 0; index < values[0].length; index++) {
-        const element =  values[0][index];
-        console.log(element)
-        console.log( element.date.slice(11,16))
-        console.log(element.room.sold)
-        element.date = element.date.slice(11,16)
-        this.chatData.push(element)
-      }
-      
-    } ,3000)
-    console.log(this.errorMessage)
+  async GetMessage(){
+       this.chatService.getChat(this.chat.senderID, this.chat.receiverID,this.AdvertismentId).subscribe({
+      next: data =>{ this.tempData = data
+        this.chatService.skip+=5;
+        // this.chatService.top+=5
+        console.log(this.tempData)
+        console.log("All Keys");
+        console.log(Object.keys(this.tempData))
+        console.log("All Values");
+        let values =Object.values(this.tempData)
+        console.log("result arrays")
+        console.log(values[0])
+        for (let index = 0; index < values[0].length; index++) {
+          const element =  values[0][index];
+          console.log(element)
+          console.log( element.date.slice(11,16))
+          console.log(element.room.sold)
+          this.room = element.room
+          element.date = element.date.slice(11,16)
+          this.chatData.push(element)
+        }
+        
+      },
+        error: error => this.errorMessage = error
+      })
+        console.log(this.errorMessage)
   }
    GetLastMessage(login :any,userId:any){
-        this.chatService.getLastChat(this.chat.senderID , this.chat.receiverID).subscribe({
-        next:data=>this.tempData=data ,//.push(data[0],data[1])
+    
+    console.log(login)
+    console.log(userId)
+        this.chatService.getLastChat(userId , login).subscribe({
+        next:data=>{this.DataTemp=data
+         
+            // this.chatService.skip+=5;
+            this.DataTemp.result.date.slice(11,16)
+            console.log(this.DataTemp.result.date.slice(11,16))
+            this.LastchatData =  this.DataTemp.result
+            this.LastchatData.date =  this.DataTemp.result.date.slice(11,16)
+            console.log(this.LastchatData)
+            
+              const element =  this.LastchatData;
+              
+              console.log(element)
+             
+              this.AllLastchatData.push(element)
+              console.log(this.AllLastchatData)
+           
+              
+            },
         error:error=>this.errorMessage=error
     })
-    setTimeout(()=> {
-      this.chatService.skip+=5;
-      console.log(this.tempData)
-      console.log(this.LastchatData)
-      console.log(Object.keys(this.tempData))
-      let values =Object.values(this.tempData)
-      console.log(values[0])
-      this.LastchatData = values[0]
-      for (let index = 0; index < values[0].length; index++) {
-        const element =  values[0][index];
-        console.log(element)
-        console.log( element.date.slice(11,16))
-        console.log(element.room.sold)
-        element.date = element.date.slice(11,16)
-        // this.LastchatData.push(element)
-      }
-      
-    } ,3000)
+   
     console.log(this.errorMessage)
+  }
+  DeleteRoom(id:any){
+    this.chatService.deleteRoom(id).subscribe({
+      next:data=>console.log(data) ,//.push(data[0],data[1])
+     error:error=>this.errorMessage=error
+    })
+
+    setTimeout(()=>{
+      this.GetMessage()
+      this.users = []
+      this.Users()
+
+    },3000)
   }
 }
 
+
+function value(v: any, string: any) {
+  throw new Error('Function not implemented.');
+}
 
