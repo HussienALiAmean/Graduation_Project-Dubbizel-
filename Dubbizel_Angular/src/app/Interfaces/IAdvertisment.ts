@@ -1,3 +1,18 @@
+export interface IIRFilterNode
+{
+  id:any,
+  filtervalue:any
+}
+export class FilterValueKey implements IIRFilterNode
+{
+    id: any
+    filtervalue: any
+    constructor(id: number, filtervalue: String)
+    {
+            this.id = id;
+            this.filtervalue = filtervalue;
+    }
+}
 export interface IAdvertisment
 {
     id?:number,
@@ -11,7 +26,7 @@ export interface IAdvertisment
     expirationDate:string,
     expireDateOfPremium:string,
     isPremium:boolean,
-    advertisment_FiltrationValuesList:string[]
+    advertisment_FiltrationValuesList:IIRFilterNode[]
     advertismentImagesList:string[]
     isSaved: boolean,
     applicationUserId:string

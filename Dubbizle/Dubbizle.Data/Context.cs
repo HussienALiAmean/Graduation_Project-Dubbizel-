@@ -12,6 +12,7 @@ namespace Dubbizle.Data
         //{
         //    optionsBuilder.UseSqlServer(@"Data Source=DESKTOP-LKBV544\SQL19;Initial Catalog=DubbizleDB;Integrated Security=True;Encrypt=False");
 
+          //  optionsBuilder.UseSqlServer(@"Data Source=.\SQL19;Initial Catalog=DubbizleDB;Integrated Security=True;Encrypt=False");
 
         //    //optionsBuilder.UseSqlServer(@"Data Source=DESKTOP-SH1SPK1\SQL2019;Initial Catalog=DubbizleDB;Integrated Security=True;Encrypt=False");
 

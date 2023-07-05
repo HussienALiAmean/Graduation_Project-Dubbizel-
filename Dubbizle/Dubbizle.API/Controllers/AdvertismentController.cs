@@ -64,40 +64,41 @@ namespace Dubbizle.API.Controllers
         public async Task<IActionResult> GetAllBySubCategoryID(int subCategoryID, string UserId)
         {
             ResultDTO resultDTO = new ResultDTO();
-            List<Advertisment> advertisments = (List<Advertisment>)advertismentService.GetAllBySubCategoryID("Advertisment_FiltrationValuesList.filtrationValue", "AdvertismentImagesList", subCategoryID);
+            List<Advertisment> advertisments=(List<Advertisment>)advertismentService.GetAllBySubCategoryID("Advertisment_FiltrationValuesList.filtrationValue", "AdvertismentImagesList", "Advertisment_RentOptionList", subCategoryID);
             bool IsSaved = false;
             List<Favorite> favorites = (List<Favorite>)favoriteService.GetAllByUserId(UserId);
 
-            List<AdvertismentDTO> advertismentDTOs = new List<AdvertismentDTO>();
+            List< AdvertismentDTO > advertismentDTOs = new List<AdvertismentDTO>();
             AdvertismentDTO advertismentDTO;
 
             foreach (Advertisment ad in advertisments)
             {
                 advertismentDTO = new AdvertismentDTO();
-                advertismentDTO.ID = ad.ID;
-                advertismentDTO.Title = ad.Title;
-                advertismentDTO.CategoryID = ad.CategoryID;
-                advertismentDTO.SubCategoryID = ad.SubCategoryID;
-                advertismentDTO.AdType = ad.AdType;
-                advertismentDTO.AdStatus = ad.AdStatus;
-                advertismentDTO.Location = ad.Location;
-                advertismentDTO.Date = ad.Date;
-                advertismentDTO.ExpirationDate = ad.ExpirationDate;
-                advertismentDTO.ExpireDateOfPremium = ad.ExpireDateOfPremium;
-                if (ad.ExpireDateOfPremium > DateTime.Now)
-                    advertismentDTO.IsPremium = true;
+                advertismentDTO.ID= ad.ID;
+                advertismentDTO.Title= ad.Title; 
+                advertismentDTO.CategoryID= ad.CategoryID;
+                advertismentDTO.SubCategoryID= ad.SubCategoryID;
+                advertismentDTO.AdType= ad.AdType;
+                advertismentDTO.AdStatus= ad.AdStatus;
+                advertismentDTO.Location= ad.Location;
+                advertismentDTO.Date= ad.Date;
+                advertismentDTO.ExpirationDate= ad.ExpirationDate;
+                advertismentDTO.ExpireDateOfPremium= ad.ExpireDateOfPremium;
+                
+                if(ad.ExpireDateOfPremium>DateTime.Now)
+                    advertismentDTO.IsPremium= true;
                 else
-                    advertismentDTO.IsPremium = false;
-                advertismentDTO.Advertisment_FiltrationValuesList = new List<string>();
-                foreach (Advertisment_FiltrationValue item in ad.Advertisment_FiltrationValuesList)
-                {
-                    advertismentDTO.Advertisment_FiltrationValuesList.Add(item.filtrationValue.Value);
-                }
-                advertismentDTO.AdvertismentImagesList = new List<string>();
-                foreach (AdvertismentImage item in ad.AdvertismentImagesList)
-                {
-                    advertismentDTO.AdvertismentImagesList.Add(item.ImageName);
-                }
+                    advertismentDTO.IsPremium= false;
+
+
+
+                advertismentDTO.Advertisment_FiltrationValuesList = ad.Advertisment_FiltrationValuesList
+                    .Select(item => new filterValuKey (){ id = item.filtrationValue.SubCategory_FilterID , filtervalue = item.filtrationValue.Value })
+                    .ToList();
+
+
+                advertismentDTO.AdvertismentImagesList = ad.AdvertismentImagesList.Select(item => item.ImageName).ToList();
+
                 IsSaved = false;
                 foreach (Favorite favorite in favorites)
                 {
@@ -108,11 +109,12 @@ namespace Dubbizle.API.Controllers
                 }
                 advertismentDTO.IsSaved = IsSaved;
                 advertismentDTO.ApplicationUserId = ad.ApplicationUserId;
+
                 advertismentDTOs.Add(advertismentDTO);
             }
 
-            resultDTO.StatusCode = 200;
-            resultDTO.Data = advertismentDTOs;
+            resultDTO.StatusCode= 200;
+            resultDTO.Data= advertismentDTOs;
             return Ok(resultDTO);
         }
 
@@ -147,10 +149,12 @@ namespace Dubbizle.API.Controllers
                     advertismentDTO.IsPremium = true;
                 else
                     advertismentDTO.IsPremium = false;
-                advertismentDTO.Advertisment_FiltrationValuesList = new List<string>();
+                advertismentDTO.Advertisment_FiltrationValuesList = new List<filterValuKey>();
                 foreach (Advertisment_FiltrationValue item in ad.Advertisment_FiltrationValuesList)
                 {
-                    advertismentDTO.Advertisment_FiltrationValuesList.Add(item.filtrationValue.Value);
+                    advertismentDTO.Advertisment_FiltrationValuesList.Add(new filterValuKey() {
+                        filtervalue = item.filtrationValue.Value 
+                        ,id=item.filtrationValue.SubCategory_FilterID });
                 }
                 advertismentDTO.AdvertismentImagesList = new List<string>();
                 foreach (AdvertismentImage item in ad.AdvertismentImagesList)
@@ -175,6 +179,26 @@ namespace Dubbizle.API.Controllers
             return Ok(resultDTO);
         }
 
+
+
+        //Alzhraa & Hussien
+        [HttpPost("filtrations")]
+        public async Task<ResultDTO> GetAllByFiltrations(string location,[FromBody]params string[] FilterationArray)
+        {
+            ResultDTO resultDTO = new ResultDTO();
+            Dictionary<int , string > filterationtable= new Dictionary<int , string >();
+            foreach (string filtervalue in FilterationArray)
+            {
+                string[] filteratiosting = filtervalue.Split(':');
+                filterationtable.Add(int.Parse(filteratiosting[0]), filteratiosting[1]);
+            }
+            List<Advertisment> advertisments = (List<Advertisment>)advertismentService.GetAllByFielteration(location, filterationtable).ToList();
+
+            resultDTO.StatusCode = 200;
+            resultDTO.Data = advertisments;
+            return resultDTO;
+        }
+     
 
 
         // hager
@@ -412,10 +436,15 @@ namespace Dubbizle.API.Controllers
                     advertismentDTO.IsPremium = true;
                 else
                     advertismentDTO.IsPremium = false;
-                advertismentDTO.Advertisment_FiltrationValuesList = new List<string>();
+                advertismentDTO.Advertisment_FiltrationValuesList = new List<filterValuKey>();
                 foreach (Advertisment_FiltrationValue item in ad.Advertisment_FiltrationValuesList)
                 {
-                    advertismentDTO.Advertisment_FiltrationValuesList.Add(item.filtrationValue.Value);
+                    advertismentDTO.Advertisment_FiltrationValuesList.Add( new filterValuKey()
+                    {
+                        filtervalue = item.filtrationValue.Value
+                        ,
+                        id = item.filtrationValue.SubCategory_FilterID
+                    });
                 }
                 advertismentDTO.AdvertismentImagesList = new List<string>();
                 foreach (AdvertismentImage item in ad.AdvertismentImagesList)
