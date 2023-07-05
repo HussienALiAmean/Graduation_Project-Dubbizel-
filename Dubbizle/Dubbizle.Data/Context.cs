@@ -42,7 +42,6 @@ namespace Dubbizle.Data
         public DbSet<Filter> Filters { get; set; }
         public DbSet<FiltrationValue> FiltrationValues { get; set; }
         public DbSet<Package> Packages { get; set; }
-        public DbSet<RentOption> RentOptions { get; set; }
         public DbSet<Review> Reviews { get; set; }
         public DbSet<SubCategory_Filter> SubCategory_Filters { get; set; }
         public DbSet<Chat> Chats { get; set; }

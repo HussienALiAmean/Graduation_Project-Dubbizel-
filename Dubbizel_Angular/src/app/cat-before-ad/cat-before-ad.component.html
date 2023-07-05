@@ -1,8 +1,8 @@
 
-<div class="d-flex justify-content-center">
+<div class="d-flex justify-content-center p-5">
     <div class="card text-center" style="width:38rem;">
         <div class="card-body px-5">
-          <h6 class="card-title mb-4 mx-1">SELECT OPTIONS TO SHOW PACKAGES</h6>
+          <h6 class="card-title mb-4 mx-1">SELECT OPTIONS TO POST YOUR AD</h6>
           
           <select class="form-select mb-3 w-75 mx-5" (change)="getSubCategories(CategorySelect.value)" #CategorySelect>
             <option selected disabled>Select Category</option>
@@ -14,7 +14,7 @@
             <option [value]="subCategory.id" *ngFor="let subCategory of subCategories" >{{subCategory.name}}</option>
           </select>
     
-          <button class="btn btn-danger" (click)="GoToPackage(subCategorySelect.value)"> Show Packages</button>
+          <button class="btn btn-danger" (click)="GoToPackage(CategorySelect.value,subCategorySelect.value)"> Next </button>
         </div>
       </div>
     </div>

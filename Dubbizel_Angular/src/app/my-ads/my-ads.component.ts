@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { AdvertismentServiceService } from '../Services/advertisment-service.service';
 import { IAdvertisment } from '../Interfaces/IAdvertisment';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-my-ads',
@@ -19,8 +20,10 @@ export class MyAdsComponent {
   PendingdsCounter:number=0;
   ModerateddsCounter:number=0;
 
+  ChatingUsers:any=[];
+
   FlagStatus:any="";
-  
+  BuyerUserId:any;
   display = '';
   AdInModal:IAdvertisment={
     title: '',
@@ -39,7 +42,7 @@ export class MyAdsComponent {
     applicationUserId: ''
   };
 
-  constructor(private advertismentUserService :AdvertismentServiceService){}
+  constructor(private advertismentUserService :AdvertismentServiceService,private router:Router){}
   
   ngOnInit(): void {
 
@@ -191,15 +194,43 @@ export class MyAdsComponent {
   openModal(ad:IAdvertisment) {
     this.display = 'block';
     this.AdInModal=ad;
+    this.advertismentUserService.GetAdChatUsers(ad.id).subscribe({
+      next:(data:any)=>{
+        this.ChatingUsers=data.data;
+        console.log(this.ChatingUsers)
+      },
+      error: err => {
+        console.log(err);
+      }
+     })
   }
 
   onCloseModal() {
     this.display = 'none';
   }
 
-  MarkAsSold(soldBtn:any)
+  MarkAsSold(soldBtn:any,UserId:any)
   {
       soldBtn.disabled=false;
+      this.BuyerUserId=UserId;
   }
+
+  Sold(AdInModalID:any)
+  {
+    this.advertismentUserService.RentMyAd(AdInModalID,this.BuyerUserId).subscribe({
+      next:(data:any)=>{
+        console.log(data)
+      },
+      error: err => {
+        console.log(err);
+      }
+     })
+  }
+
+  Edit(categoryID:any,subCategoryID:any)
+  {
+    this.router.navigate(['/postYourAd/',categoryID,subCategoryID,'Edit']);
+  }
+
 
 }

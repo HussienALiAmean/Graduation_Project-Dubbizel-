@@ -13,6 +13,8 @@ import { CategoriesBeforePackagesComponent } from './categories-before-packages/
 import { MyPackagesComponent } from './my-packages/my-packages.component';
 
 import { UserprofileComponent } from 'src/profile/userprofile/userprofile.component';
+import { CatBeforeAdComponent } from './cat-before-ad/cat-before-ad.component';
+import { AdPostComponent } from './ad-post/ad-post.component';
 
 
 
@@ -46,6 +48,8 @@ const routes: Routes = [
   {path:'MyPackages',component:MyPackagesComponent},
   {path:'AdvertismetUser/:id',component:AdvertismentUserComponent},
    {path:'',component:HomePageComponentComponent},
+   {path:'selectCategory',component:CatBeforeAdComponent},
+   {path:'postYourAd/:catID/:SubCatID/:purpose',component:AdPostComponent},
 
   //{path:'',component:LandingComponent},
   {path:'authintication',loadChildren:()=>import("../authintication/authintication.module").then(m=>m.AuthinticationModule)},

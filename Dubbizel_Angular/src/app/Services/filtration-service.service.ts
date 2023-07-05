@@ -21,5 +21,12 @@ export class FiltrationServiceService {
     return throwError(() => err.message || "server error");
     }));
   }
+
+  getSubCategoryFiltersWithIds(subCategoryID:any)
+  {
+   return this.http.get("http://localhost:7189/api/SubCategory_Filter/GetAllFiltersWithAndValuesID?subCategoryID="+subCategoryID).pipe(catchError((err: any) => {
+    return throwError(() => err.message || "server error");
+    }));
+  }
   
 }
