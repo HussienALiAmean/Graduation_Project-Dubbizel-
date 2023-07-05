@@ -1,6 +1,18 @@
 // .row{
 //     border: 1px solid white;
 // }
+
+@media (max-width: 600px) {
+    .inbox {
+      width: 100%;
+    }
+    .chatt{
+        width: 100%;
+    }
+  }
+
+
+
 @import '~@fortawesome/fontawesome-free/css/all.css';
 
 .title{
@@ -14,21 +26,27 @@
     border: 1px solid red;
     padding: 3px;
 }
+.formatHeaderButton{
+    display: flex;
+    justify-content: space-around;
+    margin-bottom: 7px;
+}
 .H_item{
-    border-radius: 8px ;
+    border-radius: 25px ;
 }
 .list_user{
-    height: 330px;
+    height: 400px;
 }
 .chat_room{
     
-    height: 300px;
-    width: 100%;
+    height: auto;
+    // width: 100%;
     overflow: auto;
 }
 .send_icon{
-    margin-right: 15px;
-    background-color: aqua;
+    //margin-right: 15px;
+    background-color: black;
+    color: white;
 }
 .deleteicon{
     position: relative;
@@ -44,14 +62,15 @@
     width: 100%;
 }
 .sender{
-    margin-left: 5px;
+    //margin-left: 5px;
     margin-top: 5px;
     display: inline-table;
     width: 40%;
     height: 30px;
-    background-color: rgb(67, 228, 67); 
-    color: black;
-    border: 1px solid;
+
+    background-color: #c4dbfa;//rgb(67, 228, 67); 
+    // black;
+    
     border-radius: 0px 10px 10px 0px;
 }
 .rightMsg{
@@ -59,26 +78,24 @@
     display: block;
 }
 .reciver{
-    margin-left: 5px;
+    //margin-left: 5px;
     margin-top: 5px;
     display: inline-table;
     float: right;
     width: 40%;
     height: 30px;
-    background-color: rgb(67, 228, 67); 
-    color: black;
-    border: 1px solid;
+    background-color: rgb(246,246,246);
     border-radius: 10px 0px 0px 10px;
 }
 .input{
     border: 1px solid ;
     border-radius: 10px;
-    margin-left: 6px;
+    //margin-left: 6px;
     background-color: #5e616a;
 }
 .file{
    position: relative;
-   right:  27px; 
+   //right:  20px; 
 }
 .filebrowse{
     opacity: 0;
@@ -89,8 +106,20 @@
     // width: 90px;
     height: 90px;
 }
-.profile {
+.emptyimg{
+
+    width: 100%;
     display: flex;
+      justify-content: center;
+}
+.imageAdv{
+    height: 50px;
+}
+.profile {
+    width: 90%;
+    padding-left: 7px;
+    margin-top: 8px;
+    //display: flex;
     align-items: center;
   }
   
@@ -98,7 +127,7 @@
     width: 50px;
     height: 50px;
     border-radius: 50%;
-    margin-right: 10px;
+    //margin-right: 10px;
   }
   .d-none{
     opacity: 0;

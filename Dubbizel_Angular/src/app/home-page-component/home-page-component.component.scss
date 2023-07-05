@@ -53,8 +53,6 @@ i{
      background-color:rgba(33, 32, 32, 0.148);
      z-index: 100;
   } 
-
-
   @media (max-width: 600px) {
     .home-card{
         display: inline-block;
@@ -68,5 +66,9 @@ i{
         width: 50%;
     }
   }
+
+.viewMore:hover{
+    cursor: pointer;
+}
 
   

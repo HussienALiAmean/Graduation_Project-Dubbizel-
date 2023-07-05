@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { FilterValueService } from '../Services/filter-value.service';
 import Swal from 'sweetalert2';
+import { DisplayService } from 'src/app/Services/display.service';
 
 @Component({
   selector: 'app-filter-values',
@@ -17,10 +18,12 @@ export class FilterValuesComponent {
     messageError = '';
     EditIndex: any;
   
-    constructor(private filterValueService: FilterValueService, private fb: FormBuilder) { }
+    constructor(private filterValueService: FilterValueService, private fb: FormBuilder,private displayService: DisplayService) { }
   
   
     ngOnInit() {
+      this.displayService.setNavigationVisibility(false);
+
       this.filterValueService.getallFilterValues().subscribe({
         next: (data: any) => {
           if (data.statusCode == 200) {
@@ -41,6 +44,10 @@ export class FilterValuesComponent {
   
     }
   
+    ngOnDestroy(): void {
+      this.displayService.setNavigationVisibility(true);
+    }
+    
     openFilterValueModal() {
       this.display = 'block';
     }

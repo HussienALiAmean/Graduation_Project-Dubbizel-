@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { SubcatgoryFiltersService } from '../Services/subcatgory-filters.service';
 import { FormBuilder, Validators } from '@angular/forms';
 import Swal from 'sweetalert2';
+import { DisplayService } from 'src/app/Services/display.service';
 
 @Component({
   selector: 'app-subcategory-filters',
@@ -17,12 +18,14 @@ export class SubcategoryFiltersComponent {
   messageError = '';
   EditIndex: any;
 
-  constructor(private subCategoryFilterService: SubcatgoryFiltersService, private fb: FormBuilder) { }
+  constructor(private subCategoryFilterService: SubcatgoryFiltersService, private fb: FormBuilder,private displayService: DisplayService) { }
 
 
 
 
   ngOnInit() {
+    this.displayService.setNavigationVisibility(false);
+
     this.subCategoryFilterService.getallSubCatFilters().subscribe({
       next: (data: any) => {
         if (data.statusCode == 200) {
@@ -43,6 +46,10 @@ export class SubcategoryFiltersComponent {
 
   }
 
+  ngOnDestroy(): void {
+    this.displayService.setNavigationVisibility(true);
+  }
+  
   openSubCatFilterModal() {
     this.display = 'block';
 

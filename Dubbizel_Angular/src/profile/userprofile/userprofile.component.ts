@@ -1,10 +1,12 @@
 import { Component } from '@angular/core';
 
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ProfileService } from 'src/app/Services/profile.service';
 import { profile } from 'src/app/Interfaces/profile';
+import Swal from 'sweetalert2';
+import { JwtHelperService } from '@auth0/angular-jwt';
 
 
 @Component({
@@ -13,7 +15,7 @@ import { profile } from 'src/app/Interfaces/profile';
   styleUrls: ['./userprofile.component.scss']
 })
 export class UserprofileComponent {
-constructor(private activatedroute:ActivatedRoute,private http:HttpClient,private profileService:ProfileService,private fb:FormBuilder)
+constructor(private router: Router,private profileService:ProfileService,private fb:FormBuilder)
 {
   this.buildForm();
 }
@@ -22,7 +24,7 @@ ApplicationUserId=localStorage.getItem("ApplicationUserId");
 errorMessage:any;
 AdForm!: FormGroup;
 maxChars = 200;
-
+UserName:any;
   buildForm() {
     this.AdForm = this.fb.group({
       aboutMe: [""]
@@ -131,4 +133,42 @@ loadData()
     error:error=>this.errorMessage=error
   })
 }
+
+delAccount()
+{
+  Swal.fire({
+    title: 'Are you sure?',
+    icon: 'warning',
+    showCancelButton: true,
+    confirmButtonColor: '#3085d6',
+    cancelButtonColor: '#d33',
+    confirmButtonText: 'Yes, delete it!'
+  }).then((result) => {
+    if (result.isConfirmed) {
+      this.profileService.DeleteProfile(this.ApplicationUserId).subscribe({
+        next:data=>{
+          console.log(data);
+          Swal.fire(
+        'Deleted!',
+        'Your Account has been deleted.',
+        'success'
+      )
+          this.logOut();
+          this.router.navigate(["/Home"]);
+          
+        },
+        error:error=>this.errorMessage=error
+      })
+    }
+  })
+}
+
+public logOut = () => {
+  localStorage.removeItem("jwt");
+  localStorage.removeItem("ApplicationUserId");
+  localStorage.removeItem("UserName");
+  window.location.href='';
+
+}
+
 }

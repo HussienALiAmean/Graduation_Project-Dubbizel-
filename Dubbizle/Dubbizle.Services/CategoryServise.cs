@@ -27,13 +27,10 @@ namespace Dubbizle.Services
             return _repository.GetAll().ToList();
         } 
       
-        // Alzhraa
         public IEnumerable<Category> GetAll(string property)
         {
             return _repository.GetAll(property).Where(c=>c.ParentCategoryID==null&&c.Deleted==false).ToList();
         }
-
-        //Hussien
         public IEnumerable<Category> GetAllByID(string property,int id)
         {
             return _repository.GetAll(property).Where(c => c.ParentCategoryID == id).ToList();
@@ -47,7 +44,6 @@ namespace Dubbizle.Services
         {
              var categories=_repository.Get(expression);
             return categories.ProjectTo<CategoryWithSubCategoriesDTO>(_mapper.ConfigurationProvider);
-
         }
         //public IEnumerable<CategoryWithAdvertismentDTO> GetCategoryWithAdvertisments(Expression<Func<Category, bool>> expression)
         //{

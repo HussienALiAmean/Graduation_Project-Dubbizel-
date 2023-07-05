@@ -33,7 +33,7 @@ namespace Dubbizle.API.Controllers
 
 
         [HttpPost("PostApplicationUser_Package")]
-        public ResultDTO PostApplicationUser_Package(PackageAppUserDTO packageAppUserDTO)
+        public ResultDTO PostApplicationUser_Package(PackageAppUserDTOCreated packageAppUserDTO)
         {
             ResultDTO resultDTO = new ResultDTO();
             _PackageServise.PostApplicationUser_Package(packageAppUserDTO);
@@ -42,6 +42,14 @@ namespace Dubbizle.API.Controllers
             return resultDTO;
         }
 
+        [HttpGet("GetAllPackageByUserID")]
+        public ResultDTO GetAllPackageByUserID(string ApplicationUserId)
+        {
+            ResultDTO resultDTO = new ResultDTO();
+            resultDTO.Data = _PackageServise.GetAllByUserID(ApplicationUserId);
+            resultDTO.StatusCode = 200;
+            return resultDTO;
+        }
 
 
     }

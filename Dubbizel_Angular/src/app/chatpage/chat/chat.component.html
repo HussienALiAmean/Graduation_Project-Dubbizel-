@@ -1,120 +1,221 @@
-
-<div class="container">
+<div class="container-fluid">
     <div class="row">
-
-        <div class="col-md-4">
-            <div class="rounded-lg border  title" >
-                <span> inbox</span>
+        <div class="col-1"></div>
+        <div class="inbox col-4 col-md-4 col-sm-4">
+            <div class="row rounded-lg border  title" style="padding-top: 20px;">
+                <span style="font-weight: bold;margin-bottom: 2%;">INBOX</span>
             </div>
-            <div class="rounded-lg border header" >
-                <div> quick filter</div>
-                <span  class="H_item"> all</span>
-                <span class="H_item"> unread chats</span>
-                <span class="H_item"> important</span>
-            </div>
-            <div class="rounded-lg border list_user" >
-                <!-- {{users | json}} -->
-                <div *ngFor="let user of users">
 
-                    <div class="profile">
-                        <span *ngIf="user.gender == 'Female'">
-                            <img class="profile-image" src="../assets/user_female.jpg" alt="Profile Image">
-                        </span>
-                        <span *ngIf="user.gender == 'Male'">
-                            <img class="profile-image" src="../assets/user_male.jpg" alt="Profile Image">
-                        </span>
-                        <div class="profile-name">{{user.userName}}</div>
-                      </div>
-                    
+            <div class="row  rounded-lg border header" style="padding-bottom: 7px;">
+                <p style="font-size: 10px;padding-top: 3px;">QUICK FILTERS</p>
+                <div class="col-1"></div>
+                <div class="col-2 ">
+                    <button type="button" class="btn btn-outline-danger H_item" style="background-color:rgb(255, 220, 226);font-weight:bold">All</button>
+                </div>
+                <div class="col-5" style="text-align: center;">
+                    <button type="button" class="btn btn-outline-danger H_item">Unread Chats</button>
+                </div>
+                <div class="col-3" style="text-align: right;">
+                    <button type="button" class="btn btn-outline-danger H_item">Important</button>
+                </div>
+                <div class="col-1"></div>
+            </div>
+
+            <div class="row rounded-lg border list_user" style="padding-top: 10px;">
+
+                <div class="emptyimg " *ngIf="users == null">
+                    <span>
+                        <img src="../assets/emptyChat.a6b9befc0789bd419ec5ed4fad199ab4 (1).webp" alt="">
+                    </span>
+                </div>
+
+                <div class="row">
+
+                    <div class="col-12">
+                        <div *ngFor="let user of users">
+                            <div class="row profile" (click)="GetUser(user.id)">
+                                <span class="col-2" *ngIf="user.gender == 'Female'">
+                                    <img class="profile-image" src="../assets/user_female.jpg" alt="Profile Image">
+                                </span>
+                                <span class="col-2" *ngIf="user.gender == 'Male'">
+                                    <img class="profile-image" src="../assets/user_male.jpg" alt="Profile Image">
+                                </span>
+                                <div class="col-4 profile-name">{{user.userName}}</div>
+                                <div class="col-4"></div>
+                                <div class="col-2" *ngIf="users != null" style="font-size: 11px;text-align: right;">
+                                    {{DateDay.toLocaleDateString()}}
+                                </div>
+                            </div>
+
+
+                            <div class="row">
+                                <div class="col-1"></div>
+                                <div class="col-2" style="text-align: right;">
+                                    <span style="font-size: 11px;text-align: right;">{{LastchatData.content}}</span>
+                                </div>
+                                <div class="col-7"></div>
+                                <div class="col-2" style="text-align: right;">
+                                    <button id="btnGroupDrop1" type="button" class="btn"
+                                        style="border: none;font-size: 11px;" data-bs-toggle="dropdown"
+                                        aria-expanded="false">
+                                        <i class="fa-sharp fa-light fa-ellipsis"></i>
+                                    </button>
+                                    <ul class="dropdown-menu dropdown-menu-left" aria-labelledby="btnGroupDrop1">
+                                        <li class="dropdown-item">
+                                            <div>Your first div content</div>
+                                        </li>
+                                        <li class="dropdown-item">
+                                            <div>Your second div content</div>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <hr width="100%" />
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
-        <div class="col-md-8">
-            <div class="rounded-lg border title" >
-                <span> Owner profile</span>
-                <span> Owner</span>
+
+        <div class="col-6 col-md-6 chatt">
+            <div class="row rounded-lg border title">
+                <div style="border-radius: 50%;background-color: rgb(255, 220, 226);width:50px;height: 50px;text-align: center;padding-top: 10px;">
+                    User</div>
+                <span class="col-3" style="padding-bottom: 10px;"> Owner profile</span>
+                <div class="col-9"></div>
             </div>
-            <div class="rounded-lg border p-2" >
-                <span> advertisment</span>
-                <span class="float-end btn btn-info"> view ad</span>
+
+            <div class="row rounded-lg border " style="padding-top: 18px;">
+                <span class="col-2" style="padding-bottom: 10px;"><img class="imageAdv"
+                        src="http://localhost:7189/Files/AdvertismentIMG/{{AdvertismentDetails.advertismentImagesList[0].imageName}}"
+                        alt="">
+                </span>
+                <span class="col-8" style="padding-bottom: 10px;"> {{AdvertismentDetails.title}} </span>
+                <div class="col-2 ">
+                    <button class="btn btn-info" style="padding-bottom: 10px;text-align: left;">
+                        <a style="text-decoration: none;color: white;text-align: center;"
+                            routerLink="/Details/{{AdvertismentId}}">view ad</a>
+                    </button>
+                </div>
             </div>
-            <div class="rounded-lg border chat_room" >
+
+            <div class="row rounded-lg border chat_room" style="height: 330px;">
+                <div class="emptyimg " *ngIf="chatData == null">
+                    <span>
+
+                        <img height="180px" src="../assets/emptyChat.a6b9befc0789bd419ec5ed4fad199ab4 (1).webp" alt="">
+                        <p>Select a chat to view conversation</p>
+                    </span>
+                </div>
+
                 <div *ngFor="let userchat of chatData ">
-                    <div id="{{userchat.id}}">
-                        
-                        <div class="sendersection" *ngIf="userchat.senderID == CurrentUserId">
-                            <div class="sendersection">
-                                <div class="sender">
-    
+
+
+                    <div class="sendersection" *ngIf="userchat.senderID == CurrentUserId">
+                        <div class="sendersection">
+                            <div class="sender" style="padding-left: 10px;">
+
+                                <p>{{userchat.id}}</p>
+                                <div class="sender" style="padding-left: 10px;">
+
                                     {{userchat.content}}
-                                    <span class="float-end deleteicon" (click)="delete(userchat.id)">
+                                    <span>{{userchat.date}}</span>
+                                    <span *ngIf="userchat.room?.sold" class="float-end deleteicon"
+                                        (click)="delete(userchat.id)">
                                         <i class="fa fa-trash" aria-hidden="true"></i>
-            
+
                                     </span>
                                     <br>
                                     <div *ngIf="userchat.file != null">
-                                        <img class="image" src="http://localhost:7189/Files/ChatImages/{{userchat.file}}" alt="">
+                                        <img class="img-fluid image"
+                                            src="http://localhost:7189/Files/ChatImages/{{userchat.file}}" alt="">
                                     </div>
                                 </div>
                             </div>
                         </div>
-                       
-                        <div  *ngIf="userchat.senderID != CurrentUserId">
-                            
+
+                        <div *ngIf="userchat.senderID != CurrentUserId">
+
                             <div class="rightMsg float-end">
-                            <div class="reciver d-lg">
-                                    {{userchat.content}}
-                                    <span class="float-start deleteiconleft" (click)="delete(userchat.id)">
-                                        <i class="fa fa-trash" aria-hidden="true"  >
-    
-                                        </i>
-            
+
+                                <div class="reciver d-lg">
+
+                                    <span class="p-1">
+
+                                        {{userchat.content}}
                                     </span>
-                                    <div *ngIf="userchat.file != null">
-                                        <img class="image" src="http://localhost:7189/Files/ChatImages/{{userchat.file}}" alt="">
+                                    <span class="p-1 float-end">{{userchat.date}}</span>
+                                    <span *ngIf="userchat.room?.sold" class="float-start deleteiconleft"
+                                        (click)="delete(userchat.id)">
+                                        <i class="fa fa-trash" aria-hidden="true"></i>
+                                    </span>
+
+
+                                    <div class="reciver d-lg">
+                                        {{userchat.content}}
+                                        <span class="float-start deleteiconleft" (click)="delete(userchat.id)">
+                                            <i class="fa fa-trash" aria-hidden="true">
+
+                                            </i>
+
+                                        </span>
+                                        <div *ngIf="userchat.file != null">
+                                            <img class="image"
+                                                src="http://localhost:7189/Files/ChatImages/{{userchat.file}}" alt="">
+                                        </div>
                                     </div>
                                 </div>
                             </div>
+
                         </div>
                     </div>
+
+
                 </div>
-                <!-- [disabled]="currentPage === getCeil(chatData.length 
-                / itemsPerPage)" -->
-                <button class="btn-primary" (click)="GetMessage()" 
-                >More</button>
-                <div>
+
+                <div >
                     {{newChat}}
                     <div *ngIf="img != null">
-                        <img class="image" src="http://localhost:7189/Files/ChatImages/{{img}}" alt="">
+                        <img class="img-fluid image" src="http://localhost:7189/Files/ChatImages/{{img}}" alt="">
                     </div>
-                    <!-- {{tempData |json}} -->
-                </div>
-            </div>
-            <div class="rounded-lg border" >
-                <form [formGroup]="myForm" novalidate (ngSubmit)="onSubmit()">
+                    <br>
 
-                    <input class="input" type="text" placeholder="type message" 
-                    formControlName="content"
-                    [(ngModel)]="chat.content" >
-                    <span class="file">
-                        <i class="fa-solid fa-paperclip ">
-                        </i>
-                        <input class="filebrowse"  aria-label="File browser example"
-                        type="file"
-                        [(ngModel)]="chat.file"
-                        (change)="onSelectFile($event)"
-                        formControlName="file">
-                    </span>
-                    <button class="float-end send_icon" type="submit" >
-                        
-                        <span >
-                            
-                            <i class="fa fa-paper-plane" aria-hidden="true"></i>
-                            
-                        </span>
-                    </button>
-                </form>
+                    <br>
+                    <div class="emptyimg" *ngIf="chatData != null">
+                        <button class="btn btn-light " (click)="GetMessage()">More</button>
+
+                    </div>
+                </div>
+
+                
+
             </div>
+            
+                <form class="row  rounded-lg border" [formGroup]="myForm" novalidate (ngSubmit)="onSubmit()">
+                  
+                        <div class="mt-2 input-group mb-3">
+                            
+                            <div class="col-1 input-group-prepend">
+                                <span class="file">
+                                    <span class="input-group-text"><i class="fa-solid fa-paperclip"
+                                        style="height: 25px;"></i>
+                                        <input class="filebrowse"  aria-label="File browser example"
+                                        type="file"
+                                        [(ngModel)]="chat.file"/>
+                                        </span>
+                                </span>
+                            </div>
+                            <input class="col-8 form-control" type="text" placeholder="type message"
+                                formControlName="content" [(ngModel)]="chat.content">
+
+                                <button class="col-1 btn float-end send_icon" type="submit">
+                                    <span>
+                                        <i class="fa fa-paper-plane" aria-hidden="true"></i>
+                                    </span>
+                                </button>
+                        </div>
+                </form>
         </div>
+        <div class="col-1"></div>
     </div>
 </div>

@@ -47,7 +47,6 @@ namespace Dubbizle.API.Controllers
             {
                 UserDTO userDTO = new UserDTO();
                 userDTO.Email = user.Email;
-                userDTO.Password = user.PasswordHash;
                 userDTOs.Add(userDTO);
             }
             return Ok(users);
@@ -55,17 +54,26 @@ namespace Dubbizle.API.Controllers
 
 
             //Alzhraa
-            [HttpPost("GetEmail")]
+        [HttpPost("GetEmail")]
         public async Task<ResultDTO> GetEmail(UserDTO userDTO)
         {
             ResultDTO resultDTO = new ResultDTO();
             if (ModelState.IsValid)
             {
                 ApplicationUser applicationUser = await userManager.FindByEmailAsync(userDTO.Email);
-                if (applicationUser != null)
+                if (applicationUser != null )
                 {
-                    resultDTO.StatusCode = 200;
-                    return resultDTO;
+                    if(applicationUser.Deleted==false)
+                    {
+                        resultDTO.StatusCode = 200;
+                        return resultDTO;
+                    }
+                    else
+                    {
+                        resultDTO.StatusCode = 203;
+                        return resultDTO;
+                    }
+                   
                 }
 
                 else

@@ -31,7 +31,8 @@ public class Repository<T> : IRepository<T> where T : BaseModel
     {
         return _context.Set<T>().Include(property1).Include(property2);
     }
-    
+
+
     public IQueryable<T> GetAll(string property1, string property2, string property3, string property4)
     {
         return _context.Set<T>().Include(property1).Include(property2).Include(property3).Include(property4);
@@ -49,6 +50,10 @@ public class Repository<T> : IRepository<T> where T : BaseModel
     public IQueryable<T> Get(Expression<Func<T, bool>> expression)
     {
         return _context.Set<T>().Where(expression);
+    }
+   public T GetObject(Expression<Func<T, bool>> expression)
+    {
+        return _context.Set<T>().Where(expression).FirstOrDefault();
     }
    
     public T GetByID(int id)
@@ -120,5 +125,10 @@ public class Repository<T> : IRepository<T> where T : BaseModel
     public void SaveChanges()
     {
         _context.SaveChanges();
+    }
+
+    public IQueryable<T> GetAll(string property1, string property2, string property3)
+    {
+        return _context.Set<T>().Include(property1).Include(property2).Include(property3);
     }
 }

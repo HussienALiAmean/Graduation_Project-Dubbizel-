@@ -18,7 +18,7 @@ import { FavoriteService } from '../Services/favorite.service';
 
 export class AdvertismentDetailsComponent implements OnInit {
   advertismentId: any
-  reviewList: IReview[] = []
+  filtredReviewList: IReview[] = []
   private hubConnectionBuilder!: HubConnection
   appUserId: any;
   username: any
@@ -30,7 +30,7 @@ export class AdvertismentDetailsComponent implements OnInit {
   Favorite: IFavourite = new IFavourite("", 0);
   errorMessage: string = ""
   numRate=[1,2,3,4,5];
-
+  selectedRadio:any;
     constructor(private favoriteService: FavoriteService, private fb: FormBuilder, private reviewService: ReviewserviceService, private advertismentService: AdvertismentServiceService, private activeRoute: ActivatedRoute, private router: Router) { }
 
   ReviewForm: any = this.fb.group({
@@ -72,6 +72,8 @@ export class AdvertismentDetailsComponent implements OnInit {
       next: data => {
         this.advertismentDetail = data;
         this.FirstChar = data.applicationUserName.charAt(0)
+        this.filtredReviewList=this.advertismentDetail.reviewsList;
+
         console.log(this.advertismentDetail)
       },
       error: err => {
@@ -98,7 +100,20 @@ export class AdvertismentDetailsComponent implements OnInit {
       console.log("after invoke")
       await this.hubConnectionBuilder.on('NewReviewNotify', (rev) => {
         console.log(rev)
-        this.advertismentDetail.reviewsList.push(rev)
+        this.advertismentDetail.reviewsList.push(rev);
+       
+        this.selectedRadio= document.querySelector('input[name=rad]:checked');
+        if(this.selectedRadio.value==-1)
+        {
+              this.filtredReviewList=this.advertismentDetail.reviewsList
+        }
+        else if(this.selectedRadio.value>=0&&this.selectedRadio.value<=5)
+        {
+          this.filtredReviewList=this.advertismentDetail.reviewsList.filter((r:any)=>{
+            return r.rate==this.selectedRadio.value
+          })
+        }
+
       });
     }, 2000)
 
@@ -107,6 +122,20 @@ await setTimeout(async () => {
       console.log("after invoke")
       console.log(i)
       this.advertismentDetail.reviewsList.splice(i, 1);
+      this.selectedRadio= document.querySelector('input[name=rad]:checked');
+      if(this.selectedRadio.value==-1)
+      {
+            this.filtredReviewList=this.advertismentDetail.reviewsList
+      }
+      else if(this.selectedRadio.value>=0&&this.selectedRadio.value<=5)
+      {
+        this.filtredReviewList=this.advertismentDetail.reviewsList.filter((r:any)=>{
+          return r.rate==this.selectedRadio.value
+        })
+        console.log(this.selectedRadio.value)
+        console.log(this.filtredReviewList)
+      }
+
     })
   }, 2000)
 
@@ -117,6 +146,19 @@ await setTimeout(async () => {
         console.log(rev)
         console.log(i)
         this.advertismentDetail.reviewsList[i] = rev;
+
+        this.selectedRadio= document.querySelector('input[name=rad]:checked');
+        if(this.selectedRadio.value==-1)
+        {
+              this.filtredReviewList=this.advertismentDetail.reviewsList
+        }
+        else if(this.selectedRadio.value>=0&&this.selectedRadio.value<=5)
+        {
+          this.filtredReviewList=this.advertismentDetail.reviewsList.filter((r:any)=>{
+            return r.rate==this.selectedRadio.value
+          })
+        }
+
       });
 
 
@@ -138,7 +180,7 @@ await setTimeout(async () => {
     this.reviewService.AddReview(this.ReviewForm.value).subscribe({
       next: (data: any) => {
         console.log(data);
-        this.hubConnectionBuilder.invoke('NewReview', data);
+        this.hubConnectionBuilder.invoke('NewReview', data);    
       },
       error: error => console.log(error),
     });
@@ -150,8 +192,6 @@ await setTimeout(async () => {
     })
 
   }
-
-
 
   delreview(rl: any, i: any) {
     this.reviewId = rl.id
@@ -201,6 +241,24 @@ await setTimeout(async () => {
   }
  
 
+
+
+
+  filterReviews(star:any)
+  {
+    if(star!=-1)
+    {
+      this.filtredReviewList=this.advertismentDetail.reviewsList.filter((r:any)=>{
+          return r.rate==star;
+      })
+    }
+    else
+    {
+      this.filtredReviewList=this.advertismentDetail.reviewsList;
+    }
+  }
+
+
   async AddToFavorite(ads:any){
     var heart=document.getElementById("heart");
     console.log(heart?.style.color);
@@ -214,6 +272,7 @@ await setTimeout(async () => {
   })
   heart.style.color="rgb(224, 0, 0)";
   }
+
   else{
   console.log("hi")
    this.favoriteService.DeleteFavorite(ads.id,this.appUserId).subscribe({
@@ -223,7 +282,21 @@ await setTimeout(async () => {
    heart!.style.color="rgb(255, 255, 255)";
   }
   }
-  
+
+
+
+//   BeginChat(applicationUserId:string)
+// {
+//   console.log(applicationUserId)
+  BeginChat(advertismentDetail:any)
+{
+  console.log(advertismentDetail.id,advertismentDetail.applicationUserId)
+  console.log(this.appUserId)
+  this.router.navigate(['/chat/',advertismentDetail.id,advertismentDetail.applicationUserId])
+}
+
+
+
   counter(i: number) {
     return new Array(i);
 }

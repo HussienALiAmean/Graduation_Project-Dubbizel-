@@ -1,12 +1,11 @@
 <div class="container">
-  <h2>{{advertismentUser.userName}}</h2>
+  <h2 style="color: #e00000;">{{advertismentUser.userName}}</h2>
   <p>{{advertismentUser.userEmail}}</p>
   <hr>
   <br>
   <h6>Published ads ({{advertismentUser.countAds}})</h6>
-  <br>
   <div class="row ads-user">
-    <span *ngFor="let a of advertismentUser.advertismetsUsersDTOs" class=" col col-md-4 col-xs-12 col-sm-6">
+    <span *ngFor="let a of advertismentUser.advertismetsUsersDTOs" class=" col col-md-4 col-xs-12 col-sm-6" style="margin-top: 30px;">
     <div class="card cardStyle" style="width: 90%; height:100%;  padding: 0px;" >
       <span >
       <span *ngFor="let im of a.imageDTOs; index as i" (click)="AdvertismentUserDetails(a)">
@@ -15,7 +14,7 @@
       <div class="card-body" >
         <div class="row">
           <div class="col col-md-10">
-            <h6 class="card-title" style="font-size: 20px;color: #e00000;">{{a.title}}</h6>
+            <h6 class="card-title" style="font-size: 20px;color: #e00000;" (click)="AdvertismentUserDetails(a)">{{a.title}}</h6>
           </div>
           <div class="col col-md-2">
             <button (click)="AddToFavorite(a)"  class="btnHeart btn-floating col-2 " >
@@ -27,13 +26,15 @@
         </div>
         <br>
         <span *ngFor="let r of a.advertisment_RentOptionList; index as i">
-        <p class="card-text" *ngIf="i<1"> <b style="font-size:16px ;">EGP {{r.cost}}</b></p>
+        <p class="card-text" *ngIf="i<1"> <b style="font-size:16px ;" (click)="AdvertismentUserDetails(a)">EGP {{r.cost}}</b></p>
         </span>
-        <p class="card-text" style="font-size:15px ;font-weight: 500;">{{a.location}}</p>
-        <p class="card-text" style="font-size:15px">{{a.date | date : 'yyyy-MM-dd'}}</p>
+        <p class="card-text" style="font-size:15px ;font-weight: 500;" (click)="AdvertismentUserDetails(a)">{{a.location}}</p>
+        <p class="card-text" style="font-size:15px" (click)="AdvertismentUserDetails(a)">{{a.date | date : 'yyyy-MM-dd'}}</p>
       </div>
       </span>
+      <br>
     </div>
     </span>
+   
     </div>
 </div>

@@ -70,7 +70,7 @@
     <div class="row">
       <div class="col col-md-10"><h2 style="font-size: 25px;"> {{c.name}}</h2></div>
       <div class="col col-md-2">
-        <h3 class="header4" style="font-size: 20px;">View More </h3>
+        <h3 class="header4 viewMore" style="font-size: 20px;" (click)="NavigateToAds(c)">View More </h3>
       </div>
     </div>
    <br>
@@ -92,7 +92,7 @@
             <div class="col col-md-10" (click)="AdvertismentDetails(a)">
               <h6 class="card-title" style="font-size: 20px;color: #e00000;">{{a.title}}</h6>
             </div>
-            <button  type="button" (click)="AddToFavorite(a)"  class="btnHeart btn-floating col-2 " >
+            <button *ngIf="userId!=null" type="button" (click)="AddToFavorite(a)"  class="btnHeart btn-floating col-2 " >
             <ng-container *ngIf="(a.isSaved==true); then red else white"></ng-container>
                 <ng-template #red>
                   <i class="fa-solid fa-heart heart" style="font-size: 18px; margin-top: 5px; color:#e00000;" id="{{'heart'+a.id+userId}}"></i>                 </ng-template>

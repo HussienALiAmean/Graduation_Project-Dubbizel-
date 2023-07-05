@@ -14,4 +14,18 @@ namespace Dubbizle.DTOs
        public List<string> FiltrationValuesList { get; set; }
 
     }
+
+    public class SubCategory_FilterWithIDsDTO
+    {
+        public string FilterName { get; set; }
+        public List<filterValuesDTO> FiltrationValuesList { get; set; }
+
+    }
+
+    public class filterValuesDTO
+    {
+        public int ID { get; set; }
+        public string Value { get; set; }
+
+    }
 }

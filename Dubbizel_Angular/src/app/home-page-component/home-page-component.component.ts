@@ -61,4 +61,8 @@ else{
    heart!.style.color="rgb(255, 255, 255)";
 }
 }
+
+NavigateToAds(category:any){
+  this.router.navigate(["/filteration/Advertisment/",category.id,'category']);
+}
 }

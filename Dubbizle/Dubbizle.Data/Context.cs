@@ -10,14 +10,13 @@ namespace Dubbizle.Data
         { }
         //protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         //{
-//<<<<<<< HEAD
         //    optionsBuilder.UseSqlServer(@"Data Source=DESKTOP-LKBV544\SQL19;Initial Catalog=DubbizleDB;Integrated Security=True;Encrypt=False");
 
+          //  optionsBuilder.UseSqlServer(@"Data Source=.\SQL19;Initial Catalog=DubbizleDB;Integrated Security=True;Encrypt=False");
 
         //    //optionsBuilder.UseSqlServer(@"Data Source=DESKTOP-SH1SPK1\SQL2019;Initial Catalog=DubbizleDB;Integrated Security=True;Encrypt=False");
 
         //    base.OnConfiguring(optionsBuilder);
-//=======
 
 
         //    //optionsBuilder.UseSqlServer(@"Data Source=DESKTOP-MFGHPAO\SQL19;Initial Catalog=DubbizleDB;Integrated Security=True;Encrypt=False");
@@ -33,7 +32,6 @@ namespace Dubbizle.Data
 
         //  //  base.OnConfiguring(optionsBuilder);
 
-//>>>>>>> e969c13985d2072564aa2476e5b125791956196b
         //}
 
         public DbSet<Advertisment> Advertisments { get; set; }
@@ -45,7 +43,6 @@ namespace Dubbizle.Data
         public DbSet<Filter> Filters { get; set; }
         public DbSet<FiltrationValue> FiltrationValues { get; set; }
         public DbSet<Package> Packages { get; set; }
-        public DbSet<RentOption> RentOptions { get; set; }
         public DbSet<Review> Reviews { get; set; }
         public DbSet<SubCategory_Filter> SubCategory_Filters { get; set; }
         public DbSet<Chat> Chats { get; set; }

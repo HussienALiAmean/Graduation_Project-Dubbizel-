@@ -10,7 +10,12 @@ import { PackageComponent } from 'src/admin/package/package.component';
 import { PackagesComponent } from './packages/packages.component';
 import { MyAdsComponent } from './my-ads/my-ads.component';
 import { CategoriesBeforePackagesComponent } from './categories-before-packages/categories-before-packages.component';
+import { MyPackagesComponent } from './my-packages/my-packages.component';
 
+import { UserprofileComponent } from 'src/profile/userprofile/userprofile.component';
+import { CatBeforeAdComponent } from './cat-before-ad/cat-before-ad.component';
+import { AdPostComponent } from './ad-post/ad-post.component';
+import { AdEditComponent } from './ad-edit/ad-edit.component';
 
 
 
@@ -22,9 +27,14 @@ import { CategoriesBeforePackagesComponent } from './categories-before-packages/
 
 const routes: Routes = [
 {path:'',component:HomePageComponentComponent},
+//test
+  //{path:"profile",component:UserprofileComponent},
+  
+
+  {path:'',component:HomePageComponentComponent},
 
   //{path:"profile",component:UserprofileComponent}
- {path:"chat",component:ChatComponent},
+ {path:"chat/:adId/:UserID",component:ChatComponent},
 
   {path:'Home/:id',component:HomePageComponentComponent},
   // {path:'home-page',loadChildren:()=>import("../home-page/home-page.module").then(m=>m.HomePageModule)},
@@ -36,9 +46,12 @@ const routes: Routes = [
   {path:'Details/:id',component:AdvertismentDetailsComponent},
   {path:'Favorite',component:FavoriteComponent},
   {path:'MyAds',component:MyAdsComponent},
+  {path:'MyPackages',component:MyPackagesComponent},
   {path:'AdvertismetUser/:id',component:AdvertismentUserComponent},
    {path:'',component:HomePageComponentComponent},
-
+   {path:'selectCategory',component:CatBeforeAdComponent},
+   {path:'postYourAd/:catID/:SubCatID',component:AdPostComponent},
+   {path:'editYourAd/:catID/:SubCatID',component:AdEditComponent},
   //{path:'',component:LandingComponent},
   {path:'authintication',loadChildren:()=>import("../authintication/authintication.module").then(m=>m.AuthinticationModule)},
   {path:'filteration',loadChildren:()=>import("../filteration/filteration.module").then(m=>m.FilterationModule)},
