@@ -14,7 +14,6 @@ export class CategoryServiceService {
   _CategoryUrl2="http://localhost:7189/api/Category/categoryId?categoryId="; 
 
 
-
   constructor(private http:HttpClient) { }
 
   getCategories():Observable<ICategory[]>
