@@ -4,6 +4,7 @@ import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@ang
 import { FiltrationServiceService } from '../Services/filtration-service.service';
 import { Observable } from 'rxjs';
 import { AdvertismentServiceService } from '../Services/advertisment-service.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-ad-post',
@@ -163,7 +164,8 @@ export class AdPostComponent {
 
 
   postData() {
-
+  if(this.AdForm.status!="INVALID")
+  {
     const files =this.selectedFiles;
     const formData = new FormData();
 
@@ -191,8 +193,18 @@ export class AdPostComponent {
         console.log(err);
       }
     })
-    
   }
+  else
+  {
+    Swal.fire({
+      icon: 'error',
+      title: 'Oops...',
+      text: 'Invalid Information',
+    })
+  }
+    
+   }
+
 
 
 }

@@ -31,14 +31,14 @@
 
                 <div class="form-group mb-4">
                     <div class="form-check">
-                        <input class="form-check-input" type="radio" name="adType" id="adType" value="For Rent/Sell"
+                        <input class="form-check-input" type="radio" name="adType" id="adType" value="For Rent"
                             formControlName="adType" (click)="AddRentOption()">
                         <label class="form-check-label" for="adType">
                             For Rent
                         </label>
                     </div>
                     <div class="form-check">
-                        <input class="form-check-input" type="radio" name="adType" id="adType" value="Wanted Item"
+                        <input class="form-check-input" type="radio" name="adType" id="adType" value="For Sell"
                             formControlName="adType" (click)="SellOption()">
                         <label class="form-check-label" for="adType">
                             For Sell
@@ -94,8 +94,11 @@
                     </div>
                 </div>
 
-                <div>
-                    <img *ngFor='let preview of previews' [src]="preview" class="preview">
+                <div class="mb-4 row">
+                    <div class="col-12 col-sm-6 col-lg-2 mx-0" *ngFor='let preview of previews' >
+                        <img style="margin-right:20px;" [src]="preview"
+                            class="preview">
+                    </div>
                 </div>
 
 

@@ -321,7 +321,7 @@ namespace Dubbizle.Services
         ////////////////////////////////////////// Advertisments /////////////////////////////////
         public IEnumerable<Advertisment> GetAllNotActiveAdvertisments()
         {
-            return _advertismentRepository.GetAll("SubCategory", "AdvertismentImagesList").Where(A => A.Deleted == false && A.AdStatus == "Not Active").ToList();
+            return _advertismentRepository.GetAll("SubCategory", "AdvertismentImagesList").Where(A => A.Deleted == false && A.AdStatus == "Pending").ToList();
         }
         public Advertisment GetAdvertismentByID(int id)
         {

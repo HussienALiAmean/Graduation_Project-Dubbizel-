@@ -52,6 +52,24 @@ namespace Dubbizle.API.Controllers
             return resultDTO;
         }
 
+        [HttpPut("SaveAdvertsimentEdits")]
+        public ResultDTO SaveAdvertsimentEdits([FromForm] SaveAdvertismentDTO saveAdvertismentDTO)
+        {
+            ResultDTO resultDTO = new ResultDTO();
+            resultDTO.Data = _AdUserService.SaveAdvertsimentEdits(saveAdvertismentDTO);
+            resultDTO.StatusCode = 200;
+            return resultDTO;
+        }
+
+        [HttpGet("GetAdvertsimentDetailsForEdit")]
+        public ResultDTO GetAdvertsimentDetailsForEdit(int ID)
+        {
+            ResultDTO resultDTO = new ResultDTO();
+            resultDTO.Data = _AdUserService.GetAdvertsimentDetailsForEdit(ID);
+            resultDTO.StatusCode = 200;
+            return resultDTO;
+        }
+
 
         [HttpGet("GetAdChatUsers")]
         public ResultDTO GetAdChatUsers(int id)

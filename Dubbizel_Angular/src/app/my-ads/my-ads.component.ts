@@ -227,9 +227,9 @@ export class MyAdsComponent {
      })
   }
 
-  Edit(categoryID:any,subCategoryID:any)
+  Edit(adID:any,subCategoryID:any)
   {
-    this.router.navigate(['/editYourAd/',categoryID,subCategoryID]);
+    this.router.navigate(['/editYourAd/',adID,subCategoryID]);
   }
 
 

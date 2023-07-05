@@ -4,6 +4,7 @@ import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@ang
 import { FiltrationServiceService } from '../Services/filtration-service.service';
 import { Observable } from 'rxjs';
 import { AdvertismentServiceService } from '../Services/advertisment-service.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-ad-edit',
@@ -17,8 +18,15 @@ export class AdEditComponent {
 
   ApplicationUserId = localStorage.getItem("ApplicationUserId");
   errorMessage: any;
-  catID: any;
-  subCatID: any;
+  adID: any;
+  subCatID:any;
+  AdDetails:any={};
+  DeletedImages:any=[];
+  DeletedRentOptions:any=[];
+
+  currentImagesLegnth:any;
+  currentRentOptionsLegnth:any;
+
   filters: any = []
   filterList: any[][] = [];
   UnitList:any[]=[
@@ -30,87 +38,99 @@ export class AdEditComponent {
   ];
   flagRentBtn:boolean=false
 
-  AdForm: any = this.fb.group({
+  EditForm: any = this.fb.group({
+    id:[],
     title: ['', [Validators.required]],
     location: ['', Validators.required],
     adType: ['', Validators.required],
-    categoryID: [],
-    subCategoryID: [],
-    applicationUserId: [],
     AdvertismentFiltrationValuesList: this.fb.array([]),
     AdvertismentRentOptions:this.fb.array([]),
-    AdvertismentImagesList: ['', Validators.required]
+    AdvertismentImagesList: ['', Validators.required],
   })
 
   get title() {
-    return this.AdForm.get('title');
+    return this.EditForm.get('title');
   }
   get location() {
-    return this.AdForm.get('location');
+    return this.EditForm.get('location');
   }
   get adType() {
-    return this.AdForm.get('adType');
+    return this.EditForm.get('adType');
   }
 
 
   ngOnInit() {
     this.activateRoute.paramMap.subscribe((params: ParamMap) => {
-      this.catID = params.get('catID');
-              this.subCatID = params.get('SubCatID');
+      this.adID = params.get('adID');
+       this.subCatID=params.get("SubCatID");     
             
-              this.AdForm.patchValue({
-                categoryID: this.catID,
-                subCategoryID: this.subCatID,
-                applicationUserId: localStorage.getItem("ApplicationUserId"),
-              })
+       this.advertismentService.GetAdvertsimentDetailsForEdit(this.adID).subscribe({
+        next: (data: any) => {
+          console.log(data);
+          this.AdDetails = data.data;
+          
+          this.EditForm.patchValue({
+            id:this.AdDetails.id,
+            title:this.AdDetails.title,
+            location:this.AdDetails.location,
+            adType:this.AdDetails.adType
+          })
 
-              this.filterService.getSubCategoryFiltersWithIds(this.subCatID).subscribe({
-                next: (data: any) => {
-                  console.log(data);
-                  this.filters = data.data
-                  this.filters.forEach((element: any, index: number) => {
-                    this.filterList[index] = (element.filtrationValuesList)
-                    const FiltrationValues = this.AdForm.controls.AdvertismentFiltrationValuesList as FormArray;
-                    FiltrationValues.push(
-                      this.fb.group({
-                        filterValueID: ['', [Validators.required]],
-                      })
-                    );
-                  });
-                  console.log(this.filterList)
-                },
-                error: (err: any) => {
-                  console.log(err);
-                }
-              })
-              /*{filterID: 1, filterName: 'BRAND', filtrationValuesList: Array(7)} */
+          this.filterService.getSubCategoryFiltersWithIds(this.subCatID).subscribe({
+            next: (data: any) => {
+              console.log(data);
+              this.filters = data.data
+              this.filters.forEach((element: any, index: number) => {
+                this.filterList[index] = (element.filtrationValuesList)
+               
+                const FiltrationValues = this.EditForm.controls.AdvertismentFiltrationValuesList as FormArray;
+                FiltrationValues.push(
+                  this.fb.group({//
+                    filterValueID: [this.AdDetails.advertismentFiltrationValuesList[index], [Validators.required]],
+                  })
+                );
+              });
+
+              this.AdDetails.advertismentRentOptions.forEach((element:any,index:any) => {
+                 this.RentOptions = this.EditForm.controls.AdvertismentRentOptions as FormArray;
+                this.RentOptions.push(
+                  this.fb.group({
+                    id:[this.AdDetails.advertismentRentOptions[index].id],
+                    unit: [this.AdDetails.advertismentRentOptions[index].unit, [Validators.required]],
+                    duration: [this.AdDetails.advertismentRentOptions[index].duration, [Validators.required]],
+                    cost: [this.AdDetails.advertismentRentOptions[index].cost, [Validators.required]],
+                  })
+                );
+              }); 
+
+              this.currentImagesLegnth=this.AdDetails.advertismentImagesList.length;
+              this.currentRentOptionsLegnth=this.AdDetails.advertismentRentOptions.length;
+ 
+            },
+            error: (err: any) => {
+              console.log(err);
+            }
+          })
+              
+        },
+        error: (err: any) => {
+          console.log(err);
+        }
+      })     
 
     })
 
 
   }
   
-   RentOptions = this.AdForm.controls.AdvertismentRentOptions as FormArray;
+   RentOptions = this.EditForm.controls.AdvertismentRentOptions as FormArray;
 
-  AddRentOption()
-  {
-    this.flagRentBtn=true;
-    this.AdForm.get('AdvertismentRentOptions').value=[];
-    this.RentOptions.clear();
-    this.RentOptions.push(
-      this.fb.group({
-        unit: ['', [Validators.required]],
-        duration: ['', [Validators.required]],
-        cost: ['', [Validators.required]],
-      })
-    );
-
-  }
 
   AddRentOption2()
   {
     this.RentOptions.push(
       this.fb.group({
+        id:[0],
         unit: ['', [Validators.required]],
         duration: ['', [Validators.required]],
         cost: ['', [Validators.required]],
@@ -119,22 +139,8 @@ export class AdEditComponent {
 
   }
 
-  SellOption()
-  {
-    this.flagRentBtn=false;
-    this.AdForm.get('AdvertismentRentOptions').value=[];
-    this.RentOptions.clear();
-    this.RentOptions.push(
-      this.fb.group({
-        unit: ['', [Validators.required]],
-        duration: [0, [Validators.required]],
-        cost: ['', [Validators.required]],
-      })
-    );
+  
 
-  }
-
-  //selectedFiles?: FileList;
   selectedFiles:File[]=[];
   previews: string[] = [];
   numberOfFiles: any;
@@ -161,36 +167,64 @@ export class AdEditComponent {
 
 
 
-  postData() {
+  SaveData() {
+    if(this.EditForm.status!="INVALID")
+    {
+          if(!( (this.DeletedImages.length==this.currentImagesLegnth && this.selectedFiles.length==0)
+          ||    (this.DeletedRentOptions.length==this.currentRentOptionsLegnth && this.EditForm.get('AdvertismentRentOptions').controls.length==0)))
+          {
+          const files =this.selectedFiles;
+          const formData = new FormData();
 
-    const files =this.selectedFiles;
-    const formData = new FormData();
+          for (let file of files) {
+            if (this.numberOfFiles < 20)
+              formData.append('AdvertismentImagesList', file);
+          }
 
-    for (let file of files) {
-      if (this.numberOfFiles < 20)
-        formData.append('AdvertismentImagesList', file);
-    }
+          formData.append('id', this.EditForm.get('id').value);
+          formData.append('title', this.EditForm.get('title').value);
+          formData.append('location', this.EditForm.get('location').value);
+          formData.append('AdvertismentFiltrationValuesList',JSON.stringify(this.EditForm.get('AdvertismentFiltrationValuesList').value));
+          formData.append('AdvertismentRentOptions',JSON.stringify(this.EditForm.get('AdvertismentRentOptions').value));
+          
+          for (let imageID of this.DeletedImages) {
+            formData.append('DeletedImages',imageID );
+          }
 
-    formData.append('title', this.AdForm.get('title').value);
-    formData.append('location', this.AdForm.get('location').value);
-    formData.append('adType', this.AdForm.get('adType').value);
-    formData.append('categoryID', this.AdForm.get('categoryID').value);
-    formData.append('subCategoryID', this.AdForm.get('subCategoryID').value);
-    formData.append('applicationUserId', this.AdForm.get('applicationUserId').value);  
-    formData.append('AdvertismentFiltrationValuesList',JSON.stringify(this.AdForm.get('AdvertismentFiltrationValuesList').value));
-    formData.append('AdvertismentRentOptions',JSON.stringify(this.AdForm.get('AdvertismentRentOptions').value));
+          this.advertismentService.SaveAdvertsimentEdits(formData).subscribe({
+            next: (data: any) => {
+              console.log(data);
+            },
 
-    console.log(this.AdForm.get('AdvertismentRentOptions').value)
-    this.advertismentService.postAd(formData).subscribe({
-      next: (data: any) => {
-        console.log(data);
-      },
-
-      error: (err: any) => {
-        console.log(err);
-      }
+            error: (err: any) => {
+              console.log(err);
+            }
+          })
+        }
+  }
+  else
+  {
+    Swal.fire({
+      icon: 'error',
+      title: 'Oops...',
+      text: 'Invalid Information',
     })
-    
+  }
+  }
+
+  
+  deleteImage(imageID:any,index:any)
+  {
+    this.AdDetails.advertismentImagesList.splice(index,1)
+    this.DeletedImages.push(imageID);
+  }
+
+
+  deleteRentOption(rentOptionID:any,index:any)
+  {
+    this.EditForm.controls.AdvertismentRentOptions?.controls.splice(index,1);
+    this.DeletedRentOptions.push(rentOptionID);
+    console.log(rentOptionID)
   }
 
 }

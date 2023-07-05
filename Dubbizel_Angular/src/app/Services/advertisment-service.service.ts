@@ -97,4 +97,18 @@ export class AdvertismentServiceService {
       }));
   }
 
+  GetAdvertsimentDetailsForEdit(AdID:any)
+  {
+    return this.http.get(`http://localhost:7189/api/AdUser/GetAdvertsimentDetailsForEdit?ID=${AdID}`).pipe(catchError((err: any) => {
+      return throwError(() => err.message || "server error");
+      }));
+  }
+
+  
+  SaveAdvertsimentEdits(formdata:any)
+  {
+    return this.http.put(`http://localhost:7189/api/AdUser/SaveAdvertsimentEdits`,formdata).pipe(catchError((err: any) => {
+    return throwError(() => err.message || "server error");
+    }));
+  }
 }

@@ -51,7 +51,7 @@ const routes: Routes = [
    {path:'',component:HomePageComponentComponent},
    {path:'selectCategory',component:CatBeforeAdComponent},
    {path:'postYourAd/:catID/:SubCatID',component:AdPostComponent},
-   {path:'editYourAd/:catID/:SubCatID',component:AdEditComponent},
+   {path:'editYourAd/:adID/:SubCatID',component:AdEditComponent},
   //{path:'',component:LandingComponent},
   {path:'authintication',loadChildren:()=>import("../authintication/authintication.module").then(m=>m.AuthinticationModule)},
   {path:'filteration',loadChildren:()=>import("../filteration/filteration.module").then(m=>m.FilterationModule)},

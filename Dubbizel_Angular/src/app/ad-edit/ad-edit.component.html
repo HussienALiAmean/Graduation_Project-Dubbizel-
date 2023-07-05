@@ -1,13 +1,13 @@
 <div class="container-fluid">
     <div class="row">
 
-        <h5 style="padding-top: 2%; text-align: center;">POST YOUR AD</h5>
+        <h5 style="padding-top: 2%; text-align: center;">EDIT YOUR AD</h5>
 
         <div class="col-1"></div>
 
         <div class="col-10 px-5 pt-3" style="border: 1px solid rgb(163, 155, 155);margin-top:10px;border-radius: 10px;">
 
-            <form [formGroup]="AdForm" novalidate (ngSubmit)="postData()">
+            <form [formGroup]="EditForm" novalidate (ngSubmit)="SaveData()">
 
                 <div class="form-group mb-4">
                     <label for="title" class="form-label">Ad title</label>
@@ -30,28 +30,28 @@
 
 
                 <div class="form-group mb-4">
-                    <div class="form-check">
-                        <input class="form-check-input" type="radio" name="adType" id="adType" value="For Rent/Sell"
-                            formControlName="adType" (click)="AddRentOption()">
+                    <div class="form-check" *ngIf="AdDetails.adType=='For Rent'">
+                        <input class="form-check-input" type="radio" name="adType" id="adType" value="For Rent"
+                            formControlName="adType"><!--(click)="AddRentOption()"-->
                         <label class="form-check-label" for="adType">
                             For Rent
                         </label>
                     </div>
-                    <div class="form-check">
-                        <input class="form-check-input" type="radio" name="adType" id="adType" value="Wanted Item"
-                            formControlName="adType" (click)="SellOption()">
+                    <div class="form-check" *ngIf="AdDetails.adType!='For Rent'">
+                        <input class="form-check-input" type="radio" name="adType" id="adType" value="For Sell"
+                            formControlName="adType"><!--(click)="SellOption()"-->
                         <label class="form-check-label" for="adType">
                             For Sell
                         </label>
                     </div>
                 </div>
 
-                <button class="btn btn-primary " *ngIf="flagRentBtn" (click)="AddRentOption2()">Add Rent
-                    Option</button>
-                <div  formArrayName="AdvertismentRentOptions" class=" form-group mb-4 row"
-                    *ngFor="let FiltrationValues of AdForm.controls.AdvertismentRentOptions?.controls; let i = index">
+                <input class="btn btn-primary " *ngIf="flagRentBtn||AdDetails.adType=='For Rent'"
+                    (click)="AddRentOption2()" value="Add Rent">
+                <div formArrayName="AdvertismentRentOptions" class=" form-group mb-4 row"
+                    *ngFor="let RentOptions of EditForm.controls.AdvertismentRentOptions?.controls; let i = index">
                     <ng-container [formGroupName]="i">
-                        <div *ngIf="flagRentBtn" class="col-4">
+                        <div *ngIf="AdDetails.adType=='For Rent'" class="col-3">
                             <label for="unit" class="form-label">Unit</label>
                             <select class="form-control mb-4" formControlName="unit" id="unit">
                                 <option *ngFor="let data of UnitList;" [value]="data">
@@ -59,13 +59,17 @@
                                 </option>
                             </select>
                         </div>
-                        <div *ngIf="flagRentBtn" class="col-4">
+                        <div *ngIf="AdDetails.adType=='For Rent'" class="col-3">
                             <label for="duration" class="form-label">Duration</label>
                             <input type="number" formControlName="duration" class="form-control" id="duration">
                         </div>
-                        <div class="col-4">
+                        <div class="col-3">
                             <label for="cost" class="form-label">Cost</label>
                             <input type="number" id="cost" class="form-control" formControlName="cost">
+                        </div>
+                        <div class="col-3" style="padding-top:32px;" *ngIf="AdDetails.adType=='For Rent'">
+                            <input type="button" style="width:200px;" class="btn btn-danger"
+                                (click)="deleteRentOption((RentOptions.value).id,i)" value="delete">
                         </div>
                     </ng-container>
                 </div>
@@ -73,7 +77,7 @@
 
                 <div class="form-group mb-4">
                     <div formArrayName="AdvertismentFiltrationValuesList"
-                        *ngFor="let FiltrationValues of AdForm.controls.AdvertismentFiltrationValuesList?.controls; let i = index">
+                        *ngFor="let FiltrationValues of EditForm.controls.AdvertismentFiltrationValuesList?.controls; let i = index">
                         <ng-container [formGroupName]="i">
                             <label for="filterValueID" class="form-label">{{filters[i].filterName}}</label>
                             <select class="form-control mb-4" formControlName="filterValueID" id="filterValueID">
@@ -85,7 +89,18 @@
                     </div>
 
                 </div>
-                <div class="row">
+
+                <div class="mb-4 row">
+                    <div class="col-12 col-sm-6 col-lg-2 mx-0"
+                        *ngFor='let image of AdDetails.advertismentImagesList; index as i'>
+                        <input type="button" class="btn btn-danger mb-1" (click)="deleteImage(image.id,i)"
+                            value="delete">
+                        <img src='http://localhost:7189/Files/AdvertismentIMG/{{image.name}}' class="preview">
+                    </div>
+                </div>
+
+
+                <div class="row mb-2">
                     <div class="col-8">
                         <label class="btn btn-default p-0">
                             <input formControlName="AdvertismentImagesList" type="file" accept="image/*" multiple
@@ -94,13 +109,16 @@
                     </div>
                 </div>
 
-                <div>
-                    <img *ngFor='let preview of previews' [src]="preview" class="preview">
+                <div class="mb-4 row">
+                    <div class="col-12 col-sm-6 col-lg-2 mx-0" *ngFor='let preview of previews' >
+                        <img style="margin-right:20px;" [src]="preview"
+                            class="preview">
+                    </div>
                 </div>
 
 
                 <div class="PostBtn mt-4 mb-4">
-                    <button class="btn btn-danger">Post Now</button>
+                    <input type="button" type="submit" class="btn btn-danger" value="Post Now">
                 </div>
 
             </form>
