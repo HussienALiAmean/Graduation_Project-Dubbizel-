@@ -6,11 +6,11 @@ import { Observable } from 'rxjs';
 import { AdvertismentServiceService } from '../Services/advertisment-service.service';
 
 @Component({
-  selector: 'app-ad-post',
-  templateUrl: './ad-post.component.html',
-  styleUrls: ['./ad-post.component.scss']
+  selector: 'app-ad-edit',
+  templateUrl: './ad-edit.component.html',
+  styleUrls: ['./ad-edit.component.scss']
 })
-export class AdPostComponent {
+export class AdEditComponent {
   constructor(private router: Router, private filterService: FiltrationServiceService,
     private advertismentService:AdvertismentServiceService, private fb: FormBuilder, private activateRoute: ActivatedRoute) {
   }
@@ -55,7 +55,6 @@ export class AdPostComponent {
 
   ngOnInit() {
     this.activateRoute.paramMap.subscribe((params: ParamMap) => {
-
       this.catID = params.get('catID');
               this.subCatID = params.get('SubCatID');
             
@@ -193,6 +192,5 @@ export class AdPostComponent {
     })
     
   }
-
 
 }

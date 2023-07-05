@@ -43,6 +43,7 @@ import { CategoriesBeforePackagesComponent } from './categories-before-packages/
 import { MyPackagesComponent } from './my-packages/my-packages.component';
 import { CatBeforeAdComponent } from './cat-before-ad/cat-before-ad.component';
 import { AdPostComponent } from './ad-post/ad-post.component';
+import { AdEditComponent } from './ad-edit/ad-edit.component';
 
 // import { UserprofileComponent } from 'src/profile/userprofile/userprofile.component';
 
@@ -75,7 +76,8 @@ import { AdPostComponent } from './ad-post/ad-post.component';
     CategoriesBeforePackagesComponent,
     MyPackagesComponent,
     CatBeforeAdComponent,
-    AdPostComponent
+    AdPostComponent,
+    AdEditComponent
   
   ],
   imports: [

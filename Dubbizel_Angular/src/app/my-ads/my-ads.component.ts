@@ -229,7 +229,7 @@ export class MyAdsComponent {
 
   Edit(categoryID:any,subCategoryID:any)
   {
-    this.router.navigate(['/postYourAd/',categoryID,subCategoryID,'Edit']);
+    this.router.navigate(['/editYourAd/',categoryID,subCategoryID]);
   }
 
 

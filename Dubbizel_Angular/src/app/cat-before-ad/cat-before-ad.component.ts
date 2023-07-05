@@ -45,6 +45,6 @@ export class CatBeforeAdComponent {
 
   GoToPackage(CategorySelect:any,sybCategoryID:any)
   {
-      this.router.navigate(['/postYourAd/',CategorySelect,sybCategoryID,'Add']);
+      this.router.navigate(['/postYourAd/',CategorySelect,sybCategoryID]);
   }
 }
