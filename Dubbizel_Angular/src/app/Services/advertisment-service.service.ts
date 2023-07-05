@@ -75,4 +75,26 @@ export class AdvertismentServiceService {
     }));
   }
 
+  postAd(formdata:any)
+  {
+    return this.http.post(`http://localhost:7189/api/AdUser/PostAdvertsiment`,formdata).pipe(catchError((err: any) => {
+    return throwError(() => err.message || "server error");
+    }));
+  }
+
+  GetAdChatUsers(AdID:any)
+  {
+    return this.http.get(`http://localhost:7189/api/AdUser/GetAdChatUsers?id=${AdID}`).pipe(catchError((err: any) => {
+      return throwError(() => err.message || "server error");
+      }));
+  }
+
+
+  RentMyAd(AdID:any,BuyerUserId:any)
+  {
+    return this.http.get(`http://localhost:7189/api/AdUser/RentMyAd?id=${AdID}&ApplicationUserId=${BuyerUserId}`).pipe(catchError((err: any) => {
+      return throwError(() => err.message || "server error");
+      }));
+  }
+
 }

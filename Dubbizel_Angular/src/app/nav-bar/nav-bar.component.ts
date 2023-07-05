@@ -113,10 +113,17 @@ export class NavBarComponent implements OnInit {
       this.enrollService.PostEmail(this.LoginForm.value).subscribe({
         next: (data:any) => {
           console.log(data.statusCode);
+          console.log(data.message);
           if(data.statusCode==200)
           this.openPasswordModal() // Login pass
-          else 
+          else if(data.statusCode==204)
           this.openConfirmPasswordModal();
+          else // 203 deleted user
+          Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: "Email already exist but Deleted and can't be used",
+          })
         },
         error: err => {
           console.log(err);
@@ -221,7 +228,7 @@ export class NavBarComponent implements OnInit {
     localStorage.removeItem("jwt");
     localStorage.removeItem("ApplicationUserId");
     localStorage.removeItem("UserName");
-    //this.router.navigate(['']);
+   // this.router.navigate(['']);
     window.location.href='';
 
   }

@@ -48,6 +48,40 @@ namespace Dubbizle.API.Controllers
             return Ok(resultDTO);
         }
 
-       
+
+
+
+        // Hussien
+        [HttpGet("GetAllFiltersWithAndValuesID")]
+        public async Task<IActionResult> GetAllFiltersWithAndValuesID(int subCategoryID)
+        {
+            ResultDTO resultDTO = new ResultDTO();
+
+            List<SubCategory_Filter> SubCategory_Filters =
+                (List<SubCategory_Filter>)_subCategory_FilterService.GetAllBySubCategoryID("Filter", "FiltrationValuesList", subCategoryID);
+
+            List<SubCategory_FilterWithIDsDTO> subCategory_FilterWithIDsDTOs = new List<SubCategory_FilterWithIDsDTO>();
+            SubCategory_FilterWithIDsDTO subCategory_FilterWithIDsDTO;
+
+            foreach (SubCategory_Filter SubCatFilter in SubCategory_Filters)
+            {
+                subCategory_FilterWithIDsDTO = new SubCategory_FilterWithIDsDTO();
+                subCategory_FilterWithIDsDTO.FilterName = SubCatFilter.Filter.Name; ;
+                subCategory_FilterWithIDsDTO.FiltrationValuesList = new List<filterValuesDTO>();
+                filterValuesDTO filterValuesDTO;
+                foreach (FiltrationValue filtrationValue in SubCatFilter.FiltrationValuesList)
+                {
+                    filterValuesDTO = new filterValuesDTO(); 
+                    filterValuesDTO.ID  = filtrationValue.ID;
+                    filterValuesDTO.Value= filtrationValue.Value;
+                    subCategory_FilterWithIDsDTO.FiltrationValuesList.Add(filterValuesDTO);
+                }
+                subCategory_FilterWithIDsDTOs.Add(subCategory_FilterWithIDsDTO);
+            }
+            resultDTO.StatusCode = 200;
+            resultDTO.Data = subCategory_FilterWithIDsDTOs;
+            return Ok(resultDTO);
+        }
+
     }
 }

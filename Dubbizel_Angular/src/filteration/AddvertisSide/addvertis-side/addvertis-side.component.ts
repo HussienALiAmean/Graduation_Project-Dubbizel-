@@ -1,28 +1,24 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute, ParamMap, Router } from '@angular/router';
-import { IFavourite } from 'src/app/Interface/IFavorite';
-import { IAdvertisment } from 'src/app/Interfaces/IAdvertisment';
+import {  IAdvertisment } from 'src/app/Interfaces/IAdvertisment';
 import { AdvertismentServiceService } from 'src/app/Services/advertisment-service.service';
+import { FilterValueKey } from './../../../app/Interfaces/IAdvertisment';
+import { IFavourite } from 'src/app/Interface/IFavorite';
 import { FavoriteService } from 'src/app/Services/favorite.service';
+
 @Component({
   selector: 'app-addvertis-side',
   templateUrl: './addvertis-side.component.html',
   styleUrls: ['./addvertis-side.component.scss']
 })
+
 export class AddvertisSideComponent {
- items:any[]=[{id:1,name:"Fiat",description:"goood 4 douresgoood 4 douresgoood 4 douresgoood 4 doures",price:1500,rate:5,imagesrc:"../../../assets/0.jpg" ,havechat:true}
- ,{id:1,name:"Marcedes",description:"goood 4 douresgoood 4 douresgoood 4 doures",price:300058,rate:2,imagesrc:"../../../assets/images.jpg"}
- ,{id:1,likedbyme:true,name:"Cmonda",description:"laovasdafas  dsaff fsfsadadous  dsafsafsafsff fsfsadadou",price:4863321,rate:6,imagesrc:"../../../assets/images(3).jpg",havechat:true}
- ,{id:1,name:"Change",description:"goood kondato makoatin as 4 doures",price:120000,rate:9,imagesrc:"../../../assets/images.jpg"}
- ,{id:1,likedbyme:true,name:"Donato",description:"goood 4 2e2ewadzc wesadd3re32rd 2edw",price:700054,rate:9,imagesrc:"../../../assets/0.jpg",havechat:true}
- ,{id:1,name:"Cmonda",description: "laovasdafas  dsafsafsafsff lore fsfsadadoures",price:4863321,rate:6,imagesrc:"../../../assets/images(3).jpg",havechat:true}
- ,{id:1,name:"Marcedes",description:"goood 4 douresgoood 4 douresgoood doures",price:300058,rate:2,imagesrc:"../../../assets/images.jpg",havechat:true}
- ,{id:1,likedbyme:true, name:"Change",description:"goood kondato  makoatin 4 makoatin as 4 makoatin as 4 doures",price:120000,rate:9,imagesrc:"../../../assets/images.jpg"}
-];
+
+  
 Advertisments:IAdvertisment[]=[];
 Loaded_dedaddvertisment:IAdvertisment[]=[];
-filterationKeyArray:String[]=[];
-cat_locationFilterationArry :String[]=[];
+filterationKeyArray:FilterValueKey[]=[];
+cat_locationFilterationArry :any[]=[];
 userId:any=localStorage.getItem('ApplicationUserId');
 Favorite:IFavourite=new IFavourite("",0);
 errorMessage:string=""
@@ -30,7 +26,6 @@ appUserId:any;
 
 constructor(private activatRoute:ActivatedRoute,private advertismentService:AdvertismentServiceService,private router:Router,private favoriteService:FavoriteService)
 {
-  
   activatRoute.paramMap.subscribe((params:ParamMap)=>{
     console.log(params.get('id'))
     if(params.get('type')=='category')
@@ -77,59 +72,39 @@ constructor(private activatRoute:ActivatedRoute,private advertismentService:Adve
       }); 
       console.log(false)
     }
+
+
   })
 }
 
-async AddToFavorite(ads:any){
-  var heart=document.getElementById("heart"+ads.id+this.userId);
-  console.log(heart?.style.color);
-  if(heart?.style.color=="rgb(255, 255, 255)"){
-  //console.log("hi")
-  this.Favorite.advertismentID=ads.id;
-  this.Favorite.applicationUserId=this.userId;
-  await this.favoriteService.AddFavorite(this.Favorite).subscribe({
-  next:data=>console.log(data),
-  error:error=>this.errorMessage=error
-})
-heart.style.color="rgb(224, 0, 0)";
+filtertonarrayHave(filterValue:FilterValueKey):boolean
+{  var Match=false;
+   this.filterationKeyArray.forEach(item =>{
+    if(item.id==filterValue.id && item.filtervalue==filterValue.filtervalue)
+    {
+      Match=true;
+    }
+  });
+ 
+  return Match;
 }
-else{
-console.log("hi")
- this.favoriteService.DeleteFavorite(ads.id,this.userId).subscribe({
-  next:data=>console.log(data),
-  error:error=>this.errorMessage=error
- })
- heart!.style.color="rgb(255, 255, 255)";
-}
-}
+ 
 
-AdvertismentDetails(a:any){
-  this.router.navigate(["/Details",a.id]);
-} 
-
-BeginChat(advertismentDetail:any)
-{
-  console.log(advertismentDetail.id,advertismentDetail.applicationUserId)
-  this.appUserId = localStorage.getItem("ApplicationUserId");
-  console.log(this.appUserId)
-  this.router.navigate(["/chat",advertismentDetail.id,advertismentDetail.applicationUserId])
-}
-
-handleDataChange(newdata:String)
-{  console.log(newdata);
-  if (this.filterationKeyArray.includes(newdata))
+handleDataChange(filterValue:FilterValueKey)
+{  
+  console.log(filterValue );
+  if (this.filtertonarrayHave(filterValue)  )
   {
-    console.log(this.filterationKeyArray=this.filterationKeyArray.filter(e=>e!=newdata));
+    console.log(this.filterationKeyArray=this.filterationKeyArray.filter(e=>e.filtervalue!=filterValue.filtervalue));
   }
   else
   {
-    this.filterationKeyArray.push(newdata)
+    this.filterationKeyArray.push(filterValue);
     console.log(this.filterationKeyArray);
+    console.log("fromPUsh");
   }
   this.Advertisments=[];
-  this.Advertisments=this.filterByCat_locatiomFilterationArray
-  (this.makefilterationByCheckbox(this.filterationKeyArray,
-    this.Loaded_dedaddvertisment),this.cat_locationFilterationArry);
+  this.Advertisments=this.filterByCat_locatiomFilterationArray(this.makefilterationByCheckbox(this.filterationKeyArray,this.Loaded_dedaddvertisment),this.cat_locationFilterationArry);
 }
 handelChanOfCategory(newdata:String)
 {
@@ -182,27 +157,82 @@ filterByCat_locatiomFilterationArray(advertisment:IAdvertisment[],cat_LocFilterA
   }
   return advertisment;
 }
-makefilterationByCheckbox( filterationKeyArray: String[],advertismentArray: IAdvertisment[]): IAdvertisment[]
+makefilterationByCheckbox( filterationKeyArray: FilterValueKey[],advertismentArray: IAdvertisment[]): IAdvertisment[]
 {
   if(filterationKeyArray.length>0)
   {
-    return  advertismentArray.filter(item => {
-      return item.advertisment_FiltrationValuesList.some(filterValue => {
-        console.log(filterationKeyArray.includes(filterValue));
-        return filterationKeyArray.includes(filterValue);
-    });
-   });
+     
+    const countofUniqFilteration = new Set(filterationKeyArray.map(obj => obj.id)).size;
+    console.log(countofUniqFilteration)
+     
+     let tempadvertismentArray:IAdvertisment[]=[];
+     advertismentArray.forEach(item => 
+      {
+        var countOfMatching=0;
+        filterationKeyArray.forEach(e=>
+        {             
+         console.log(filterationKeyArray);
+         console.log(item.advertisment_FiltrationValuesList);
+
+         console.log(item.advertisment_FiltrationValuesList.find( x=>x.id==e.id && x.filtervalue==e.filtervalue))
+         if(item.advertisment_FiltrationValuesList.find( x=>x.id==e.id && x.filtervalue==e.filtervalue))
+         { countOfMatching++; }
+        });
+          console.log('countOfMatching :', countOfMatching);
+          console.log('countofUniqFilteration :', countofUniqFilteration)
+          
+        if (countOfMatching>=countofUniqFilteration && countOfMatching<=filterationKeyArray.length )
+          { console.log( "Filter");
+            tempadvertismentArray.push(item);
+          }
+      });
+     return   tempadvertismentArray;
   }
-  else 
+  else
   {
     return advertismentArray;
-  } 
+  }
+
+
+
+}
+async AddToFavorite(ads:any){
+  var heart=document.getElementById("heart"+ads.id+this.userId);
+  console.log(heart?.style.color);
+  if(heart?.style.color=="rgb(255, 255, 255)"){
+  //console.log("hi")
+  this.Favorite.advertismentID=ads.id;
+  this.Favorite.applicationUserId=this.userId;
+  await this.favoriteService.AddFavorite(this.Favorite).subscribe({
+  next:data=>console.log(data),
+  error:error=>this.errorMessage=error
+})
+heart.style.color="rgb(224, 0, 0)";
+}
+else{
+console.log("hi")
+ this.favoriteService.DeleteFavorite(ads.id,this.userId).subscribe({
+  next:data=>console.log(data),
+  error:error=>this.errorMessage=error
+ })
+ heart!.style.color="rgb(255, 255, 255)";
+}
+}
+
+AdvertismentDetails(a:any){
+  this.router.navigate(["/Details",a.id]);
+} 
+
+BeginChat(advertismentDetail:any)
+{
+  console.log(advertismentDetail.id,advertismentDetail.applicationUserId)
+  this.appUserId = localStorage.getItem("ApplicationUserId");
+  console.log(this.appUserId)
+  this.router.navigate(["/chat",advertismentDetail.id,advertismentDetail.applicationUserId])
 }
 
 
-
-
-// makefilterationByCheckbox(filterationKeyArray:String[] ,advertismentArray:IAdvertisment[] ):IAdvertisment[]
+//#region dddddddd
 // {
 
 //   if(this.filterationKeyArray.length > 0)
@@ -239,5 +269,5 @@ makefilterationByCheckbox( filterationKeyArray: String[],advertismentArray: IAdv
 //     return advertismentArray;
 //   }
 // }
-
+//#endregion
 }

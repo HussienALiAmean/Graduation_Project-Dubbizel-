@@ -93,7 +93,7 @@
                                     <i class="fa-sharp fa-light fa-ellipsis"></i>
                                 </button>
                                 <ul class="dropdown-menu" aria-labelledby="btnGroupDrop1">
-                                    <li><a class="dropdown-item" style="cursor: pointer;">Edit now</a></li>
+                                    <li *ngIf="ad.adStatus!='Not Active'"><a (click)="Edit(ad.categoryID,ad.subCategoryID)" class="dropdown-item" style="cursor: pointer;">Edit now</a></li>
                                     <li *ngIf="ad.adStatus=='Active'"><a (click)="DeActive(ad.id)" class="dropdown-item"
                                             style="cursor: pointer;">Deactivate</a></li>
                                     <li *ngIf="ad.adStatus=='Moderated'"><a (click)="Active(ad.id)"
@@ -163,24 +163,17 @@
                     <div class="col-12">
                         <p>Who bought your Ad?</p>
                         <div class="col-12 ps-4">
-                            <div class="form-check">
+                            <div class="form-check" *ngFor="let user of ChatingUsers">
                                 <input class="form-check-input" type="radio" name="flexRadioDefault"
-                                    id="flexRadioDefault1" (click)="MarkAsSold(soldBtn)">
+                                    id="flexRadioDefault1" (click)="MarkAsSold(soldBtn,user.id)" >
                                 <label class="form-check-label" for="flexRadioDefault1">
-                                    Default radio
-                                </label>
-                            </div>
-                            <div class="form-check">
-                                <input class="form-check-input" type="radio" name="flexRadioDefault"
-                                    id="flexRadioDefault2">
-                                <label class="form-check-label" for="flexRadioDefault2">
-                                    Default checked radio
+                                    {{user.userName }}
                                 </label>
                             </div>
                         </div>
 
                         <div class="col-12 mt-5">
-                            <button #soldBtn class="btn btn-primary" [disabled]="true">Mark as sold</button>
+                            <button (click)="Sold(AdInModal.id)" #soldBtn class="btn btn-primary" [disabled]="true">Mark as sold</button>
                         </div>
                     </div>
                 </div>

@@ -41,6 +41,9 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { MyAdsComponent } from './my-ads/my-ads.component';
 import { CategoriesBeforePackagesComponent } from './categories-before-packages/categories-before-packages.component';
 import { MyPackagesComponent } from './my-packages/my-packages.component';
+import { CatBeforeAdComponent } from './cat-before-ad/cat-before-ad.component';
+import { AdPostComponent } from './ad-post/ad-post.component';
+import { AdEditComponent } from './ad-edit/ad-edit.component';
 
 // import { UserprofileComponent } from 'src/profile/userprofile/userprofile.component';
 
@@ -71,7 +74,10 @@ import { MyPackagesComponent } from './my-packages/my-packages.component';
     HomePageComponentComponent,
     PackagesComponent,
     CategoriesBeforePackagesComponent,
-    MyPackagesComponent
+    MyPackagesComponent,
+    CatBeforeAdComponent,
+    AdPostComponent,
+    AdEditComponent
   
   ],
   imports: [

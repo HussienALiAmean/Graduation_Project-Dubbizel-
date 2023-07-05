@@ -43,6 +43,37 @@ namespace Dubbizle.API.Controllers
         }
 
 
+        [HttpPost("PostAdvertsiment")]
+        public ResultDTO PostAdvertsiment([FromForm]PostAdvertismentDTO postAdvertismentDTO)
+        {
+            ResultDTO resultDTO = new ResultDTO();
+            resultDTO.Data= _AdUserService.PostAdvertsiment(postAdvertismentDTO);
+            resultDTO.StatusCode = 200;
+            return resultDTO;
+        }
+
+
+        [HttpGet("GetAdChatUsers")]
+        public ResultDTO GetAdChatUsers(int id)
+        {
+            ResultDTO resultDTO = new ResultDTO();
+           resultDTO.Data= _AdUserService.GetAdChatUsers(id);
+            resultDTO.StatusCode = 200;
+            return resultDTO;
+        }
+
+
+        [HttpGet("RentMyAd")]
+        public ResultDTO RentMyAd(int id, string ApplicationUserId)
+        {
+            ResultDTO resultDTO = new ResultDTO();
+            Advertisment advertisment = _AdUserService.GetAdvertismentByID(id);
+            advertisment.AdStatus = "Not Active";
+            _AdUserService.EditAdvertismentState(advertisment);
+            _AdUserService.RentMyAd(id,ApplicationUserId);
+            resultDTO.StatusCode = 200;
+            return resultDTO;
+        }
 
 
     }
