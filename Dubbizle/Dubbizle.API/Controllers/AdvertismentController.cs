@@ -28,7 +28,7 @@ namespace Dubbizle.API.Controllers
         FavoriteService favoriteService;
         CategoryServise categoryServise;
         IRepository<Review> reviewrepository;
-        public AdvertismentController(IRepository<Review> _reviewrepository,CategoryServise _categoryServise, FavoriteService _favoriteService, IRepository<Advertisment> _repositoryAds, IRepository<FiltrationValue> _repository, FilterValueService _FilterValueService, FilterService _filterService, SubCategory_FilterService _subCategory_FilterService, AdvertismentFilterValueService _AdvertismentFilterValueService, UserManager<ApplicationUser> _userManager, AdvertismentFilterValueService _advertismentFilterValueService, AdvertismentService _advertismentService, AdvertismentImageService _advertismentImageService)
+        public AdvertismentController(IRepository<Review> _reviewrepository, CategoryServise _categoryServise, FavoriteService _favoriteService, IRepository<Advertisment> _repositoryAds, IRepository<FiltrationValue> _repository, FilterValueService _FilterValueService, FilterService _filterService, SubCategory_FilterService _subCategory_FilterService, AdvertismentFilterValueService _AdvertismentFilterValueService, UserManager<ApplicationUser> _userManager, AdvertismentFilterValueService _advertismentFilterValueService, AdvertismentService _advertismentService, AdvertismentImageService _advertismentImageService)
         {
             advertismentService = _advertismentService;
             userManager = _userManager;
@@ -54,10 +54,13 @@ namespace Dubbizle.API.Controllers
 
         // Alzhraa & Hussien
         [HttpGet("subCategoryID")]
-        public async Task<IActionResult> GetAllBySubCategoryID(int subCategoryID)
+        public async Task<IActionResult> GetAllBySubCategoryID(int subCategoryID, string UserId)
         {
             ResultDTO resultDTO = new ResultDTO();
             List<Advertisment> advertisments = (List<Advertisment>)advertismentService.GetAllBySubCategoryID("Advertisment_FiltrationValuesList.filtrationValue", "AdvertismentImagesList", subCategoryID);
+            bool IsSaved = false;
+            List<Favorite> favorites = (List<Favorite>)favoriteService.GetAllByUserId(UserId);
+
             List<AdvertismentDTO> advertismentDTOs = new List<AdvertismentDTO>();
             AdvertismentDTO advertismentDTO;
 
@@ -88,6 +91,16 @@ namespace Dubbizle.API.Controllers
                 {
                     advertismentDTO.AdvertismentImagesList.Add(item.ImageName);
                 }
+                IsSaved = false;
+                foreach (Favorite favorite in favorites)
+                {
+                    if (favorite.AdvertismentID == ad.ID)
+                    {
+                        IsSaved = true;
+                    }
+                }
+                advertismentDTO.IsSaved = IsSaved;
+                advertismentDTO.ApplicationUserId = ad.ApplicationUserId;
                 advertismentDTOs.Add(advertismentDTO);
             }
 
@@ -100,10 +113,13 @@ namespace Dubbizle.API.Controllers
 
         //Alzhraa & Hussien
         [HttpGet("CategoryID")]
-        public async Task<IActionResult> GetAllByCategoryID(int CategoryID)
+        public async Task<IActionResult> GetAllByCategoryID(int CategoryID, string UserId)
         {
             ResultDTO resultDTO = new ResultDTO();
             List<Advertisment> advertisments = (List<Advertisment>)advertismentService.GetAllByCategoryID("Advertisment_FiltrationValuesList.filtrationValue", "AdvertismentImagesList", CategoryID);
+            bool IsSaved = false;
+            List<Favorite> favorites = (List<Favorite>)favoriteService.GetAllByUserId(UserId);
+
             List<AdvertismentDTO> advertismentDTOs = new List<AdvertismentDTO>();
             AdvertismentDTO advertismentDTO;
 
@@ -134,6 +150,16 @@ namespace Dubbizle.API.Controllers
                 {
                     advertismentDTO.AdvertismentImagesList.Add(item.ImageName);
                 }
+                IsSaved = false;
+                foreach (Favorite favorite in favorites)
+                {
+                    if (favorite.AdvertismentID == ad.ID)
+                    {
+                        IsSaved = true;
+                    }
+                }
+                advertismentDTO.IsSaved = IsSaved;
+                advertismentDTO.ApplicationUserId = ad.ApplicationUserId;
                 advertismentDTOs.Add(advertismentDTO);
             }
 
@@ -161,7 +187,7 @@ namespace Dubbizle.API.Controllers
                 }
             }
             AdvertismentDetailsDTO advertismentDetailsDTO = new AdvertismentDetailsDTO();
-            advertismentDetailsDTO.Id=AdID;
+            advertismentDetailsDTO.Id = AdID;
             advertismentDetailsDTO.AdStatus = advertisment.AdStatus;
             advertismentDetailsDTO.Title = advertisment.Title;
             advertismentDetailsDTO.AdType = advertisment.AdType;
@@ -177,7 +203,7 @@ namespace Dubbizle.API.Controllers
 
 
 
-            
+
 
             foreach (Advertisment_FiltrationValue filter in advertisment.Advertisment_FiltrationValuesList)
             {
@@ -203,13 +229,13 @@ namespace Dubbizle.API.Controllers
                 advertismentDetailsDTO.Advertisment_RentOptionList.Add(advertismentRentDTO);
 
             }
-            //Review review = reviewrepository.GetAll().FirstOrDefault(d => d.Deleted == false);
+            
 
             foreach (Review review in advertisment.ReviewsList)
             {
                 ReviewDto reviewDTO = new ReviewDto();
                 ApplicationUser applicationUser = await userManager.FindByIdAsync(review.AutherId);
-                //Review rv = r.FirstOrDefault(r=>r.ID==review.ID);
+                
                 reviewDTO.text = review.Text;
 
                 reviewDTO.Rate = review.Rate;
@@ -218,29 +244,30 @@ namespace Dubbizle.API.Controllers
                 reviewDTO.AdvertismentID = review.AdvertismentID;
                 reviewDTO.ID = review.ID;
 
-                reviewDTO.Rate= review.Rate;
+                reviewDTO.Rate = review.Rate;
                 reviewDTO.userName = applicationUser.UserName;
                 reviewDTO.AutherId = review.AutherId;
-                reviewDTO.AdvertismentID= review.AdvertismentID;
-                reviewDTO.ID= review.ID;
+                reviewDTO.AdvertismentID = review.AdvertismentID;
+                reviewDTO.ID = review.ID;
 
 
                 advertismentDetailsDTO.ReviewsList.Add(reviewDTO);
             }
-            
+
             return Ok(advertismentDetailsDTO);
         }
 
         //hager
-        [HttpGet("Advertisment's User/{UserId}")]
-        public async Task<IActionResult> GetAdvertisments_User(string UserId)
+        [HttpGet("Advertisment's User/{UserId}/{currentUserId}")]
+        public async Task<IActionResult> GetAdvertisments_User(string UserId,string currentUserId)
         {
-            //List<Advertisment> advertisments = (List<Advertisment>)advertismentService.Get(a => a.ApplicationUserId == UserId);
+            bool IsSaved = false;
             List<Advertisment> advertisments = (List<Advertisment>)advertismentService.GetAdvertismentUsers(UserId, "AdvertismentImagesList", "Advertisment_RentOptionList");
             ApplicationUser applicationUser = await userManager.FindByIdAsync(UserId);
             Advertisments_s_User ad = new Advertisments_s_User();
             ad.UserName = applicationUser.UserName;
             ad.UserEmail = applicationUser.Email;
+            List<Favorite> favorites = (List<Favorite>)favoriteService.GetAllByUserId(currentUserId);
             foreach (Advertisment advertisment in advertisments)
             {
                 AdvertismetsUsersDTO ad1 = new AdvertismetsUsersDTO();
@@ -254,7 +281,15 @@ namespace Dubbizle.API.Controllers
                 ad1.Title = advertisment.Title;
                 ad.CountAds++;
                 ad.advertismetsUsersDTOs.Add(ad1);
-
+                IsSaved = false;
+                foreach (Favorite favorite in favorites)
+                {
+                    if (favorite.AdvertismentID == advertisment.ID)
+                    {
+                        IsSaved = true;
+                    }
+                }
+                ad1.isSaved = IsSaved;
                 foreach (AdvertismentImage advertismentImage in advertisment.AdvertismentImagesList)
                 {
                     AdvertismentImageDTO advertismentImageDTO = new AdvertismentImageDTO();
@@ -267,6 +302,7 @@ namespace Dubbizle.API.Controllers
                     advertismentRentDTO.Cost = advertismentRent.Cost;
                     ad1.Advertisment_RentOptionList.Add(advertismentRentDTO);
                 }
+                IsSaved = false;
             }
             return Ok(ad);
         }
@@ -278,7 +314,7 @@ namespace Dubbizle.API.Controllers
             List<Category> categories = (List<Category>)categoryServise.GetAll("CategoryAdvertismentsList");
             //List<Advertisment> advertisments =(List<Advertisment>) advertismentService.GetAllAdvertisments("AdvertismentImagesList", "Advertisment_RentOptionList");
             List<CategoryWithAdvertismentDTO> categoryWithAdvertisment = new List<CategoryWithAdvertismentDTO>();
-            List<Favorite> favorites = (List<Favorite>)favoriteService.GetAll();
+            List<Favorite> favorites = (List<Favorite>)favoriteService.GetAllByUserId(userId);
             foreach (Category category in categories)
             {
                 CategoryWithAdvertismentDTO category1 = new CategoryWithAdvertismentDTO();
@@ -288,7 +324,7 @@ namespace Dubbizle.API.Controllers
                 {
                     foreach (Favorite favorite in favorites)
                     {
-                        if (advertisment.ID == favorite.AdvertismentID && userId == favorite.ApplicationUserId)
+                        if (advertisment.ID == favorite.AdvertismentID)
                         {
                             isSaved1 = true;
                         }
@@ -330,23 +366,23 @@ namespace Dubbizle.API.Controllers
             List<Advertisment> advertisments = (List<Advertisment>)advertismentService.GetMyAdvertisments(ApplicationUserID);
             List<AdvertismentDTO> advertismentDTOs = new List<AdvertismentDTO>();
             AdvertismentDTO advertismentDTO;
-            foreach(Advertisment ad in advertisments)
+            foreach (Advertisment ad in advertisments)
             {
-                advertismentDTO= new AdvertismentDTO();
-                advertismentDTO.ID= ad.ID;
-                advertismentDTO.Title= ad.Title;
-                advertismentDTO.AdStatus= ad.AdStatus;
-                advertismentDTO.Date= ad.Date;
-                advertismentDTO.ExpirationDate= ad.ExpirationDate;
-                advertismentDTO.CategoryID= ad.CategoryID;
-                advertismentDTO.SubCategoryID= ad.SubCategoryID;
+                advertismentDTO = new AdvertismentDTO();
+                advertismentDTO.ID = ad.ID;
+                advertismentDTO.Title = ad.Title;
+                advertismentDTO.AdStatus = ad.AdStatus;
+                advertismentDTO.Date = ad.Date;
+                advertismentDTO.ExpirationDate = ad.ExpirationDate;
+                advertismentDTO.CategoryID = ad.CategoryID;
+                advertismentDTO.SubCategoryID = ad.SubCategoryID;
                 advertismentDTO.AdvertismentImagesList = new List<string>();
                 advertismentDTO.AdvertismentImagesList.Add(ad.AdvertismentImagesList[0].ImageName);
                 advertismentDTOs.Add(advertismentDTO);
             }
             ResultDTO resultDTO = new ResultDTO();
-            resultDTO.Data=advertismentDTOs;
-            resultDTO.StatusCode= 200;
+            resultDTO.Data = advertismentDTOs;
+            resultDTO.StatusCode = 200;
             return resultDTO;
         }
 

@@ -17,22 +17,6 @@
                 <h6 class="card-title" style="font-size: 20px;color: #e00000;">{{f.title}}</h6>
               </div>
               <button  type="button" (click)="AddToFavorite(f,i)"  class="btnHeart btn-floating col-2 " >
-                 <!-- <i class="fa-solid fa-heart heart" style="font-size: 18px; margin-top: 5px; color: #ffffff;" id="{{'heart'+a.id}}"></i>  -->
-                 
-                 <!-- <i  class='far fa-heart far1' style='font-size:24px' id="{{'heart'+a.id}}"></i> 
-                 <ng-template>
-                  <i  class="fas fa-heart fas1"  id="{{'heart'+a.id}}"></i>
-                </ng-template> -->
-              <!--  <i class="fa-sharp fa-solid fa-heart nb"id="{{'heart'+a.id}}"></i> -->
-               <!-- <ng-container *ngIf="(isSaved==true); then far else fas"></ng-container>
-              <ng-template #fas>
-                <i  class="fas fa-heart"  id="{{'heart'+a.id}}"></i>
-              </ng-template>
-              <ng-template #far>
-                <i  class="far fa-heart"  id="{{'heart'+a.id}}"></i>
-              </ng-template> -->
-  
-  
               <ng-container *ngIf="(f.isSaved==true); then red else white"></ng-container>
                   <ng-template #red>
                     <i class="fa-solid fa-heart heart" style="font-size: 18px; margin-top: 5px; color:#e00000;" id="{{'heart'+f.id+userId}}"></i>                 </ng-template>
@@ -41,6 +25,7 @@
                   </ng-template>
               </button>
             </div>
+            
             <br>
             <span *ngFor="let r of f.advertisment_RentOptionList; index as i">
             <p class="card-text" *ngIf="i<1"> <b style="font-size:16px ;">EGP {{r.cost}}</b></p>

@@ -47,7 +47,6 @@ else{
     next:data=>console.log(data),
     error:error=>this.errorMessage=error
    })
-   this.favorites.splice(i,1);
    heart!.style.color="rgb(255, 255, 255)";
    this.favorites.splice(i,1);
 }

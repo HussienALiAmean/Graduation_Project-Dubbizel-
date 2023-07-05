@@ -30,8 +30,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="wwwroot\Files\AdvertismentIMG\" />
-    <Folder Include="wwwroot\Files\ChatImages\" />
+    <Folder Include="wwwroot\" />
   </ItemGroup>
 
 </Project>

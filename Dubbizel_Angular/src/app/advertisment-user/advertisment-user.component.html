@@ -5,20 +5,24 @@
   <br>
   <h6>Published ads ({{advertismentUser.countAds}})</h6>
   <br>
-  <div class="row">
-    <span *ngFor="let a of advertismentUser.advertismetsUsersDTOs" class=" col col-md-3 col-xs-6 col-sm-6">
-    <div class="card cardStyle" style="width: 90%; height:100%;  padding: 0px;"  (click)="AdvertismentUserDetails(a)">
+  <div class="row ads-user">
+    <span *ngFor="let a of advertismentUser.advertismetsUsersDTOs" class=" col col-md-4 col-xs-12 col-sm-6">
+    <div class="card cardStyle" style="width: 90%; height:100%;  padding: 0px;" >
       <span >
-      <span *ngFor="let im of a.imageDTOs; index as i">
-      <img src='http://localhost:7189/Files/AdvertismentIMG/{{im.imageName}}' style="border-radius:10px 10px 0px 0px;" class="card-img-top" alt="..." *ngIf="i<1" width="25rem" height="200px"> </span>
-    
+      <span *ngFor="let im of a.imageDTOs; index as i" (click)="AdvertismentUserDetails(a)">
+      <img src='http://localhost:7189/Files/AdvertismentIMG/{{im.imageName}}' style="border-radius:10px 10px 0px 0px;" class="card-img-top" alt="..." *ngIf="i<1" width="25rem" height="200px">
+     </span>
       <div class="card-body" >
         <div class="row">
           <div class="col col-md-10">
             <h6 class="card-title" style="font-size: 20px;color: #e00000;">{{a.title}}</h6>
           </div>
           <div class="col col-md-2">
-            <i class="fa-regular fa-heart" style="font-size: 18px; margin-top: 10px;"></i>
+            <button (click)="AddToFavorite(a)"  class="btnHeart btn-floating col-2 " >
+              <i *ngIf="a.isSaved==true" class="fa-solid fa-heart heart" style="font-size: 18px; margin-top: 5px; color:#e00000;" id="{{'heart'+a.id+appUserId}}"></i>              
+              <i *ngIf="a.isSaved==false" class="fa-solid fa-heart heart" style="font-size: 18px; margin-top: 5px; color: #ffffff;" id="{{'heart'+a.id+appUserId}}"></i>  
+        </button>
+
           </div>
         </div>
         <br>

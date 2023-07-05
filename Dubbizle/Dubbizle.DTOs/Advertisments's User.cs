@@ -22,6 +22,7 @@ namespace Dubbizle.DTOs
         public string Location { get; set; }
         public string AdType { get; set; }
         public string AdStatus { get; set; }
+        public bool isSaved { get; set; }
         public DateTime Date { get; set; }
         public DateTime ExpirationDate { get; set; }
         public DateTime ExpireDateOfPremium { get; set; }

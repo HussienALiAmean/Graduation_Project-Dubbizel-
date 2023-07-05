@@ -41,8 +41,8 @@ export class AdvertismentServiceService {
   }));
   }
 
-  getAdvertismentUser(userId:any):Observable<IadvertismetUser>{
-    return this.http.get<IadvertismetUser>(`http://localhost:7189/api/Advertisment/Advertisment's User/${userId}`).pipe(catchError((err: any) => {
+  getAdvertismentUser(userId:any,currentUserId:any):Observable<IadvertismetUser>{
+    return this.http.get<IadvertismetUser>(`http://localhost:7189/api/Advertisment/Advertisment's User/${userId}/${currentUserId}`).pipe(catchError((err: any) => {
       return throwError(() => err.message || "server error");
       }));
   }

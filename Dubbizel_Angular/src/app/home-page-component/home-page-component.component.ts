@@ -44,7 +44,6 @@ AdvertismentsBySubCategory(s:any){
     var heart=document.getElementById("heart"+ads.id+this.userId);
     console.log(heart?.style.color);
     if(heart?.style.color=="rgb(255, 255, 255)"){
-    //console.log("hi")
     this.Favorite.advertismentID=ads.id;
     this.Favorite.applicationUserId=this.userId;
     await this.favoriteService.AddFavorite(this.Favorite).subscribe({

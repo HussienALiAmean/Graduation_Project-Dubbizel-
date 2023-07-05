@@ -11,6 +11,8 @@ export interface IAdvertisment
     expirationDate:string,
     expireDateOfPremium:string,
     isPremium:boolean,
+    isSaved: boolean,
+    applicationUserId:string,
     advertisment_FiltrationValuesList:string[]
     advertismentImagesList:string[]
 }

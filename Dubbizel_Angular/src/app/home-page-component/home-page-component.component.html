@@ -38,12 +38,12 @@
       <h2 style="text-align: left;">Popular Categories</h2>
       <br>
       <br>
-      <div class="row" >
-        <div class="col col-md-3 col-xs-6 col-sm-6" *ngFor="let c of categories">
+      <div class="row category-card" >
+        <div class="col col-md-3 col-xs-12 col-sm-6" *ngFor="let c of categories">
           <div class="row">
-            <div class="col col-md-1 col-xs-1 col-sm-1"><i class="fa-solid fa-car" style="color: #e00000;margin-top: 4px; "></i></div>
+            
             <div class="col col-md-10">
-         <h3 style="font-size: 20px;">{{c.name}}</h3></div>
+         <h3 style="font-size: 20px;">- {{c.name}}</h3></div>
          </div>
          <br>
          <div *ngFor="let s of c.subCategoriesList; index as i">
@@ -74,11 +74,11 @@
       </div>
     </div>
    <br>
-    <div class="row">
-      <span *ngFor="let a of c.categoryAdvertismentsList; index as in" class=" col col-md-3 col-xs-6 col-sm-6">
+    <div class="row home-card" >
+      <span *ngFor="let a of c.categoryAdvertismentsList; index as in" class=" col col-md-3 col-xs-12 col-sm-6 card-card" style="padding-top: 10px;">
       <div class="card cardStyle" style="width: 90%; height:100%;  padding: 0px;" *ngIf="in<4" >
       <!-- (click)="AdvertismentDetails(a)"> -->
-        <span >
+        <span  >
         <span *ngFor="let im of a.advertismentImagesList; index as i" (click)="AdvertismentDetails(a)">
 
           <img src='http://localhost:7189/Files/AdvertismentIMG/{{im.imageName}}' style="border-radius:10px 10px 0px 0px;" class="card-img-top" alt="..." *ngIf="i<1" width="25rem" height="200px">
@@ -88,7 +88,7 @@
 
       
         <div class="card-body" >
-          <div class="row">
+          <div class="row" >
             <div class="col col-md-10" (click)="AdvertismentDetails(a)">
               <h6 class="card-title" style="font-size: 20px;color: #e00000;">{{a.title}}</h6>
             </div>

@@ -27,7 +27,6 @@ export class AdvertismentDetailsComponent implements OnInit {
   advertismentDetail: any = {};
   FirstChar: string = "";
   reviewAdded!: IReview
-  isSaved: boolean = false;
   Favorite: IFavourite = new IFavourite("", 0);
   errorMessage: string = ""
   numRate=[1,2,3,4,5];
@@ -69,6 +68,17 @@ export class AdvertismentDetailsComponent implements OnInit {
     //   text: "", advertismentID: this.advertismentId, rate: 0,
     //    autherId: this.appUserId, userName: this.username, id: this.reviewId
     // }
+    this.advertismentService.getDetails(this.advertismentId, this.appUserId).subscribe({
+      next: data => {
+        this.advertismentDetail = data;
+        this.FirstChar = data.applicationUserName.charAt(0)
+        console.log(this.advertismentDetail)
+      },
+      error: err => {
+        console.log(err);
+      }
+
+    })
 
     this.hubConnectionBuilder = new signalR.HubConnectionBuilder().withUrl('http://localhost:7189/Review',
       {
@@ -114,27 +124,8 @@ await setTimeout(async () => {
 
 
 
-    this.advertismentService.getDetails(this.advertismentId, this.appUserId).subscribe({
-      next: data => {
-        console.log(data)
-        this.advertismentDetail = data
-      },
-      error: err => {
-        console.log(err);
-      }
+   
 
-    })
-
-    this.advertismentService.getDetails(this.advertismentId, this.appUserId).subscribe({
-      next: data => {
-        console.log(data)
-        this.FirstChar = data.applicationUserName.charAt(0)
-      },
-      error: err => {
-        console.log(err);
-      }
-
-    })
 
   }
 
@@ -208,41 +199,34 @@ await setTimeout(async () => {
     SaveBtn.hidden = true;
 
   }
-  async AddToFavorite() {
-    var heart = document.getElementById("heart");
-    console.log(heart?.style.color);
-    if (heart?.style.color == "rgb(255, 255, 255)") {
-      //console.log("hi")
-      this.Favorite.advertismentID = this.advertismentID;
-      this.Favorite.applicationUserId = this.appUserId;
-      await this.favoriteService.AddFavorite(this.Favorite).subscribe({
-        next: data => console.log(data),
-        error: error => this.errorMessage = error
-      })
-      heart.style.color = "rgb(224, 0, 0)";
-    }
-    else {
-      console.log("hi")
-      this.favoriteService.DeleteFavorite(this.advertismentId, this.appUserId).subscribe({
-        next: data => console.log(data),
-        error: error => this.errorMessage = error
-      })
-      heart!.style.color = "rgb(255, 255, 255)";
-    }
+ 
 
-    
+  async AddToFavorite(ads:any){
+    var heart=document.getElementById("heart");
+    console.log(heart?.style.color);
+    if(heart?.style.color=="rgb(255, 255, 255)"){
+    //console.log("hi")
+    this.Favorite.advertismentID=ads.id;
+    this.Favorite.applicationUserId=this.appUserId;
+    await this.favoriteService.AddFavorite(this.Favorite).subscribe({
+    next:data=>console.log(data),
+    error:error=>this.errorMessage=error
+  })
+  heart.style.color="rgb(224, 0, 0)";
   }
+  else{
+  console.log("hi")
+   this.favoriteService.DeleteFavorite(ads.id,this.appUserId).subscribe({
+    next:data=>console.log(data),
+    error:error=>this.errorMessage=error
+   })
+   heart!.style.color="rgb(255, 255, 255)";
+  }
+  }
+  
   counter(i: number) {
     return new Array(i);
 }
-
-
-
-
-
-
-
-
 
 
 

@@ -44,20 +44,15 @@
             </svg>
           </div>
 
-          <button type="button" (click)="AddToFavorite()" class="btnHeart btn-floating col-2 ">
-            <div *ngIf="isSaved==true; then red ;else white"></div>
-            <ng-template #red>
-              <i class="fa-solid fa-heart heart" style="font-size: 18px; margin-top: 5px; color:#e00000;"
-                id="heart"></i>
-            </ng-template>
-            <ng-template #white>
-              <i class="fa-solid fa-heart heart" style="font-size: 18px; margin-top: 5px; color: #ffffff;"
-                id="heart"></i>
-            </ng-template>
-          </button>
+
+          <button (click)="AddToFavorite(advertismentDetail)"  class="btnHeart btn-floating col-2 " >
+                  <i *ngIf="advertismentDetail.isSaved==true" class="fa-solid fa-heart heart" style="font-size: 18px; margin-top: 5px; color:#e00000;" id="heart"></i>              
+                  <i *ngIf="advertismentDetail.isSaved==false" class="fa-solid fa-heart heart" style="font-size: 18px; margin-top: 5px; color: #ffffff;" id="heart"></i>  
+            </button>
+
+   
 
         </div>
-
 
         <div class="row mt-3">
           <h5>{{advertismentDetail.title}}</h5>

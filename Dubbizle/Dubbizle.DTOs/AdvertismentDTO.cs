@@ -18,7 +18,8 @@ namespace Dubbizle.DTOs
         public DateTime Date { get; set; }
         public DateTime ExpirationDate { get; set; }
         public DateTime ExpireDateOfPremium { get; set; }
-        
+        public bool IsSaved { get; set; }
+        public string ApplicationUserId { get; set; }
         public Boolean IsPremium { get; set; }
         public List<string> Advertisment_FiltrationValuesList { get; set; }
         public List<string> AdvertismentImagesList { get; set; } 
