@@ -5,8 +5,8 @@
     {
         public Advertisment Advertisment { get; set; }
         public int AdvertismentID { get; set; }
-        public RentOption RentOption { get; set;}
-        public int RentOptionID { get; set; }
+        public int Duration { get; set; }
+        public string Unit { get; set; }
         public float Cost { get; set; }
 
     }

@@ -8,6 +8,7 @@ namespace Dubbizle.DTOs
 {
     public class CategoryWithAdvertismentDTO
     {
+        public int ID { get; set; }
         public string Name { get; set; }
         public List<AdvertismentHomePageDTO> CategoryAdvertismentsList { get; set; }=new List<AdvertismentHomePageDTO>();
     }

@@ -41,8 +41,8 @@ export class AdvertismentServiceService {
   }));
   }
 
-  getAdvertismentUser(userId:any):Observable<IadvertismetUser>{
-    return this.http.get<IadvertismetUser>(`http://localhost:7189/api/Advertisment/Advertisment's User/${userId}`).pipe(catchError((err: any) => {
+  getAdvertismentUser(userId:any,currentUserId:any):Observable<IadvertismetUser>{
+    return this.http.get<IadvertismetUser>(`http://localhost:7189/api/Advertisment/Advertisment's User/${userId}/${currentUserId}`).pipe(catchError((err: any) => {
       return throwError(() => err.message || "server error");
       }));
   }
@@ -73,6 +73,28 @@ export class AdvertismentServiceService {
     return this.http.get(`http://localhost:7189/api/Advertisment/search?query=${query}&UserId=${UserId}`).pipe(catchError((err: any) => {
     return throwError(() => err.message || "server error");
     }));
+  }
+
+  postAd(formdata:any)
+  {
+    return this.http.post(`http://localhost:7189/api/AdUser/PostAdvertsiment`,formdata).pipe(catchError((err: any) => {
+    return throwError(() => err.message || "server error");
+    }));
+  }
+
+  GetAdChatUsers(AdID:any)
+  {
+    return this.http.get(`http://localhost:7189/api/AdUser/GetAdChatUsers?id=${AdID}`).pipe(catchError((err: any) => {
+      return throwError(() => err.message || "server error");
+      }));
+  }
+
+
+  RentMyAd(AdID:any,BuyerUserId:any)
+  {
+    return this.http.get(`http://localhost:7189/api/AdUser/RentMyAd?id=${AdID}&ApplicationUserId=${BuyerUserId}`).pipe(catchError((err: any) => {
+      return throwError(() => err.message || "server error");
+      }));
   }
 
 }

@@ -1,8 +1,8 @@
 export interface IAdsHomePage{
+    id:number,
     name: string,
     categoryAdvertismentsList: IcategoryAdvertismentsList[],
 }
-
 export interface IcategoryAdvertismentsList{
     id: number,
     title: string,

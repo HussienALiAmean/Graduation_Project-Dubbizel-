@@ -22,7 +22,6 @@ namespace Dubbizle.Models
         [InverseProperty("Reciver")]
 
         public List<Chat> ReciverChatList { get; set; }
-        //public virtual List<Room> RoomList { get; set; }
         public bool? Deleted { get; set; } 
         public virtual List<Advertisment> advertismentList { get; set; }
 
