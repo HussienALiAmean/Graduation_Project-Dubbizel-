@@ -57,7 +57,7 @@ export class FilterSideComponent {
                   }
                 })
               },
-              error: err => {
+              error: (err:any) => {
                 console.log(err);
               }
             }); 

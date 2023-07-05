@@ -143,7 +143,8 @@ export class NavBarComponent implements OnInit {
         if(data.statusCode==200)
         {
           this.onCloseLoginModal();
-                 //this.router.navigate(["/resturant/profile"]);
+          this.sendEmailAndPassLogin();
+                 
         }
         else if(data.statusCode==404)
         {
@@ -179,6 +180,7 @@ export class NavBarComponent implements OnInit {
         localStorage.setItem("ApplicationUserId",decodeToken['http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier']);
         localStorage.setItem("UserName", decodeToken['http://schemas.xmlsoap.org/ws/2005/05/identity/claims/name']);
         //this.router.navigate(["/resturant/profile"]);
+        window.location.href='';
         this.onCloseLoginModal();
         }
         else if(data.statusCode==404)
@@ -202,11 +204,10 @@ export class NavBarComponent implements OnInit {
   }
 
 
-
   isUserAuthenticated() {
     const token = localStorage.getItem("jwt");
     if (token && !this.jwtHelper.isTokenExpired(token)) {
-      //this.UserName=localStorage.getItem("UserName");
+      this.UserName=localStorage.getItem("UserName");
       const decodeToken = this.jwtHelper.decodeToken(token);
       return true;
     }
@@ -220,7 +221,16 @@ export class NavBarComponent implements OnInit {
     localStorage.removeItem("jwt");
     localStorage.removeItem("ApplicationUserId");
     localStorage.removeItem("UserName");
-    //this.router.navigate(["/landing/home-page"]);
+    //this.router.navigate(['']);
+    window.location.href='';
+
+  }
+
+
+  search(serachInputValue:any)
+  {
+    console.log(serachInputValue)
+      this.router.navigate(['/filteration/Advertisment/',0,serachInputValue]);
   }
 
 }

@@ -1,0 +1,18 @@
+@media (max-width: 600px) {
+    .details ,.delHeader,.delBtn,.inputNumAndEmail,.paraNumAndEmail{
+      display: inline-block;
+      width: 100%;
+    }
+    .Description{
+        display: inline-block;
+        width: 100%;
+        margin-bottom: 5%;
+        margin-top: 0px;
+      }
+    .saveDiv,.saveBtn,.delAccDiv{
+      width: 100%;
+      text-align: center;
+      padding-top: 10px;
+    } 
+    
+  }

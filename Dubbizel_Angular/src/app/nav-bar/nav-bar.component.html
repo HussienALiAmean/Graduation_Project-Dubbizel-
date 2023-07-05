@@ -1,6 +1,6 @@
-<nav class="navbar navbar-expand-lg p-2">
+<nav class="navbar navbar-expand-lg p-2 fixed-top bg-white">
   <div class="container-fluid ">
-    <a class="navbar-brand ms-4"><img height="35px" src="/assets/logo.svg" alt="Logo"></a>
+    <a class="navbar-brand ms-5" routerLink=""><img height="45px" width="90px" src="/assets/second-hand.png" alt="Logo"></a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
       aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
@@ -25,22 +25,37 @@
         <li class="nav-item mx-4">
           <div class="input-group " id="searchDiv">
             <input type="text" class="form-control" placeholder="Find Cars, Mobile Phones and more ..."
-              aria-label="Username" aria-describedby="basic-addon1">
-            <button class="input-group-text" id="basic-addon1" id="searchBtn"><i class="fa-solid fa-magnifying-glass"
-                style="color: #ffffff;"></i></button>
+              aria-label="Username" aria-describedby="basic-addon1" #serachInput>
+            <button class="input-group-text" (click)="search(serachInput.value)" id="basic-addon1" id="searchBtn"><i class="fa-solid fa-magnifying-glass"
+                style="color: #ffffff;" ></i></button>
           </div>
         </li>
 
-        <li class="nav-item mx-4 textLi">
+        <li *ngIf="!isUserAuthenticated()" class="nav-item mx-4 textLi">
           <a class="nav-link active" aria-current="page" href="#">العربية</a>
         </li>
+        
+         <li *ngIf="!isUserAuthenticated()" class="nav-item mx-4 textLi" id="loginLi"> 
+          <a class="nav-link active btn"  style="border: none;" aria-current="page" (click)="openLoginModal()">Login</a>
+        </li>
 
-        <li *ngIf="!isUserAuthenticated()" class="nav-item mx-4 textLi" id="loginLi">
-          <a class="nav-link active btn" aria-current="page" (click)="openLoginModal()">Login</a>
+        <li *ngIf="isUserAuthenticated()" class="nav-item mx-4 dropdown" style="font-size:20px; margin-top:10px;">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            {{UserName}}
+          </a>
+          <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <li><a class="dropdown-item"  routerLink="/myprofile/account">Profile</a></li>
+            <li><a class="dropdown-item" [routerLink]="['MyAds']">My Ads</a></li>
+            <li><a class="dropdown-item" [routerLink]="['/Favorite']">My Favoriets</a></li>
+            <li><a class="dropdown-item" routerLink="/MyPackages">My Packages</a></li>
+            <li><a class="dropdown-item" [routerLink]="['/categories']">Buy Business Packages</a></li>
+          </ul>
         </li>
+
         <li *ngIf="isUserAuthenticated()" class="nav-item mx-4 textLi" id="loginLi">
-          <a class="nav-link active btn" aria-current="page" (click)="logOut()">LogOut</a>
+          <a class="nav-link active btn" style="border: none;" aria-current="page" (click)="logOut()">Logout</a>
         </li>
+       
         <li class="nav-item mx-4 ">
           <button class="btn" id="sellBtn">Sell</button>
         </li>
@@ -56,18 +71,14 @@
 
 
 
-
-
-
-
-<div class="modal" id="exampleModal" [ngStyle]="{'display':display}" tabindex="-1" aria-labelledby="exampleModalLabel"
+<div class="modal mt-5"  id="exampleModal" [ngStyle]="{'display':display}" tabindex="-1" aria-labelledby="exampleModalLabel"
   aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" aria-label="Close" (click)="onCloseLoginModal()"><span
             aria-hidden="true">&times;</span></button>
-        <img height="35px" src="/assets/logo.svg" alt="Logo">
+        <img height="45px" width="100px" src="/assets/second-hand.png" alt="Logo">
       </div>
       <div class="modal-body p-5 text-center">
         <div>
@@ -99,23 +110,16 @@
 
 
 
-<div class="modal" id="exampleModal" [ngStyle]="{'display':Emaildisplay}" tabindex="-1"
+<div class="modal mt-5" id="exampleModal" [ngStyle]="{'display':Emaildisplay}" tabindex="-1"
   aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" aria-label="Close" (click)="onCloseLoginModal()"><span
             aria-hidden="true">&times;</span></button>
-        <img height="35px" src="/assets/logo.svg" alt="Logo">
+        <img height="45px" width="100px"  src="/assets/second-hand.png" alt="Logo">
       </div>
       <div class="modal-body p-5 text-center">
-        <!-- <div>
-          <input id="emailInput" class="form-control" type="text" placeholder="Email" #emailRefVar>
-        </div>
-
-        <div >
-          <button (click)="sendEmail(emailRefVar.value)" id="emailBtn" class="form-control">Next</button>
-        </div> -->
         <div class="d-flex flex-row align-items-center mb-4">
           <form [formGroup]="LoginForm" (ngSubmit)="sendEmail()">
             <div class="form-outline form-group">
@@ -143,28 +147,16 @@
 
 
 
-<div class="modal" id="exampleModal" [ngStyle]="{'display':passworddisplay}" tabindex="-1"
+<div class="modal mt-5" id="exampleModal" [ngStyle]="{'display':passworddisplay}" tabindex="-1"
   aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" aria-label="Close" (click)="onClosePasswordModal()"><span
             aria-hidden="true">&times;</span></button>
-        <img height="35px" src="/assets/logo.svg" alt="Logo">
+        <img height="45px" width="100px"  src="/assets/second-hand.png" alt="Logo">
       </div>
       <div class="modal-body p-5 text-center">
-        <!-- <div>
-          <input id="PasswordInput" class="form-control" type="text" placeholder="Password" #passRefVar>
-        </div>
-
-        <div >
-          <input id="ConfirmPasswordInput" class="form-control" type="text" placeholder="ConfirmPassword" #ConfirmpassRefVar>
-        </div>
-
-        <div >
-          <button (click)="sendPass(passRefVar.value,ConfirmpassRefVar.value)"  id="passBtn" class="form-control">Next</button>
-        </div> -->
-
         <div class="d-flex flex-row align-items-center mb-4">
           <form [formGroup]="LoginForm" (ngSubmit)="sendEmailAndPassLogin()">
 
@@ -194,14 +186,14 @@
 
 
 
-<div class="modal" id="exampleModal" [ngStyle]="{'display':confirmPassdisplay}" tabindex="-1"
+<div class="modal mt-5" id="exampleModal" [ngStyle]="{'display':confirmPassdisplay}" tabindex="-1"
   aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" aria-label="Close" (click)="onCloseConfirmPasswordModal()"><span
             aria-hidden="true">&times;</span></button>
-        <img height="35px" src="/assets/logo.svg" alt="Logo">
+        <img height="45px" width="100px"  src="/assets/second-hand.png" alt="Logo">
       </div>
       <div class="modal-body p-5 text-center">
         <div class="d-flex flex-row align-items-center mb-4">

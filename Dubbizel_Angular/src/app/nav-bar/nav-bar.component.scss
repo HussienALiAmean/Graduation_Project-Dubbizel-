@@ -93,6 +93,7 @@ border: none;
   }
   
   .modal {
+    
     display: none;
     /* Hidden by default */
     position: fixed;
@@ -142,5 +143,6 @@ margin-left: 10px;
     color: white;
   }
 
-  
-  
+  .form-control:focus,.form-select:focus {
+    box-shadow: none;
+  }

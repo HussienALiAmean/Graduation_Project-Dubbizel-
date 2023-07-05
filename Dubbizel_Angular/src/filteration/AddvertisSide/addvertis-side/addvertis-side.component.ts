@@ -1,8 +1,10 @@
 import { Component } from '@angular/core';
-import { ActivatedRoute, ParamMap } from '@angular/router';
+import { ActivatedRoute, ParamMap, Router } from '@angular/router';
 import {  IAdvertisment } from 'src/app/Interfaces/IAdvertisment';
 import { AdvertismentServiceService } from 'src/app/Services/advertisment-service.service';
 import { FilterValueKey } from './../../../app/Interfaces/IAdvertisment';
+import { IFavourite } from 'src/app/Interface/IFavorite';
+import { FavoriteService } from 'src/app/Services/favorite.service';
 
 @Component({
   selector: 'app-addvertis-side',
@@ -12,28 +14,24 @@ import { FilterValueKey } from './../../../app/Interfaces/IAdvertisment';
 
 export class AddvertisSideComponent {
 
-  items:any[]=[{id:1,name:"Fiat",description:"goood 4 douresgoood 4 douresgoood 4 douresgoood 4 doures",price:1500,rate:5,imagesrc:"../../../assets/0.jpg" ,havechat:true}
- ,{id:1,name:"Marcedes",description:"goood 4 douresgoood 4 douresgoood 4 doures",price:300058,rate:2,imagesrc:"../../../assets/images.jpg"}
- ,{id:1,likedbyme:true,name:"Cmonda",description:"laovasdafas  dsaff fsfsadadous  dsafsafsafsff fsfsadadou",price:4863321,rate:6,imagesrc:"../../../assets/images(3).jpg",havechat:true}
- ,{id:1,name:"Change",description:"goood kondato makoatin as 4 doures",price:120000,rate:9,imagesrc:"../../../assets/images.jpg"}
- ,{id:1,likedbyme:true,name:"Donato",description:"goood 4 2e2ewadzc wesadd3re32rd 2edw",price:700054,rate:9,imagesrc:"../../../assets/0.jpg",havechat:true}
- ,{id:1,name:"Cmonda",description: "laovasdafas  dsafsafsafsff lore fsfsadadoures",price:4863321,rate:6,imagesrc:"../../../assets/images(3).jpg",havechat:true}
- ,{id:1,name:"Marcedes",description:"goood 4 douresgoood 4 douresgoood doures",price:300058,rate:2,imagesrc:"../../../assets/images.jpg",havechat:true}
- ,{id:1,likedbyme:true, name:"Change",description:"goood kondato  makoatin 4 makoatin as 4 makoatin as 4 doures",price:120000,rate:9,imagesrc:"../../../assets/images.jpg"}
-];
+  
 Advertisments:IAdvertisment[]=[];
 Loaded_dedaddvertisment:IAdvertisment[]=[];
 filterationKeyArray:FilterValueKey[]=[];
 cat_locationFilterationArry :any[]=[];
+userId:any=localStorage.getItem('ApplicationUserId');
+Favorite:IFavourite=new IFavourite("",0);
+errorMessage:string=""
+appUserId:any;
 
-constructor(private activatRoute:ActivatedRoute,private advertismentService:AdvertismentServiceService)
+constructor(private activatRoute:ActivatedRoute,private advertismentService:AdvertismentServiceService,private router:Router,private favoriteService:FavoriteService)
 {
   activatRoute.paramMap.subscribe((params:ParamMap)=>{
     console.log(params.get('id'))
     if(params.get('type')=='category')
     {
       console.log(true)
-      this.advertismentService.getAdsByCategoryID(params.get('id')).subscribe({
+      this.advertismentService.getAdsByCategoryID(params.get('id'),this.userId).subscribe({
         next: (data:any) => {
           this.Loaded_dedaddvertisment=data.data;
           this.Advertisments=this.Loaded_dedaddvertisment;
@@ -45,9 +43,9 @@ constructor(private activatRoute:ActivatedRoute,private advertismentService:Adve
         }
       }); 
     }
-    else
+    else if(params.get('type')=='subcategory')
     {
-      this.advertismentService.getAdsBySubCategoryID(params.get('id')).subscribe({
+      this.advertismentService.getAdsBySubCategoryID(params.get('id'),this.userId).subscribe({
         next: (data:any) => {
           this.Loaded_dedaddvertisment=data.data;
           this.Advertisments=this.Loaded_dedaddvertisment;
@@ -59,6 +57,23 @@ constructor(private activatRoute:ActivatedRoute,private advertismentService:Adve
       }); 
       console.log(false)
     }
+    else
+    {
+      console.log(params.get('type'))
+      this.advertismentService.getAdvertismentByQuery(params.get('type'),this.userId).subscribe({
+        next: (data:any) => {
+          this.Loaded_dedaddvertisment=data.data;
+          this.Advertisments=this.Loaded_dedaddvertisment;
+        console.log(data);
+        },
+        error: err => {
+          console.log(err);
+        }
+      }); 
+      console.log(false)
+    }
+
+
   })
 }
 
@@ -177,7 +192,46 @@ makefilterationByCheckbox( filterationKeyArray: FilterValueKey[],advertismentArr
   {
     return advertismentArray;
   }
+
+
+
 }
+async AddToFavorite(ads:any){
+  var heart=document.getElementById("heart"+ads.id+this.userId);
+  console.log(heart?.style.color);
+  if(heart?.style.color=="rgb(255, 255, 255)"){
+  //console.log("hi")
+  this.Favorite.advertismentID=ads.id;
+  this.Favorite.applicationUserId=this.userId;
+  await this.favoriteService.AddFavorite(this.Favorite).subscribe({
+  next:data=>console.log(data),
+  error:error=>this.errorMessage=error
+})
+heart.style.color="rgb(224, 0, 0)";
+}
+else{
+console.log("hi")
+ this.favoriteService.DeleteFavorite(ads.id,this.userId).subscribe({
+  next:data=>console.log(data),
+  error:error=>this.errorMessage=error
+ })
+ heart!.style.color="rgb(255, 255, 255)";
+}
+}
+
+AdvertismentDetails(a:any){
+  this.router.navigate(["/Details",a.id]);
+} 
+
+BeginChat(advertismentDetail:any)
+{
+  console.log(advertismentDetail.id,advertismentDetail.applicationUserId)
+  this.appUserId = localStorage.getItem("ApplicationUserId");
+  console.log(this.appUserId)
+  this.router.navigate(["/chat",advertismentDetail.id,advertismentDetail.applicationUserId])
+}
+
+
 //#region dddddddd
 // {
 

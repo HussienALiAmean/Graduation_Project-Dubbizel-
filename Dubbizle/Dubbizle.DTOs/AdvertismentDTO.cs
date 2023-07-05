@@ -23,6 +23,18 @@ namespace Dubbizle.DTOs
         public List<filterValuKey> Advertisment_FiltrationValuesList { get; set; }
         public List<string> AdvertismentImagesList { get; set; }
         public List<RentCost_DurationDTO> advertisment_RentOptionsList { get; set; }
+        public bool IsSaved { get; set; }
+        public string ApplicationUserId { get; set; }
+
+    }
+
+    public class NotActiveAdvertismntDTO
+    {
+        public int ID { get; set; }
+        public string Title { get; set; }
+        public string SubCategoryName { get; set; }
+        public string Image { get; set; }
+
     }
     public class filterValuKey
     {
