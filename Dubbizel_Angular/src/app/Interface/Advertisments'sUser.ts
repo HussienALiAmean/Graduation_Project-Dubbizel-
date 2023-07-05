@@ -11,6 +11,7 @@ export interface IadvertismetsUsersDTOs{
     location: string,
     adType: string,
     adStatus: string,
+    isSaved:boolean,
     date: Date,
     expirationDate: Date,
     expireDateOfPremium: Date,

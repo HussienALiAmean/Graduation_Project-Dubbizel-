@@ -47,9 +47,9 @@ namespace Dubbizle.API.Controllers
             if(orgUser.BirthDate!=null)
             {
                 profileDTO.BirthDate = (DateTime)orgUser.BirthDate;
-                profileDTO.Day = profileDTO.BirthDate.Day.ToString();
-                profileDTO.Month = profileDTO.BirthDate.Month.ToString();
-                profileDTO.Year = profileDTO.BirthDate.Year.ToString();
+                profileDTO.Day = ((DateTime)profileDTO.BirthDate).Day.ToString();
+                profileDTO.Month = ((DateTime)profileDTO.BirthDate).Month.ToString();
+                profileDTO.Year = ((DateTime)profileDTO.BirthDate).Year.ToString();
             }
           
             profileDTO.AboutMe= orgUser.AboutMe;
@@ -67,8 +67,12 @@ namespace Dubbizle.API.Controllers
             orgUser.Email = newUser.Email;
             orgUser.Gender = newUser.Gender;
             orgUser.PhoneNumber = newUser.PhoneNumber;
-            DateTime date = new DateTime(int.Parse(newUser.Year), int.Parse(newUser.Month), int.Parse(newUser.Day));
-            orgUser.BirthDate = date;
+            if(orgUser.BirthDate!=null)
+            {
+                DateTime date = new DateTime(int.Parse(newUser.Year), int.Parse(newUser.Month), int.Parse(newUser.Day));
+                orgUser.BirthDate = date;
+            }
+            
 
             orgUser.AboutMe = newUser.AboutMe;
             await _userManager.UpdateAsync(orgUser);

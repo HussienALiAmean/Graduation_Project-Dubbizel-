@@ -84,18 +84,22 @@ ngOnInit()
   this.profileService.GetProfile(this.ApplicationUserId).subscribe({
     next:(data:any)=>{
       console.log(data);
-      //this.EditForm.value=data
-      this.EditForm.patchValue({
-        userName:data.userName,
-        gender:data.gender,
-        day:data.day,
-        month:data.month,
-        year:data.year,
-        email:data.email,
-        aboutMe:data.aboutMe,
-        phoneNumber:data.phoneNumber
+      {
         
-      })
+        this.EditForm.patchValue({
+          userName:data.userName,
+          gender:data.gender,
+          day:data.day,
+          month:data.month,
+          year:data.year,
+          email:data.email,
+          aboutMe:data.aboutMe,
+          phoneNumber:data.phoneNumber
+          
+        })
+      }
+      //this.EditForm.value=data
+      
       
     },
     error:error=>this.errorMessage=error

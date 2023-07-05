@@ -73,6 +73,7 @@ export class AdvertismentDetailsComponent implements OnInit {
         this.advertismentDetail = data;
         this.FirstChar = data.applicationUserName.charAt(0)
         this.filtredReviewList=this.advertismentDetail.reviewsList;
+
         console.log(this.advertismentDetail)
       },
       error: err => {
@@ -240,6 +241,9 @@ await setTimeout(async () => {
   }
  
 
+
+
+
   filterReviews(star:any)
   {
     if(star!=-1)
@@ -268,6 +272,7 @@ await setTimeout(async () => {
   })
   heart.style.color="rgb(224, 0, 0)";
   }
+
   else{
   console.log("hi")
    this.favoriteService.DeleteFavorite(ads.id,this.appUserId).subscribe({
@@ -277,6 +282,7 @@ await setTimeout(async () => {
    heart!.style.color="rgb(255, 255, 255)";
   }
   }
+
 
 
 //   BeginChat(applicationUserId:string)
@@ -290,17 +296,10 @@ await setTimeout(async () => {
 }
 
 
+
   counter(i: number) {
     return new Array(i);
 }
-
-
-
-
-
-
-
-
 
 
 

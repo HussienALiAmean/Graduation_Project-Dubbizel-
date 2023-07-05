@@ -27,12 +27,12 @@ namespace Dubbizle.Services
             limit += 7;
         }
 
-        public async Task<string> Add(ChatDTO Msg)
+        public async Task<dynamic> Add(ChatDTO Msg)
         {
             if (Msg != null)
             {
                 //int AdvertismentId =int.Parse( Msg.AdvertismentID.ToString());
-              Room Room = _roomRepository.GetObject(r => r.SenderId == Msg.SenderID || r.ReceiverId == Msg.SenderID 
+              Room Room = _roomRepository.GetObject(r =>r.Deleted == false && r.SenderId == Msg.SenderID || r.ReceiverId == Msg.SenderID 
               && r.ReceiverId == Msg.ReceiverID || r.SenderId == Msg.ReceiverID);
                 Chat chat = new Chat();
                 chat.SenderID = Msg.SenderID;
@@ -62,7 +62,7 @@ namespace Dubbizle.Services
 
                 _chatRepository.Add(chat);
                 _chatRepository.SaveChanges();
-                return "Message has been created successfully";
+                return chat;
             }
             else
             {
@@ -89,35 +89,45 @@ namespace Dubbizle.Services
             }
         }
 
-        public async Task<dynamic> Get(string sender, string reciver,int top, int Skip)
+        public async Task<dynamic> Get(string sender, string reciver,int Advertisment,int top, int Skip)
         {
            if(sender != null || reciver != null)
             {
 
-
-
-                var chats = _chatRepository.GetAll(c => c.Deleted == false &&
-                    (c.SenderID == sender && c.ReciverID == reciver) 
-                    ||(c.ReciverID == sender && c.SenderID == reciver))
-                        .Include(r => r.Sender).Include(r => r.Reciver)
-                        .Skip(Skip)
-                    .Take(top)
-                    .Select(x => new { gender = x.Reciver.Gender, ReseverName = x.Reciver.UserName, contenten = x.Content, image = x.File })
-                    .ToList();
-         
-                total = chats.Count();
-               
-                
-                IEnumerable<Chat> pageChat =
+                Room Room = _roomRepository.GetObject(r => r.Deleted == false &&
+                r.AdvertismentID == Advertisment && 
+                r.SenderId == sender || r.ReceiverId == sender &&
+                r.ReceiverId == reciver || r.SenderId == reciver);
+                if (Room is null)
+                {
+                    return "No chat";
+                }
+                //else
+                //{
+                    IEnumerable<Chat> pageChat =
                     _chatRepository.GetAll(c => c.Deleted == false &&
                  (c.SenderID == sender && c.ReciverID == reciver) ||
                  (c.ReciverID == sender && c.SenderID == reciver))
-                    .Include(c=>c.Room)
+                    .Include(c => c.Room)
                     .Skip(Skip)
                     .Take(top)
                  .ToList();
+
+                    return pageChat;
+                //}
+                //    var chats = _chatRepository.GetAll(c => c.Deleted == false &&
+                //    (c.SenderID == sender && c.ReciverID == reciver) 
+                //    ||(c.ReciverID == sender && c.SenderID == reciver))
+                //        .Include(r => r.Sender).Include(r => r.Reciver)
+                //        .Skip(Skip)
+                //    .Take(top)
+                //    .Select(x => new { gender = x.Reciver.Gender, ReseverName = x.Reciver.UserName, contenten = x.Content, image = x.File })
+                //    .ToList();
+         
+                //total = chats.Count();
+               
                 
-                return pageChat; 
+                 
             }
             else
             {

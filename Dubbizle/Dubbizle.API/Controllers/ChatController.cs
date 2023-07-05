@@ -41,12 +41,12 @@ namespace Dubbizle.API.Controllers
             //MessageRepo.AddMessage(Msg);
         }
         [HttpGet("GetMessages")]
-        public async Task<IActionResult> GetMessages( string sender , string reciver,int top,int skip)
+        public async Task<IActionResult> GetMessages( string sender , string reciver,int Advertisment,int top,int skip)
         {
-            var chats = await chatServices.Get(sender, reciver, top,skip);
+            var chats = await chatServices.Get(sender, reciver, Advertisment, top,skip);
             
 
-            return Ok(chatServices.Get(sender, reciver,top,skip));
+            return Ok(chatServices.Get(sender, reciver, Advertisment, top,skip));
 
         }
          [HttpGet("GetLastMessages")]
@@ -69,8 +69,26 @@ namespace Dubbizle.API.Controllers
             return Ok("Your obj has been deleted");
         }
 
+        [HttpPut("DeleteMessagesRoom")]
+        public async Task<IActionResult> DeleteRoom(int id)
+        {
+
+            _roomRepository.Delete(id);
+           Room room = _roomRepository.GetByID(id);
+           List<Chat> chats = _chatRepository.GetAll(c=> c.RoomId == id).ToList();
+            foreach (Chat chat in chats)
+            {
+                chat.Deleted = true;
+            }
+            //Chat chat = _chatRepository.Delete(id);
+            //chat.Deleted = true;
+            //_chatRepository.Update(chat);
+            _chatRepository.SaveChanges();
+            return Ok("Your Room has been deleted");
+        }
+
         [HttpGet("GetChatUsers")]
-        public async Task<IActionResult> GetChatUsers(string id,string loginId)
+        public async Task<IActionResult> GetChatUsers(string id,string loginId,int Advertisment)
         {
             if(id == loginId)
             {
@@ -80,12 +98,13 @@ namespace Dubbizle.API.Controllers
                     //.ToList();
                 IEnumerable<Room> chats = 
                     _roomRepository
-                    .GetAll(c=> c.SenderId == id || c.ReceiverId == id)
+                    .GetAll(c=> c.Deleted== false && c.AdvertismentID == Advertisment && c.SenderId == id || c.ReceiverId == id )
                     .ToList();
                 string ID = chats.FirstOrDefault().SenderId;
                 List<ApplicationUser> users = new List<ApplicationUser>();
                 ApplicationUser user = await _userManager.FindByIdAsync(ID);
                 //users.Add(user);
+                
                 foreach (Room chat in chats)
                 {
                     if(chat.ReceiverId != ID)

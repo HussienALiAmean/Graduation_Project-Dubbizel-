@@ -1,5 +1,5 @@
 ﻿using Microsoft.AspNetCore.Http;
-﻿using Dubbizle.Models;
+using Dubbizle.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -59,7 +59,7 @@ namespace Dubbizle.DTOs
     }
 
     public class RentOptionDTO
-    {      
+    {
         public int Duration { get; set; }
         public string Unit { get; set; }
         public float Cost { get; set; }
