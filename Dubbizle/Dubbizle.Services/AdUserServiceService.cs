@@ -23,16 +23,19 @@ namespace Dubbizle.Services
         IRepository<Advertisment> _advertismentRepository;
 
         IRepository<AdvertismentImage> _advertismentImageRepository;
+        IRepository<ApplicationUser_Package> _applicationUser_PackageRepository;
 
         IRepository<Advertisment_FiltrationValue> _advertismentFiltrationValuRepository;
         IRepository<Advertisment_RentOption> _advertismentRentOptionRepository;
         IRepository<Room> _roomRepository;
 
 
+
         public AdUserService(IRepository<Advertisment> advertismentRepository, IRepository<AdvertismentImage> advertismentImageRepository,
            IRepository<Advertisment_FiltrationValue> advertismentFiltrationValuRepository,
            IRepository<Advertisment_RentOption> advertismentRentOptionRepository,
-           IRepository<Room> roomRepository)
+           IRepository<Room> roomRepository,
+           IRepository<ApplicationUser_Package> applicationUser_PackageRepository)
         {
           
             _advertismentRepository= advertismentRepository;
@@ -40,6 +43,7 @@ namespace Dubbizle.Services
             _advertismentFiltrationValuRepository =advertismentFiltrationValuRepository;
             _advertismentRentOptionRepository=advertismentRentOptionRepository;
             _roomRepository= roomRepository;
+            _applicationUser_PackageRepository = applicationUser_PackageRepository;
 
         }
         public Advertisment GetAdvertismentByID(int id)
@@ -53,58 +57,70 @@ namespace Dubbizle.Services
             _advertismentRepository.SaveChanges();
         }
 
-        public Advertisment PostAdvertsiment(PostAdvertismentDTO postAdvertismentDTO)
+        public int PostAdvertsiment(PostAdvertismentDTO postAdvertismentDTO)
         {
-            Advertisment advertisment = new Advertisment();
-            advertisment.Title= postAdvertismentDTO.Title;
-            advertisment.Location= postAdvertismentDTO.Location;
-            advertisment.AdType= postAdvertismentDTO.AdType;
-            advertisment.AdStatus = "Pending";
-            advertisment.Date=DateTime.Now;
-            advertisment.ExpirationDate= DateTime.Now;
-            advertisment.ExpireDateOfPremium= DateTime.Now;
-            advertisment.CategoryID= postAdvertismentDTO.CategoryID;
-            advertisment.SubCategoryID= postAdvertismentDTO.SubCategoryID;
-            advertisment.ApplicationUserId= postAdvertismentDTO.ApplicationUserId;
-            _advertismentRepository.Add(advertisment);
-            _advertismentImageRepository.SaveChanges();
-
-            Advertisment_FiltrationValue advertisment_FiltrationValue;
-            List<filterValueDTo2> AdvertismentFiltrationValuesList = JsonConvert.DeserializeObject<List<filterValueDTo2>>(postAdvertismentDTO.AdvertismentFiltrationValuesList);
-            foreach (var fiterValue in AdvertismentFiltrationValuesList)
+            ApplicationUser_Package applicationUser_Package = _applicationUser_PackageRepository.GetAll("Package").FirstOrDefault(p =>p.Package.SubCategoryID== postAdvertismentDTO.SubCategoryID && p.ApplicationUserId == postAdvertismentDTO.ApplicationUserId && p.ExpirationDate > DateTime.Now && p.Deleted == false&&p.NumOfRemainAds>0);
+            if(applicationUser_Package!=null)
             {
-                advertisment_FiltrationValue = new Advertisment_FiltrationValue();
-                advertisment_FiltrationValue.FiltrationValueID = fiterValue.filterValueID; ;
-                advertisment_FiltrationValue.AdvertismentID = advertisment.ID;
-                _advertismentFiltrationValuRepository.Add(advertisment_FiltrationValue);
-                _advertismentFiltrationValuRepository.SaveChanges();
-            }
-
-            AdvertismentImage advertismentImage;
-            foreach (var image in postAdvertismentDTO.AdvertismentImagesList)
-            {
-                advertismentImage = new AdvertismentImage();
-                advertismentImage.AdvertismentID = advertisment.ID;
-                advertismentImage.ImageName = ImagesHelper.UploadImg(image, "AdvertismentIMG");
-                _advertismentImageRepository.Add(advertismentImage);
+                Advertisment advertisment = new Advertisment();
+                advertisment.Title = postAdvertismentDTO.Title;
+                advertisment.Location = postAdvertismentDTO.Location;
+                advertisment.AdType = postAdvertismentDTO.AdType;
+                advertisment.AdStatus = "Pending";
+                advertisment.Date = DateTime.Now;
+                advertisment.ExpirationDate = DateTime.Now.AddDays(applicationUser_Package.Package.AdDuration);
+                advertisment.ExpireDateOfPremium = DateTime.Now.AddDays(applicationUser_Package.Package.NumOfPremiumDays);
+                advertisment.CategoryID = postAdvertismentDTO.CategoryID;
+                advertisment.SubCategoryID = postAdvertismentDTO.SubCategoryID;
+                advertisment.ApplicationUserId = postAdvertismentDTO.ApplicationUserId;
+                _advertismentRepository.Add(advertisment);
                 _advertismentImageRepository.SaveChanges();
+
+                Advertisment_FiltrationValue advertisment_FiltrationValue;
+                List<filterValueDTo2> AdvertismentFiltrationValuesList = JsonConvert.DeserializeObject<List<filterValueDTo2>>(postAdvertismentDTO.AdvertismentFiltrationValuesList);
+                foreach (var fiterValue in AdvertismentFiltrationValuesList)
+                {
+                    advertisment_FiltrationValue = new Advertisment_FiltrationValue();
+                    advertisment_FiltrationValue.FiltrationValueID = fiterValue.filterValueID; ;
+                    advertisment_FiltrationValue.AdvertismentID = advertisment.ID;
+                    _advertismentFiltrationValuRepository.Add(advertisment_FiltrationValue);
+                    _advertismentFiltrationValuRepository.SaveChanges();
+                }
+
+                AdvertismentImage advertismentImage;
+                foreach (var image in postAdvertismentDTO.AdvertismentImagesList)
+                {
+                    advertismentImage = new AdvertismentImage();
+                    advertismentImage.AdvertismentID = advertisment.ID;
+                    advertismentImage.ImageName = ImagesHelper.UploadImg(image, "AdvertismentIMG");
+                    _advertismentImageRepository.Add(advertismentImage);
+                    _advertismentImageRepository.SaveChanges();
+                }
+
+
+                Advertisment_RentOption advertisment_RentOption;
+                List<RentOptionDTO> AdvertismentRentOptions = JsonConvert.DeserializeObject<List<RentOptionDTO>>(postAdvertismentDTO.AdvertismentRentOptions);
+                foreach (var rentOption in AdvertismentRentOptions)
+                {
+                    advertisment_RentOption = new Advertisment_RentOption();
+                    advertisment_RentOption.Unit = rentOption.Unit;
+                    advertisment_RentOption.Duration = rentOption.Duration;
+                    advertisment_RentOption.Cost = rentOption.Cost;
+                    advertisment_RentOption.AdvertismentID = advertisment.ID;
+                    _advertismentRentOptionRepository.Add(advertisment_RentOption);
+                    _advertismentRentOptionRepository.SaveChanges();
+                }
+                applicationUser_Package.NumOfRemainAds--;
+                _applicationUser_PackageRepository.Update(applicationUser_Package);
+                _applicationUser_PackageRepository.SaveChanges();
+                return 200;
+
             }
-
-
-            Advertisment_RentOption advertisment_RentOption;
-            List<RentOptionDTO> AdvertismentRentOptions = JsonConvert.DeserializeObject<List<RentOptionDTO>>(postAdvertismentDTO.AdvertismentRentOptions);
-            foreach (var rentOption in AdvertismentRentOptions)
+            else
             {
-                advertisment_RentOption = new Advertisment_RentOption();
-                advertisment_RentOption.Unit=rentOption.Unit;
-                advertisment_RentOption.Duration= rentOption.Duration;
-                advertisment_RentOption.Cost=rentOption.Cost;
-                advertisment_RentOption.AdvertismentID = advertisment.ID;
-                _advertismentRentOptionRepository.Add(advertisment_RentOption);
-                _advertismentRentOptionRepository.SaveChanges();
+                return 204;
             }
 
-            return advertisment;
         }
 
 

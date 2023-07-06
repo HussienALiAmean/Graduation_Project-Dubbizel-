@@ -47,8 +47,7 @@ namespace Dubbizle.API.Controllers
         public ResultDTO PostAdvertsiment([FromForm]PostAdvertismentDTO postAdvertismentDTO)
         {
             ResultDTO resultDTO = new ResultDTO();
-            resultDTO.Data= _AdUserService.PostAdvertsiment(postAdvertismentDTO);
-            resultDTO.StatusCode = 200;
+            resultDTO.StatusCode = _AdUserService.PostAdvertsiment(postAdvertismentDTO);
             return resultDTO;
         }
 
