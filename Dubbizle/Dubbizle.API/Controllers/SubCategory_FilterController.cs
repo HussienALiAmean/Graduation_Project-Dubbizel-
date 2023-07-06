@@ -34,7 +34,7 @@ namespace Dubbizle.API.Controllers
             foreach (SubCategory_Filter SubCatFilter in SubCategory_Filters)
             {
                 subCategory_FilterDTO = new SubCategory_FilterDTO();
-                subCategory_FilterDTO.FilterID = SubCatFilter.FilterID;
+                subCategory_FilterDTO.FilterID = SubCatFilter.ID;
                 subCategory_FilterDTO.FilterName = SubCatFilter.Filter.Name; ;
                 subCategory_FilterDTO.FiltrationValuesList = new List<string>();
                 foreach (FiltrationValue filtrationValue in SubCatFilter.FiltrationValuesList)

@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Dubbizle.Data;
+using Microsoft.AspNet.SignalR;
 
 namespace Dubbizle.API.Controllers
 {
@@ -40,8 +41,8 @@ namespace Dubbizle.API.Controllers
         //}
 
 
-
         [HttpGet("GetAllCategories")]
+        [Authorize]
         public ResultDTO GetAllCategories()
         {
             ResultDTO resultDTO = new ResultDTO();

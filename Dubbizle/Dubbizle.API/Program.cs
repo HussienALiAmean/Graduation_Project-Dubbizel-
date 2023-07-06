@@ -18,6 +18,7 @@ using System.Text;
 using Microsoft.AspNetCore.Identity;
 using System.Text.Json.Serialization;
 using Dubbizle.API.Hubs;
+using Microsoft.AspNetCore.Authentication;
 
 namespace Dubbizle.API
 {
@@ -79,6 +80,8 @@ namespace Dubbizle.API
             //signalR
             builder.Services.AddSignalR();
 
+            builder.Services.AddAuthentication();
+            builder.Services.AddAuthorization();
 
             builder.Services.AddIdentity<ApplicationUser, IdentityRole>().AddEntityFrameworkStores<Context>();
 
@@ -171,10 +174,10 @@ namespace Dubbizle.API
             app.UseStaticFiles();
             app.UseCors("MyPolicy");
             app.UseAuthentication();
+            app.UseAuthorization();
 
             app.MapHub<ReviewHub>("/Review");
 
-            app.UseAuthorization();
 
 
             app.MapHub<ChatHub>("/ChatHub");

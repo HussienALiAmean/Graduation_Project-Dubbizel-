@@ -19,6 +19,7 @@ export class FilterSideComponent {
   @Output() dataChanged = new EventEmitter<FilterValueKey>();
   @Output() filterByCategory = new EventEmitter<String>();
   @Output() filterBylocation = new EventEmitter<String>();
+  flag:boolean=true;
   locationList:String[]=["Cairo","Asuuit","Sohag","Alex"];
   categoryList:ICategory[]=[];
   makefilter(newData: string,id:number)
@@ -41,6 +42,7 @@ export class FilterSideComponent {
       activatRoute.paramMap.subscribe((params:ParamMap)=>{
           if(params.get('type')!='category')
           {
+            this.flag=false;
             console.log(true)
             this.filterSrvice.getSubCategoryFilters(params.get('id')).subscribe({
               next: (data:any) => {
@@ -62,8 +64,9 @@ export class FilterSideComponent {
               }
             }); 
           }
-          if(params.get('type')=='category')
+         else if(params.get('type')=='category')
           {
+            this.flag=true;
                 this._CategoryServiceService.getAllofsubCategories(params.get('id')).subscribe({
                   next: (data:any) => {
                     this.SubCategoryFilters=[];
@@ -75,6 +78,8 @@ export class FilterSideComponent {
                   }
                 })
           }
+          else 
+          this.flag=true;
       });
      
   }

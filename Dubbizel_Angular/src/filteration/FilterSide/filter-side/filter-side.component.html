@@ -4,7 +4,7 @@
       <div class="col-md-3 w-100">
         <h3>Filter by:</h3>
         <form>
-          <div  class="form-group ">
+          <div  class="form-group " *ngIf="flag">
             <label for="category">Category:</label>
             <select class="form-control " [(ngModel)]="categorySelectedValue" (ngModelChange)="changeCategoryFiltertion()" [ngModelOptions]="{standalone: true}">
               <option value="0" selected>All</option>

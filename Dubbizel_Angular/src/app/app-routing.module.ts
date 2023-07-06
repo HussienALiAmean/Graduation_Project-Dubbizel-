@@ -16,6 +16,7 @@ import { UserprofileComponent } from 'src/profile/userprofile/userprofile.compon
 import { CatBeforeAdComponent } from './cat-before-ad/cat-before-ad.component';
 import { AdPostComponent } from './ad-post/ad-post.component';
 import { AdEditComponent } from './ad-edit/ad-edit.component';
+import { AuthGuardService } from 'src/authintication/Services/auth-guard.service';
 
 
 
@@ -40,18 +41,18 @@ const routes: Routes = [
   // {path:'home-page',loadChildren:()=>import("../home-page/home-page.module").then(m=>m.HomePageModule)},
 
  {path:"myprofile",loadChildren:()=>import("../profile/profile.module").then(m=>m.ProfileModule)},
-  {path:'Home',component:HomePageComponentComponent},
-  {path:'categories',component:CategoriesBeforePackagesComponent},
-  {path:'package/:id',component:PackagesComponent},
+//  {path:'Home',component:HomePageComponentComponent},
+  {path:'categories',component:CategoriesBeforePackagesComponent,canActivate:[AuthGuardService]},
+  {path:'package/:id',component:PackagesComponent,canActivate:[AuthGuardService]},
   {path:'Details/:id',component:AdvertismentDetailsComponent},
-  {path:'Favorite',component:FavoriteComponent},
-  {path:'MyAds',component:MyAdsComponent},
-  {path:'MyPackages',component:MyPackagesComponent},
+  {path:'Favorite',component:FavoriteComponent,canActivate:[AuthGuardService]},
+  {path:'MyAds',component:MyAdsComponent,canActivate:[AuthGuardService]},
+  {path:'MyPackages',component:MyPackagesComponent,canActivate:[AuthGuardService]},
   {path:'AdvertismetUser/:id',component:AdvertismentUserComponent},
    {path:'',component:HomePageComponentComponent},
-   {path:'selectCategory',component:CatBeforeAdComponent},
-   {path:'postYourAd/:catID/:SubCatID',component:AdPostComponent},
-   {path:'editYourAd/:adID/:SubCatID',component:AdEditComponent},
+   {path:'selectCategory',component:CatBeforeAdComponent,canActivate:[AuthGuardService]},
+   {path:'postYourAd/:catID/:SubCatID',component:AdPostComponent,canActivate:[AuthGuardService]},
+   {path:'editYourAd/:adID/:SubCatID',component:AdEditComponent,canActivate:[AuthGuardService]},
   //{path:'',component:LandingComponent},
   {path:'authintication',loadChildren:()=>import("../authintication/authintication.module").then(m=>m.AuthinticationModule)},
   {path:'filteration',loadChildren:()=>import("../filteration/filteration.module").then(m=>m.FilterationModule)},

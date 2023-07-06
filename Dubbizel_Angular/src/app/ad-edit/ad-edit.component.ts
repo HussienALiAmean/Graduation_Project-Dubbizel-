@@ -45,7 +45,7 @@ export class AdEditComponent {
     adType: ['', Validators.required],
     AdvertismentFiltrationValuesList: this.fb.array([]),
     AdvertismentRentOptions:this.fb.array([]),
-    AdvertismentImagesList: ['', Validators.required],
+    AdvertismentImagesList: [''],
   })
 
   get title() {
@@ -90,7 +90,8 @@ export class AdEditComponent {
                   })
                 );
               });
-
+if(this.AdDetails.adType=="For Rent")
+{
               this.AdDetails.advertismentRentOptions.forEach((element:any,index:any) => {
                  this.RentOptions = this.EditForm.controls.AdvertismentRentOptions as FormArray;
                 this.RentOptions.push(
@@ -102,6 +103,22 @@ export class AdEditComponent {
                   })
                 );
               }); 
+            }
+            else
+            {
+              this.AdDetails.advertismentRentOptions.forEach((element:any,index:any) => {
+                this.RentOptions = this.EditForm.controls.AdvertismentRentOptions as FormArray;
+               this.RentOptions.push(
+                 this.fb.group({
+                   id:[this.AdDetails.advertismentRentOptions[index].id],
+                   unit: [''],
+                   duration: [0],
+                   cost: [this.AdDetails.advertismentRentOptions[index].cost, [Validators.required]],
+                 })
+               );
+             }); 
+            }
+
 
               this.currentImagesLegnth=this.AdDetails.advertismentImagesList.length;
               this.currentRentOptionsLegnth=this.AdDetails.advertismentRentOptions.length;
@@ -168,6 +185,7 @@ export class AdEditComponent {
 
 
   SaveData() {
+    console.log(this.EditForm.get('AdvertismentFiltrationValuesList').value)
     if(this.EditForm.status!="INVALID")
     {
           if(!( (this.DeletedImages.length==this.currentImagesLegnth && this.selectedFiles.length==0)

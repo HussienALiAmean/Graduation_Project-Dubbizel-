@@ -26,8 +26,9 @@ export interface IAdvertisment
     expirationDate:string,
     expireDateOfPremium:string,
     isPremium:boolean,
-    advertisment_FiltrationValuesList:IIRFilterNode[]
-    advertismentImagesList:string[]
+    advertisment_FiltrationValuesList:IIRFilterNode[],
+    advertismentImagesList:string[],
+    advertisment_RentOptionsList:any[],
     isSaved: boolean,
     applicationUserId:string
 

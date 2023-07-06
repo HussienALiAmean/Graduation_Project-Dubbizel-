@@ -23,7 +23,7 @@ namespace Dubbizle.DTOs
         public bool IsPremium { get; set; }
         public List<filterValuKey> Advertisment_FiltrationValuesList { get; set; }
         public List<string> AdvertismentImagesList { get; set; }
-        public List<RentCost_DurationDTO> advertisment_RentOptionsList { get; set; }
+        public List<RentOptionDTO> advertisment_RentOptionsList { get; set; }
         public bool IsSaved { get; set; }
         public string ApplicationUserId { get; set; }
 

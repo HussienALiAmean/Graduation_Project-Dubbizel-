@@ -7,15 +7,16 @@ import { SubcategoryFiltersComponent } from './subcategory-filters/subcategory-f
 import { FilterValuesComponent } from './filter-values/filter-values.component';
 import { PackageComponent } from './package/package.component';
 import { AdvertismentComponent } from './advertisment/advertisment.component';
+import { AdminAuthGuardService } from 'src/authintication/Services/admin-auth-guard.service';
 
 const routes: Routes = [
   {path:'dashboardLogin',component:DashboardComponent},
-  {path:'dashboard/categories',component:CategoriesComponent},
-  {path:'dashboard/filters',component:FiltersComponent},
-  {path:'dashboard/subCategoryFilters',component:SubcategoryFiltersComponent},
-  {path:'dashboard/filterValues',component:FilterValuesComponent},
-  {path:'dashboard/advertisments',component:AdvertismentComponent},
-  {path:'dashboard/packages',component:PackageComponent}
+  {path:'dashboard/categories',component:CategoriesComponent,canActivate:[AdminAuthGuardService]},
+  {path:'dashboard/filters',component:FiltersComponent,canActivate:[AdminAuthGuardService]},
+  {path:'dashboard/subCategoryFilters',component:SubcategoryFiltersComponent,canActivate:[AdminAuthGuardService]},
+  {path:'dashboard/filterValues',component:FilterValuesComponent,canActivate:[AdminAuthGuardService]},
+  {path:'dashboard/advertisments',component:AdvertismentComponent,canActivate:[AdminAuthGuardService]},
+  {path:'dashboard/packages',component:PackageComponent,canActivate:[AdminAuthGuardService]}
 
 ];
 

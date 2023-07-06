@@ -53,7 +53,7 @@ namespace Dubbizle.API.Controllers
         [HttpGet("GetAllAdvertismentByCategory/categoryId")]
         public IEnumerable<AdvertismentHomePageDTO> GetAllAdvertismentByCategory(int categoryId)
         {
-            var ads = advertismentService.GetAdvertismentsAll(c => c.CategoryID == categoryId);
+            var ads = advertismentService.GetAdvertismentsAll(c =>  c.CategoryID == categoryId);
             return ads;
         }
 
@@ -98,7 +98,16 @@ namespace Dubbizle.API.Controllers
 
 
                 advertismentDTO.AdvertismentImagesList = ad.AdvertismentImagesList.Select(item => item.ImageName).ToList();
-
+                advertismentDTO.advertisment_RentOptionsList = new List<RentOptionDTO>();
+                RentOptionDTO rentOptionDTO;
+                foreach (var item in ad.Advertisment_RentOptionList)
+                {
+                    rentOptionDTO = new RentOptionDTO();
+                    rentOptionDTO.Cost = item.Cost;
+                    rentOptionDTO.Unit = item.Unit;
+                    rentOptionDTO.Duration = item.Duration;
+                    advertismentDTO.advertisment_RentOptionsList.Add(rentOptionDTO);
+                }
                 IsSaved = false;
                 foreach (Favorite favorite in favorites)
                 {
@@ -125,7 +134,7 @@ namespace Dubbizle.API.Controllers
         public async Task<IActionResult> GetAllByCategoryID(int CategoryID, string UserId)
         {
             ResultDTO resultDTO = new ResultDTO();
-            List<Advertisment> advertisments = (List<Advertisment>)advertismentService.GetAllByCategoryID("Advertisment_FiltrationValuesList.filtrationValue", "AdvertismentImagesList", CategoryID);
+            List<Advertisment> advertisments = (List<Advertisment>)advertismentService.GetAllByCategoryID("Advertisment_FiltrationValuesList.filtrationValue", "AdvertismentImagesList", "Advertisment_RentOptionList", CategoryID);
             bool IsSaved = false;
             List<Favorite> favorites = (List<Favorite>)favoriteService.GetAllByUserId(UserId);
 
@@ -163,6 +172,16 @@ namespace Dubbizle.API.Controllers
                 foreach (AdvertismentImage item in ad.AdvertismentImagesList)
                 {
                     advertismentDTO.AdvertismentImagesList.Add(item.ImageName);
+                }
+                advertismentDTO.advertisment_RentOptionsList = new List<RentOptionDTO>();
+                RentOptionDTO rentOptionDTO;
+                foreach (var item in ad.Advertisment_RentOptionList)
+                {
+                    rentOptionDTO = new RentOptionDTO();
+                    rentOptionDTO.Cost = item.Cost;
+                    rentOptionDTO.Unit= item.Unit;
+                    rentOptionDTO.Duration= item.Duration;
+                    advertismentDTO.advertisment_RentOptionsList.Add(rentOptionDTO);
                 }
                 IsSaved = false;
                 foreach (Favorite favorite in favorites)
@@ -382,6 +401,8 @@ namespace Dubbizle.API.Controllers
                     {
                         AdvertismentRentOptionDTO advertismentRentDTO = new AdvertismentRentOptionDTO();
                         advertismentRentDTO.Cost = advertismentRent.Cost;
+                        advertismentRentDTO.Unit = advertismentRent.Unit;
+                        advertismentRentDTO.Duration = advertismentRent.Duration;
                         advertismentHomePageDTO.Advertisment_RentOptionList.Add(advertismentRentDTO);
                     }
                     category1.CategoryAdvertismentsList.Add(advertismentHomePageDTO);

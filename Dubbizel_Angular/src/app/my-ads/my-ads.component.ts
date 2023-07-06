@@ -39,7 +39,8 @@ export class MyAdsComponent {
     advertisment_FiltrationValuesList: [],
     advertismentImagesList: [],
     isSaved: false,
-    applicationUserId: ''
+    applicationUserId: '',
+    advertisment_RentOptionsList: []
   };
 
   constructor(private advertismentUserService :AdvertismentServiceService,private router:Router){}

@@ -30,7 +30,27 @@ namespace Dubbizle.Services
         }
 
 
-      
+        public IEnumerable<Advertisment> GetAllByFielterationBagenatio(string location, Dictionary<int, string> filterationtable, int limetitemNumber, int pagenumber)
+        {
+
+            List<Advertisment> addvertismentlist = new List<Advertisment>();
+            var data = _repository.GetAll().Include("Advertisment_FiltrationValuesList.filtrationValue").Where(x => x.Location.Contains(location)).ToList();
+            foreach (var item in data)
+            {
+                if (item.Advertisment_FiltrationValuesList.Join(filterationtable, f => f.filtrationValue.SubCategory_FilterID, c => c.Key, (f, c) => new { f, c }).Count() > 0)
+                {
+                    addvertismentlist.Add(item);
+                }
+            }
+            return addvertismentlist.Skip(pagenumber * limetitemNumber).Take(limetitemNumber);
+        }
+
+        public IEnumerable<Advertisment> GetAllByFieltBagenatio(int limetitemNumber, int pagenumber)
+        {
+            List<Advertisment> addvertismentlist = new List<Advertisment>();
+            var data = _repository.GetAll().Include("Advertisment_FiltrationValuesList.filtrationValue").ToList();
+            return addvertismentlist.Skip(pagenumber * limetitemNumber).Take(limetitemNumber);
+        }
         public IEnumerable<Advertisment> GetAllByFielteration(string location, Dictionary<int , string> filterationtable)
         {
 
@@ -67,22 +87,22 @@ namespace Dubbizle.Services
         // Alzhraa & Hussien
         public IEnumerable<Advertisment> GetAllBySubCategoryID(string property1, string property2, int id)
         {
-            return _repository.GetAll(property1, property2).Where(A => A.ExpirationDate > DateTime.Now && A.SubCategoryID == id).OrderByDescending(A => A.ExpireDateOfPremium).ToList();
+            return _repository.GetAll(property1, property2).Where(A => A.AdStatus == "Active" && A.ExpirationDate > DateTime.Now && A.SubCategoryID == id).OrderByDescending(A => A.ExpireDateOfPremium).ToList();
         }
         // Alzhraa & Hussien
         public IEnumerable<Advertisment> GetAllBySubCategoryID(string property1, string property2, string property3, int id)
         {
-            return _repository.GetAll(property1, property2 , property3).Where(A => A.ExpirationDate > DateTime.Now && A.SubCategoryID == id).OrderByDescending(A => A.ExpireDateOfPremium).ToList();
+            return _repository.GetAll(property1, property2 , property3).Where(A => A.AdStatus == "Active" && A.ExpirationDate > DateTime.Now && A.SubCategoryID == id).OrderByDescending(A => A.ExpireDateOfPremium).ToList();
         }
         // Alzhraa & Hussien
         public IEnumerable<Advertisment> GetAllByCategoryID(string property1, string property2, int id)
         {
-            return _repository.GetAll(property1, property2).Where(A => A.ExpirationDate > DateTime.Now && A.CategoryID == id).OrderByDescending(A => A.ExpireDateOfPremium).ToList();
+            return _repository.GetAll(property1, property2).Where(A => A.AdStatus == "Active" && A.ExpirationDate > DateTime.Now && A.CategoryID == id).OrderByDescending(A => A.ExpireDateOfPremium).ToList();
         }
         // Alzhraa & Hussien
         public IEnumerable<Advertisment> GetAllByCategoryID(string property1, string property2, string property3 , int id)
         {
-            return _repository.GetAll(property1, property2, property3).Where(A => A.ExpirationDate > DateTime.Now && A.CategoryID==id).OrderByDescending(A => A.ExpireDateOfPremium).ToList();
+            return _repository.GetAll(property1, property2, property3).Where(A => A.AdStatus == "Active" && A.ExpirationDate > DateTime.Now && A.CategoryID==id).OrderByDescending(A => A.ExpireDateOfPremium).ToList();
         }
 
         public IEnumerable<Advertisment> Get(Expression<Func<Advertisment, bool>> expression)
@@ -99,7 +119,7 @@ namespace Dubbizle.Services
         }
         public IEnumerable<Advertisment> GetAllAdvertisments(string property1, string property2, int id)
         {
-            return _repository.GetAll(property1, property2).Where(a => a.CategoryID == id).ToList();
+            return _repository.GetAll(property1, property2).Where(a => a.AdStatus == "Active" && a.CategoryID == id).ToList();
         }
         public Advertisment GetByID(int id)
         {
@@ -116,13 +136,13 @@ namespace Dubbizle.Services
         // Alzhraa
         public IEnumerable<Advertisment> GetMyAdvertisments(string ApplicationUserId)
         {
-            return _repository.GetAll("AdvertismentImagesList", "Advertisment_RentOptionList").Where(A => A.ApplicationUserId == ApplicationUserId && A.Deleted == false).ToList();
+            return _repository.GetAll("AdvertismentImagesList", "Advertisment_RentOptionList").Where(A => A.ApplicationUserId == ApplicationUserId&&A.Deleted==false ).ToList();
         }
 
 
         public IEnumerable<Advertisment> GetBySearchQuery(string query,string property1,string property2,string property3,string property4)
         {
-            var results = _repository.GetAll(property1, property2,property3, property4).Where(A => A.ExpirationDate > DateTime.Now && (A.Title.Contains(query) || A.Category.Name.Contains(query) || A.SubCategory.Name.Contains(query))).OrderByDescending(A => A.ExpireDateOfPremium).ToList();
+            var results = _repository.GetAll(property1, property2,property3, property4).Where(A =>A.AdStatus=="Active"&& A.ExpirationDate > DateTime.Now && (A.Title.Contains(query) || A.Category.Name.Contains(query) || A.SubCategory.Name.Contains(query))).OrderByDescending(A => A.ExpireDateOfPremium).ToList();
             return results;
         }
         public void Add(Advertisment advertisment)

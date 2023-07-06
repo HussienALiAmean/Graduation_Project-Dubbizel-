@@ -8,6 +8,8 @@ namespace Dubbizle.DTOs
 {
     public class AdvertismentRentOptionDTO
     {
+        public string Unit { get; set; }
+        public int Duration { get; set; }
         public float Cost { get; set; }
     }
 }

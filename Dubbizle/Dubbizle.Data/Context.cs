@@ -1,4 +1,5 @@
-﻿using Dubbizle.Models;
+﻿using Dubbizle.Data.Extensions;
+using Dubbizle.Models;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
@@ -12,7 +13,7 @@ namespace Dubbizle.Data
         //{
         //    optionsBuilder.UseSqlServer(@"Data Source=DESKTOP-LKBV544\SQL19;Initial Catalog=DubbizleDB;Integrated Security=True;Encrypt=False");
 
-          //  optionsBuilder.UseSqlServer(@"Data Source=.\SQL19;Initial Catalog=DubbizleDB;Integrated Security=True;Encrypt=False");
+        //  optionsBuilder.UseSqlServer(@"Data Source=.\SQL19;Initial Catalog=DubbizleDB;Integrated Security=True;Encrypt=False");
 
         //    //optionsBuilder.UseSqlServer(@"Data Source=DESKTOP-SH1SPK1\SQL2019;Initial Catalog=DubbizleDB;Integrated Security=True;Encrypt=False");
 
@@ -34,6 +35,11 @@ namespace Dubbizle.Data
 
         //}
 
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            base.OnModelCreating(modelBuilder);
+            modelBuilder.ApplyGlobalFilter(x => !x.Deleted);
+        }
         public DbSet<Advertisment> Advertisments { get; set; }
         public DbSet<Advertisment_FiltrationValue> Advertisment_FiltrationValues { get; set; }
         public DbSet<Advertisment_RentOption> Advertisment_RentOptions { get; set; }
