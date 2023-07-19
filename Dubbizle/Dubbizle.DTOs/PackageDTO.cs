@@ -34,6 +34,7 @@ namespace Dubbizle.DTOs
         public int NumOfRemainAds { get; set; }
         public DateTime ExpirationDate { get; set; }
         public string Status { get; set; }
+        public string SubCategoryName { get; set; }
     }
 
 

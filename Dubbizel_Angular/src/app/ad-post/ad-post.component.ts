@@ -187,9 +187,16 @@ export class AdPostComponent {
           console.log(data);
           if (data.statusCode == 204) {
             Swal.fire({
+              icon: 'success',
+              text: 'Ad posted Successfully',
+            })
+          }
+          else if(data.statusCode==204)
+          {
+            Swal.fire({
               icon: 'error',
               title: 'Oops...',
-              text: 'You should subscribe in a package',
+              text: data.message,
             })
           }
         },

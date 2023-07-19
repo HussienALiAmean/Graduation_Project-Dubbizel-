@@ -28,6 +28,7 @@ namespace Dubbizle.Services
         IRepository<Advertisment_FiltrationValue> _advertismentFiltrationValuRepository;
         IRepository<Advertisment_RentOption> _advertismentRentOptionRepository;
         IRepository<Room> _roomRepository;
+        IRepository<Category> _categoryRepository;
 
 
 
@@ -35,7 +36,8 @@ namespace Dubbizle.Services
            IRepository<Advertisment_FiltrationValue> advertismentFiltrationValuRepository,
            IRepository<Advertisment_RentOption> advertismentRentOptionRepository,
            IRepository<Room> roomRepository,
-           IRepository<ApplicationUser_Package> applicationUser_PackageRepository)
+           IRepository<ApplicationUser_Package> applicationUser_PackageRepository,
+           IRepository<Category> categoryRepository)
         {
           
             _advertismentRepository= advertismentRepository;
@@ -44,6 +46,7 @@ namespace Dubbizle.Services
             _advertismentRentOptionRepository=advertismentRentOptionRepository;
             _roomRepository= roomRepository;
             _applicationUser_PackageRepository = applicationUser_PackageRepository;
+            _categoryRepository= categoryRepository;
 
         }
         public Advertisment GetAdvertismentByID(int id)
@@ -57,8 +60,9 @@ namespace Dubbizle.Services
             _advertismentRepository.SaveChanges();
         }
 
-        public int PostAdvertsiment(PostAdvertismentDTO postAdvertismentDTO)
+        public ResultDTO PostAdvertsiment(PostAdvertismentDTO postAdvertismentDTO)
         {
+            ResultDTO resultDTO = new ResultDTO();
             ApplicationUser_Package applicationUser_Package = _applicationUser_PackageRepository.GetAll("Package").FirstOrDefault(p =>p.Package.SubCategoryID== postAdvertismentDTO.SubCategoryID && p.ApplicationUserId == postAdvertismentDTO.ApplicationUserId && p.ExpirationDate > DateTime.Now && p.Deleted == false&&p.NumOfRemainAds>0);
             if(applicationUser_Package!=null)
             {
@@ -113,12 +117,16 @@ namespace Dubbizle.Services
                 applicationUser_Package.NumOfRemainAds--;
                 _applicationUser_PackageRepository.Update(applicationUser_Package);
                 _applicationUser_PackageRepository.SaveChanges();
-                return 200;
+                resultDTO.StatusCode= 200;
+                return resultDTO;
 
             }
             else
             {
-                return 204;
+                resultDTO.StatusCode = 204;
+                string subCategoryName = _categoryRepository.GetByID(postAdvertismentDTO.SubCategoryID).Name;
+                resultDTO.Message= "You should subscribe in a package for SubCategory: "+ subCategoryName;
+                return resultDTO;
             }
 
         }

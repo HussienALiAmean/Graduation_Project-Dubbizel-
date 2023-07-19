@@ -6,6 +6,7 @@ using Dubbizle.Data.UnitOfWork;
 using Dubbizle.DTOs;
 using Dubbizle.Models;
 using System.Linq.Expressions;
+using Microsoft.EntityFrameworkCore;
 
 namespace Dubbizle.Services
 {
@@ -37,7 +38,7 @@ namespace Dubbizle.Services
 
         public IEnumerable<PackageAppUserDTO> GetAllByUserID(string ApplicationUserId)
         {
-            List<ApplicationUser_Package> applicationUser_Packages=_applicationUser_PackageRepo.Get(p => p.ApplicationUserId== ApplicationUserId).ToList();
+            List<ApplicationUser_Package> applicationUser_Packages=_applicationUser_PackageRepo.Get(p => p.ApplicationUserId== ApplicationUserId).Include("Package.SubCategory").ToList();
             List<PackageAppUserDTO> packageAppUserDTOs = new List<PackageAppUserDTO>();
             PackageAppUserDTO packageAppUserDTO;
             foreach (var package in applicationUser_Packages)
@@ -45,6 +46,7 @@ namespace Dubbizle.Services
                 packageAppUserDTO=new PackageAppUserDTO();
                 packageAppUserDTO.ExpirationDate=package.ExpirationDate;
                 packageAppUserDTO.NumOfRemainAds=package.NumOfRemainAds;
+                packageAppUserDTO.SubCategoryName = package.Package.SubCategory.Name;
                 if (DateTime.Now > packageAppUserDTO.ExpirationDate)
                 {
                     packageAppUserDTO.Status = "Expired";

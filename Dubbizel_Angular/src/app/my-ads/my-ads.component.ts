@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { AdvertismentServiceService } from '../Services/advertisment-service.service';
 import { IAdvertisment } from '../Interfaces/IAdvertisment';
 import { Router } from '@angular/router';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-my-ads',
@@ -220,7 +221,42 @@ export class MyAdsComponent {
   {
     this.advertismentUserService.RentMyAd(AdInModalID,this.BuyerUserId).subscribe({
       next:(data:any)=>{
-        console.log(data)
+        console.log(data);
+        this.onCloseModal();
+        Swal.fire({
+          icon: 'success',
+          text: 'Ad Marked as Sold Successfully',
+        })
+        
+
+        let index1= this.LodedAdvertisments.findIndex(Ad => Ad.id == AdInModalID) 
+        this.LodedAdvertisments[index1].adStatus="Not Active";
+        let index2= this.FiltredAdvertisments.findIndex(Ad => Ad.id == AdInModalID) 
+        this.FiltredAdvertisments[index2].adStatus="Not Active";
+ 
+        if(this.FlagStatus=="All" || this.FlagStatus=="")
+        {
+           this.AllAds();
+        }
+        else if(this.FlagStatus=="Active")
+        {
+           this.ActiveAds()
+        }
+        else if(this.FlagStatus=="Moderated")
+        {
+           this.ModeratedAds()
+        }
+        else if(this.FlagStatus=="Pending")
+        {
+           this.PendingAds()
+        }
+        else
+        {
+           this.InactiveAds();
+        }
+        this.counterAds()
+
+
       },
       error: err => {
         console.log(err);

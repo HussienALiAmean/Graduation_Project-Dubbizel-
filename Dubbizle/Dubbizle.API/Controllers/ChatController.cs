@@ -88,33 +88,33 @@ namespace Dubbizle.API.Controllers
         }
 
         [HttpGet("GetChatUsers")]
-        public async Task<IActionResult> GetChatUsers(string id,string loginId,int Advertisment)
+        public async Task<IActionResult> GetChatUsers(string id, string loginId, int Advertisment)
         {
-            if(id == loginId)
+            if (id == loginId)
             {
                 //IEnumerable<Chat> Ownerchats =
                 //_chatRepository
-                    //.GetAll(c => c.SenderID == id || c.ReciverID == id)
-                    //.ToList();
-                IEnumerable<Room> chats = 
+                //.GetAll(c => c.SenderID == id || c.ReciverID == id)
+                //.ToList();
+                IEnumerable<Room> chats =
                     _roomRepository
-                    .GetAll(c=> c.Deleted== false && c.AdvertismentID == Advertisment && c.SenderId == id || c.ReceiverId == id )
+                    .GetAll(c => c.Deleted == false && c.AdvertismentID == Advertisment && c.SenderId == id || c.ReceiverId == id)
                     .ToList();
                 string ID = chats.FirstOrDefault().SenderId;
                 List<ApplicationUser> users = new List<ApplicationUser>();
                 ApplicationUser user = await _userManager.FindByIdAsync(ID);
                 //users.Add(user);
-                
+
                 foreach (Room chat in chats)
                 {
-                    if(chat.ReceiverId != ID)
+                    if (chat.ReceiverId != ID)
                     {
                         ApplicationUser applicationUser = new ApplicationUser();
                         applicationUser = await _userManager.FindByIdAsync(chat.SenderId);
                         users.Add(applicationUser);
                     }
                 }
-                users.Select(u => new { u.Gender,u.UserName });
+                users.Select(u => new { u.Gender, u.UserName });
                 return Ok(users);
             }
             else
@@ -128,5 +128,39 @@ namespace Dubbizle.API.Controllers
                 return Ok(users);
             }
         }
+
+        //[HttpGet("GetChatUsers")]
+        //public async Task<IActionResult> GetChatUsers(string id, string loginId, int Advertisment)
+        //{
+        //    IEnumerable<Room> chats =
+        //        _roomRepository
+        //        .GetAll(c => c.Deleted == false && c.SenderId == loginId || c.ReceiverId == loginId)
+        //        .ToList();
+        //    List<ApplicationUser> users = new List<ApplicationUser>();
+        //    ApplicationUser applicationUser;
+        //    foreach (Room chat in chats)
+        //    {
+        //        if (chat.SenderId != loginId)
+        //        {
+        //            applicationUser = new ApplicationUser();
+        //            applicationUser = await _userManager.FindByIdAsync(chat.SenderId);
+        //            users.Add(applicationUser);
+        //        }
+        //        if (chat.ReceiverId != loginId)
+        //        {
+        //            applicationUser = new ApplicationUser();
+        //            applicationUser = await _userManager.FindByIdAsync(chat.ReceiverId);
+        //            users.Add(applicationUser);
+        //        }
+        //    }
+        //    if (chats.Where(c => c.ReceiverId == id || c.SenderId == id).ToList().Count == 0)
+        //    {
+        //        applicationUser = new ApplicationUser();
+        //        applicationUser = await _userManager.FindByIdAsync(id);
+        //        users.Add(applicationUser);
+        //    }
+        //    return Ok(users);
+        //}
+
     }
 }

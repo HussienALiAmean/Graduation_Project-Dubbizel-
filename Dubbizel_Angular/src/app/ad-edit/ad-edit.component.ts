@@ -212,6 +212,10 @@ if(this.AdDetails.adType=="For Rent")
           this.advertismentService.SaveAdvertsimentEdits(formData).subscribe({
             next: (data: any) => {
               console.log(data);
+              Swal.fire({
+                icon: 'success',
+                text: 'Ad Edited Successfully',
+              })
             },
 
             error: (err: any) => {

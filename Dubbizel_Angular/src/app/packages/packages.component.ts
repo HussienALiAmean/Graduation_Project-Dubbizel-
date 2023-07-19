@@ -42,13 +42,13 @@ ngOnInit() {
       console.log(data);
       Swal.fire({
         icon: 'success',
-        title: data.data,
+        text: data.data,
       })
       },
       error: err => {
         Swal.fire({
           icon: 'error',
-          title: err,
+          text: err,
         })
       }
     }); 
