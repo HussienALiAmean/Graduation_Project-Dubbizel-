@@ -269,5 +269,8 @@ export class MyAdsComponent {
     this.router.navigate(['/editYourAd/',adID,subCategoryID]);
   }
 
+  AdvertismentDetails(adID:any){
+    this.router.navigate(["/Details",adID]);
+  } 
 
 }

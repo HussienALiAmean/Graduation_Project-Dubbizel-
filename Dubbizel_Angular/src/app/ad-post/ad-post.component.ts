@@ -185,7 +185,7 @@ export class AdPostComponent {
       this.advertismentService.postAd(formData).subscribe({
         next: (data: any) => {
           console.log(data);
-          if (data.statusCode == 204) {
+          if (data.statusCode == 200) {
             Swal.fire({
               icon: 'success',
               text: 'Ad posted Successfully',

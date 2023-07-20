@@ -56,7 +56,7 @@
 
     <div class="row mb-3" *ngFor="let ad of FiltredAdvertisments;index as i">
         <div class="col-1"></div>
-        <div class="col-10 card cardForm ">
+        <div class="col-10 card cardForm " >
             <div class="row ">
                 <div class="col-md-3" style="background-color: rgb(223, 213, 213); padding-top: 30px">
                     <p>From:<b> {{ad.date|date:'medium'}}</b></p>
@@ -72,7 +72,7 @@
                                     class="d-block w-100" alt="...">
 
                             </div>
-                            <div class="col-5">
+                            <div class="col-5" style="cursor: pointer;" (click)="AdvertismentDetails(ad.id)">
                                 <p class="card-text">{{ad.title}}</p>
 
                             </div>

@@ -67,7 +67,7 @@ namespace Dubbizle.API.Controllers
             orgUser.Email = newUser.Email;
             orgUser.Gender = newUser.Gender;
             orgUser.PhoneNumber = newUser.PhoneNumber;
-            if(orgUser.BirthDate!=null)
+            if(newUser.Year!=null && newUser.Month!=null && newUser.Day!=null)
             {
                 DateTime date = new DateTime(int.Parse(newUser.Year), int.Parse(newUser.Month), int.Parse(newUser.Day));
                 orgUser.BirthDate = date;

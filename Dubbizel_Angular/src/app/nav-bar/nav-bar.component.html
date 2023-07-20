@@ -127,7 +127,7 @@
               <input [class.is-invalid]="Email?.invalid &&Email?.touched" formControlName="Email" type="email"
                 class="form-control" />
               <div *ngIf="Email?.errors &&Email?.touched">
-                <small *ngIf="Email?.errors?.['required']" class="text-danger">User Name is required</small>
+                <small *ngIf="Email?.errors?.['required']" class="text-danger">Email is required</small>
                 <small class="text-danger"
                   *ngIf="Email?.errors?.['forbiddenEmail']">{{Email?.errors?.['forbiddenEmail'].value}} is not
                   allowed</small>

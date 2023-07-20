@@ -46,8 +46,8 @@
                     </div>
                 </div>
 
-                <button class="btn btn-primary " *ngIf="flagRentBtn" (click)="AddRentOption2()">Add Rent
-                    Option</button>
+                <input type="button" class="btn btn-primary " *ngIf="flagRentBtn" (click)="AddRentOption2()" value="Add Rent Option">
+                    
                 <div  formArrayName="AdvertismentRentOptions" class=" form-group mb-4 row"
                     *ngFor="let FiltrationValues of AdForm.controls.AdvertismentRentOptions?.controls; let i = index">
                     <ng-container [formGroupName]="i">
